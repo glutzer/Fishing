@@ -1,0 +1,112 @@
+﻿[
+  {
+    "op": "addmerge",
+    "path": "/animations/-",
+    "value": {
+      "name": "CastRod",
+      "code": "castrod",
+      "quantityframes": 10,
+      "onActivityStopped": "EaseOut",
+      "onAnimationEnd": "EaseOut",
+      "keyframes": [
+        {
+          "frame": 0,
+          "elements": {
+            "UpperTorso": {
+              "rotationX": 0.0,
+              "rotationY": -25.0,
+              "rotationZ": 0.0
+            },
+            "Head": {
+              "rotationX": 0.0,
+              "rotationY": 25.0,
+              "rotationZ": 0.0
+            },
+            "UpperArmR": {
+              "rotationX": 35.0,
+              "rotationY": -70.0,
+              "rotationZ": -15.0
+            },
+            "LowerArmR": {
+              "rotationX": -80.0,
+              "rotationY": 40.0,
+              "rotationZ": -100.0
+            },
+            "UpperArmL": {
+              "offsetX": 2.0,
+              "offsetY": 0.0,
+              "offsetZ": 0.0,
+              "rotationX": -20.0,
+              "rotationY": -55.0,
+              "rotationZ": -110.0
+            },
+            "LowerArmL": {
+              "rotationX": 25.0,
+              "rotationY": -15.0,
+              "rotationZ": -70.0
+            }
+          }
+        },
+        {
+          "frame": 9,
+          "elements": {
+            "UpperTorso": {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 20.0
+            },
+            "UpperArmR": {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": -60.0
+            },
+            "LowerArmR": {
+              "rotationX": -5.0,
+              "rotationY": -5.0,
+              "rotationZ": -15.0
+            },
+            "UpperArmL": {
+              "offsetX": 0.0,
+              "offsetY": 0.0,
+              "offsetZ": 0.0,
+              "rotationX": 0.0,
+              "rotationY": -10.0,
+              "rotationZ": -70.0
+            },
+            "LowerArmL": {
+              "rotationX": 20.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "Head": {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": -15.0
+            }
+          }
+        }
+      ]
+    },
+    "file": "game:shapes/entity/humanoid/seraph-faceless.json"
+  },
+  {
+    "file": "game:entities/humanoid/player.json",
+    "op": "addmerge",
+    "path": "/client/animations/-",
+    "value": {
+      "code": "CastRod",
+      "animation": "CastRod",
+      "blendMode": "Average",
+      "animationSpeed": 1,
+      "weight": 0,
+      "elementWeight": {
+        "UpperTorso": 100,
+        "Head": 100,
+        "UpperArmR": 100,
+        "LowerArmR": 100,
+        "UpperArmL": 100,
+        "LowerArmL": 100
+      }
+    }
+  }
+]

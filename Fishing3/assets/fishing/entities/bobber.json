@@ -1,0 +1,65 @@
+﻿{
+  "code": "bobber",
+  "class": "EntityBobber",
+  "variantgroups":
+  [
+    {
+      "code": "type",
+      "states":
+      [
+        "cork"
+      ]
+    }
+  ],
+  "hitboxSize":
+  {
+    "x": 0.5,
+    "y": 0.5
+  },
+  "client":
+  {
+    "size": 1,
+    "pitchStep": false,
+    "shape":
+    {
+      "baseByType":
+      {
+        "bobber-cork": "fishing:parts/corkbobber"
+      }
+    },
+    "behaviors":
+    [
+      {
+        "code": "passivephysics",
+        "groundDragFactor": 0.7,
+        "airDragFallingFactor": 0.5,
+        "gravityFactor": 1
+      },
+      {
+        "code": "interpolateposition"
+      },
+      {
+        "code": "floatupwhenstuck"
+      }
+    ]
+  },
+  "server":
+  {
+    "behaviors":
+    [
+      {
+        "code": "passivephysics",
+        "groundDragFactor": 0.7,
+        "airDragFallingFactor": 0.5,
+        "gravityFactor": 1
+      },
+      {
+        "code": "floatupwhenstuck"
+      },
+      {
+        "code": "despawn",
+        "minSeconds": 200
+      }
+    ]
+  }
+}

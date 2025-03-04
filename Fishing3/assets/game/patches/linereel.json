@@ -1,0 +1,140 @@
+﻿[
+  {
+    "op": "addmerge",
+    "path": "/animations/-",
+    "value": {
+      "name": "LineReel",
+      "code": "linereel",
+      "quantityframes": 40,
+      "onActivityStopped": "EaseOut",
+      "onAnimationEnd": "Repeat",
+      "keyframes": [
+        {
+          "frame": 0,
+          "elements": {
+            "UpperArmL": {
+              "rotationX": 15.0,
+              "rotationY": 0.0,
+              "rotationZ": -36.0
+            },
+            "UpperArmR": {
+              "rotationX": -10.0,
+              "rotationY": -60.0,
+              "rotationZ": -60.0
+            },
+            "LowerArmR": {
+              "rotationX": -91.0,
+              "rotationY": 0.0,
+              "rotationZ": 47.0
+            },
+            "ItemAnchor": {
+              "offsetX": 0.5,
+              "offsetY": -2.5,
+              "offsetZ": 0.5,
+              "rotationX": 60.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "LowerArmL": {
+              "rotationX": -14.0,
+              "rotationY": -18.0,
+              "rotationZ": -66.0
+            },
+            "UpperTorso": {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "Head": {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            }
+          }
+        },
+        {
+          "frame": 9,
+          "elements": {
+            "LowerArmL": {
+              "rotationX": -18.0,
+              "rotationY": -20.0,
+              "rotationZ": -66.0
+            },
+            "UpperArmL": {
+              "rotationX": 8.0,
+              "rotationY": -2.0,
+              "rotationZ": -42.0
+            }
+          }
+        },
+        {
+          "frame": 19,
+          "elements": {
+            "UpperArmL": {
+              "rotationX": 15.0,
+              "rotationY": -3.0,
+              "rotationZ": -44.0
+            },
+            "LowerArmL": {
+              "rotationX": -8.0,
+              "rotationY": -11.0,
+              "rotationZ": -53.0
+            }
+          }
+        },
+        {
+          "frame": 29,
+          "elements": {
+            "UpperArmL": {
+              "rotationX": 15.0,
+              "rotationY": -3.0,
+              "rotationZ": -36.0
+            },
+            "LowerArmL": {
+              "rotationX": -8.0,
+              "rotationY": -8.0,
+              "rotationZ": -58.0
+            }
+          }
+        },
+        {
+          "frame": 39,
+          "elements": {
+            "LowerArmL": {
+              "rotationX": -14.0,
+              "rotationY": -18.0,
+              "rotationZ": -66.0
+            },
+            "UpperArmL": {
+              "rotationX": 15.0,
+              "rotationY": 0.0,
+              "rotationZ": -36.0
+            }
+          }
+        }
+      ]
+    },
+    "file": "game:shapes/entity/humanoid/seraph-faceless.json"
+  },
+  {
+    "file": "game:entities/humanoid/player.json",
+    "op": "addmerge",
+    "path": "/client/animations/-",
+    "value": {
+      "code": "LineReel",
+      "animation": "LineReel",
+      "blendMode": "Average",
+      "animationSpeed": 1,
+      "weight": 10,
+      "elementWeight": {
+        "UpperTorso": 100,
+        "ItemAnchor": 100,
+        "Head": 100,
+        "UpperArmR": 100,
+        "LowerArmR": 100,
+        "UpperArmL": 100,
+        "LowerArmL": 100
+      }
+    }
+  }
+]

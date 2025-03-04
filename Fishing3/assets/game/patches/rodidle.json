@@ -1,0 +1,59 @@
+[
+  {
+    "op": "addmerge",
+    "path": "/animations/-",
+    "value": {
+      "name": "RodIdle",
+      "code": "rodidle",
+      "quantityframes": 30,
+      "onActivityStopped": "EaseOut",
+      "onAnimationEnd": "Hold",
+      "keyframes": [
+        {
+          "frame": 0,
+          "elements": {
+            "UpperArmL": {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": -40.0
+            },
+            "UpperArmR": {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": -40.0
+            },
+            "LowerArmR": {
+              "rotationX": -40.0,
+              "rotationY": -3.0,
+              "rotationZ": -3.0
+            },
+            "LowerArmL": {
+              "rotationX": 30.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            }
+          }
+        }
+      ]
+    },
+    "file": "game:shapes/entity/humanoid/seraph-faceless.json"
+  },
+  {
+    "file": "game:entities/humanoid/player.json",
+    "op": "addmerge",
+    "path": "/client/animations/-",
+    "value": {
+      "code": "RodIdle",
+      "animation": "RodIdle",
+      "blendMode": "Average",
+      "animationSpeed": 1,
+      "weight": 0,
+      "elementWeight": {
+        "UpperArmR": 20,
+        "LowerArmR": 20,
+        "UpperArmL": 20,
+        "LowerArmL": 20
+      }
+    }
+  }
+]

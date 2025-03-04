@@ -1,0 +1,112 @@
+[
+  {
+    "op": "addmerge",
+    "path": "/animations/-",
+    "value": {
+      "name": "ChargeRod",
+      "code": "chargerod",
+      "quantityframes": 60,
+      "onActivityStopped": "EaseOut",
+      "onAnimationEnd": "Hold",
+      "keyframes": [
+        {
+          "frame": 0,
+          "elements": {
+            "UpperTorso": {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "Head": {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "UpperArmR": {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "LowerArmR": {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "UpperArmL": {
+              "offsetX": 0.0,
+              "offsetY": 0.0,
+              "offsetZ": 0.0,
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "LowerArmL": {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            }
+          }
+        },
+        {
+          "frame": 59,
+          "elements": {
+            "UpperTorso": {
+              "rotationX": 0.0,
+              "rotationY": -25.0,
+              "rotationZ": 0.0
+            },
+            "Head": {
+              "rotationX": 0.0,
+              "rotationY": 25.0,
+              "rotationZ": 0.0
+            },
+            "UpperArmR": {
+              "rotationX": 35.0,
+              "rotationY": -70.0,
+              "rotationZ": -15.0
+            },
+            "LowerArmR": {
+              "rotationX": -80.0,
+              "rotationY": 39.0,
+              "rotationZ": -100.0
+            },
+            "UpperArmL": {
+              "offsetX": 2.0,
+              "offsetY": 0.0,
+              "offsetZ": 0.0,
+              "rotationX": -20.0,
+              "rotationY": -55.0,
+              "rotationZ": -110.0
+            },
+            "LowerArmL": {
+              "rotationX": 25.0,
+              "rotationY": -15.0,
+              "rotationZ": -70.0
+            }
+          }
+        }
+      ]
+    },
+    "file": "game:shapes/entity/humanoid/seraph-faceless.json"
+  },
+  {
+    "file": "game:entities/humanoid/player.json",
+    "op": "addmerge",
+    "path": "/client/animations/-",
+    "value": {
+      "code": "ChargeRod",
+      "animation": "ChargeRod",
+      "blendMode": "Average",
+      "animationSpeed": 1,
+      "weight": 0,
+      "elementWeight": {
+        "UpperTorso": 100,
+        "Head": 100,
+        "UpperArmR": 100,
+        "LowerArmR": 100,
+        "UpperArmL": 100,
+        "LowerArmL": 100
+      }
+    }
+  }
+]

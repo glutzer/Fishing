@@ -1,0 +1,45 @@
+[
+  {
+    "file": "game:config/characterclasses.json",
+    "op": "add",
+    "path": "/-",
+    "value": {
+      "code": "alchemist",
+      "traits": [ "charged", "farsighted", "claustrophobic", "frail", "ravenous", "heavyhanded", "nearsighted", "civil", "kind" ],
+      "gear": [
+        {
+          "type": "item",
+          "code": "clothes-head-alchemist"
+        },
+        {
+          "type": "item",
+          "code": "clothes-shoulder-alchemist"
+        },
+        {
+          "type": "item",
+          "code": "clothes-upperbody-alchemist"
+        },
+        {
+          "type": "item",
+          "code": "clothes-lowerbody-alchemist"
+        },
+        {
+          "type": "item",
+          "code": "clothes-foot-alchemist"
+        },
+        {
+          "type": "item",
+          "code": "clothes-face-surgeon"
+        },
+        {
+          "type": "item",
+          "code": "clothes-hand-heavy-leather-gloves"
+        },
+        {
+          "type": "item",
+          "code": "clothes-waist-alchemist"
+        }
+      ]
+    }
+  }
+]

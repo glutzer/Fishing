@@ -1,0 +1,14 @@
+[
+  {
+    "file": "game:config/traits.json",
+    "op": "add",
+    "path": "/-",
+    "value": {
+      "code": "charged",
+      "type": "positive",
+      "attributes": {
+        "flaskEffect": 0.7
+      }
+    }
+  }
+]
