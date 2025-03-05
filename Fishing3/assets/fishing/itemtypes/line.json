@@ -20,12 +20,22 @@
     {
       "line-linen": "linen",
       "line-rope": "rope"
+    },
+    "lineMinTensionByType":
+    {
+      "line-linen": 1,
+      "line-rope": 2
+    },
+    "lineMaxTensionByType":
+    {
+      "line-linen": 10,
+      "line-rope": 20
     }
   },
   "durabilityByType":
   {
-    "line-linen": 100,
-    "line-rope": 50
+    "line-linen": 200,
+    "line-rope": 100
   },
   "shape":
   {

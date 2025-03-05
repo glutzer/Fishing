@@ -81,8 +81,6 @@ public class FishingGameSystem : NetworkedGameSystem
 
             // Send packet to client.
             channel.SendPacket(p, player);
-
-            ItemFishingPole.DamageStack(0, hotbarSlot, api, 10);
         });
     }
 

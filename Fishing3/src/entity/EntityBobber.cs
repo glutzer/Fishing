@@ -41,7 +41,9 @@ public enum RodUseType
 [Entity]
 public class EntityBobber : Entity, IPhysicsTickable
 {
-    public long playerId;
+    public BobberBehavior? behavior;
+    public string? bobberClass;
+    public long casterId;
 
     public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
     {
@@ -53,53 +55,41 @@ public class EntityBobber : Entity, IPhysicsTickable
         }
     }
 
-    public void SetPlayerData(EntityPlayer player)
+    /// <summary>
+    /// Called on the server when initializing when cast.
+    /// </summary>
+    public void SetPlayerAndBobber(EntityPlayer player, string bobberType, ItemStack bobberStack, ItemStack rodStack)
     {
-        playerId = player.EntityId;
+        casterId = player.EntityId;
+        bobberClass = bobberType;
+        behavior = MainAPI.GetGameSystem<BobberRegistry>(Api.Side).TryCreateAndInitializeBobber(bobberClass, this, bobberStack, rodStack);
     }
 
     public override void ToBytes(BinaryWriter writer, bool forClient)
     {
         base.ToBytes(writer, forClient);
-        writer.Write(playerId);
+        writer.Write(casterId);
+
+        writer.Write(bobberClass ?? "NaN");
+        behavior?.ToBytes(writer, forClient);
     }
 
     public override void FromBytes(BinaryReader reader, bool forClient)
     {
         base.FromBytes(reader, forClient);
-        playerId = reader.ReadInt64();
-    }
+        casterId = reader.ReadInt64();
 
-    /// <summary>
-    /// Called when using a pole while a bobber is active.
-    /// </summary>
-    public virtual void OnUseStart(bool isServer, ItemSlot rodSlot, EntityPlayer player)
-    {
-        FishingPoleSoundManager.Instance.StartSound(player, "fishing:sounds/linereel", dt => { });
-    }
+        string bClass = reader.ReadString();
+        if (bClass == "NaN") return;
 
-    /// <summary>
-    /// Called when stopping using a pole while a bobber is active.
-    /// </summary>
-    public virtual void OnUseEnd(bool isServer, ItemSlot rodSlot, EntityPlayer player)
-    {
-        FishingPoleSoundManager.Instance.StopSound(player);
-    }
+        if (bobberClass != bClass)
+        {
+            bobberClass = bClass;
+            behavior?.Dispose(null);
+            behavior = MainAPI.GetGameSystem<BobberRegistry>(forClient ? EnumAppSide.Client : EnumAppSide.Server).TryCreateAndInitializeBobber(bobberClass, this, null, null);
+        }
 
-    /// <summary>
-    /// Called when attacking with pole while a bobber is active.
-    /// </summary>
-    public virtual void OnAttackStart(bool isServer, ItemSlot rodSlot, EntityPlayer player)
-    {
-
-    }
-
-    /// <summary>
-    /// Called when stopping attacking with a pole while a bobber is active.
-    /// </summary>
-    public virtual void OnAttackEnd(bool isServer, ItemSlot rodSlot, EntityPlayer player)
-    {
-
+        behavior?.FromBytes(reader, forClient);
     }
 
     public override void OnReceivedServerPacket(int packetId, byte[] data)
@@ -120,16 +110,16 @@ public class EntityBobber : Entity, IPhysicsTickable
             switch (packet.useType)
             {
                 case RodUseType.UseStart:
-                    OnUseStart(false, hotbarSlot, player);
+                    behavior?.OnUseStart(false, hotbarSlot, player);
                     break;
                 case RodUseType.UseEnd:
-                    OnUseEnd(false, hotbarSlot, player);
+                    behavior?.OnUseEnd(false, hotbarSlot, player);
                     break;
                 case RodUseType.AttackStart:
-                    OnAttackStart(false, hotbarSlot, player);
+                    behavior?.OnAttackStart(false, hotbarSlot, player);
                     break;
                 case RodUseType.AttackEnd:
-                    OnAttackEnd(false, hotbarSlot, player);
+                    behavior?.OnAttackEnd(false, hotbarSlot, player);
                     break;
             }
         }
@@ -145,21 +135,16 @@ public class EntityBobber : Entity, IPhysicsTickable
     public override void OnEntityDespawn(EntityDespawnData despawn)
     {
         base.OnEntityDespawn(despawn);
-        Dispose(despawn);
+        behavior?.Dispose(despawn);
         if (Api.Side == EnumAppSide.Server)
         {
             MainAPI.Sapi.Server.RemovePhysicsTickable(this);
         }
     }
 
-    public virtual void Dispose(EntityDespawnData despawn)
+    public void OnPhysicsTick(float dt)
     {
-
-    }
-
-    public virtual void OnPhysicsTick(float dt)
-    {
-
+        behavior?.OnServerPhysicsTick(dt);
     }
 
     public void AfterPhysicsTick(float dt)
@@ -181,13 +166,8 @@ public class EntityBobber : Entity, IPhysicsTickable
         base.OnGameTick(dt);
         if (Api.Side == EnumAppSide.Client)
         {
-            OnClientBobberTick(dt);
+            behavior?.OnClientTick(dt);
         }
-    }
-
-    public virtual void OnClientBobberTick(float dt)
-    {
-
     }
 
     public void OnPhysicsTickDone()
@@ -196,4 +176,7 @@ public class EntityBobber : Entity, IPhysicsTickable
     }
 
     public bool Ticking { get; set; } = true;
+
+    public override double SwimmingOffsetY => 0.75f;
+    public override float MaterialDensity => behavior != null ? behavior.CanFloat ? 900f : 2000f : 900f;
 }

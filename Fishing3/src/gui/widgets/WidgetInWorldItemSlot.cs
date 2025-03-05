@@ -18,10 +18,12 @@ public class WidgetInWorldItemSlot : WidgetBaseItemGrid
 
     private readonly Func<bool> shouldRender;
     protected override bool IsEnabled => shouldRender();
+    protected bool labelRight;
 
-    public WidgetInWorldItemSlot(ItemSlot[] slots, int width, int height, int slotSize, Widget? parent, Func<Vector3d> getPosDelegate, string label, Func<bool> shouldRender) : base(slots, width, height, slotSize, parent)
+    public WidgetInWorldItemSlot(ItemSlot[] slots, int width, int height, int slotSize, Widget? parent, Func<Vector3d> getPosDelegate, string label, Func<bool> shouldRender, bool labelRight) : base(slots, width, height, slotSize, parent)
     {
         this.shouldRender = shouldRender;
+        this.labelRight = labelRight;
 
         bgTex = GuiThemes.Background;
         blank = GuiThemes.Blank;
@@ -69,7 +71,14 @@ public class WidgetInWorldItemSlot : WidgetBaseItemGrid
         RenderTools.RenderNineSlice(bgTex, shader, start.X, start.Y, size, size);
         shader.Uniform("color", Vector4.One);
 
-        textObject.RenderLine(start.X + size, start.Y + (size / 2), shader, 0, true);
+        if (labelRight)
+        {
+            textObject.RenderLine(start.X + size, start.Y + (size / 2), shader, 0, true);
+        }
+        else
+        {
+            textObject.RenderLeftAlignedLine(start.X, start.Y + (size / 2), shader, true);
+        }
     }
 
     public override void RenderOverlay(Vector2 start, int size, float dt, MareShader shader, ItemSlot slot)

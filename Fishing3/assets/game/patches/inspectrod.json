@@ -1,0 +1,61 @@
+﻿[
+  {
+    "op": "addmerge",
+    "path": "/animations/-",
+    "value":
+    {
+      "name": "InspectRod",
+      "code": "inspectrod",
+      "quantityframes": 1,
+      "onActivityStopped": "Rewind",
+      "onAnimationEnd": "Repeat",
+      "keyframes":
+      [
+        {
+          "frame": 0,
+          "elements":
+          {
+            "UpperArmR":
+            {
+              "rotationX": 40.0,
+              "rotationY": 5.0,
+              "rotationZ": -40.0
+            },
+            "LowerArmR":
+            {
+              "rotationX": 0.0,
+              "rotationY": -10.0,
+              "rotationZ": 5.0
+            },
+            "ItemAnchor":
+            {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            }
+          }
+        }
+      ]
+    },
+    "file": "game:shapes/entity/humanoid/seraph-faceless.json"
+  },
+  {
+    "file": "game:entities/humanoid/player.json",
+    "op": "addmerge",
+    "path": "/client/animations/-",
+    "value":
+    {
+      "code": "InspectRod",
+      "animation": "InspectRod",
+      "blendMode": "Average",
+      "animationSpeed": 1,
+      "weight": 1,
+      "elementWeight":
+      {
+        "UpperArmR": 100,
+        "LowerArmR": 100,
+        "ItemAnchor": 100
+      }
+    }
+  }
+]

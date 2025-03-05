@@ -1,4 +1,5 @@
-﻿using Vintagestory.API.Common;
+﻿using System.Collections.Generic;
+using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 
@@ -75,6 +76,13 @@ public class ItemInventory : InventoryBase
         }
 
         forStack.Attributes.SetItemstack($"slot{invSlot.slotId}", invSlot.Itemstack);
+    }
+
+    public override float GetSuitability(ItemSlot sourceSlot, ItemSlot targetSlot, bool isMerge)
+    {
+        float suitability = base.GetSuitability(sourceSlot, targetSlot, isMerge);
+        if (!targetSlot.CanHold(sourceSlot)) suitability = -1;
+        return suitability;
     }
 
     // This doesn't need to be set? Everything is saved in the item stack. This is just an interface.

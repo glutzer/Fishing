@@ -3,10 +3,23 @@
     "file": "game:config/characterclasses.json",
     "op": "add",
     "path": "/-",
-    "value": {
+    "value":
+    {
       "code": "alchemist",
-      "traits": [ "charged", "farsighted", "claustrophobic", "frail", "ravenous", "heavyhanded", "nearsighted", "civil", "kind" ],
-      "gear": [
+      "traits":
+      [
+        "charged",
+        "farsighted",
+        "claustrophobic",
+        "frail",
+        "ravenous",
+        "heavyhanded",
+        "nearsighted",
+        "civil",
+        "kind"
+      ],
+      "gear":
+      [
         {
           "type": "item",
           "code": "clothes-head-alchemist"

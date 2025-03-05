@@ -23,6 +23,7 @@ uniform float fogDensityIn;
 
 uniform vec3 offset; // Offset of the end point to the start (pole tip).
 uniform float droop; // Droop power.
+uniform float minY;
 
 #include vertexflagbits.ash
 #include shadowcoords.vsh
@@ -69,6 +70,12 @@ void main() {
   vec3 pointMid = calcPoint(uvIn.x, rotatedPoint);
 
   vec4 worldPos = modelMatrix * vec4(pointMid, 1.0);
+
+  if (offset.y > 0) {
+    vec4 originY = modelMatrix * vec4(0, 0.1, 0, 1);
+    worldPos.y = max(originY.y, worldPos.y);
+  }
+
   vec4 cameraPos = offsetViewMatrix * worldPos;
   gl_Position = perspectiveMatrix * cameraPos;
 

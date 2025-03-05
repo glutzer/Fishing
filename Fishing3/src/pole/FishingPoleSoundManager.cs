@@ -113,11 +113,12 @@ public class FishingPoleSoundManager : GameSystem, IRenderer
         }
     }
 
-    public void UpdatePitch(EntityPlayer player, float pitch)
+    public void UpdatePitchVolume(EntityPlayer player, float pitch, float volume)
     {
         if (playerSounds.TryGetValue(player.PlayerUID, out TrackedSound? sound))
         {
             sound.sound.SetPitch(pitch);
+            sound.sound.SetVolume(volume);
         }
     }
 

@@ -13,9 +13,18 @@ public class GuiInWorldPoleEditor : Gui
         this.rodSlot = rodSlot;
     }
 
+    public override void OnGuiOpened()
+    {
+        base.OnGuiOpened();
+
+        MainAPI.Capi.World.Player.Entity.AnimManager.StartAnimation("InspectRod");
+    }
+
     public override void OnGuiClosed()
     {
         base.OnGuiClosed();
+
+        MainAPI.Capi.World.Player.Entity.AnimManager.StopAnimation("InspectRod");
 
         MainAPI.Capi.World.Player.InventoryManager.CloseInventory(rodSlot);
 
@@ -31,13 +40,13 @@ public class GuiInWorldPoleEditor : Gui
 
     public override void PopulateWidgets()
     {
-        AddWidget(new WidgetInWorldItemSlot(new ItemSlot[] { rodSlot[3] }, 1, 1, 96, null, () =>
+        AddWidget(new WidgetInWorldItemSlot(new ItemSlot[] { rodSlot[4] }, 1, 1, 96, null, () =>
         {
             return ItemFishingPole.GetSwayedPosition(MainAPI.Capi.World.Player.Entity, 2f);
         }, "Catch", () =>
         {
             return rodSlot[4].Itemstack != null;
-        }));
+        }, false));
 
         AddWidget(new WidgetInWorldItemSlot(new ItemSlot[] { rodSlot[3] }, 1, 1, 96, null, () =>
         {
@@ -45,7 +54,7 @@ public class GuiInWorldPoleEditor : Gui
         }, "Bait", () =>
         {
             return rodSlot[0].Itemstack != null && rodSlot[4].Itemstack == null;
-        }));
+        }, false));
 
         AddWidget(new WidgetInWorldItemSlot(new ItemSlot[] { rodSlot[2] }, 1, 1, 96, null, () =>
         {
@@ -53,7 +62,7 @@ public class GuiInWorldPoleEditor : Gui
         }, "Hook", () =>
         {
             return rodSlot[0].Itemstack != null && rodSlot[4].Itemstack == null;
-        }));
+        }, false));
 
         AddWidget(new WidgetInWorldItemSlot(new ItemSlot[] { rodSlot[1] }, 1, 1, 96, null, () =>
         {
@@ -61,12 +70,15 @@ public class GuiInWorldPoleEditor : Gui
         }, "Bobber", () =>
         {
             return rodSlot[0].Itemstack != null && rodSlot[4].Itemstack == null;
-        }));
+        }, false));
 
         AddWidget(new WidgetInWorldItemSlot(new ItemSlot[] { rodSlot[0] }, 1, 1, 96, null, () =>
         {
             AnimationUtility.GetRightHandPosition(MainAPI.Capi.World.Player.Entity, new Vector3(0.5f - 2, 0, 0.5f), out Vector3d position);
             return position;
-        }, "Line"));
+        }, "Line", () =>
+        {
+            return true;
+        }, true));
     }
 }

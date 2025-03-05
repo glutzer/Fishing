@@ -13,6 +13,16 @@ public partial class ItemFishingPole : Item, IItemWithInventory
     /// </summary>
     public virtual bool IsAllowedInSlot(int slotId, ItemStack stackIn)
     {
+        if (slotId == 0)
+        {
+            return stackIn.Collectible.Attributes["lineType"].Exists;
+        }
+
+        if (slotId == 4)
+        {
+            return false; // Catch slot, can't put items in.
+        }
+
         return true; // No checking.
     }
 
@@ -65,6 +75,11 @@ public partial class ItemFishingPole : Item, IItemWithInventory
         if (bobberId == 0) return null;
         if (api.World.GetEntityById(bobberId) is not EntityBobber bobber || !bobber.Alive) return null;
         return bobber;
+    }
+
+    public static bool HasBobber(ItemSlot rodSlot)
+    {
+        return rodSlot.Itemstack != null && rodSlot.Itemstack.Attributes.HasAttribute("bobber");
     }
 
     public static void SetBobber(EntityBobber bobber, ItemSlot rodSlot)

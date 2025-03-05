@@ -42,7 +42,7 @@ public partial class ItemFishingPole : Item, IRenderableItem
         if (isShadowPass) return true;
 
         if (instance.entity is not EntityPlayer player) return true;
-        if (shader == null || cubeMesh == null) return true;
+        if (shader == null) return true;
 
         if (!ReadStack(0, stack, api, out ItemStack? lineStack)) return true;
 
@@ -51,6 +51,11 @@ public partial class ItemFishingPole : Item, IRenderableItem
         // Calc sway.
         float xSway = stack.Attributes.GetFloat("xSway", 0);
         float zSway = stack.Attributes.GetFloat("zSway", 0);
+
+        // One animation made these NaN, the FUCK.
+        if (float.IsNaN(xSway)) xSway = 0;
+        if (float.IsNaN(zSway)) zSway = 0;
+
         double lastX = stack.Attributes.GetDouble("lastX", pos.X);
         double lastZ = stack.Attributes.GetDouble("lastZ", pos.Z);
 
@@ -85,35 +90,68 @@ public partial class ItemFishingPole : Item, IRenderableItem
         // Create a quaternion to make up face the sway normal.
         Quaternion rotation = QuaternionUtility.FromToRotation(Vector3.UnitY, -swayNormal);
 
-
-
-        // Normal of swayed bobbed to fishing pole point. Used for orientation.
-
-        shader.Uniform("modelMatrix", Matrix4.CreateFromQuaternion(rotation) * Matrix4.CreateScale(0.2f, 0.2f, 0.2f) * RenderTools.CameraRelativeTranslation(pos + (swayNormal * 2f)));
-        //RenderTools.RenderMesh(cubeMesh);
-
         string lineCode = lineStack?.Collectible.Attributes["lineType"].AsString() ?? "none";
         Texture lineTex = ClientCache.GetOrCache(lineCode, () =>
         {
             return Texture.Create($"fishing:textures/lines/{lineCode}.png", false, true);
         });
 
-        // Draw the line.
-        FishingLineRenderer.RenderLine(pos, pos + (swayNormal * 2f), 0f, lineTex);
+        long entityId = stack.Attributes.GetLong("bobber", 0);
 
-        MainAPI.Capi.Render.StandardShader.Use();
-
-        if (ReadStack(1, stack, api, out ItemStack? bobberStack))
+        if (MainAPI.Capi.World.GetEntityById(entityId) is not EntityBobber bobber)
         {
-            RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 1f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, bobberStack);
-        }
+            // Draw the line.
+            FishingLineRenderer.RenderLine(pos, pos + (swayNormal * 2f), 0f, lineTex);
 
-        if (ReadStack(2, stack, api, out ItemStack? hookStack))
+            MainAPI.Capi.Render.StandardShader.Use();
+
+            if (ReadStack(1, stack, api, out ItemStack? bobberStack))
+            {
+                RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 1f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, bobberStack);
+            }
+
+            if (ReadStack(2, stack, api, out ItemStack? hookStack))
+            {
+                RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 2f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, hookStack);
+            }
+
+            MainAPI.Capi.Render.StandardShader.Stop();
+        }
+        else
         {
-            RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 2f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, hookStack);
-        }
+            float droop = 1f;
+            Vector3d bobberPos = bobber.Pos.ToVector();
 
-        MainAPI.Capi.Render.StandardShader.Stop();
+            if (bobber.behavior is BobberFishing bobberFishing)
+            {
+                float length = (float)Vector3d.Distance(bobberPos, pos);
+                droop = (bobberFishing.bobber.WatchedAttributes.GetFloat("maxDistance") / length) - 1;
+                droop *= 4;
+                droop = Math.Clamp(droop, 0, 5);
+            }
+
+            // Draw the line.
+            FishingLineRenderer.RenderLine(pos, bobberPos, droop, lineTex);
+
+            MainAPI.Capi.Render.StandardShader.Use();
+
+            if (ReadStack(1, stack, api, out ItemStack? bobberStack))
+            {
+                RenderBobberItemOpaqueShader(dt, bobberPos, (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, -Vector3.UnitY, bobberStack);
+            }
+
+            if (ReadStack(2, stack, api, out ItemStack? hookStack))
+            {
+                Vector3d hookPos = bobberPos;
+                hookPos.Y -= 1;
+
+                FishingLineRenderer.RenderLine(bobberPos, hookPos, 0f, lineTex);
+
+                RenderBobberItemOpaqueShader(dt, hookPos, (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, -Vector3.UnitY, hookStack);
+            }
+
+            MainAPI.Capi.Render.StandardShader.Stop();
+        }
 
         lastShader?.Use();
 

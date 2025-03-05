@@ -2,33 +2,61 @@
   {
     "op": "addmerge",
     "path": "/animations/-",
-    "value": {
+    "value":
+    {
       "name": "RodIdle",
       "code": "rodidle",
-      "quantityframes": 30,
+      "quantityframes": 1,
       "onActivityStopped": "EaseOut",
       "onAnimationEnd": "Hold",
-      "keyframes": [
+      "keyframes":
+      [
         {
           "frame": 0,
-          "elements": {
-            "UpperArmL": {
+          "elements":
+          {
+            "UpperArmL":
+            {
+              "rotationX": 15.0,
+              "rotationY": 0.0,
+              "rotationZ": -36.0
+            },
+            "UpperArmR":
+            {
+              "rotationX": -10.0,
+              "rotationY": -60.0,
+              "rotationZ": -60.0
+            },
+            "LowerArmR":
+            {
+              "rotationX": -91.0,
+              "rotationY": 0.0,
+              "rotationZ": 47.0
+            },
+            "ItemAnchor":
+            {
+              "offsetX": 0.5,
+              "offsetY": -2.5,
+              "offsetZ": 0.5,
+              "rotationX": 60.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "LowerArmL":
+            {
+              "rotationX": -14.0,
+              "rotationY": -18.0,
+              "rotationZ": -66.0
+            },
+            "UpperTorso":
+            {
               "rotationX": 0.0,
               "rotationY": 0.0,
-              "rotationZ": -40.0
+              "rotationZ": 0.0
             },
-            "UpperArmR": {
+            "Head":
+            {
               "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": -40.0
-            },
-            "LowerArmR": {
-              "rotationX": -40.0,
-              "rotationY": -3.0,
-              "rotationZ": -3.0
-            },
-            "LowerArmL": {
-              "rotationX": 30.0,
               "rotationY": 0.0,
               "rotationZ": 0.0
             }
@@ -42,17 +70,22 @@
     "file": "game:entities/humanoid/player.json",
     "op": "addmerge",
     "path": "/client/animations/-",
-    "value": {
+    "value":
+    {
       "code": "RodIdle",
       "animation": "RodIdle",
       "blendMode": "Average",
       "animationSpeed": 1,
-      "weight": 0,
-      "elementWeight": {
-        "UpperArmR": 20,
-        "LowerArmR": 20,
-        "UpperArmL": 20,
-        "LowerArmL": 20
+      "weight": 2,
+      "elementWeight":
+      {
+        "UpperTorso": 40,
+        "ItemAnchor": 100,
+        "Head": 100,
+        "UpperArmR": 100,
+        "LowerArmR": 100,
+        "UpperArmL": 100,
+        "LowerArmL": 100
       }
     }
   }

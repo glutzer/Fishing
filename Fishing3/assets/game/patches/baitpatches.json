@@ -3,10 +3,12 @@
     "file": "game:itemtypes/creature-butterfly-dead.json",
     "op": "addmerge",
     "path": "/behaviors",
-    "value": [
+    "value":
+    [
       {
         "name": "CollectibleBehaviorBait",
-        "properties": {
+        "properties":
+        {
           "consumeChance": 0.2,
           "biteChanceMultiplier": 1.5
         }
@@ -17,10 +19,12 @@
     "file": "game:itemtypes/food/insect.json",
     "op": "addmerge",
     "path": "/behaviors",
-    "value": [
+    "value":
+    [
       {
         "name": "CollectibleBehaviorBait",
-        "properties": {
+        "properties":
+        {
           "consumeChance": 0.8,
           "biteChanceMultiplier": 1
         }
@@ -31,10 +35,12 @@
     "file": "game:itemtypes/food/bushmeat.json",
     "op": "addmerge",
     "path": "/behaviors",
-    "value": [
+    "value":
+    [
       {
         "name": "CollectibleBehaviorBait",
-        "properties": {
+        "properties":
+        {
           "consumeChance": 0.4,
           "biteChanceMultiplier": 1
         }
@@ -45,13 +51,16 @@
     "file": "game:itemtypes/food/redmeat.json",
     "op": "addmerge",
     "path": "/behaviors",
-    "value": [
+    "value":
+    [
       {
         "name": "CollectibleBehaviorBait",
-        "properties": {
+        "properties":
+        {
           "consumeChance": 0.4,
           "biteChanceMultiplier": 1,
-          "tagMultipliers": {
+          "tagMultipliers":
+          {
             "sharks": 10
           }
         }
@@ -62,10 +71,12 @@
     "file": "game:blocktypes/plant/mushroom.json",
     "op": "addmerge",
     "path": "/behaviors",
-    "value": [
+    "value":
+    [
       {
         "name": "CollectibleBehaviorBait",
-        "properties": {
+        "properties":
+        {
           "consumeChance": 0.5,
           "biteChanceMultiplier": 1
         }
@@ -76,13 +87,16 @@
     "file": "game:itemtypes/bag/linensack.json",
     "op": "addmerge",
     "path": "/behaviors",
-    "value": [
+    "value":
+    [
       {
         "name": "CollectibleBehaviorBait",
-        "properties": {
+        "properties":
+        {
           "consumeChance": 0.2,
           "biteChanceMultiplier": 0.5,
-          "tagMultipliers": {
+          "tagMultipliers":
+          {
             "flotsam": 10
           }
         }

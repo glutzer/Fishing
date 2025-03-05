@@ -2,42 +2,51 @@
   {
     "op": "addmerge",
     "path": "/animations/-",
-    "value": {
+    "value":
+    {
       "name": "RopeReel",
       "code": "ropereel",
       "quantityframes": 50,
       "onActivityStopped": "EaseOut",
       "onAnimationEnd": "Repeat",
-      "keyframes": [
+      "keyframes":
+      [
         {
           "frame": 0,
-          "elements": {
-            "UpperArmL": {
+          "elements":
+          {
+            "UpperArmL":
+            {
               "rotationX": -15.0,
               "rotationY": 0.0,
               "rotationZ": -40.0
             },
-            "UpperArmR": {
+            "UpperArmR":
+            {
               "rotationX": -10.0,
               "rotationY": -60.0,
               "rotationZ": -60.0
             },
-            "LowerArmR": {
+            "LowerArmR":
+            {
               "rotationX": -90.0,
               "rotationY": 0.0,
               "rotationZ": 45.0
             },
-            "LowerArmL": {
+            "LowerArmL":
+            {
               "rotationX": 50.0,
               "rotationY": -20.0,
               "rotationZ": -25.0
             },
-            "UpperTorso": {
+            "UpperTorso":
+            {
               "rotationX": 0.0,
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "Head": {
+            "Head":
+            {
               "rotationX": 0.0,
               "rotationY": 0.0,
               "rotationZ": 0.0
@@ -46,13 +55,16 @@
         },
         {
           "frame": 20,
-          "elements": {
-            "UpperArmL": {
+          "elements":
+          {
+            "UpperArmL":
+            {
               "rotationX": -15.0,
               "rotationY": 5.0,
               "rotationZ": -55.0
             },
-            "LowerArmL": {
+            "LowerArmL":
+            {
               "rotationX": 30.0,
               "rotationY": 0.0,
               "rotationZ": -30.0
@@ -61,13 +73,16 @@
         },
         {
           "frame": 35,
-          "elements": {
-            "LowerArmL": {
+          "elements":
+          {
+            "LowerArmL":
+            {
               "rotationX": 70.0,
               "rotationY": 8.0,
               "rotationZ": -55.0
             },
-            "UpperArmL": {
+            "UpperArmL":
+            {
               "rotationX": 10.0,
               "rotationY": 5.0,
               "rotationZ": -50.0
@@ -82,13 +97,15 @@
     "file": "game:entities/humanoid/player.json",
     "op": "addmerge",
     "path": "/client/animations/-",
-    "value": {
+    "value":
+    {
       "code": "RopeReel",
       "animation": "RopeReel",
       "blendMode": "Average",
       "animationSpeed": 2,
-      "weight": 0,
-      "elementWeight": {
+      "weight": 1,
+      "elementWeight":
+      {
         "UpperTorso": 100,
         "Head": 100,
         "UpperArmR": 100,

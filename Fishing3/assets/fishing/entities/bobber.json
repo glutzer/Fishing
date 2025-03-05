@@ -1,16 +1,6 @@
 ﻿{
   "code": "bobber",
   "class": "EntityBobber",
-  "variantgroups":
-  [
-    {
-      "code": "type",
-      "states":
-      [
-        "cork"
-      ]
-    }
-  ],
   "hitboxSize":
   {
     "x": 0.5,
@@ -20,12 +10,10 @@
   {
     "size": 1,
     "pitchStep": false,
+    "renderer": "shape",
     "shape":
     {
-      "baseByType":
-      {
-        "bobber-cork": "fishing:parts/corkbobber"
-      }
+      "base": "fishing:parts/corkbobber"
     },
     "behaviors":
     [
