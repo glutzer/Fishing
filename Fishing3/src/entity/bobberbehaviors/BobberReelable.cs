@@ -9,8 +9,11 @@ using Vintagestory.API.MathTools;
 
 namespace Fishing3;
 
+/// <summary>
+/// Class for a bobber than can be reeled around, but doesn't catch anything.
+/// </summary>
 [Bobber]
-public class BobberFishing : BobberBehavior
+public class BobberReelable : BobberBehavior
 {
     public bool reeling;
     public bool releasing;
@@ -23,7 +26,7 @@ public class BobberFishing : BobberBehavior
     protected const float REEL_METERS_PER_ROTATION = 2f;
     protected const float REEL_METERS_PER_SECOND = 10f;
 
-    public BobberFishing(EntityBobber bobber, bool isServer) : base(bobber, isServer)
+    public BobberReelable(EntityBobber bobber, bool isServer) : base(bobber, isServer)
     {
         releasing = true; // Start released.
         if (!isServer)
@@ -114,24 +117,23 @@ public class BobberFishing : BobberBehavior
     {
         if (bobber.Api.World.GetEntityById(bobber.casterId) is not EntityPlayer player) return;
 
-        if (!reeling && !releasing) return;
+        float mps = Math.Abs(bobber.WatchedAttributes.GetFloat("distMps"));
 
         if (reeling && currentAnimation != null)
         {
-            float mps = bobber.WatchedAttributes.GetFloat("distMps");
-            currentAnimation.AnimationSpeed = mps / REEL_METERS_PER_ROTATION;
-            FishingPoleSoundManager.Instance.UpdatePitchVolume(player, Math.Abs(mps) / REEL_METERS_PER_ROTATION / 2f, Math.Abs(mps) < 0.1f ? 0f : 1f);
+            currentAnimation.AnimationSpeed = mps / REEL_METERS_PER_ROTATION * 2f;
         }
 
-        if (releasing)
+        if (reeling || releasing)
         {
-            float mps = bobber.WatchedAttributes.GetFloat("distMps");
-            mps = Math.Abs(mps);
-            FishingPoleSoundManager.Instance.UpdatePitchVolume(player, mps * 1.5f, mps > 0.2f ? 1f : 0f);
+            FishingPoleSoundManager.Instance.UpdatePitchVolume(player, mps / REEL_METERS_PER_ROTATION, mps * 0.2f);
         }
     }
 
-    public void TryCatch()
+    /// <summary>
+    /// Try to catch an entity on the server.
+    /// </summary>
+    public virtual void TryCatch()
     {
         bobber.Die();
 
@@ -147,7 +149,7 @@ public class BobberFishing : BobberBehavior
         Vector3d playerPos = player.ServerPos.ToVector();
 
         Vec3d pos = player.ServerPos.XYZ.Add(0, player.LocalEyePos.Y, 0);
-        Vec3d targetNormal = (pos.AheadCopy(1, 3.14, player.ServerPos.Yaw) - pos).Normalize();
+        Vec3d targetNormal = (pos.AheadCopy(1, Math.PI, player.ServerPos.Yaw) - pos).Normalize();
         Vector3d normalVec = new(targetNormal.X, targetNormal.Y, targetNormal.Z);
 
         playerPos += normalVec * 3.5f;
@@ -156,8 +158,13 @@ public class BobberFishing : BobberBehavior
         float maxDistance = bobber.WatchedAttributes.GetFloat("maxDistance");
         float oldDistance = maxDistance;
 
-        if (releasing) maxDistance = Math.Max(Math.Min((float)diff.Length + 0.001f, maxPossibleDistance), maxDistance);
+        if (releasing)
+        {
+            maxDistance = Math.Max(Math.Min((float)diff.Length + 0.0001f, maxPossibleDistance), maxDistance);
+        }
+
         if (reeling) maxDistance -= REEL_METERS_PER_SECOND * dt;
+
         if (maxDistance < 2f)
         {
             maxDistance = 2f;
@@ -168,10 +175,12 @@ public class BobberFishing : BobberBehavior
                 return;
             }
         }
-        bobber.WatchedAttributes.SetFloat("maxDistance", maxDistance);
 
         // Mps for client to calculate things like reel speed, reel sound, release sound. 20 tps.
-        bobber.WatchedAttributes.SetFloat("distMps", (maxDistance - oldDistance) * 20f);
+        float mps = (maxDistance - oldDistance) * 20f;
+
+        bobber.WatchedAttributes.SetFloat("distMps", mps);
+        bobber.WatchedAttributes.SetFloat("maxDistance", maxDistance);
 
         if (diff.Length > maxDistance)
         {

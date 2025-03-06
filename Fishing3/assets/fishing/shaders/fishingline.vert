@@ -93,5 +93,5 @@ void main() {
   rgbaFog = rgbaFogIn;
 
   uvOut = uvIn;
-  uvOut.x *= length(offset) * 2;
+  uvOut.x *= length(offset) * 3;
 }

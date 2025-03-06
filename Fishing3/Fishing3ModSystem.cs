@@ -27,7 +27,6 @@ public class FishingGameSystem : NetworkedGameSystem
 
         if (!isServer)
         {
-            MareShaderRegistry.AddShader("fishing:debug", "fishing:debug", "debugfishing");
             MareShaderRegistry.AddShader("fishing:fishingline", "marelib:opaque", "fishingline");
         }
     }

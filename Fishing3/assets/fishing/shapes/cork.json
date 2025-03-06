@@ -1,50 +1,112 @@
 {
-  "editor": {
+  "editor":
+  {
     "allAngles": false,
     "entityTextureMode": false
   },
   "textureWidth": 16,
   "textureHeight": 16,
-  "textureSizes": {
+  "textureSizes":
+  {
   },
-  "textures": {
+  "textures":
+  {
     "cork": "fishing:cork"
   },
-  "elements": [
+  "elements":
+  [
     {
       "name": "Cube",
-      "from": [ 4.0, 0.0, 4.0 ],
-      "to": [ 12.0, 4.0, 12.0 ],
-      "rotationOrigin": [ 4.0, 0.0, 4.0 ],
-      "faces": {
-        "north": {
+      "from":
+      [
+        4.0,
+        0.0,
+        4.0
+      ],
+      "to":
+      [
+        12.0,
+        4.0,
+        12.0
+      ],
+      "rotationOrigin":
+      [
+        4.0,
+        0.0,
+        4.0
+      ],
+      "faces":
+      {
+        "north":
+        {
           "texture": "#cork",
-          "uv": [ 0.0, 0.0, 16.0, 4.0 ],
+          "uv":
+          [
+            0.0,
+            0.0,
+            16.0,
+            4.0
+          ],
           "autoUv": false
         },
-        "east": {
+        "east":
+        {
           "texture": "#cork",
-          "uv": [ 0.0, 0.0, 16.0, 8.0 ],
+          "uv":
+          [
+            0.0,
+            0.0,
+            16.0,
+            8.0
+          ],
           "autoUv": false
         },
-        "south": {
+        "south":
+        {
           "texture": "#cork",
-          "uv": [ 0.0, 0.0, 16.0, 8.0 ],
+          "uv":
+          [
+            0.0,
+            0.0,
+            16.0,
+            8.0
+          ],
           "autoUv": false
         },
-        "west": {
+        "west":
+        {
           "texture": "#cork",
-          "uv": [ 0.0, 0.0, 16.0, 8.0 ],
+          "uv":
+          [
+            0.0,
+            0.0,
+            16.0,
+            8.0
+          ],
           "autoUv": false
         },
-        "up": {
+        "up":
+        {
           "texture": "#cork",
-          "uv": [ 0.0, 0.0, 16.0, 8.0 ],
+          "uv":
+          [
+            0.0,
+            0.0,
+            16.0,
+            8.0
+          ],
           "autoUv": false
         },
-        "down": {
+        "down":
+        {
           "texture": "#cork",
-          "uv": [ 0.0, 0.0, 16.0, 8.0 ],
+          "uv":
+          [
+            0.0,
+            0.0,
+            16.0,
+            8.0
+          ],
           "autoUv": false
         }
       }

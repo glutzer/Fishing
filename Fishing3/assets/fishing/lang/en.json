@@ -1,3 +1,116 @@
 {
-    "hello": "hello world!"
+  "game:characterclass-alchemist": "Alchemist",
+  "game:characterdesc-alchemist": "<font color=\"#99c9f9\"><i>Rivers of power course through your veins.</i></font>",
+
+  "game:trait-charged": "<font color=\"#84ff84\">• Charged</font>",
+  "game:charattribute-flaskEffect-0.7": "Solutions you apply have 70% increased effect",
+
+  "game:tabname-fishing": "Fishing",
+
+  "species-fish": "Fish",
+  "smoked": "Smoked",
+  "item-dummycut": "Butchering",
+
+  "species-salmon": "Salmon",
+  "species-mackerel": "Mackerel",
+  "species-trout": "Trout",
+  "species-bass": "Bass",
+  "species-dragonfish": "Dragonfish",
+  "species-sunfish": "Sunfish",
+
+  "item-rod-bamboo": "Bamboo Rod",
+  "item-rod-metalcopper": "Copper Rod",
+  "item-rod-metaltinbronze": "Tin Bronze Rod",
+  "item-rod-metalbismuthbronze": "Bismuth Bronze Rod",
+  "item-rod-metalblackbronze": "Black Bronze Rod",
+  "item-rod-metaliron": "Iron Rod",
+  "item-rod-metalmeteoriciron": "Meteoric Iron Rod",
+  "item-rod-metalsteel": "Steel Rod",
+
+  "item-metalrod-copper": "Copper Rod Part",
+  "item-metalrod-tinbronze": "Tin Bronze Rod Part",
+  "item-metalrod-bismuthbronze": "Bismuth Bronze Rod Part",
+  "item-metalrod-blackbronze": "Black Bronze Rod Part",
+  "item-metalrod-iron": "Iron Rod Part",
+  "item-metalrod-meteoriciron": "Meteoric Iron Rod Part",
+  "item-metalrod-steel": "Steel Rod Part",
+
+  "item-syringe-metalcopper": "Copper Syringe",
+  "item-syringe-metaltinbronze": "Tin Bronze Syringe",
+  "item-syringe-metalbismuthbronze": "Bismuth Bronze Syringe",
+  "item-syringe-metalblackbronze": "Black Bronze Syringe",
+  "item-syringe-metaliron": "Iron Syringe",
+  "item-syringe-metalmeteoriciron": "Meteoric Iron Syringe",
+  "item-syringe-metalsteel": "Steel Syringe",
+
+  "rodstack-line": "Line",
+  "rodstack-bobber": "Bobber",
+  "rodstack-hook": "Hook",
+  "rodstack-bait": "Bait",
+
+  "item-line-linen": "Linen Line Spool",
+  "item-line-rope": "Rope Line Spool",
+
+  "item-bobber-cork": "Cork Bobber",
+  "item-creature-bobber-cork": "Cork Bobber",
+
+  "item-hook-bone": "Bone Hook",
+  "item-hook-metalcopper": "Copper Hook",
+  "item-hook-metaltinbronze": "Tin Bronze Hook",
+  "item-hook-metalbismuthbronze": "Bismuth Bronze Hook",
+  "item-hook-metalblackbronze": "Black Bronze Hook",
+  "item-hook-metaliron": "Iron Hook",
+  "item-hook-metalmeteoriciron": "Meteoric Iron Hook",
+  "item-hook-metalsteel": "Steel Hook",
+
+  "item-fishcut-fillet-fresh": "Fresh Fillet",
+  "item-fishcut-fillet-smoked": "Smoked Fillet",
+  "item-fishcut-akami-fresh": "Fresh Akami",
+  "item-fishcut-akami-smoked": "Smoked Akami",
+  "item-fishcut-flake-fresh": "Fresh Flake",
+  "item-fishcut-flake-smoked": "Smoked Flake",
+  "item-fishcut-serpentmeat-fresh": "Fresh Serpent Meat",
+  "item-fishcut-serpentmeat-smoked": "Smoked Serpent Meat",
+
+  "block-cauldron-copper": "Copper Cauldron",
+  "block-cauldron-iron": "Iron Cauldron",
+  "block-cauldron-steel": "Steel Cauldron",
+
+  "block-digester-copper": "Copper Digester",
+  "block-digester-iron": "Iron Digester",
+  "block-digester-steel": "Steel Digester",
+
+  "item-flask-small-unlabeled": "Small Flask",
+  "item-flask-medium-unlabeled": "Medium Flask",
+  "item-flask-large-unlabeled": "Large Flask",
+
+  "item-flask-small-labeled": "Small Flask (Blank Label)",
+  "item-flask-medium-labeled": "Medium Flask (Blank Label)",
+  "item-flask-large-labeled": "Large Flask (Blank Label)",
+
+  "item-cork": "Cork",
+
+  "item-edibleseaweed": "Seaweed",
+
+  "block-flotsam-normal-open": "Open Flotsam",
+  "block-flotsam-copper-open": "Open Copper Flotsam",
+  "block-flotsam-tungsten-open": "Open Tungsten Flotsam",
+
+  "block-flotsam-normal-closed": "Shut Flotsam",
+  "block-flotsam-copper-closed": "Shut Copper Flotsam",
+  "block-flotsam-tungsten-closed": "Shut Tungsten Flotsam",
+
+  "effectname-impendingDoom": "Impending Doom",
+  "effectname-insulation": "Insulation",
+  "effectname-moveSpeed": "Move Speed",
+  "effectname-nightVision": "Night Vision",
+  "effectname-power": "Power",
+  "effectname-regeneration": "Regeneration",
+  "effectname-slowFall": "Feather Falling",
+
+  "effectname-instantHealth": "Instant Healing",
+  "effectname-teleport": "Translocation",
+
+  "effectname-amplifier": "Amplifier",
+  "effectname-racial": "Racial"
 }

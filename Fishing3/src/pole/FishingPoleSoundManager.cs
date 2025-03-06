@@ -129,6 +129,6 @@ public class FishingPoleSoundManager : GameSystem, IRenderer
 
     public void Dispose()
     {
-
+        GC.SuppressFinalize(this);
     }
 }

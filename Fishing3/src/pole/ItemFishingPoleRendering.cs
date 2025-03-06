@@ -42,7 +42,6 @@ public partial class ItemFishingPole : Item, IRenderableItem
         if (isShadowPass) return true;
 
         if (instance.entity is not EntityPlayer player) return true;
-        if (shader == null) return true;
 
         if (!ReadStack(0, stack, api, out ItemStack? lineStack)) return true;
 
@@ -53,8 +52,8 @@ public partial class ItemFishingPole : Item, IRenderableItem
         float zSway = stack.Attributes.GetFloat("zSway", 0);
 
         // One animation made these NaN, the FUCK.
-        if (float.IsNaN(xSway)) xSway = 0;
-        if (float.IsNaN(zSway)) zSway = 0;
+        //if (float.IsNaN(xSway)) xSway = 0;
+        //if (float.IsNaN(zSway)) zSway = 0;
 
         double lastX = stack.Attributes.GetDouble("lastX", pos.X);
         double lastZ = stack.Attributes.GetDouble("lastZ", pos.Z);
@@ -81,14 +80,9 @@ public partial class ItemFishingPole : Item, IRenderableItem
 
         ShaderProgramBase? lastShader = ShaderProgramBase.CurrentShaderProgram;
 
-        shader.Use();
-
         Vector3d swayedPos = new(pos.X - (xSway * 0.75f), pos.Y - 1.5f, pos.Z - (zSway * 0.75f));
         Vector3 swayNormal = (Vector3)(swayedPos - pos);
         swayNormal.Normalize();
-
-        // Create a quaternion to make up face the sway normal.
-        Quaternion rotation = QuaternionUtility.FromToRotation(Vector3.UnitY, -swayNormal);
 
         string lineCode = lineStack?.Collectible.Attributes["lineType"].AsString() ?? "none";
         Texture lineTex = ClientCache.GetOrCache(lineCode, () =>
@@ -107,12 +101,12 @@ public partial class ItemFishingPole : Item, IRenderableItem
 
             if (ReadStack(1, stack, api, out ItemStack? bobberStack))
             {
-                RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 1f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, bobberStack);
+                RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 1f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, new Vector3(0.5f), bobberStack);
             }
 
             if (ReadStack(2, stack, api, out ItemStack? hookStack))
             {
-                RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 2f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, hookStack);
+                RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 2f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, new Vector3(0.5f), hookStack);
             }
 
             MainAPI.Capi.Render.StandardShader.Stop();
@@ -122,12 +116,12 @@ public partial class ItemFishingPole : Item, IRenderableItem
             float droop = 1f;
             Vector3d bobberPos = bobber.Pos.ToVector();
 
-            if (bobber.behavior is BobberFishing bobberFishing)
+            if (bobber.behavior is BobberReelable bobberFishing)
             {
                 float length = (float)Vector3d.Distance(bobberPos, pos);
                 droop = (bobberFishing.bobber.WatchedAttributes.GetFloat("maxDistance") / length) - 1;
                 droop *= 4;
-                droop = Math.Clamp(droop, 0, 5);
+                droop = Math.Clamp(droop, 0.5f, 5); // Minimum droop.
             }
 
             // Draw the line.
@@ -137,7 +131,7 @@ public partial class ItemFishingPole : Item, IRenderableItem
 
             if (ReadStack(1, stack, api, out ItemStack? bobberStack))
             {
-                RenderBobberItemOpaqueShader(dt, bobberPos, (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, -Vector3.UnitY, bobberStack);
+                RenderBobberItemOpaqueShader(dt, bobberPos, (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, -Vector3.UnitY, new Vector3(0.5f), bobberStack);
             }
 
             if (ReadStack(2, stack, api, out ItemStack? hookStack))
@@ -147,7 +141,7 @@ public partial class ItemFishingPole : Item, IRenderableItem
 
                 FishingLineRenderer.RenderLine(bobberPos, hookPos, 0f, lineTex);
 
-                RenderBobberItemOpaqueShader(dt, hookPos, (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, -Vector3.UnitY, hookStack);
+                RenderBobberItemOpaqueShader(dt, hookPos, (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, -Vector3.UnitY, new Vector3(0.5f), hookStack);
             }
 
             MainAPI.Capi.Render.StandardShader.Stop();
@@ -158,14 +152,14 @@ public partial class ItemFishingPole : Item, IRenderableItem
         return true;
     }
 
-    public static void RenderBobberItemOpaqueShader(float dt, Vector3d position, ShaderProgramBase prog, Vector3 swayNormal, ItemStack stackToRender)
+    public static void RenderBobberItemOpaqueShader(float dt, Vector3d position, ShaderProgramBase prog, Vector3 swayNormal, Vector3 origin, ItemStack stackToRender)
     {
         Vector3d offset = MainAPI.CameraPosition - new Vector3d(MainAPI.Capi.World.Player.Entity.CameraPos.X, MainAPI.Capi.World.Player.Entity.CameraPos.Y, MainAPI.Capi.World.Player.Entity.CameraPos.Z);
 
         Quaternion rotation = QuaternionUtility.FromToRotation(Vector3.UnitY, -swayNormal);
-        Matrix4 modelMatrix = Matrix4.CreateTranslation(-0.5f, -0.5f, -0.5f)
-            * Matrix4.CreateFromQuaternion(rotation)
+        Matrix4 modelMatrix = Matrix4.CreateTranslation(-origin)
             * Matrix4.CreateScale(0.5f, 0.5f, 0.5f)
+            * Matrix4.CreateFromQuaternion(rotation)
             * RenderTools.CameraRelativeTranslation(position + offset);
 
         DummySlot slot = new(stackToRender);

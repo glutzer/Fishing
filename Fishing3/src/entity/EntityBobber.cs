@@ -177,6 +177,6 @@ public class EntityBobber : Entity, IPhysicsTickable
 
     public bool Ticking { get; set; } = true;
 
-    public override double SwimmingOffsetY => 0.75f;
+    public override double SwimmingOffsetY => 0.6f;
     public override float MaterialDensity => behavior != null ? behavior.CanFloat ? 900f : 2000f : 900f;
 }

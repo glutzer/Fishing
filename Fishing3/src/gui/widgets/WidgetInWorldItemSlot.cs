@@ -98,6 +98,7 @@ public class WidgetInWorldItemSlot : WidgetBaseItemGrid
 
         shader.BindTexture(blank, "tex2d");
 
+        // Durability.
         RenderTools.RenderQuad(shader, start.X, start.Y + (size * 0.95f), size * ratio, size * 0.05f);
 
         shader.Uniform("color", Vector4.One);

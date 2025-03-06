@@ -1,6 +1,5 @@
 ﻿using MareLib;
 using System;
-using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
@@ -10,18 +9,6 @@ namespace Fishing3;
 [Item]
 public partial class ItemFishingPole : Item
 {
-    public MareShader? shader;
-
-    public override void OnLoaded(ICoreAPI api)
-    {
-        base.OnLoaded(api);
-
-        if (api is ICoreClientAPI)
-        {
-            shader = MareShaderRegistry.Get("debugfishing");
-        }
-    }
-
     // This is only called on the using client, then the server.
 
     public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
@@ -177,7 +164,7 @@ public partial class ItemFishingPole : Item
     {
         if (!ReadStack(1, slot.Itemstack, api, out ItemStack? bobberStack)) return false;
 
-        string bobberType = bobberStack.Collectible.Attributes["bobberType"].AsString() ?? "BobberFishing";
+        string bobberType = bobberStack.Collectible.Attributes["bobberType"].AsString() ?? "BobberFishable";
         if (bobberType == null) return false;
 
         // Max velocity reached at 2 seconds.
