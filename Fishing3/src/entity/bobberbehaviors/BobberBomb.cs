@@ -1,0 +1,27 @@
+﻿using MareLib;
+using Vintagestory.API.Common;
+
+namespace Fishing3;
+
+[Bobber]
+public class BobberBomb : BobberReelable
+{
+    public override bool CanFloat => false;
+
+    public BobberBomb(EntityBobber bobber, bool isServer) : base(bobber, isServer)
+    {
+    }
+
+    public override void OnAttackStart(bool isServer, ItemSlot rodSlot, EntityPlayer player)
+    {
+        base.OnAttackStart(isServer, rodSlot, player);
+
+        // A better blast system needs to be put in place, with less particles and claim checking (this currently bypasses it completely).
+        if (isServer && player.Controls.ShiftKey)
+        {
+            bobber.Die();
+            MainAPI.Sapi.World.PlaySoundAt("fishing:sounds/pinpull", player, null, true, 16);
+            MainAPI.Sapi.World.CreateExplosion(bobber.ServerPos.AsBlockPos, EnumBlastType.EntityBlast, 4, 4, 0.1f);
+        }
+    }
+}

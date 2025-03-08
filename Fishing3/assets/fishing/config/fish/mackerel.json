@@ -1,0 +1,8 @@
+{
+  "code": "mackerel",
+  "baseKg": 2.5,
+  "model": "fishing:fish/salmon",
+  "textures": {
+    "scales": "fishing:scales/mackerel"
+  }
+}

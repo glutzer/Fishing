@@ -72,7 +72,7 @@ void main() {
   vec4 worldPos = modelMatrix * vec4(pointMid, 1.0);
 
   if (offset.y > 0) {
-    vec4 originY = modelMatrix * vec4(0, 0.1, 0, 1);
+    vec4 originY = modelMatrix * vec4(0, 0.02, 0, 1);
     worldPos.y = max(originY.y, worldPos.y);
   }
 

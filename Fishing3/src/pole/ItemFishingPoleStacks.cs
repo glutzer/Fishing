@@ -1,5 +1,4 @@
-﻿using Fishing3.src;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using Vintagestory.API.Common;
 
 namespace Fishing3;
@@ -40,6 +39,15 @@ public partial class ItemFishingPole : Item, IItemWithInventory
         if (readStack == null) return false;
         readStack.ResolveBlockOrItem(api.World);
         return true;
+    }
+
+    /// <summary>
+    /// Returns if stack was set successfully.
+    /// </summary>
+    public static void SetStack(int slotId, ItemStack poleStack, ItemStack? toSet)
+    {
+        poleStack.Attributes.SetItemstack($"slot{slotId}", toSet);
+        return;
     }
 
     /// <summary>

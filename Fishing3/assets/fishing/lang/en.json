@@ -18,22 +18,22 @@
   "species-dragonfish": "Dragonfish",
   "species-sunfish": "Sunfish",
 
-  "item-rod-bamboo": "Bamboo Rod",
-  "item-rod-metalcopper": "Copper Rod",
-  "item-rod-metaltinbronze": "Tin Bronze Rod",
-  "item-rod-metalbismuthbronze": "Bismuth Bronze Rod",
-  "item-rod-metalblackbronze": "Black Bronze Rod",
-  "item-rod-metaliron": "Iron Rod",
-  "item-rod-metalmeteoriciron": "Meteoric Iron Rod",
-  "item-rod-metalsteel": "Steel Rod",
+  "item-fishingpole-bamboo": "Bamboo Fishing Pole",
+  "item-fishingpole-metalcopper": "Copper Fishing Pole",
+  "item-fishingpole-metaltinbronze": "Tin Bronze Fishing Pole",
+  "item-fishingpole-metalbismuthbronze": "Bismuth Bronze Fishing Pole",
+  "item-fishingpole-metalblackbronze": "Black Bronze Fishing Pole",
+  "item-fishingpole-metaliron": "Iron Fishing Pole",
+  "item-fishingpole-metalmeteoriciron": "Meteoric Iron Fishing Pole",
+  "item-fishingpole-metalsteel": "Steel Fishing Pole",
 
-  "item-metalrod-copper": "Copper Rod Part",
-  "item-metalrod-tinbronze": "Tin Bronze Rod Part",
-  "item-metalrod-bismuthbronze": "Bismuth Bronze Rod Part",
-  "item-metalrod-blackbronze": "Black Bronze Rod Part",
-  "item-metalrod-iron": "Iron Rod Part",
-  "item-metalrod-meteoriciron": "Meteoric Iron Rod Part",
-  "item-metalrod-steel": "Steel Rod Part",
+  "item-metalrod-copper": "Copper Fishing Pole Part",
+  "item-metalrod-tinbronze": "Tin Bronze Fishing Pole Part",
+  "item-metalrod-bismuthbronze": "Bismuth Bronze Fishing Pole Part",
+  "item-metalrod-blackbronze": "Black Bronze Fishing Pole Part",
+  "item-metalrod-iron": "Iron Fishing Pole Part",
+  "item-metalrod-meteoriciron": "Meteoric Iron Fishing Pole Part",
+  "item-metalrod-steel": "Steel Fishing Pole Part",
 
   "item-syringe-metalcopper": "Copper Syringe",
   "item-syringe-metaltinbronze": "Tin Bronze Syringe",
@@ -43,25 +43,10 @@
   "item-syringe-metalmeteoriciron": "Meteoric Iron Syringe",
   "item-syringe-metalsteel": "Steel Syringe",
 
-  "rodstack-line": "Line",
-  "rodstack-bobber": "Bobber",
-  "rodstack-hook": "Hook",
-  "rodstack-bait": "Bait",
-
   "item-line-linen": "Linen Line Spool",
   "item-line-rope": "Rope Line Spool",
 
   "item-bobber-cork": "Cork Bobber",
-  "item-creature-bobber-cork": "Cork Bobber",
-
-  "item-hook-bone": "Bone Hook",
-  "item-hook-metalcopper": "Copper Hook",
-  "item-hook-metaltinbronze": "Tin Bronze Hook",
-  "item-hook-metalbismuthbronze": "Bismuth Bronze Hook",
-  "item-hook-metalblackbronze": "Black Bronze Hook",
-  "item-hook-metaliron": "Iron Hook",
-  "item-hook-metalmeteoriciron": "Meteoric Iron Hook",
-  "item-hook-metalsteel": "Steel Hook",
 
   "item-fishcut-fillet-fresh": "Fresh Fillet",
   "item-fishcut-fillet-smoked": "Smoked Fillet",
@@ -71,14 +56,6 @@
   "item-fishcut-flake-smoked": "Smoked Flake",
   "item-fishcut-serpentmeat-fresh": "Fresh Serpent Meat",
   "item-fishcut-serpentmeat-smoked": "Smoked Serpent Meat",
-
-  "block-cauldron-copper": "Copper Cauldron",
-  "block-cauldron-iron": "Iron Cauldron",
-  "block-cauldron-steel": "Steel Cauldron",
-
-  "block-digester-copper": "Copper Digester",
-  "block-digester-iron": "Iron Digester",
-  "block-digester-steel": "Steel Digester",
 
   "item-flask-small-unlabeled": "Small Flask",
   "item-flask-medium-unlabeled": "Medium Flask",
@@ -91,26 +68,4 @@
   "item-cork": "Cork",
 
   "item-edibleseaweed": "Seaweed",
-
-  "block-flotsam-normal-open": "Open Flotsam",
-  "block-flotsam-copper-open": "Open Copper Flotsam",
-  "block-flotsam-tungsten-open": "Open Tungsten Flotsam",
-
-  "block-flotsam-normal-closed": "Shut Flotsam",
-  "block-flotsam-copper-closed": "Shut Copper Flotsam",
-  "block-flotsam-tungsten-closed": "Shut Tungsten Flotsam",
-
-  "effectname-impendingDoom": "Impending Doom",
-  "effectname-insulation": "Insulation",
-  "effectname-moveSpeed": "Move Speed",
-  "effectname-nightVision": "Night Vision",
-  "effectname-power": "Power",
-  "effectname-regeneration": "Regeneration",
-  "effectname-slowFall": "Feather Falling",
-
-  "effectname-instantHealth": "Instant Healing",
-  "effectname-teleport": "Translocation",
-
-  "effectname-amplifier": "Amplifier",
-  "effectname-racial": "Racial"
 }

@@ -3,7 +3,7 @@ using OpenTK.Mathematics;
 using Vintagestory.API.MathTools;
 using Vintagestory.Client.NoObf;
 
-namespace Fishing3.src.rendering;
+namespace Fishing3;
 
 public static class FishingLineRenderer
 {
@@ -14,48 +14,6 @@ public static class FishingLineRenderer
     {
         CreateCrossFishingLine(0.01f);
         defaultLineTexture = Texture.Create("fishing:textures/lines/linen.png", false, true);
-    }
-
-    /// <summary>
-    /// Render a line.
-    /// Standard droop for poles is 1f.
-    /// </summary>
-    public static void RenderLine(Vector3d startPos, Vector3d endPos, float droopLevel)
-    {
-        ShaderProgramBase? currentShader = ShaderProgramBase.CurrentShaderProgram;
-        Vec4f lightRGBs = MainAPI.Capi.World.BlockAccessor.GetLightRGBs((int)startPos.X, (int)startPos.Y, (int)startPos.Z);
-        MareShader lineShader = MareShaderRegistry.Get("fishingline");
-        lineShader.Use();
-        lineShader.Uniform("droop", droopLevel);
-        lineShader.BindTexture(defaultLineTexture, "tex2d");
-
-        lineShader.ObsoleteUniform("rgbaLightIn", lightRGBs);
-
-        if (startPos.Z == endPos.Z)
-        {
-            endPos.Z += 0.001f;
-        }
-
-        if (startPos.X == endPos.X)
-        {
-            endPos.X += 0.001f;
-        }
-
-        Vector3d offset = MainAPI.CameraPosition - new Vector3d(MainAPI.Capi.World.Player.Entity.CameraPos.X, MainAPI.Capi.World.Player.Entity.CameraPos.Y, MainAPI.Capi.World.Player.Entity.CameraPos.Z);
-        lineShader.Uniform("modelMatrix", RenderTools.CameraRelativeTranslation(endPos + offset));
-
-        lineShader.Uniform("offset", (Vector3)(startPos - endPos));
-
-        lineShader.UniformMatrix("offsetViewMatrix", MainAPI.Capi.Render.CameraMatrixOriginf);
-
-        lineShader.ShadowUniforms();
-        lineShader.LightUniforms(true);
-
-        RenderTools.DisableCulling();
-        RenderTools.RenderMesh(fishingLineMesh);
-        RenderTools.EnableCulling();
-
-        currentShader?.Use();
     }
 
     /// <summary>

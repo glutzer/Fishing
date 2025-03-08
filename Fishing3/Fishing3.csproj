@@ -75,6 +75,10 @@
   </Content>
 </ItemGroup>
 
+<ItemGroup>
+  <Folder Include="assets\game\sounds\effect\" />
+</ItemGroup>
+
 <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

@@ -1,5 +1,4 @@
-﻿using Fishing3.src.rendering;
-using MareLib;
+﻿using MareLib;
 using ProtoBuf;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -85,7 +84,10 @@ public class FishingGameSystem : NetworkedGameSystem
 
     public override void OnClose()
     {
-        FishingLineRenderer.OnEnd();
+        if (!isServer)
+        {
+            FishingLineRenderer.OnEnd();
+        }
     }
 }
 

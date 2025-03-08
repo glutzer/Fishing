@@ -8,7 +8,7 @@
   "textureSizes": {
   },
   "textures": {
-    "cork": "fishing:cork"
+    "cork": "fishing:lines/none"
   },
   "elements": [
     {

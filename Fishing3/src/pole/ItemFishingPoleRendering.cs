@@ -1,6 +1,4 @@
-﻿using Fishing;
-using Fishing3.src.rendering;
-using MareLib;
+﻿using MareLib;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using System;
@@ -51,18 +49,14 @@ public partial class ItemFishingPole : Item, IRenderableItem
         float xSway = stack.Attributes.GetFloat("xSway", 0);
         float zSway = stack.Attributes.GetFloat("zSway", 0);
 
-        // One animation made these NaN, the FUCK.
-        //if (float.IsNaN(xSway)) xSway = 0;
-        //if (float.IsNaN(zSway)) zSway = 0;
-
         double lastX = stack.Attributes.GetDouble("lastX", pos.X);
         double lastZ = stack.Attributes.GetDouble("lastZ", pos.Z);
 
         float deltaX = (float)(pos.X - lastX);
         float deltaZ = (float)(pos.Z - lastZ);
 
-        xSway += deltaX * dt * 20f;
-        zSway += deltaZ * dt * 20f;
+        xSway += deltaX / 2f;
+        zSway += deltaZ / 2f;
 
         xSway = Math.Clamp(xSway, -1f, 1f);
         zSway = Math.Clamp(zSway, -1f, 1f);
@@ -101,15 +95,28 @@ public partial class ItemFishingPole : Item, IRenderableItem
 
             if (ReadStack(1, stack, api, out ItemStack? bobberStack))
             {
-                RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 1f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, new Vector3(0.5f), bobberStack);
+                RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 1f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, new Vector3(0.5f), Vector3.UnitY, bobberStack);
             }
 
             if (ReadStack(2, stack, api, out ItemStack? hookStack))
             {
-                RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 2f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, new Vector3(0.5f), hookStack);
+                RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 2f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, new Vector3(0.5f), Vector3.UnitY, hookStack);
             }
 
-            MainAPI.Capi.Render.StandardShader.Stop();
+            // Bait for now can't put items in catch slot.
+            if (ReadStack(3, stack, api, out ItemStack? catchStack))
+            {
+                if (catchStack.Collectible is ItemFish fish && fish.GetSpecies(catchStack) is FishSpecies species)
+                {
+                    double weight = ItemFish.GetWeight(catchStack);
+
+                    RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 2f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, species.mouthOffset, species.mouthFacing, catchStack, ItemFish.GetScale(weight));
+                }
+                else
+                {
+                    RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 2f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, new Vector3(0.5f), Vector3.UnitY, catchStack);
+                }
+            }
         }
         else
         {
@@ -131,7 +138,7 @@ public partial class ItemFishingPole : Item, IRenderableItem
 
             if (ReadStack(1, stack, api, out ItemStack? bobberStack))
             {
-                RenderBobberItemOpaqueShader(dt, bobberPos, (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, -Vector3.UnitY, new Vector3(0.5f), bobberStack);
+                RenderBobberItemOpaqueShader(dt, bobberPos, (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, -Vector3.UnitY, new Vector3(0.5f), Vector3.UnitY, bobberStack);
             }
 
             if (ReadStack(2, stack, api, out ItemStack? hookStack))
@@ -141,24 +148,30 @@ public partial class ItemFishingPole : Item, IRenderableItem
 
                 FishingLineRenderer.RenderLine(bobberPos, hookPos, 0f, lineTex);
 
-                RenderBobberItemOpaqueShader(dt, hookPos, (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, -Vector3.UnitY, new Vector3(0.5f), hookStack);
+                RenderBobberItemOpaqueShader(dt, hookPos, (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, -Vector3.UnitY, new Vector3(0.5f), Vector3.UnitY, hookStack);
             }
-
-            MainAPI.Capi.Render.StandardShader.Stop();
         }
+
+        // Fix shadow sampler???
+        MainAPI.Capi.Render.StandardShader.BindTexture2D("tex2dOverlay", 0, 1);
+        MainAPI.Capi.Render.StandardShader.Uniform("tex2dOverlay", 0);
+        MainAPI.Capi.Render.StandardShader.Stop();
 
         lastShader?.Use();
 
         return true;
     }
 
-    public static void RenderBobberItemOpaqueShader(float dt, Vector3d position, ShaderProgramBase prog, Vector3 swayNormal, Vector3 origin, ItemStack stackToRender)
+    /// <summary>
+    /// Renders an item in opaque. Assumes the standard shader is active.
+    /// </summary>
+    public static void RenderBobberItemOpaqueShader(float dt, Vector3d position, ShaderProgramBase prog, Vector3 swayNormal, Vector3 origin, Vector3 up, ItemStack stackToRender, float scale = 0.5f)
     {
         Vector3d offset = MainAPI.CameraPosition - new Vector3d(MainAPI.Capi.World.Player.Entity.CameraPos.X, MainAPI.Capi.World.Player.Entity.CameraPos.Y, MainAPI.Capi.World.Player.Entity.CameraPos.Z);
 
-        Quaternion rotation = QuaternionUtility.FromToRotation(Vector3.UnitY, -swayNormal);
+        Quaternion rotation = QuaternionUtility.FromToRotation(up, -swayNormal);
         Matrix4 modelMatrix = Matrix4.CreateTranslation(-origin)
-            * Matrix4.CreateScale(0.5f, 0.5f, 0.5f)
+            * Matrix4.CreateScale(scale, scale, scale)
             * Matrix4.CreateFromQuaternion(rotation)
             * RenderTools.CameraRelativeTranslation(position + offset);
 
@@ -186,9 +199,11 @@ public partial class ItemFishingPole : Item, IRenderableItem
         prog.Uniform("damageEffect", renderInfo.DamageEffect);
 
         prog.Uniform("overlayOpacity", renderInfo.OverlayOpacity);
+
+        prog.BindTexture2D("tex2dOverlay", renderInfo.OverlayTexture?.TextureId ?? 0, 1);
+
         if (renderInfo.OverlayTexture != null && renderInfo.OverlayOpacity > 0)
         {
-            prog.BindTexture2D("tex2dOverlay", renderInfo.OverlayTexture.TextureId, 1);
             prog.Uniform("overlayTextureSize", new Vec2f(renderInfo.OverlayTexture.Width, renderInfo.OverlayTexture.Height));
             prog.Uniform("baseTextureSize", new Vec2f(renderInfo.TextureSize.Width, renderInfo.TextureSize.Height));
             TextureAtlasPosition texPos = MainAPI.Capi.Render.GetTextureAtlasPosition(stackToRender);
@@ -211,6 +226,9 @@ public partial class ItemFishingPole : Item, IRenderableItem
         prog.Uniform(MainAPI.PerspectiveMatrix, "projectionMatrix");
         prog.UniformMatrix("viewMatrix", MainAPI.Capi.Render.CameraMatrixOriginf);
         MainAPI.Capi.Render.RenderMultiTextureMesh(renderInfo.ModelRef, "tex");
+
+        // Fix shadow sampler???
+        prog.Uniform("tex2dOverlay", 0);
     }
 
     public override void OnBeforeRender(ICoreClientAPI capi, ItemStack itemStack, EnumItemRenderTarget target, ref ItemRenderInfo renderinfo)

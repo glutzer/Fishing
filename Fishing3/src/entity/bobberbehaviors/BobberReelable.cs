@@ -39,8 +39,9 @@ public class BobberReelable : BobberBehavior
     public override void ServerInitialize(ItemStack bobberStack, ItemStack rodStack)
     {
         ItemFishingPole.ReadStack(0, rodStack, MainAPI.Sapi, out ItemStack? lineStack);
-        int durability = lineStack?.Collectible.GetRemainingDurability(bobberStack) ?? 1;
-        maxPossibleDistance = durability;
+        // Set line stats...
+
+        maxPossibleDistance = 100;
 
         // Begin at 20, maybe pass seconds used into this method to calculate initial length.
         bobber.WatchedAttributes.SetFloat("maxDistance", 1f);
@@ -68,7 +69,6 @@ public class BobberReelable : BobberBehavior
         if (!isServer)
         {
             currentAnimation = player.Properties.Client.Animations.FirstOrDefault(a => a.Code == "LineReel")!.Clone();
-            FishingPoleSoundManager.Instance.StartSound(player, "fishing:sounds/linereel", dt => { });
             player.AnimManager.StartAnimation(currentAnimation);
         }
     }
@@ -79,38 +79,29 @@ public class BobberReelable : BobberBehavior
 
         if (!isServer)
         {
-            if (currentAnimation != null) currentAnimation.AnimationSpeed = 1; // For some reason, animation with 0 speed can't be stopped.
-            currentAnimation = null;
-            FishingPoleSoundManager.Instance.StopSound(player);
-            player.AnimManager.StopAnimation("LineReel");
+            if (currentAnimation != null)
+            {
+                currentAnimation.AnimationSpeed = 1; // Animation with 0 speed can't be stopped.
+                currentAnimation = null;
+                player.AnimManager.StopAnimation("LineReel");
+            }
         }
     }
 
     public override void OnAttackStart(bool isServer, ItemSlot rodSlot, EntityPlayer player)
     {
-        if (reeling) OnUseEnd(isServer, rodSlot, player);
         if (releasing)
         {
-            OnAttackEnd(isServer, rodSlot, player);
+            releasing = false;
             return;
         }
 
         releasing = true;
-
-        if (!isServer)
-        {
-            FishingPoleSoundManager.Instance.StartSound(player, "fishing:sounds/linereel", dt => { });
-        }
     }
 
     public override void OnAttackEnd(bool isServer, ItemSlot rodSlot, EntityPlayer player)
     {
         releasing = false;
-
-        if (!isServer)
-        {
-            FishingPoleSoundManager.Instance.StopSound(player);
-        }
     }
 
     public override void OnClientTick(float dt)
@@ -124,10 +115,7 @@ public class BobberReelable : BobberBehavior
             currentAnimation.AnimationSpeed = mps / REEL_METERS_PER_ROTATION * 2f;
         }
 
-        if (reeling || releasing)
-        {
-            FishingPoleSoundManager.Instance.UpdatePitchVolume(player, mps / REEL_METERS_PER_ROTATION, mps * 0.2f);
-        }
+        FishingPoleSoundManager.Instance.UpdatePitchVolume(player, Math.Max(mps / REEL_METERS_PER_ROTATION, 0.4f), mps * 0.4f);
     }
 
     /// <summary>

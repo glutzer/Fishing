@@ -40,6 +40,7 @@ public partial class ItemFishingPole : Item
                 }
 
                 byEntity.AnimManager.StartAnimation("ChargeRod");
+                slot.Itemstack.Attributes.SetBool("charge", true);
             }
         }
         else
@@ -52,6 +53,7 @@ public partial class ItemFishingPole : Item
             else
             {
                 byEntity.AnimManager.StartAnimation("ChargeRod");
+                slot.Itemstack.Attributes.SetBool("charge", true);
             }
         }
 
@@ -68,12 +70,13 @@ public partial class ItemFishingPole : Item
         if (byEntity is not EntityPlayer player) return;
         EntityBobber? currentBobber = TryGetBobber(slot, api);
 
+        bool charging = slot.Itemstack.Attributes.GetBool("charge");
+        if (charging) slot.Itemstack.Attributes.RemoveAttribute("charge");
+
         if (currentBobber == null && HasBobber(slot))
         {
             // Bobber is dead, remove it.
             RemoveBobber(slot);
-            //slot.MarkDirty();
-            return;
         }
 
         if (api.Side == EnumAppSide.Client)
@@ -82,7 +85,7 @@ public partial class ItemFishingPole : Item
             {
 
             }
-            else
+            else if (charging)
             {
                 byEntity.AnimManager.StartAnimation("CastRod");
                 byEntity.AnimManager.StopAnimation("ChargeRod");
@@ -95,11 +98,11 @@ public partial class ItemFishingPole : Item
                 currentBobber.behavior?.OnUseEnd(true, slot, player);
                 currentBobber.BroadcastPacket(RodUseType.UseEnd, player);
             }
-            else
+            else if (charging)
             {
+                byEntity.AnimManager.StopAnimation("ChargeRod");
                 byEntity.AnimManager.StartAnimation("CastRod");
                 CastBobber(slot, secondsUsed, byEntity);
-                byEntity.AnimManager.StopAnimation("ChargeRod");
             }
         }
     }

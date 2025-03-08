@@ -1,91 +1,73 @@
 {
-  "editor":
-  {
+  "editor": {
     "allAngles": false,
     "entityTextureMode": false
   },
   "textureWidth": 16,
   "textureHeight": 16,
-  "textureSizes":
-  {
+  "textureSizes": {
   },
-  "textures":
-  {
+  "textures": {
     "bobber": "fishing:bobbers/corkbobber"
   },
-  "elements":
-  [
+  "elements": [
     {
       "name": "Cube1",
-      "from":
-      [
+      "from": [
         7.0,
         0.0,
         7.0
       ],
-      "to":
-      [
+      "to": [
         9.0,
         1.0,
         9.0
       ],
-      "rotationOrigin":
-      [
+      "rotationOrigin": [
         7.0,
         0.0,
         7.0
       ],
-      "faces":
-      {
-        "north":
-        {
+      "faces": {
+        "north": {
           "texture": "#bobber",
-          "uv":
-          [
+          "uv": [
             0.0,
             8.0,
             2.0,
             9.0
           ]
         },
-        "east":
-        {
+        "east": {
           "texture": "#bobber",
-          "uv":
-          [
+          "uv": [
             0.0,
             8.0,
             2.0,
             9.0
           ]
         },
-        "south":
-        {
+        "south": {
           "texture": "#bobber",
-          "uv":
-          [
+          "uv": [
             0.0,
             8.0,
             2.0,
             9.0
           ]
         },
-        "west":
-        {
+        "west": {
           "texture": "#bobber",
-          "uv":
-          [
+          "uv": [
             0.0,
             8.0,
             2.0,
             9.0
           ]
         },
-        "down":
-        {
+        "down": {
           "texture": "#bobber",
-          "uv":
-          [
+          "uv": [
             0.0,
             7.0,
             2.0,
@@ -93,90 +75,73 @@
           ]
         }
       },
-      "children":
-      [
+      "children": [
         {
           "name": "Cube2",
-          "from":
-          [
+          "from": [
             -1.0,
             1.0,
             -1.0
           ],
-          "to":
-          [
+          "to": [
             3.0,
             3.0,
             3.0
           ],
-          "rotationOrigin":
-          [
+          "rotationOrigin": [
             -1.0,
             1.0,
             -1.0
           ],
-          "faces":
-          {
-            "north":
-            {
+          "faces": {
+            "north": {
               "texture": "#bobber",
-              "uv":
-              [
+              "uv": [
                 0.0,
                 7.0,
                 4.0,
                 9.0
               ]
             },
-            "east":
-            {
+            "east": {
               "texture": "#bobber",
-              "uv":
-              [
+              "uv": [
                 0.0,
                 7.0,
                 4.0,
                 9.0
               ]
             },
-            "south":
-            {
+            "south": {
               "texture": "#bobber",
-              "uv":
-              [
+              "uv": [
                 0.0,
                 7.0,
                 4.0,
                 9.0
               ]
             },
-            "west":
-            {
+            "west": {
               "texture": "#bobber",
-              "uv":
-              [
+              "uv": [
                 0.0,
                 7.0,
                 4.0,
                 9.0
               ]
             },
-            "up":
-            {
+            "up": {
               "texture": "#bobber",
-              "uv":
-              [
+              "uv": [
                 0.0,
                 5.0,
                 4.0,
                 9.0
               ]
             },
-            "down":
-            {
+            "down": {
               "texture": "#bobber",
-              "uv":
-              [
+              "uv": [
                 0.0,
                 5.0,
                 4.0,
@@ -184,79 +149,64 @@
               ]
             }
           },
-          "children":
-          [
+          "children": [
             {
               "name": "Cube3",
-              "from":
-              [
+              "from": [
                 1.0,
                 2.0,
                 1.0
               ],
-              "to":
-              [
+              "to": [
                 3.0,
                 3.0,
                 3.0
               ],
-              "rotationOrigin":
-              [
+              "rotationOrigin": [
                 1.0,
                 2.0,
                 1.0
               ],
-              "faces":
-              {
-                "north":
-                {
+              "faces": {
+                "north": {
                   "texture": "#bobber",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     8.0,
                     2.0,
                     9.0
                   ]
                 },
-                "east":
-                {
+                "east": {
                   "texture": "#bobber",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     8.0,
                     2.0,
                     9.0
                   ]
                 },
-                "south":
-                {
+                "south": {
                   "texture": "#bobber",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     8.0,
                     2.0,
                     9.0
                   ]
                 },
-                "west":
-                {
+                "west": {
                   "texture": "#bobber",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     8.0,
                     2.0,
                     9.0
                   ]
                 },
-                "up":
-                {
+                "up": {
                   "texture": "#bobber",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     7.0,
                     2.0,
@@ -264,132 +214,111 @@
                   ]
                 }
               },
-              "children":
-              [
+              "children": [
                 {
                   "name": "Feather1",
-                  "from":
-                  [
+                  "from": [
                     1.0,
                     1.0,
                     0.0
                   ],
-                  "to":
-                  [
+                  "to": [
                     6.0,
                     1.0,
                     2.0
                   ],
-                  "rotationOrigin":
-                  [
+                  "rotationOrigin": [
                     1.0,
                     1.0,
                     0.0
                   ],
                   "rotationY": 22.5,
                   "rotationZ": 45.0,
-                  "faces":
-                  {
-                    "north":
-                    {
+                  "faces": {
+                    "north": {
                       "texture": "#bobber",
-                      "uv":
-                      [
+                      "uv": [
                         0.0,
                         0.0,
                         0.0,
                         0.0
                       ],
-                      "autoUv": false,
-                      "windMode":
-                      [
+                      "windMode": [
                         -1,
                         -1,
                         -1,
                         -1
                       ]
                     },
-                    "east":
-                    {
+                    "east": {
                       "texture": "#bobber",
-                      "uv":
-                      [
+                      "uv": [
                         0.0,
                         0.0,
                         0.0,
                         0.0
                       ],
-                      "autoUv": false,
-                      "windMode":
-                      [
+                      "windMode": [
                         -1,
                         -1,
                         -1,
                         -1
                       ]
                     },
-                    "south":
-                    {
+                    "south": {
                       "texture": "#bobber",
-                      "uv":
-                      [
+                      "uv": [
                         0.0,
                         0.0,
                         0.0,
                         0.0
                       ],
-                      "autoUv": false,
-                      "windMode":
-                      [
+                      "windMode": [
                         -1,
                         -1,
                         -1,
                         -1
                       ]
                     },
-                    "west":
-                    {
+                    "west": {
                       "texture": "#bobber",
-                      "uv":
-                      [
+                      "uv": [
                         0.0,
                         0.0,
                         0.0,
                         0.0
                       ],
-                      "autoUv": false,
-                      "windMode":
-                      [
+                      "windMode": [
                         -1,
                         -1,
                         -1,
                         -1
                       ]
                     },
-                    "up":
-                    {
+                    "up": {
                       "texture": "#bobber",
-                      "uv":
-                      [
+                      "uv": [
                         0.0,
                         13.5,
                         5.0,
                         15.5
+                      ],
+                      "windMode": [
+                        -1,
+                        -1,
+                        -1,
+                        -1
                       ]
                     },
-                    "down":
-                    {
+                    "down": {
                       "texture": "#bobber",
-                      "uv":
-                      [
+                      "uv": [
                         15.0,
                         15.0,
                         16.0,
                         16.0
                       ],
-                      "autoUv": false,
-                      "windMode":
-                      [
+                      "windMode": [
                         -1,
                         -1,
                         -1,
@@ -400,134 +329,107 @@
                 },
                 {
                   "name": "Feather2",
-                  "from":
-                  [
+                  "from": [
                     2.0,
                     1.0,
                     1.0
                   ],
-                  "to":
-                  [
+                  "to": [
                     7.0,
                     1.0,
                     3.0
                   ],
-                  "rotationOrigin":
-                  [
+                  "rotationOrigin": [
                     2.0,
                     1.0,
                     1.0
                   ],
                   "rotationZ": 45.0,
-                  "faces":
-                  {
-                    "north":
-                    {
+                  "faces": {
+                    "north": {
                       "texture": "#bobber",
-                      "uv":
-                      [
+                      "uv": [
                         0.0,
                         0.0,
                         0.0,
                         0.0
                       ],
-                      "autoUv": false,
-                      "windMode":
-                      [
+                      "windMode": [
                         -1,
                         -1,
                         -1,
                         -1
                       ]
                     },
-                    "east":
-                    {
+                    "east": {
                       "texture": "#bobber",
-                      "uv":
-                      [
+                      "uv": [
                         0.0,
                         0.0,
                         0.0,
                         0.0
                       ],
-                      "autoUv": false,
-                      "windMode":
-                      [
+                      "windMode": [
                         -1,
                         -1,
                         -1,
                         -1
                       ]
                     },
-                    "south":
-                    {
+                    "south": {
                       "texture": "#bobber",
-                      "uv":
-                      [
+                      "uv": [
                         0.0,
                         0.0,
                         0.0,
                         0.0
                       ],
-                      "autoUv": false,
-                      "windMode":
-                      [
+                      "windMode": [
                         -1,
                         -1,
                         -1,
                         -1
                       ]
                     },
-                    "west":
-                    {
+                    "west": {
                       "texture": "#bobber",
-                      "uv":
-                      [
+                      "uv": [
                         0.0,
                         0.0,
                         0.0,
                         0.0
                       ],
-                      "autoUv": false,
-                      "windMode":
-                      [
+                      "windMode": [
                         -1,
                         -1,
                         -1,
                         -1
                       ]
                     },
-                    "up":
-                    {
+                    "up": {
                       "texture": "#bobber",
-                      "uv":
-                      [
+                      "uv": [
                         0.0,
                         11.0,
                         5.0,
                         13.0
                       ],
-                      "windMode":
-                      [
+                      "windMode": [
                         -1,
                         -1,
                         -1,
                         -1
                       ]
                     },
-                    "down":
-                    {
+                    "down": {
                       "texture": "#bobber",
-                      "uv":
-                      [
+                      "uv": [
                         15.0,
                         15.0,
                         16.0,
                         16.0
                       ],
-                      "autoUv": false,
-                      "windMode":
-                      [
+                      "windMode": [
                         -1,
                         -1,
                         -1,

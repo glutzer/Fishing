@@ -3,7 +3,7 @@ using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 
-namespace Guilds;
+namespace Fishing3;
 
 public static class GuiThemes
 {

@@ -6,35 +6,38 @@ using Vintagestory.API.MathTools;
 
 namespace Fishing3;
 
-/// <summary>
-/// Instance of a biting fish created when a fish begins nibbling.
-/// </summary>
-public class BitingFishInstance
-{
-
-}
-
 [Bobber]
 public class BobberFishable : BobberReelable
 {
-    public BitingFishInstance? bitingFish;
+    public CaughtInstance? bitingFish;
 
     public const float FISH_MPS = 3f;
     public const float FISH_MASS = 10f;
 
     public BobberFishable(EntityBobber bobber, bool isServer) : base(bobber, isServer)
     {
-        bitingFish = new BitingFishInstance();
+
     }
 
-    public override void OnUseStart(bool isServer, ItemSlot rodSlot, EntityPlayer player)
+    public override void ServerInitialize(ItemStack bobberStack, ItemStack rodStack)
     {
-        base.OnUseStart(isServer, rodSlot, player);
+        base.ServerInitialize(bobberStack, rodStack);
+
+        bitingFish = MainAPI.GetGameSystem<CatchSystem>(EnumAppSide.Server).RollCatch(bobber.Pos.ToVector());
     }
 
-    public override void OnAttackStart(bool isServer, ItemSlot rodSlot, EntityPlayer player)
+    public override void TryCatch()
     {
-        base.OnAttackStart(isServer, rodSlot, player);
+        base.TryCatch();
+
+        if (bobber.Api.World.GetEntityById(bobber.casterId) is not EntityPlayer player) return;
+
+        ItemSlot rodSlot = player.Player.InventoryManager.ActiveHotbarSlot;
+        if (rodSlot.Itemstack == null || rodSlot.Itemstack.Collectible is not ItemFishingPole) return;
+
+        if (bitingFish == null) return;
+
+        ItemFishingPole.SetStack(4, rodSlot.Itemstack, bitingFish.itemStack);
     }
 
     public Vector3d GetFishMovement(Vector3d currentPosition, Vector3d playerPos, float dt)
@@ -46,8 +49,8 @@ public class BobberFishable : BobberReelable
         double cos = Math.Cos(radianOffset);
         double sin = Math.Sin(radianOffset);
 
-        normalToPlayer.X = normalToPlayer.X * cos - normalToPlayer.Z * sin;
-        normalToPlayer.Z = normalToPlayer.X * sin + normalToPlayer.Z * cos;
+        normalToPlayer.X = (normalToPlayer.X * cos) - (normalToPlayer.Z * sin);
+        normalToPlayer.Z = (normalToPlayer.X * sin) + (normalToPlayer.Z * cos);
         normalToPlayer.Normalize();
 
         float motionMulti = !bobber.CollidedVertically && !bobber.Swimming ? 0f : 1f;
@@ -68,6 +71,7 @@ public class BobberFishable : BobberReelable
         Vec3d pos = player.ServerPos.XYZ.Add(0, player.LocalEyePos.Y, 0);
         Vec3d targetNormal = (pos.AheadCopy(1, Math.PI, player.ServerPos.Yaw) - pos).Normalize();
         Vector3d normalVec = new(targetNormal.X, targetNormal.Y, targetNormal.Z);
+        playerPos += normalVec * 3.5f;
         Vector3d diff = currentPosition - playerPos;
 
         // Weight the radian offset to make the normal of the diff point towards the normalVec.
@@ -77,8 +81,6 @@ public class BobberFishable : BobberReelable
 
         radianOffset += angleDifference * 0.1; // Weighting factor of 0.1.
         radianOffset = Math.Clamp(radianOffset, -Math.PI * 0.2f, Math.PI * 0.2f);
-
-        playerPos += normalVec * 3.5f;
 
         float maxDistance = bobber.WatchedAttributes.GetFloat("maxDistance");
         float oldDistance = maxDistance;
@@ -95,7 +97,7 @@ public class BobberFishable : BobberReelable
             // If the fish has moved past the max distance after multipliers, set new.
             if (diff.Length > maxDistance)
             {
-                maxDistance = Math.Min(maxDistance + (float)movement.Length * 0.2f, maxPossibleDistance);
+                maxDistance = Math.Min(maxDistance + ((float)movement.Length * 0.2f), maxPossibleDistance);
             }
         }
         // Fish.
@@ -111,7 +113,7 @@ public class BobberFishable : BobberReelable
             {
                 double dist = Math.Abs(radianOffset) / (Math.PI * 0.2);
 
-                maxDistance -= REEL_METERS_PER_SECOND * dt * (0.2f + (float)dist * 0.2f);
+                maxDistance -= REEL_METERS_PER_SECOND * dt * (0.2f + ((float)dist * 0.2f));
             }
             else
             {

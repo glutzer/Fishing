@@ -1,22 +1,18 @@
 ﻿{
   "code": "bobber",
   "class": "EntityBobber",
-  "hitboxSize":
-  {
+  "hitboxSize": {
     "x": 0.5,
     "y": 0.5
   },
-  "client":
-  {
+  "client": {
     "size": 1,
     "pitchStep": false,
-    "renderer": "shape",
-    "shape":
-    {
-      "base": "fishing:parts/corkbobber"
+    "renderer": "Shape",
+    "shape": {
+      "base": "fishing:empty"
     },
-    "behaviors":
-    [
+    "behaviors": [
       {
         "code": "passivephysics",
         "groundDragFactor": 0.7,
@@ -31,10 +27,8 @@
       }
     ]
   },
-  "server":
-  {
-    "behaviors":
-    [
+  "server": {
+    "behaviors": [
       {
         "code": "passivephysics",
         "groundDragFactor": 0.7,

@@ -127,10 +127,10 @@ public class FishingRegionSystem : NetworkedGameSystem
         double zLerp = position.Z % REGION_SIZE / REGION_SIZE;
 
         // Drain from each based on distance.
-        topLeft.Drain(0.5f * (1f - (float)xLerp) + 0.5f * (1f - (float)zLerp));
-        topRight.Drain(0.5f * (float)xLerp + 0.5f * (1f - (float)zLerp));
-        bottomLeft.Drain(0.5f * (1f - (float)xLerp) + 0.5f * (float)zLerp);
-        bottomRight.Drain(0.5f * (float)xLerp + 0.5f * (float)zLerp);
+        topLeft.Drain((0.5f * (1f - (float)xLerp)) + (0.5f * (1f - (float)zLerp)));
+        topRight.Drain((0.5f * (float)xLerp) + (0.5f * (1f - (float)zLerp)));
+        bottomLeft.Drain((0.5f * (1f - (float)xLerp)) + (0.5f * (float)zLerp));
+        bottomRight.Drain((0.5f * (float)xLerp) + (0.5f * (float)zLerp));
     }
 
     private FishingRegion GetOrGenerateRegion(int regionX, int regionZ)

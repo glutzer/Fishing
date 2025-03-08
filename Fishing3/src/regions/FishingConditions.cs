@@ -1,6 +1,6 @@
 ﻿using Vintagestory.API.Common;
 
-namespace Fishing3.src.regions;
+namespace Fishing3;
 
 public delegate bool ValidCondition(FishingConditions condition);
 

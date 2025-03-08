@@ -3,20 +3,16 @@
   "class": "ItemFishingPole",
   "HeldRightReadyAnimation": "none",
   "HeldLeftReadyAnimation": "none",
-  "shape":
-  {
-    "baseByType":
-    {
+  "shape": {
+    "baseByType": {
       "fishingpole-metal*": "fishing:rods/metal"
     }
   },
   "maxstacksize": 1,
-  "variantgroups":
-  [
+  "variantgroups": [
     {
       "code": "type",
-      "states":
-      [
+      "states": [
         "metalcopper",
         "metaltinbronze",
         "metalbismuthbronze",
@@ -27,59 +23,46 @@
       ]
     }
   ],
-  "texturesByType":
-  {
-    "fishingpole-metal*":
-    {
-      "metalmaterial":
-      {
+  "texturesByType": {
+    "fishingpole-metal*": {
+      "metalmaterial": {
         "base": "fishing:metals/{type}"
       }
     }
   },
-  "creativeinventory":
-  {
-    "general":
-    [
+  "creativeinventory": {
+    "general": [
       "*"
     ],
-    "fishing":
-    [
+    "fishing": [
       "*"
     ]
   },
-  "tpHandTransform":
-  {
-    "translation":
-    {
+  "tpHandTransform": {
+    "translation": {
       "x": -1.2,
       "y": -0.1,
       "z": -0.7
     },
-    "rotation":
-    {
+    "rotation": {
       "x": 0,
       "y": -180,
       "z": 0
     },
     "scale": 0.7
   },
-  "guiTransform":
-  {
-    "translation":
-    {
+  "guiTransform": {
+    "translation": {
       "x": 0,
       "y": 0,
       "z": 0
     },
-    "rotation":
-    {
+    "rotation": {
       "x": -135,
       "y": -50,
       "z": -10
     },
-    "origin":
-    {
+    "origin": {
       "x": 0.4,
       "y": 0.8,
       "z": 1

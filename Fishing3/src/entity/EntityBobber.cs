@@ -142,8 +142,27 @@ public class EntityBobber : Entity, IPhysicsTickable
         }
     }
 
+    public bool IsValid()
+    {
+        if (Api.World.GetEntityById(casterId) is not EntityPlayer player) return false;
+
+        ItemSlot hotbarSlot = player.Player.InventoryManager.ActiveHotbarSlot;
+        if (hotbarSlot.Itemstack == null || hotbarSlot.Itemstack.Collectible is not ItemFishingPole) return false;
+
+        EntityBobber? bobber = ItemFishingPole.TryGetBobber(hotbarSlot, Api);
+        if (bobber == null || bobber.EntityId != EntityId) return false;
+
+        return true;
+    }
+
     public void OnPhysicsTick(float dt)
     {
+        if (!IsValid())
+        {
+            Die();
+            return;
+        }
+
         behavior?.OnServerPhysicsTick(dt);
     }
 
@@ -164,6 +183,7 @@ public class EntityBobber : Entity, IPhysicsTickable
     public override void OnGameTick(float dt)
     {
         base.OnGameTick(dt);
+
         if (Api.Side == EnumAppSide.Client)
         {
             behavior?.OnClientTick(dt);

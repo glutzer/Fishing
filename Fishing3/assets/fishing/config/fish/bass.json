@@ -1,0 +1,8 @@
+{
+  "code": "bass",
+  "baseKg": 5,
+  "model": "fishing:fish/salmon",
+  "textures": {
+    "scales": "fishing:scales/bass"
+  }
+}

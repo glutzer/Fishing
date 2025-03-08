@@ -1,103 +1,83 @@
 {
-  "editor":
-  {
+  "editor": {
     "allAngles": false,
     "entityTextureMode": false
   },
   "textureWidth": 16,
   "textureHeight": 16,
-  "textureSizes":
-  {
+  "textureSizes": {
   },
-  "textures":
-  {
+  "textures": {
     "aged-inside": "game:block/wood/crate/aged-inside",
     "linen": "fishing:lines/linen"
   },
-  "elements":
-  [
+  "elements": [
     {
       "name": "Base",
-      "from":
-      [
+      "from": [
         3.0,
         0.0,
         3.0
       ],
-      "to":
-      [
+      "to": [
         13.0,
         1.0,
         13.0
       ],
-      "rotationOrigin":
-      [
+      "rotationOrigin": [
         3.0,
         0.0,
         3.0
       ],
-      "faces":
-      {
-        "north":
-        {
+      "faces": {
+        "north": {
           "texture": "#aged-inside",
-          "uv":
-          [
+          "uv": [
             0.0,
             0.0,
             10.0,
             1.0
           ]
         },
-        "east":
-        {
+        "east": {
           "texture": "#aged-inside",
-          "uv":
-          [
+          "uv": [
             0.0,
             0.0,
             10.0,
             1.0
           ]
         },
-        "south":
-        {
+        "south": {
           "texture": "#aged-inside",
-          "uv":
-          [
+          "uv": [
             0.0,
             0.0,
             10.0,
             1.0
           ]
         },
-        "west":
-        {
+        "west": {
           "texture": "#aged-inside",
-          "uv":
-          [
+          "uv": [
             0.0,
             0.0,
             10.0,
             1.0
           ]
         },
-        "up":
-        {
+        "up": {
           "texture": "#aged-inside",
-          "uv":
-          [
+          "uv": [
             0.0,
             0.0,
             10.0,
             10.0
           ]
         },
-        "down":
-        {
+        "down": {
           "texture": "#aged-inside",
-          "uv":
-          [
+          "uv": [
             0.0,
             0.0,
             10.0,
@@ -105,75 +85,55 @@
           ]
         }
       },
-      "children":
-      [
+      "children": [
         {
           "name": "Base2",
-          "from":
-          [
+          "from": [
             1.0,
             1.0,
             1.0
           ],
-          "to":
-          [
+          "to": [
             9.0,
             8.0,
             9.0
           ],
-          "rotationOrigin":
-          [
+          "rotationOrigin": [
             1.0,
             1.0,
             1.0
           ],
-          "faces":
-          {
-            "north":
-            {
+          "faces": {
+            "north": {
               "texture": "#aged-inside",
-              "uv":
-              [
-                0.0,
-                0.0,
-                8.0,
-                7.0
-              ],
-              "windMode":
-              [
-                -1,
-                -1,
-                -1,
-                -1
-              ]
-            },
-            "east":
-            {
-              "texture": "#aged-inside",
-              "uv":
-              [
+              "uv": [
                 0.0,
                 0.0,
                 8.0,
                 7.0
               ]
             },
-            "south":
-            {
+            "east": {
               "texture": "#aged-inside",
-              "uv":
-              [
+              "uv": [
                 0.0,
                 0.0,
                 8.0,
                 7.0
               ]
             },
-            "west":
-            {
+            "south": {
               "texture": "#aged-inside",
-              "uv":
-              [
+              "uv": [
+                0.0,
+                0.0,
+                8.0,
+                7.0
+              ]
+            },
+            "west": {
+              "texture": "#aged-inside",
+              "uv": [
                 0.0,
                 0.0,
                 8.0,
@@ -181,91 +141,74 @@
               ]
             }
           },
-          "children":
-          [
+          "children": [
             {
               "name": "Spool1",
-              "from":
-              [
+              "from": [
                 -0.25,
                 0.0,
                 -0.25
               ],
-              "to":
-              [
+              "to": [
                 8.25,
                 0.5,
                 8.25
               ],
-              "rotationOrigin":
-              [
+              "rotationOrigin": [
                 -0.25,
                 0.0,
                 -0.25
               ],
               "rotationZ": -2.0,
-              "faces":
-              {
-                "north":
-                {
+              "faces": {
+                "north": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "east":
-                {
+                "east": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "south":
-                {
+                "south": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "west":
-                {
+                "west": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "up":
-                {
+                "up": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     8.5
                   ]
                 },
-                "down":
-                {
+                "down": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
@@ -276,87 +219,71 @@
             },
             {
               "name": "Spool2",
-              "from":
-              [
+              "from": [
                 -0.25,
                 0.6,
                 -0.25
               ],
-              "to":
-              [
+              "to": [
                 8.25,
                 1.1,
                 8.25
               ],
-              "rotationOrigin":
-              [
+              "rotationOrigin": [
                 -0.2,
                 0.6,
                 -0.2
               ],
               "rotationZ": -2.0,
-              "faces":
-              {
-                "north":
-                {
+              "faces": {
+                "north": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "east":
-                {
+                "east": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "south":
-                {
+                "south": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "west":
-                {
+                "west": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "up":
-                {
+                "up": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     8.5
                   ]
                 },
-                "down":
-                {
+                "down": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
@@ -367,87 +294,71 @@
             },
             {
               "name": "Spool3",
-              "from":
-              [
+              "from": [
                 -0.25,
                 1.2,
                 -0.25
               ],
-              "to":
-              [
+              "to": [
                 8.25,
                 1.7,
                 8.25
               ],
-              "rotationOrigin":
-              [
+              "rotationOrigin": [
                 -0.25,
                 1.2,
                 -0.25
               ],
               "rotationZ": -2.0,
-              "faces":
-              {
-                "north":
-                {
+              "faces": {
+                "north": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "east":
-                {
+                "east": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "south":
-                {
+                "south": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "west":
-                {
+                "west": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "up":
-                {
+                "up": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     8.5
                   ]
                 },
-                "down":
-                {
+                "down": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
@@ -458,87 +369,71 @@
             },
             {
               "name": "Spool4",
-              "from":
-              [
+              "from": [
                 -0.25,
                 1.8,
                 -0.25
               ],
-              "to":
-              [
+              "to": [
                 8.25,
                 2.3,
                 8.25
               ],
-              "rotationOrigin":
-              [
+              "rotationOrigin": [
                 -0.25,
                 1.8,
                 -0.25
               ],
               "rotationZ": -2.0,
-              "faces":
-              {
-                "north":
-                {
+              "faces": {
+                "north": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "east":
-                {
+                "east": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "south":
-                {
+                "south": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "west":
-                {
+                "west": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "up":
-                {
+                "up": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     8.5
                   ]
                 },
-                "down":
-                {
+                "down": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
@@ -549,87 +444,71 @@
             },
             {
               "name": "Spool5",
-              "from":
-              [
+              "from": [
                 -0.25,
                 2.4,
                 -0.25
               ],
-              "to":
-              [
+              "to": [
                 8.25,
                 2.9,
                 8.25
               ],
-              "rotationOrigin":
-              [
+              "rotationOrigin": [
                 -0.25,
                 2.4,
                 -0.25
               ],
               "rotationZ": -2.0,
-              "faces":
-              {
-                "north":
-                {
+              "faces": {
+                "north": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "east":
-                {
+                "east": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "south":
-                {
+                "south": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "west":
-                {
+                "west": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "up":
-                {
+                "up": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     8.5
                   ]
                 },
-                "down":
-                {
+                "down": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
@@ -640,87 +519,71 @@
             },
             {
               "name": "Spool6",
-              "from":
-              [
+              "from": [
                 -0.25,
                 3.0,
                 -0.25
               ],
-              "to":
-              [
+              "to": [
                 8.25,
                 3.5,
                 8.25
               ],
-              "rotationOrigin":
-              [
+              "rotationOrigin": [
                 -0.25,
                 3.0,
                 -0.25
               ],
               "rotationZ": -2.0,
-              "faces":
-              {
-                "north":
-                {
+              "faces": {
+                "north": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "east":
-                {
+                "east": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "south":
-                {
+                "south": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "west":
-                {
+                "west": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "up":
-                {
+                "up": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     8.5
                   ]
                 },
-                "down":
-                {
+                "down": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
@@ -731,87 +594,71 @@
             },
             {
               "name": "Spool7",
-              "from":
-              [
+              "from": [
                 -0.25,
                 3.6,
                 -0.25
               ],
-              "to":
-              [
+              "to": [
                 8.25,
                 4.1,
                 8.25
               ],
-              "rotationOrigin":
-              [
+              "rotationOrigin": [
                 -0.25,
                 3.6,
                 -0.25
               ],
               "rotationZ": -2.0,
-              "faces":
-              {
-                "north":
-                {
+              "faces": {
+                "north": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "east":
-                {
+                "east": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "south":
-                {
+                "south": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "west":
-                {
+                "west": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "up":
-                {
+                "up": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     8.5
                   ]
                 },
-                "down":
-                {
+                "down": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
@@ -822,87 +669,71 @@
             },
             {
               "name": "Spool8",
-              "from":
-              [
+              "from": [
                 -0.25,
                 4.2,
                 -0.25
               ],
-              "to":
-              [
+              "to": [
                 8.25,
                 4.7,
                 8.25
               ],
-              "rotationOrigin":
-              [
+              "rotationOrigin": [
                 -0.25,
                 4.2,
                 -0.25
               ],
               "rotationZ": -2.0,
-              "faces":
-              {
-                "north":
-                {
+              "faces": {
+                "north": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "east":
-                {
+                "east": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "south":
-                {
+                "south": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "west":
-                {
+                "west": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "up":
-                {
+                "up": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     8.5
                   ]
                 },
-                "down":
-                {
+                "down": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
@@ -913,87 +744,71 @@
             },
             {
               "name": "Spool9",
-              "from":
-              [
+              "from": [
                 -0.25,
                 4.8,
                 -0.25
               ],
-              "to":
-              [
+              "to": [
                 8.25,
                 5.3,
                 8.25
               ],
-              "rotationOrigin":
-              [
+              "rotationOrigin": [
                 -0.25,
                 4.8,
                 -0.25
               ],
               "rotationZ": -2.0,
-              "faces":
-              {
-                "north":
-                {
+              "faces": {
+                "north": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "east":
-                {
+                "east": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "south":
-                {
+                "south": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "west":
-                {
+                "west": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "up":
-                {
+                "up": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     8.5
                   ]
                 },
-                "down":
-                {
+                "down": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
@@ -1004,87 +819,71 @@
             },
             {
               "name": "Spool10",
-              "from":
-              [
+              "from": [
                 -0.25,
                 5.4,
                 -0.25
               ],
-              "to":
-              [
+              "to": [
                 8.25,
                 5.9,
                 8.25
               ],
-              "rotationOrigin":
-              [
+              "rotationOrigin": [
                 -0.25,
                 5.4,
                 -0.25
               ],
               "rotationZ": -2.0,
-              "faces":
-              {
-                "north":
-                {
+              "faces": {
+                "north": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "east":
-                {
+                "east": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "south":
-                {
+                "south": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "west":
-                {
+                "west": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "up":
-                {
+                "up": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     8.5
                   ]
                 },
-                "down":
-                {
+                "down": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
@@ -1095,87 +894,71 @@
             },
             {
               "name": "Spool11",
-              "from":
-              [
+              "from": [
                 -0.25,
                 6.0,
                 -0.25
               ],
-              "to":
-              [
+              "to": [
                 8.25,
                 6.5,
                 8.25
               ],
-              "rotationOrigin":
-              [
+              "rotationOrigin": [
                 -0.25,
                 6.0,
                 -0.25
               ],
               "rotationZ": -2.0,
-              "faces":
-              {
-                "north":
-                {
+              "faces": {
+                "north": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "east":
-                {
+                "east": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "south":
-                {
+                "south": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "west":
-                {
+                "west": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "up":
-                {
+                "up": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     8.5
                   ]
                 },
-                "down":
-                {
+                "down": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
@@ -1186,87 +969,71 @@
             },
             {
               "name": "Spool12",
-              "from":
-              [
+              "from": [
                 -0.25,
                 6.6,
                 -0.25
               ],
-              "to":
-              [
+              "to": [
                 8.25,
                 7.1,
                 8.25
               ],
-              "rotationOrigin":
-              [
+              "rotationOrigin": [
                 -0.25,
                 6.6,
                 -0.25
               ],
               "rotationZ": -2.0,
-              "faces":
-              {
-                "north":
-                {
+              "faces": {
+                "north": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "east":
-                {
+                "east": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "south":
-                {
+                "south": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "west":
-                {
+                "west": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     0.5
                   ]
                 },
-                "up":
-                {
+                "up": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
                     8.5
                   ]
                 },
-                "down":
-                {
+                "down": {
                   "texture": "#linen",
-                  "uv":
-                  [
+                  "uv": [
                     0.0,
                     0.0,
                     8.5,
@@ -1279,86 +1046,70 @@
         },
         {
           "name": "Base3",
-          "from":
-          [
+          "from": [
             0.0,
             8.0,
             0.0
           ],
-          "to":
-          [
+          "to": [
             10.0,
             9.0,
             10.0
           ],
-          "rotationOrigin":
-          [
+          "rotationOrigin": [
             0.0,
             8.0,
             0.0
           ],
-          "faces":
-          {
-            "north":
-            {
+          "faces": {
+            "north": {
               "texture": "#aged-inside",
-              "uv":
-              [
+              "uv": [
                 0.0,
                 0.0,
                 10.0,
                 1.0
               ]
             },
-            "east":
-            {
+            "east": {
               "texture": "#aged-inside",
-              "uv":
-              [
+              "uv": [
                 0.0,
                 0.0,
                 10.0,
                 1.0
               ]
             },
-            "south":
-            {
+            "south": {
               "texture": "#aged-inside",
-              "uv":
-              [
+              "uv": [
                 0.0,
                 0.0,
                 10.0,
                 1.0
               ]
             },
-            "west":
-            {
+            "west": {
               "texture": "#aged-inside",
-              "uv":
-              [
+              "uv": [
                 0.0,
                 0.0,
                 10.0,
                 1.0
               ]
             },
-            "up":
-            {
+            "up": {
               "texture": "#aged-inside",
-              "uv":
-              [
+              "uv": [
                 0.0,
                 0.0,
                 10.0,
                 10.0
               ]
             },
-            "down":
-            {
+            "down": {
               "texture": "#aged-inside",
-              "uv":
-              [
+              "uv": [
                 0.0,
                 0.0,
                 10.0,

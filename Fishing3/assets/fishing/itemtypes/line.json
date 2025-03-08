@@ -3,82 +3,56 @@
   "HeldRightReadyAnimation": "none",
   "HeldLeftReadyAnimation": "none",
   "maxstacksize": 1,
-  "variantgroups":
-  [
+  "variantgroups": [
     {
       "code": "type",
-      "states":
-      [
+      "states": [
         "linen",
         "rope"
       ]
     }
   ],
-  "attributes":
-  {
-    "lineTypeByType":
-    {
+  "attributes": {
+    "lineTypeByType": {
       "line-linen": "linen",
       "line-rope": "rope"
-    },
-    "lineMinTensionByType":
-    {
-      "line-linen": 1,
-      "line-rope": 2
-    },
-    "lineMaxTensionByType":
-    {
-      "line-linen": 10,
-      "line-rope": 20
     }
   },
-  "durabilityByType":
-  {
+  "durabilityByType": {
     "line-linen": 200,
     "line-rope": 100
   },
-  "shape":
-  {
+  "shape": {
     "base": "fishing:parts/line"
   },
-  "textures":
-  {
-    "linen":
-    {
-      "baseByType":
-      {
+  "textures": {
+    "linen": {
+      "baseByType": {
         "line-linen": "fishing:lines/linen",
         "line-rope": "fishing:lines/rope"
       }
     }
   },
-  "creativeinventory":
-  {
-    "general":
-    [
+  "creativeinventory": {
+    "general": [
       "*"
     ],
-    "fishing":
-    [
+    "fishing": [
       "*"
     ]
   },
-  "guiTransform":
-  {
-    "translation":
-    {
+  "guiTransform": {
+    "translation": {
       "x": 0,
       "y": 0,
       "z": 0
     },
-    "rotation":
-    {
+    "rotation": {
       "x": -20,
       "y": 20,
       "z": -1
     },
-    "origin":
-    {
+    "origin": {
       "x": 0.64,
       "y": 0.44,
       "z": 0
