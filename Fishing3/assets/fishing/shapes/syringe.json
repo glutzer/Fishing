@@ -1,0 +1,212 @@
+{
+  "editor": {
+    "collapsedPaths": "Root/Syringe",
+    "allAngles": false,
+    "entityTextureMode": false
+  },
+  "textureWidth": 16,
+  "textureHeight": 16,
+  "textureSizes": {
+  },
+  "textures": {
+    "cork": "fishing:cork",
+    "glass": "fishing:glass",
+    "metalsteel": "fishing:metals/metalsteel",
+    "solution": "fishing:solution"
+  },
+  "elements": [
+    {
+      "name": "Contents",
+      "from": [ 7.1, -0.5, 7.1 ],
+      "to": [ 8.9, 11.0, 8.9 ],
+      "rotationOrigin": [ 7.1, -0.5, 7.1 ],
+      "faces": {
+        "north": {
+          "texture": "#solution",
+          "uv": [ 0.0, 0.0, 1.5, 11.5 ]
+        },
+        "east": {
+          "texture": "#solution",
+          "uv": [ 0.0, 0.0, 1.5, 11.5 ]
+        },
+        "south": {
+          "texture": "#solution",
+          "uv": [ 0.0, 0.0, 1.5, 11.5 ]
+        },
+        "west": {
+          "texture": "#solution",
+          "uv": [ 0.0, 0.0, 1.5, 11.5 ]
+        },
+        "up": {
+          "texture": "#solution",
+          "uv": [ 0.0, 0.0, 1.5, 1.5 ]
+        },
+        "down": {
+          "texture": "#solution",
+          "uv": [ 0.0, 0.0, 1.5, 1.5 ]
+        }
+      }
+    },
+    {
+      "name": "Syringe",
+      "from": [ 7.0, -2.0, 7.0 ],
+      "to": [ 9.0, 0.5, 9.0 ],
+      "rotationOrigin": [ 7.0, -2.0, 7.0 ],
+      "faces": {
+        "north": {
+          "texture": "#metalsteel",
+          "uv": [ 0.0, 0.0, 2.0, 2.5 ]
+        },
+        "east": {
+          "texture": "#metalsteel",
+          "uv": [ 0.0, 0.0, 2.0, 2.5 ]
+        },
+        "south": {
+          "texture": "#metalsteel",
+          "uv": [ 0.0, 0.0, 2.0, 2.5 ]
+        },
+        "west": {
+          "texture": "#metalsteel",
+          "uv": [ 0.0, 0.0, 2.0, 2.5 ]
+        },
+        "up": {
+          "texture": "#metalsteel",
+          "uv": [ 0.0, 0.0, 2.0, 2.0 ]
+        },
+        "down": {
+          "texture": "#metalsteel",
+          "uv": [ 0.0, 0.0, 2.0, 2.0 ]
+        }
+      },
+      "children": [
+        {
+          "name": "Syringe2",
+          "from": [ 0.75, -6.0, 0.75 ],
+          "to": [ 1.25, 0.0, 1.25 ],
+          "rotationOrigin": [ 0.7, -6.0, 0.7 ],
+          "faces": {
+            "north": {
+              "texture": "#metalsteel",
+              "uv": [ 0.0, 0.0, 0.5, 6.0 ]
+            },
+            "east": {
+              "texture": "#metalsteel",
+              "uv": [ 0.0, 0.0, 0.5, 6.0 ]
+            },
+            "south": {
+              "texture": "#metalsteel",
+              "uv": [ 0.0, 0.0, 0.5, 6.0 ]
+            },
+            "west": {
+              "texture": "#metalsteel",
+              "uv": [ 0.0, 0.0, 0.5, 6.0 ]
+            },
+            "down": {
+              "texture": "#metalsteel",
+              "uv": [ 0.0, 0.0, 0.5, 0.5 ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Plunger1",
+      "from": [ 7.0, 11.5, 7.0 ],
+      "to": [ 9.0, 13.0, 9.0 ],
+      "rotationOrigin": [ 7.0, 11.5, 7.0 ],
+      "faces": {
+        "north": {
+          "texture": "#cork",
+          "uv": [ 0.0, 0.0, 4.0, 2.0 ],
+          "autoUv": false,
+          "windMode": [ -1, -1, -1, -1 ]
+        },
+        "east": {
+          "texture": "#cork",
+          "uv": [ 0.0, 0.0, 4.0, 2.0 ],
+          "autoUv": false
+        },
+        "south": {
+          "texture": "#cork",
+          "uv": [ 0.0, 0.0, 4.0, 2.0 ],
+          "autoUv": false
+        },
+        "west": {
+          "texture": "#cork",
+          "uv": [ 0.0, 0.0, 4.0, 2.0 ],
+          "autoUv": false
+        },
+        "down": {
+          "texture": "#cork",
+          "uv": [ 0.0, 0.0, 4.0, 4.0 ],
+          "autoUv": false
+        }
+      }
+    },
+    {
+      "name": "Plunger2",
+      "from": [ 6.5, 13.0, 6.5 ],
+      "to": [ 9.5, 14.0, 9.5 ],
+      "rotationOrigin": [ 6.5, 12.0, 6.5 ],
+      "faces": {
+        "north": {
+          "texture": "#metalsteel",
+          "uv": [ 0.0, 0.0, 3.0, 1.0 ]
+        },
+        "east": {
+          "texture": "#metalsteel",
+          "uv": [ 0.0, 0.0, 3.0, 1.0 ]
+        },
+        "south": {
+          "texture": "#metalsteel",
+          "uv": [ 0.0, 0.0, 3.0, 1.0 ]
+        },
+        "west": {
+          "texture": "#metalsteel",
+          "uv": [ 0.0, 0.0, 3.0, 1.0 ]
+        },
+        "up": {
+          "texture": "#metalsteel",
+          "uv": [ 0.0, 0.0, 3.0, 3.0 ],
+          "windMode": [ -1, -1, -1, -1 ]
+        },
+        "down": {
+          "texture": "#metalsteel",
+          "uv": [ 0.0, 0.0, 3.0, 3.0 ]
+        }
+      }
+    },
+    {
+      "name": "Vial1",
+      "from": [ 6.5, 0.0, 6.5 ],
+      "to": [ 9.5, 12.0, 9.5 ],
+      "rotationOrigin": [ 6.5, 0.0, 6.5 ],
+      "faces": {
+        "north": {
+          "texture": "#glass",
+          "uv": [ 0.0, 0.0, 3.0, 12.0 ]
+        },
+        "east": {
+          "texture": "#glass",
+          "uv": [ 0.0, 0.0, 3.0, 12.0 ]
+        },
+        "south": {
+          "texture": "#glass",
+          "uv": [ 0.0, 0.0, 3.0, 12.0 ]
+        },
+        "west": {
+          "texture": "#glass",
+          "uv": [ 0.0, 0.0, 3.0, 12.0 ]
+        },
+        "up": {
+          "texture": "#glass",
+          "uv": [ 0.0, 0.0, 3.0, 3.0 ]
+        },
+        "down": {
+          "texture": "#glass",
+          "uv": [ 0.0, 0.0, 3.0, 3.0 ]
+        }
+      }
+    }
+  ]
+}

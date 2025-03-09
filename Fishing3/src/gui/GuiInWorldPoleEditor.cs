@@ -40,36 +40,28 @@ public class GuiInWorldPoleEditor : Gui
 
     public override void PopulateWidgets()
     {
-        AddWidget(new WidgetInWorldItemSlot(new ItemSlot[] { rodSlot[4] }, 1, 1, 96, null, () =>
+        AddWidget(new WidgetInWorldItemSlot(new ItemSlot[] { rodSlot[3] }, 1, 1, 96, null, () =>
         {
             return ItemFishingPole.GetSwayedPosition(MainAPI.Capi.World.Player.Entity, 2f);
         }, "Catch", () =>
         {
-            return rodSlot[4].Itemstack != null;
-        }, false));
-
-        AddWidget(new WidgetInWorldItemSlot(new ItemSlot[] { rodSlot[3] }, 1, 1, 96, null, () =>
-        {
-            return ItemFishingPole.GetSwayedPosition(MainAPI.Capi.World.Player.Entity, 2f);
-        }, "Bait", () =>
-        {
-            return rodSlot[0].Itemstack != null && rodSlot[4].Itemstack == null;
+            return rodSlot[3].Itemstack != null;
         }, false));
 
         AddWidget(new WidgetInWorldItemSlot(new ItemSlot[] { rodSlot[2] }, 1, 1, 96, null, () =>
         {
-            return ItemFishingPole.GetSwayedPosition(MainAPI.Capi.World.Player.Entity, 1f);
-        }, "Hook", () =>
+            return ItemFishingPole.GetSwayedPosition(MainAPI.Capi.World.Player.Entity, 2f);
+        }, "Bait", () =>
         {
-            return rodSlot[0].Itemstack != null && rodSlot[4].Itemstack == null;
+            return rodSlot[0].Itemstack != null && rodSlot[3].Itemstack == null;
         }, false));
 
         AddWidget(new WidgetInWorldItemSlot(new ItemSlot[] { rodSlot[1] }, 1, 1, 96, null, () =>
         {
-            return ItemFishingPole.GetSwayedPosition(MainAPI.Capi.World.Player.Entity, 0f);
+            return ItemFishingPole.GetSwayedPosition(MainAPI.Capi.World.Player.Entity, 1f);
         }, "Bobber", () =>
         {
-            return rodSlot[0].Itemstack != null && rodSlot[4].Itemstack == null;
+            return rodSlot[0].Itemstack != null && rodSlot[3].Itemstack == null;
         }, false));
 
         AddWidget(new WidgetInWorldItemSlot(new ItemSlot[] { rodSlot[0] }, 1, 1, 96, null, () =>
@@ -78,7 +70,7 @@ public class GuiInWorldPoleEditor : Gui
             return position;
         }, "Line", () =>
         {
-            return true;
+            return rodSlot[3].Itemstack == null;
         }, true));
     }
 }

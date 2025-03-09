@@ -37,10 +37,6 @@
       },
       {
         "code": "floatupwhenstuck"
-      },
-      {
-        "code": "despawn",
-        "minSeconds": 200
       }
     ]
   }

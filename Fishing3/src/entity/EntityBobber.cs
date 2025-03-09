@@ -5,6 +5,7 @@ using System.IO;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.Util;
 
 namespace Fishing3;
@@ -42,6 +43,7 @@ public enum RodUseType
 public class EntityBobber : Entity, IPhysicsTickable
 {
     public BobberBehavior? behavior;
+    public ItemSlot? rodSlot;
     public string? bobberClass;
     public long casterId;
 
@@ -55,14 +57,22 @@ public class EntityBobber : Entity, IPhysicsTickable
         }
     }
 
+    public EntityPlayer? GetCaster()
+    {
+        if (Api.World.GetEntityById(casterId) is not EntityPlayer player) return null;
+        return player;
+    }
+
     /// <summary>
     /// Called on the server when initializing when cast.
     /// </summary>
-    public void SetPlayerAndBobber(EntityPlayer player, string bobberType, ItemStack bobberStack, ItemStack rodStack)
+    public void SetPlayerAndBobber(EntityPlayer player, string bobberType, ItemStack bobberStack, ItemStack rodStack, JsonObject properties)
     {
         casterId = player.EntityId;
         bobberClass = bobberType;
-        behavior = MainAPI.GetGameSystem<BobberRegistry>(Api.Side).TryCreateAndInitializeBobber(bobberClass, this, bobberStack, rodStack);
+        behavior = MainAPI.GetGameSystem<BobberRegistry>(Api.Side).TryCreateAndInitializeBobber(bobberClass, this, bobberStack, rodStack, properties);
+
+        rodSlot = player.Player.InventoryManager.ActiveHotbarSlot;
     }
 
     public override void ToBytes(BinaryWriter writer, bool forClient)
@@ -86,7 +96,7 @@ public class EntityBobber : Entity, IPhysicsTickable
         {
             bobberClass = bClass;
             behavior?.Dispose(null);
-            behavior = MainAPI.GetGameSystem<BobberRegistry>(forClient ? EnumAppSide.Client : EnumAppSide.Server).TryCreateAndInitializeBobber(bobberClass, this, null, null);
+            behavior = MainAPI.GetGameSystem<BobberRegistry>(forClient ? EnumAppSide.Client : EnumAppSide.Server).TryCreateAndInitializeBobber(bobberClass, this, null, null, null);
         }
 
         behavior?.FromBytes(reader, forClient);
@@ -157,13 +167,24 @@ public class EntityBobber : Entity, IPhysicsTickable
 
     public void OnPhysicsTick(float dt)
     {
-        if (!IsValid())
+        if (!IsValid() && Alive)
         {
+            if (MainAPI.Sapi.World.GetEntityById(casterId) is EntityPlayer player)
+            {
+                MainAPI.Sapi.World.PlaySoundAt("fishing:sounds/linesnap", player.Pos.X, player.Pos.Y, player.Pos.Z, null, true, 16);
+            }
+
             Die();
             return;
         }
 
         behavior?.OnServerPhysicsTick(dt);
+    }
+
+    public override void OnCollided()
+    {
+        base.OnCollided();
+        behavior?.OnCollided();
     }
 
     public void AfterPhysicsTick(float dt)

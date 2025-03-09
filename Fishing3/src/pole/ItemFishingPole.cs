@@ -1,5 +1,6 @@
 ﻿using MareLib;
 using System;
+using System.Text;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
@@ -149,12 +150,6 @@ public partial class ItemFishingPole : Item
             {
                 currentBobber.behavior?.OnAttackEnd(true, slot, player);
                 currentBobber.BroadcastPacket(RodUseType.AttackEnd, player);
-
-                if (byEntity.Controls.ShiftKey)
-                {
-                    currentBobber.Die();
-                    RemoveBobber(slot);
-                }
             }
         }
     }
@@ -165,13 +160,17 @@ public partial class ItemFishingPole : Item
     /// </summary>
     public bool CastBobber(ItemSlot slot, float secondsUsed, Entity byEntity)
     {
-        if (!ReadStack(1, slot.Itemstack, api, out ItemStack? bobberStack)) return false;
+        if (!ReadStack(1, slot.Itemstack, api, out ItemStack? bobberStack) || !ReadStack(0, slot.Itemstack, api, out ItemStack? _)) return false;
 
-        string bobberType = bobberStack.Collectible.Attributes["bobberType"].AsString() ?? "BobberFishable";
+        // Get CollectibleBehavior.
+        CollectibleBehaviorBobber? behavior = bobberStack.Collectible.GetBehavior<CollectibleBehaviorBobber>();
+        if (behavior == null) return false;
+
+        string bobberType = behavior.bobberType;
         if (bobberType == null) return false;
 
         // Max velocity reached at 2 seconds.
-        float velocityMultiplier = Math.Clamp(secondsUsed / 2, 0, 1) * /*velocity*/ 1;
+        float velocityMultiplier = Math.Clamp(secondsUsed / 2, 0, 1);
 
         // Spawn entity.
         EntityProperties type = api.World.GetEntityType(new AssetLocation($"fishing:bobber"));
@@ -188,7 +187,7 @@ public partial class ItemFishingPole : Item
 
         api.World.SpawnEntity(newBobber);
 
-        newBobber.SetPlayerAndBobber((EntityPlayer)byEntity, bobberType, bobberStack, slot.Itemstack);
+        newBobber.SetPlayerAndBobber((EntityPlayer)byEntity, bobberType, bobberStack, slot.Itemstack, behavior.properties);
 
         // Set the bobber to the rod.
         SetBobber(newBobber, slot);
@@ -223,5 +222,11 @@ public partial class ItemFishingPole : Item
     {
         EntityBobber? bobber = TryGetBobber(activeHotbarSlot, api);
         return bobber != null ? "RodIdle" : "HoldRod";
+    }
+
+    public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
+    {
+        base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
+        dsc.AppendLine("Sneak and interact to open editor");
     }
 }

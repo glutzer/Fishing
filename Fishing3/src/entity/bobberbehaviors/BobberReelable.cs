@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 namespace Fishing3;
@@ -19,6 +20,7 @@ public class BobberReelable : BobberBehavior
     public bool releasing;
     public float maxPossibleDistance;
     public AnimationMetaData? currentAnimation;
+    public CollTester collisionTester = new();
 
     /// <summary>
     /// How many meters of line 1 rotation of the reel gives, for animation.
@@ -31,19 +33,15 @@ public class BobberReelable : BobberBehavior
         releasing = true; // Start released.
         if (!isServer)
         {
-            if (bobber.Api.World.GetEntityById(bobber.casterId) is not EntityPlayer player) return;
+            if (bobber.GetCaster() is not EntityPlayer player) return;
             FishingPoleSoundManager.Instance.StartSound(player, "fishing:sounds/linereel", dt => { });
         }
     }
 
-    public override void ServerInitialize(ItemStack bobberStack, ItemStack rodStack)
+    public override void ServerInitialize(ItemStack bobberStack, ItemStack rodStack, JsonObject properties)
     {
-        ItemFishingPole.ReadStack(0, rodStack, MainAPI.Sapi, out ItemStack? lineStack);
-        // Set line stats...
+        maxPossibleDistance = 100f;
 
-        maxPossibleDistance = 100;
-
-        // Begin at 20, maybe pass seconds used into this method to calculate initial length.
         bobber.WatchedAttributes.SetFloat("maxDistance", 1f);
         bobber.WatchedAttributes.SetFloat("distMps", 1f);
     }
@@ -106,7 +104,7 @@ public class BobberReelable : BobberBehavior
 
     public override void OnClientTick(float dt)
     {
-        if (bobber.Api.World.GetEntityById(bobber.casterId) is not EntityPlayer player) return;
+        if (bobber.GetCaster() is not EntityPlayer player) return;
 
         float mps = Math.Abs(bobber.WatchedAttributes.GetFloat("distMps"));
 
@@ -125,13 +123,13 @@ public class BobberReelable : BobberBehavior
     {
         bobber.Die();
 
-        if (bobber.Api.World.GetEntityById(bobber.casterId) is not EntityPlayer player) return;
+        if (bobber.GetCaster() is not EntityPlayer player) return;
         MainAPI.Sapi.World.PlaySoundAt("fishing:sounds/reelin", player, null, true, 16);
     }
 
     public override void OnServerPhysicsTick(float dt)
     {
-        if (bobber.Api.World.GetEntityById(bobber.casterId) is not EntityPlayer player) return;
+        if (bobber.GetCaster() is not EntityPlayer player) return;
 
         Vector3d currentPosition = bobber.ServerPos.ToVector();
         Vector3d playerPos = player.ServerPos.ToVector();
@@ -188,6 +186,9 @@ public class BobberReelable : BobberBehavior
             }
         }
 
+        Vector3d startPos = bobber.ServerPos.ToVector();
+        currentPosition = collisionTester.DoCollision(startPos, currentPosition, bobber, bobber.Api);
+
         // Update bobber position
         bobber.ServerPos.SetPos(currentPosition.X, currentPosition.Y, currentPosition.Z);
         bobber.Pos.SetPos(currentPosition.X, currentPosition.Y, currentPosition.Z);
@@ -198,7 +199,7 @@ public class BobberReelable : BobberBehavior
     {
         if (!isServer)
         {
-            if (MainAPI.Capi.World.GetEntityById(bobber.casterId) is not EntityPlayer player) return;
+            if (bobber.GetCaster() is not EntityPlayer player) return;
             FishingPoleSoundManager.Instance.StopSound(player);
             player.AnimManager.StopAnimation("LineReel");
 

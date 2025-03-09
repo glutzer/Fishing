@@ -2,21 +2,17 @@
   {
     "op": "addmerge",
     "path": "/animations/-",
-    "value":
-    {
+    "value": {
       "name": "EntityInject",
       "code": "entityinject",
       "quantityframes": 14,
       "onActivityStopped": "EaseOut",
       "onAnimationEnd": "Hold",
-      "keyframes":
-      [
+      "keyframes": [
         {
           "frame": 0,
-          "elements":
-          {
-            "LowerTorso":
-            {
+          "elements": {
+            "LowerTorso": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -24,8 +20,7 @@
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "UpperTorso":
-            {
+            "UpperTorso": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -33,8 +28,7 @@
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "UpperArmR":
-            {
+            "UpperArmR": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -42,8 +36,7 @@
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "LowerArmR":
-            {
+            "LowerArmR": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -51,8 +44,7 @@
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "UpperArmL":
-            {
+            "UpperArmL": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -60,8 +52,7 @@
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "LowerArmL":
-            {
+            "LowerArmL": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -69,8 +60,7 @@
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "Neck":
-            {
+            "Neck": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -78,8 +68,7 @@
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "Head":
-            {
+            "Head": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -87,8 +76,7 @@
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "UpperFootL":
-            {
+            "UpperFootL": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -96,8 +84,7 @@
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "LowerFootL":
-            {
+            "LowerFootL": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -105,8 +92,7 @@
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "UpperFootR":
-            {
+            "UpperFootR": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -114,8 +100,7 @@
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "LowerFootR":
-            {
+            "LowerFootR": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -127,10 +112,8 @@
         },
         {
           "frame": 8,
-          "elements":
-          {
-            "LowerTorso":
-            {
+          "elements": {
+            "LowerTorso": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -138,8 +121,7 @@
               "rotationY": -10.0,
               "rotationZ": -2.0
             },
-            "UpperTorso":
-            {
+            "UpperTorso": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -147,8 +129,7 @@
               "rotationY": -10.0,
               "rotationZ": -4.0
             },
-            "UpperArmR":
-            {
+            "UpperArmR": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -156,8 +137,7 @@
               "rotationY": -22.0,
               "rotationZ": -92.0
             },
-            "LowerArmR":
-            {
+            "LowerArmR": {
               "offsetX": 0.0,
               "offsetY": 1.0,
               "offsetZ": 0.0,
@@ -165,8 +145,7 @@
               "rotationY": 0.0,
               "rotationZ": -58.0
             },
-            "UpperArmL":
-            {
+            "UpperArmL": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -174,8 +153,7 @@
               "rotationY": 25.0,
               "rotationZ": -25.0
             },
-            "LowerArmL":
-            {
+            "LowerArmL": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -183,8 +161,7 @@
               "rotationY": 0.0,
               "rotationZ": -22.0
             },
-            "Neck":
-            {
+            "Neck": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -192,8 +169,7 @@
               "rotationY": 3.0,
               "rotationZ": 0.0
             },
-            "Head":
-            {
+            "Head": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -201,8 +177,7 @@
               "rotationY": 7.0,
               "rotationZ": 1.0
             },
-            "UpperFootL":
-            {
+            "UpperFootL": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -210,8 +185,7 @@
               "rotationY": 0.0,
               "rotationZ": -1.0
             },
-            "LowerFootL":
-            {
+            "LowerFootL": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -219,8 +193,7 @@
               "rotationY": 0.0,
               "rotationZ": 7.0
             },
-            "UpperFootR":
-            {
+            "UpperFootR": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -228,8 +201,7 @@
               "rotationY": 0.0,
               "rotationZ": -7.0
             },
-            "LowerFootR":
-            {
+            "LowerFootR": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -241,10 +213,8 @@
         },
         {
           "frame": 13,
-          "elements":
-          {
-            "LowerTorso":
-            {
+          "elements": {
+            "LowerTorso": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -252,8 +222,7 @@
               "rotationY": 30.0,
               "rotationZ": 1.0
             },
-            "UpperTorso":
-            {
+            "UpperTorso": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -261,8 +230,7 @@
               "rotationY": 20.0,
               "rotationZ": 4.0
             },
-            "UpperArmR":
-            {
+            "UpperArmR": {
               "offsetX": 0.0,
               "offsetY": -1.0,
               "offsetZ": 0.0,
@@ -270,8 +238,7 @@
               "rotationY": -42.0,
               "rotationZ": -33.0
             },
-            "LowerArmR":
-            {
+            "LowerArmR": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -279,8 +246,7 @@
               "rotationY": 14.0,
               "rotationZ": -97.0
             },
-            "UpperArmL":
-            {
+            "UpperArmL": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -288,8 +254,7 @@
               "rotationY": 22.0,
               "rotationZ": -8.0
             },
-            "LowerArmL":
-            {
+            "LowerArmL": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -297,8 +262,7 @@
               "rotationY": 0.0,
               "rotationZ": -17.0
             },
-            "Neck":
-            {
+            "Neck": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -306,8 +270,7 @@
               "rotationY": -9.0,
               "rotationZ": 0.0
             },
-            "Head":
-            {
+            "Head": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -315,8 +278,7 @@
               "rotationY": -12.0,
               "rotationZ": 6.0
             },
-            "UpperFootL":
-            {
+            "UpperFootL": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -324,8 +286,7 @@
               "rotationY": -19.0,
               "rotationZ": -7.0
             },
-            "LowerFootL":
-            {
+            "LowerFootL": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -333,8 +294,7 @@
               "rotationY": 0.0,
               "rotationZ": 7.0
             },
-            "UpperFootR":
-            {
+            "UpperFootR": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -342,8 +302,7 @@
               "rotationY": -22.0,
               "rotationZ": -1.0
             },
-            "LowerFootR":
-            {
+            "LowerFootR": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -361,15 +320,13 @@
     "file": "game:entities/humanoid/player.json",
     "op": "addmerge",
     "path": "/client/animations/-",
-    "value":
-    {
+    "value": {
       "code": "EntityInject",
       "animation": "EntityInject",
       "blendMode": "Average",
       "animationSpeed": 1,
       "weight": 1,
-      "elementWeight":
-      {
+      "elementWeight": {
         "LowerTorso": 100,
         "UpperTorso": 100,
         "UpperArmL": 100,

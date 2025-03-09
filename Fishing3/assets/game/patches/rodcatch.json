@@ -2,39 +2,32 @@
   {
     "op": "addmerge",
     "path": "/animations/-",
-    "value":
-    {
+    "value": {
       "name": "RodCatch",
       "code": "rodcatch",
       "quantityframes": 10,
       "onActivityStopped": "EaseOut",
       "onAnimationEnd": "EaseOut",
-      "keyframes":
-      [
+      "keyframes": [
         {
           "frame": 0,
-          "elements":
-          {
-            "UpperTorso":
-            {
+          "elements": {
+            "UpperTorso": {
               "rotationX": 0.0,
               "rotationY": 0.0,
               "rotationZ": 20.0
             },
-            "UpperArmR":
-            {
+            "UpperArmR": {
               "rotationX": 0.0,
               "rotationY": 0.0,
               "rotationZ": -60.0
             },
-            "LowerArmR":
-            {
+            "LowerArmR": {
               "rotationX": -5.0,
               "rotationY": -5.0,
               "rotationZ": -15.0
             },
-            "UpperArmL":
-            {
+            "UpperArmL": {
               "offsetX": 0.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -42,14 +35,12 @@
               "rotationY": -10.0,
               "rotationZ": -70.0
             },
-            "LowerArmL":
-            {
+            "LowerArmL": {
               "rotationX": 20.0,
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "Head":
-            {
+            "Head": {
               "rotationX": 0.0,
               "rotationY": 0.0,
               "rotationZ": -15.0
@@ -58,34 +49,28 @@
         },
         {
           "frame": 9,
-          "elements":
-          {
-            "UpperTorso":
-            {
+          "elements": {
+            "UpperTorso": {
               "rotationX": 0.0,
               "rotationY": -25.0,
               "rotationZ": 0.0
             },
-            "Head":
-            {
+            "Head": {
               "rotationX": 0.0,
               "rotationY": 25.0,
               "rotationZ": 0.0
             },
-            "UpperArmR":
-            {
+            "UpperArmR": {
               "rotationX": 35.0,
               "rotationY": -70.0,
               "rotationZ": -15.0
             },
-            "LowerArmR":
-            {
+            "LowerArmR": {
               "rotationX": -80.0,
               "rotationY": 40.0,
               "rotationZ": -100.0
             },
-            "UpperArmL":
-            {
+            "UpperArmL": {
               "offsetX": 2.0,
               "offsetY": 0.0,
               "offsetZ": 0.0,
@@ -93,8 +78,7 @@
               "rotationY": -55.0,
               "rotationZ": -110.0
             },
-            "LowerArmL":
-            {
+            "LowerArmL": {
               "rotationX": 25.0,
               "rotationY": -15.0,
               "rotationZ": -70.0
@@ -109,15 +93,13 @@
     "file": "game:entities/humanoid/player.json",
     "op": "addmerge",
     "path": "/client/animations/-",
-    "value":
-    {
+    "value": {
       "code": "RodCatch",
       "animation": "RodCatch",
       "blendMode": "Average",
       "animationSpeed": 1,
       "weight": 1,
-      "elementWeight":
-      {
+      "elementWeight": {
         "UpperTorso": 100,
         "Head": 100,
         "UpperArmR": 100,

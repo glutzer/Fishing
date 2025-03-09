@@ -2,33 +2,27 @@
   {
     "op": "addmerge",
     "path": "/animations/-",
-    "value":
-    {
+    "value": {
       "name": "InspectRod",
       "code": "inspectrod",
       "quantityframes": 1,
       "onActivityStopped": "Rewind",
       "onAnimationEnd": "Repeat",
-      "keyframes":
-      [
+      "keyframes": [
         {
           "frame": 0,
-          "elements":
-          {
-            "UpperArmR":
-            {
+          "elements": {
+            "UpperArmR": {
               "rotationX": 40.0,
               "rotationY": 5.0,
               "rotationZ": -40.0
             },
-            "LowerArmR":
-            {
+            "LowerArmR": {
               "rotationX": 0.0,
               "rotationY": -10.0,
               "rotationZ": 5.0
             },
-            "ItemAnchor":
-            {
+            "ItemAnchor": {
               "rotationX": 0.0,
               "rotationY": 0.0,
               "rotationZ": 0.0
@@ -43,15 +37,13 @@
     "file": "game:entities/humanoid/player.json",
     "op": "addmerge",
     "path": "/client/animations/-",
-    "value":
-    {
+    "value": {
       "code": "InspectRod",
       "animation": "InspectRod",
       "blendMode": "Average",
       "animationSpeed": 1,
       "weight": 1,
-      "elementWeight":
-      {
+      "elementWeight": {
         "UpperArmR": 100,
         "LowerArmR": 100,
         "ItemAnchor": 100

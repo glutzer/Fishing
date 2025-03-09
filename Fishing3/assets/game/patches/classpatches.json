@@ -3,11 +3,9 @@
     "file": "game:config/characterclasses.json",
     "op": "add",
     "path": "/-",
-    "value":
-    {
+    "value": {
       "code": "alchemist",
-      "traits":
-      [
+      "traits": [
         "charged",
         "farsighted",
         "claustrophobic",
@@ -18,8 +16,7 @@
         "civil",
         "kind"
       ],
-      "gear":
-      [
+      "gear": [
         {
           "type": "item",
           "code": "clothes-head-alchemist"
@@ -51,6 +48,47 @@
         {
           "type": "item",
           "code": "clothes-waist-alchemist"
+        }
+      ]
+    }
+  },
+  {
+    "file": "game:config/characterclasses.json",
+    "op": "add",
+    "path": "/-",
+    "value": {
+      "code": "surfcaster",
+      "traits": [
+        "pirate",
+        "angler",
+        "fleetfooted",
+        "ravenous",
+        "farsighted"
+      ],
+      "gear": [
+        {
+          "type": "item",
+          "code": "clothes-upperbody-raw-hide-mantle"
+        },
+        {
+          "type": "item",
+          "code": "clothes-lowerbody-raw-hide-trousers"
+        },
+        {
+          "type": "item",
+          "code": "clothes-foot-high-leather-boots"
+        },
+        {
+          "type": "item",
+          "code": "clothes-neck-necklace-seashell1"
+        },
+        {
+          "type": "item",
+          "code": "clothes-hand-heavy-leather-gloves"
+        },
+        {
+          "type": "item",
+          "code": "clothes-waist-sturdy-leather-belt"
         }
       ]
     }

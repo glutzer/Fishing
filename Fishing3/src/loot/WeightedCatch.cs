@@ -1,4 +1,6 @@
-﻿namespace Fishing3;
+﻿using System.Collections.Generic;
+
+namespace Fishing3;
 
 public class WeightedCatch : ITierable, IWeightable
 {
@@ -23,6 +25,25 @@ public class WeightedCatch : ITierable, IWeightable
         this.code = code;
     }
 
+    /// <summary>
+    /// Set a multiplier for tags, present in the fishing context.
+    /// </summary>
+    private float multiplier = 1f;
+    public readonly HashSet<string> tags = new();
+
+    public void SetMultiplier(Dictionary<string, float> tagMultipliers)
+    {
+        multiplier = 1f;
+
+        foreach (string tag in tags)
+        {
+            if (tagMultipliers.TryGetValue(tag, out float multiplier))
+            {
+                this.multiplier *= multiplier;
+            }
+        }
+    }
+
     public int Tier => tier;
-    public float Weight => weight;
+    public float Weight => weight * multiplier;
 }

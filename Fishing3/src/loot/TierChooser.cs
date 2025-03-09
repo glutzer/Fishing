@@ -41,9 +41,9 @@ public class TierChooser
     /// Takes tiered and weighted items, rolls one.
     /// If no tiers are rolled, returns null.
     /// </summary>
-    public T? RollItem<T>(List<T> validItems, float rarityMultiplier) where T : ITierable, IWeightable
+    public T? RollItem<T>(List<T> validItems, float rarityMultiplier, int minTier = -1) where T : ITierable, IWeightable
     {
-        List<T> rolledtiers = RollTier(validItems, rarityMultiplier);
+        List<T> rolledtiers = RollTier(validItems, rarityMultiplier, minTier);
         if (rolledtiers.Count == 0) return default;
         return RollWeightedList(rolledtiers);
     }
@@ -71,7 +71,7 @@ public class TierChooser
     /// Removes all items from the list except the highest rolled tier.
     /// Must have a count of atleast 1.
     /// </summary>
-    public List<T> RollTier<T>(List<T> validItems, float rarityMultiplier) where T : ITierable
+    public List<T> RollTier<T>(List<T> validItems, float rarityMultiplier, int minTier = -1) where T : ITierable
     {
         int highestTier = 0;
         HashSet<int> availableTiers = new();
@@ -85,13 +85,19 @@ public class TierChooser
             availableTiers.Add(item.Tier);
         }
 
-        int rolledTier = 0;
+        int rolledTier = minTier;
 
-        for (int i = highestTier; i > 0; i--)
+        for (int i = highestTier; i > minTier; i--)
         {
             if (!availableTiers.Contains(i)) continue;
+
             float chance = MathF.Pow(divisionPerTier, i);
-            chance *= rarityMultiplier; // Maybe add DR for rarity here?
+            chance *= rarityMultiplier;
+
+            // Base line is 1 / i + 1, then drop-off is decreased with higher tiers.
+            // Below 1 rarity, the base catch may not succeed.
+            chance = DRUtility.CalculateDR(chance, 1 / (i + 1), 1f - i * 0.1f);
+
             float rarityRoll = Random.Shared.NextSingle();
             if (rarityRoll <= chance)
             {

@@ -14,9 +14,6 @@
     "maxTemperature": 200
   },
   "creativeinventory": {
-    "general": [
-      "*"
-    ],
     "fishing": [
       "*"
     ]

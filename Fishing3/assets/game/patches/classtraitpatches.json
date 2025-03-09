@@ -3,13 +3,35 @@
     "file": "game:config/traits.json",
     "op": "add",
     "path": "/-",
-    "value":
-    {
+    "value": {
       "code": "charged",
       "type": "positive",
-      "attributes":
-      {
+      "attributes": {
         "flaskEffect": 0.7
+      }
+    }
+  },
+  {
+    "file": "game:config/traits.json",
+    "op": "add",
+    "path": "/-",
+    "value": {
+      "code": "pirate",
+      "type": "positive",
+      "attributes": {
+        "fishRarity": 0.3
+      }
+    }
+  },
+  {
+    "file": "game:config/traits.json",
+    "op": "add",
+    "path": "/-",
+    "value": {
+      "code": "angler",
+      "type": "positive",
+      "attributes": {
+        "reelStrength": 0.3
       }
     }
   }

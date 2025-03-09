@@ -1,8 +1,11 @@
-﻿using MareLib;
+﻿using Cairo;
+using MareLib;
 using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 
 namespace Fishing3;
@@ -29,15 +32,16 @@ public class CatchSystem : GameSystem
 
         foreach ((Type type, CatchableAttribute _) in attribs)
         {
-            Catchable catchable = (Catchable)Activator.CreateInstance(type)!;
+            Catchable catchable = (Catchable)Activator.CreateInstance(type, MainAPI.Sapi)!;
             catchables.Add(catchable);
         }
     }
 
     /// <summary>
     /// Try to roll a catch, returns null if nothing is rolled.
+    /// Does a large flood fill, do not roll too often.
     /// </summary>
-    public CaughtInstance? RollCatch(Vector3d position)
+    public CaughtInstance? RollCatch(Vector3d position, Entity caster)
     {
         // Get data about bobber position.
         FishingContext context = new(MainAPI.Sapi, new BlockPos((int)position.X, (int)position.Y, (int)position.Z));
@@ -49,8 +53,25 @@ public class CatchSystem : GameSystem
             potentialCatches.AddRange(catchable.GetCatches(context, MainAPI.Sapi));
         }
 
+        // Squared increase, then logarithmic dropoff based on fluid volume. TODO: include different values for different fluids.
+        float rarityMultiplier = DRUtility.CalculateDR(context.volume, 2000f, 1.5f) / 2000f; //~1.45 rarity multiplier at max. 
+        if (rarityMultiplier < 1f) rarityMultiplier *= rarityMultiplier;
+
+        // 30% more rarity in stormy weathers.
+        rarityMultiplier *= 1f + context.precipitation * 0.3f;
+
+        // Multiplier from classes or effects.
+        rarityMultiplier *= caster.Stats.GetBlended("fishRarity");
+
+        // Linear multiplier up to 25 distance, then logarithmic.
+        float distance = (float)Vector3d.Distance(position, caster.ServerPos.ToVector());
+        float distanceMultiplier = DRUtility.CalculateDR(distance, 25f, 1f) / 25f;
+        rarityMultiplier *= distanceMultiplier;
+
+        context.rarityMultiplier = rarityMultiplier;
+
         // Roll one.
-        WeightedCatch? rolledCatch = tierChooser.RollItem(potentialCatches, 1f);
+        WeightedCatch? rolledCatch = tierChooser.RollItem(potentialCatches, rarityMultiplier, -1);
         if (rolledCatch == null) return null;
 
         // Create it.

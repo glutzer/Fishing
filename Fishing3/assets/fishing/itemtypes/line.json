@@ -34,9 +34,6 @@
     }
   },
   "creativeinventory": {
-    "general": [
-      "*"
-    ],
     "fishing": [
       "*"
     ]

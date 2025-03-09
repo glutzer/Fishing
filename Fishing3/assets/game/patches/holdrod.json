@@ -2,27 +2,22 @@
   {
     "op": "addmerge",
     "path": "/animations/-",
-    "value":
-    {
+    "value": {
       "name": "HoldRod",
       "code": "holdrod",
       "quantityframes": 1,
       "onActivityStopped": "Rewind",
       "onAnimationEnd": "Repeat",
-      "keyframes":
-      [
+      "keyframes": [
         {
           "frame": 0,
-          "elements":
-          {
-            "UpperArmR":
-            {
+          "elements": {
+            "UpperArmR": {
               "rotationX": 0.0,
               "rotationY": 0.0,
               "rotationZ": -15.0
             },
-            "ItemAnchor":
-            {
+            "ItemAnchor": {
               "rotationX": 5.0,
               "rotationY": 0.0,
               "rotationZ": -45.0
@@ -37,15 +32,13 @@
     "file": "game:entities/humanoid/player.json",
     "op": "addmerge",
     "path": "/client/animations/-",
-    "value":
-    {
+    "value": {
       "code": "HoldRod",
       "animation": "HoldRod",
       "blendMode": "Average",
       "animationSpeed": 1,
       "weight": 1,
-      "elementWeight":
-      {
+      "elementWeight": {
         "UpperArmR": 10,
         "LowerArmR": 10,
         "ItemAnchor": 10

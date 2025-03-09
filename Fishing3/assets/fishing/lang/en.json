@@ -2,14 +2,27 @@
   "game:characterclass-alchemist": "Alchemist",
   "game:characterdesc-alchemist": "<font color=\"#99c9f9\"><i>Rivers of power course through your veins.</i></font>",
 
-  "game:trait-charged": "<font color=\"#84ff84\">• Charged</font>",
+  "game:characterclass-surfcaster": "Surfcaster",
+  "game:characterdesc-surfcaster": "<font color=\"#99c9f9\"><i>He cast far into the ocean, and tore out her heart.</i></font>",
+
+  "game:trait-charged": "<font color=\"#84ff84\">• Charged </font>",
   "game:charattribute-flaskEffect-0.7": "Solutions you apply have 70% increased effect",
+
+  "game:trait-pirate": "<font color=\"#84ff84\">• Pirate </font>",
+  "game:charattribute-fishRarity-0.3": "30% increased rarity of catches",
+
+  "game:trait-angler": "<font color=\"#84ff84\">• Angler </font>",
+  "game:charattribute-reelStrength-0.3": "30% increased reel strength",
 
   "game:tabname-fishing": "Fishing",
 
   "species-fish": "Fish",
   "smoked": "Smoked",
   "item-dummycut": "Butchering",
+
+  "bobber-BobberReelable": "Reelable",
+  "bobber-BobberFishable": "Fishing",
+  "bobber-BobberBomb": "Bomb",
 
   "species-salmon": "Salmon",
   "species-mackerel": "Mackerel",
@@ -18,7 +31,6 @@
   "species-dragonfish": "Dragonfish",
   "species-sunfish": "Sunfish",
 
-  "item-fishingpole-bamboo": "Bamboo Fishing Pole",
   "item-fishingpole-metalcopper": "Copper Fishing Pole",
   "item-fishingpole-metaltinbronze": "Tin Bronze Fishing Pole",
   "item-fishingpole-metalbismuthbronze": "Bismuth Bronze Fishing Pole",
@@ -46,6 +58,7 @@
   "item-line-linen": "Linen Line Spool",
   "item-line-rope": "Rope Line Spool",
 
+  "item-cork": "Cork",
   "item-bobber-cork": "Cork Bobber",
 
   "item-fishcut-fillet-fresh": "Fresh Fillet",
@@ -65,7 +78,5 @@
   "item-flask-medium-labeled": "Medium Flask (Blank Label)",
   "item-flask-large-labeled": "Large Flask (Blank Label)",
 
-  "item-cork": "Cork",
-
-  "item-edibleseaweed": "Seaweed",
+  "item-edibleseaweed": "Seaweed"
 }

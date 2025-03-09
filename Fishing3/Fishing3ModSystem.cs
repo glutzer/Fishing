@@ -1,4 +1,5 @@
-﻿using MareLib;
+﻿using HarmonyLib;
+using MareLib;
 using ProtoBuf;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -16,8 +17,30 @@ public class FishingInventoryPacket
 [GameSystem]
 public class FishingGameSystem : NetworkedGameSystem
 {
+    public static Harmony? Harmony { get; set; }
+
     public FishingGameSystem(bool isServer, ICoreAPI api) : base(isServer, api, "fishingchannel")
     {
+    }
+
+    public override void PostInitialize()
+    {
+        api.RegisterCollectibleBehaviorClass("CollectibleBehaviorBait", typeof(CollectibleBehaviorBait));
+        api.RegisterCollectibleBehaviorClass("CollectibleBehaviorBobber", typeof(CollectibleBehaviorBobber));
+    }
+
+    public override void PreInitialize()
+    {
+        if (Harmony == null)
+        {
+            Harmony = new Harmony("fishing");
+            Harmony.PatchAll();
+        }
+    }
+
+    public override void OnStart()
+    {
+
     }
 
     public override void Initialize()
@@ -87,6 +110,12 @@ public class FishingGameSystem : NetworkedGameSystem
         if (!isServer)
         {
             FishingLineRenderer.OnEnd();
+        }
+
+        if (Harmony != null)
+        {
+            Harmony.UnpatchAll();
+            Harmony = null;
         }
     }
 }

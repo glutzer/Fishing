@@ -2,27 +2,22 @@
   {
     "op": "addmerge",
     "path": "/animations/-",
-    "value":
-    {
+    "value": {
       "name": "Inject",
       "code": "inject",
       "quantityframes": 36,
       "onActivityStopped": "EaseOut",
       "onAnimationEnd": "Hold",
-      "keyframes":
-      [
+      "keyframes": [
         {
           "frame": 0,
-          "elements":
-          {
-            "UpperArmR":
-            {
+          "elements": {
+            "UpperArmR": {
               "rotationX": 0.0,
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "LowerArmR":
-            {
+            "LowerArmR": {
               "rotationX": 0.0,
               "rotationY": 0.0,
               "rotationZ": 0.0
@@ -31,16 +26,13 @@
         },
         {
           "frame": 15,
-          "elements":
-          {
-            "UpperArmR":
-            {
+          "elements": {
+            "UpperArmR": {
               "rotationX": -3.0,
               "rotationY": -30.0,
               "rotationZ": -64.0
             },
-            "LowerArmR":
-            {
+            "LowerArmR": {
               "rotationX": -66.0,
               "rotationY": 3.0,
               "rotationZ": -50.0
@@ -49,16 +41,13 @@
         },
         {
           "frame": 30,
-          "elements":
-          {
-            "LowerArmR":
-            {
+          "elements": {
+            "LowerArmR": {
               "rotationX": -66.0,
               "rotationY": -6.0,
               "rotationZ": -36.0
             },
-            "UpperArmR":
-            {
+            "UpperArmR": {
               "rotationX": -3.0,
               "rotationY": -30.0,
               "rotationZ": -64.0
@@ -67,16 +56,13 @@
         },
         {
           "frame": 35,
-          "elements":
-          {
-            "LowerArmR":
-            {
+          "elements": {
+            "LowerArmR": {
               "rotationX": -100.0,
               "rotationY": -55.0,
               "rotationZ": 25.0
             },
-            "UpperArmR":
-            {
+            "UpperArmR": {
               "rotationX": -19.0,
               "rotationY": -42.0,
               "rotationZ": -75.0
@@ -91,15 +77,13 @@
     "file": "game:entities/humanoid/player.json",
     "op": "addmerge",
     "path": "/client/animations/-",
-    "value":
-    {
+    "value": {
       "code": "Inject",
       "animation": "Inject",
       "blendMode": "Average",
       "animationSpeed": 1,
       "weight": 1,
-      "elementWeight":
-      {
+      "elementWeight": {
         "UpperArmR": 100,
         "LowerArmR": 100
       }

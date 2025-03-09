@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Datastructures;
 
 namespace Fishing3;
 
@@ -20,7 +21,7 @@ public class BobberBehavior
     /// Initialize once on the server with attributes from a stack when casting.
     /// Save to bytes if needed.
     /// </summary>
-    public virtual void ServerInitialize(ItemStack bobberStack, ItemStack rodSlot)
+    public virtual void ServerInitialize(ItemStack bobberStack, ItemStack rodSlot, JsonObject properties)
     {
 
     }
@@ -31,6 +32,11 @@ public class BobberBehavior
     }
 
     public virtual void OnClientTick(float dt)
+    {
+
+    }
+
+    public virtual void OnCollided()
     {
 
     }

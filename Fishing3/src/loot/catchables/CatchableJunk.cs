@@ -7,6 +7,10 @@ namespace Fishing3;
 [Catchable]
 public class CatchableJunk : Catchable
 {
+    public CatchableJunk(ICoreServerAPI sapi) : base(sapi)
+    {
+    }
+
     public override CaughtInstance Catch(FishingContext context, WeightedCatch weightedCatch, ICoreServerAPI sapi)
     {
         Item block = sapi.World.GetItem("fishing:line-linen");
@@ -14,14 +18,14 @@ public class CatchableJunk : Catchable
         ItemStack stack = new(block, 1);
         stack.ResolveBlockOrItem(sapi.World);
 
-        CaughtInstance inst = new(stack, 1, 0, 1);
+        CaughtInstance inst = new(stack, 30, 10, 30);
 
         return inst;
     }
 
     public override IEnumerable<WeightedCatch> GetCatches(FishingContext context, ICoreServerAPI sapi)
     {
-        WeightedCatch toCatch = new(this, 10, 0, "chud");
+        WeightedCatch toCatch = new(this, 100, 0, "chud");
         yield return toCatch;
     }
 }

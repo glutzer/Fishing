@@ -14,13 +14,15 @@ public class CatchableAttribute : ClassAttribute
 
 /// <summary>
 /// Abstract class for something that can be caught from fishing.
-/// Only on the server.
+/// Only on the server, initialized in AssetsLoaded.
 /// </summary>
 public abstract class Catchable
 {
-    protected Catchable()
-    {
+    public readonly ICoreServerAPI sapi;
 
+    protected Catchable(ICoreServerAPI sapi)
+    {
+        this.sapi = sapi;
     }
 
     /// <summary>

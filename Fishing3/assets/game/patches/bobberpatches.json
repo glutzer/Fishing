@@ -1,0 +1,15 @@
+[
+  {
+    "file": "game:blocktypes/cloth/bomb.json",
+    "op": "addmerge",
+    "path": "/behaviors",
+    "value": [
+      {
+        "name": "CollectibleBehaviorBobber",
+        "properties": {
+          "bobberType": "BobberBomb"
+        }
+      }
+    ]
+  }
+]

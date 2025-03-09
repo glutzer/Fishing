@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
+using Vintagestory.API.Datastructures;
 
 namespace Fishing3;
 
@@ -26,15 +27,15 @@ public class BobberRegistry : GameSystem
     /// <summary>
     /// Tries to create and initialize a bobber, returns if type exists.
     /// </summary>
-    public BobberBehavior? TryCreateAndInitializeBobber(string type, EntityBobber bobber, ItemStack? bobberStack, ItemStack? rodStack)
+    public BobberBehavior? TryCreateAndInitializeBobber(string type, EntityBobber bobber, ItemStack? bobberStack, ItemStack? rodStack, JsonObject? properties)
     {
         if (bobberTypes.TryGetValue(type, out Type? bobberType))
         {
             BobberBehavior behavior = (BobberBehavior)Activator.CreateInstance(bobberType, bobber, api.Side == EnumAppSide.Server)!;
 
-            if (bobberStack != null && rodStack != null)
+            if (bobberStack != null && rodStack != null && properties != null)
             {
-                behavior.ServerInitialize(bobberStack, rodStack);
+                behavior.ServerInitialize(bobberStack, rodStack, properties);
             }
 
             return behavior;

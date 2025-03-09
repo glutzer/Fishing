@@ -1,7 +1,10 @@
 ﻿using MareLib;
 using OpenTK.Mathematics;
 using System;
+using System.IO;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 namespace Fishing3;
@@ -11,59 +14,128 @@ public class BobberFishable : BobberReelable
 {
     public CaughtInstance? bitingFish;
 
-    public const float FISH_MPS = 3f;
-    public const float FISH_MASS = 10f;
+    protected Accumulator accumulator = Accumulator.WithRandomInterval(5f, 30f);
+
+    // Reel strength / catch weight determines reel speed multiplier.
+    public const float BASE_REEL_STRENGTH = 10f;
+    public float reelStrength;
+
+    private float durabilityDrainAccumulation;
 
     public BobberFishable(EntityBobber bobber, bool isServer) : base(bobber, isServer)
     {
 
     }
 
-    public override void ServerInitialize(ItemStack bobberStack, ItemStack rodStack)
+    public override void ServerInitialize(ItemStack bobberStack, ItemStack rodStack, JsonObject properties)
     {
-        base.ServerInitialize(bobberStack, rodStack);
+        base.ServerInitialize(bobberStack, rodStack, properties);
 
-        bitingFish = MainAPI.GetGameSystem<CatchSystem>(EnumAppSide.Server).RollCatch(bobber.Pos.ToVector());
+        EntityPlayer? player = bobber.GetCaster();
+        if (player == null) return;
+
+        float reelStrengthMulti = player.Stats.GetBlended("reelStrength");
+        reelStrength = BASE_REEL_STRENGTH * reelStrengthMulti;
+    }
+
+    /// <summary>
+    /// Drain 10 durability/s base line.
+    /// </summary>
+    public void DrainDurability(float dt)
+    {
+        durabilityDrainAccumulation += dt * 10f;
+        int duraAccumInt = (int)durabilityDrainAccumulation;
+        if (bobber.rodSlot == null) return;
+        if (ItemFishingPole.DamageStack(0, bobber.rodSlot, bobber.Api, duraAccumInt))
+        {
+            bobber.Die();
+            if (bobber.GetCaster() is not EntityPlayer player) return;
+            MainAPI.Sapi.World.PlaySoundAt("fishing:sounds/linesnap", player.Pos.X, player.Pos.Y, player.Pos.Z, null, true, 16);
+        }
+        durabilityDrainAccumulation -= duraAccumInt;
+    }
+
+    public override void Dispose(EntityDespawnData? despawn)
+    {
+        base.Dispose(despawn);
+
+        if (isServer)
+        {
+            if (bobber.rodSlot?.Itemstack == null) return;
+        }
+    }
+
+    public override void ToBytes(BinaryWriter writer, bool forClient)
+    {
+        base.ToBytes(writer, forClient);
+        writer.Write(reelStrength);
+    }
+
+    public override void FromBytes(BinaryReader reader, bool forClient)
+    {
+        base.FromBytes(reader, forClient);
+        reelStrength = reader.ReadSingle();
+    }
+
+    public void FishBite()
+    {
+        if (bobber.GetCaster() is not EntityPlayer player) return;
+        bitingFish = MainAPI.GetGameSystem<CatchSystem>(EnumAppSide.Server).RollCatch(bobber.ServerPos.ToVector(), player);
+        bobber.ServerPos.Y -= 0.5f;
     }
 
     public override void TryCatch()
     {
         base.TryCatch();
 
-        if (bobber.Api.World.GetEntityById(bobber.casterId) is not EntityPlayer player) return;
+        if (bitingFish == null) return;
+
+        // Give the caught item to the player.
+        if (bobber.GetCaster() is not EntityPlayer player) return;
 
         ItemSlot rodSlot = player.Player.InventoryManager.ActiveHotbarSlot;
         if (rodSlot.Itemstack == null || rodSlot.Itemstack.Collectible is not ItemFishingPole) return;
+        ItemFishingPole.SetStack(3, rodSlot.Itemstack, bitingFish.itemStack);
 
-        if (bitingFish == null) return;
+        DrainDurability(0.5f);
 
-        ItemFishingPole.SetStack(4, rodSlot.Itemstack, bitingFish.itemStack);
+        rodSlot.MarkDirty();
     }
 
+    /// <summary>
+    /// Get the normal of the fish's movement * the fish's speed.
+    /// X meters per second.
+    /// </summary>
     public Vector3d GetFishMovement(Vector3d currentPosition, Vector3d playerPos, float dt)
     {
+        if (bitingFish == null) return Vector3d.Zero;
+
         Vector3d normalToPlayer = currentPosition - playerPos;
         normalToPlayer.Y = 0;
         normalToPlayer.Normalize();
 
-        double cos = Math.Cos(radianOffset);
-        double sin = Math.Sin(radianOffset);
-
-        normalToPlayer.X = (normalToPlayer.X * cos) - (normalToPlayer.Z * sin);
-        normalToPlayer.Z = (normalToPlayer.X * sin) + (normalToPlayer.Z * cos);
-        normalToPlayer.Normalize();
-
         float motionMulti = !bobber.CollidedVertically && !bobber.Swimming ? 0f : 1f;
-        normalToPlayer *= dt * FISH_MPS * motionMulti;
+        normalToPlayer *= dt * bitingFish.speed * motionMulti;
 
         return normalToPlayer;
     }
 
-    public double radianOffset;
-
     public override void OnServerPhysicsTick(float dt)
     {
-        if (bobber.Api.World.GetEntityById(bobber.casterId) is not EntityPlayer player) return;
+        if (bobber.GetCaster() is not EntityPlayer player) return;
+
+        if (bobber.Swimming)
+        {
+            accumulator.Add(dt);
+            if (accumulator.ConsumeAll())
+            {
+                if (bitingFish == null)
+                {
+                    FishBite();
+                }
+                accumulator.SetRandomInterval(5f, 30f);
+            }
+        }
 
         Vector3d currentPosition = bobber.ServerPos.ToVector();
         Vector3d playerPos = player.ServerPos.ToVector();
@@ -71,36 +143,29 @@ public class BobberFishable : BobberReelable
         Vec3d pos = player.ServerPos.XYZ.Add(0, player.LocalEyePos.Y, 0);
         Vec3d targetNormal = (pos.AheadCopy(1, Math.PI, player.ServerPos.Yaw) - pos).Normalize();
         Vector3d normalVec = new(targetNormal.X, targetNormal.Y, targetNormal.Z);
+
         playerPos += normalVec * 3.5f;
         Vector3d diff = currentPosition - playerPos;
-
-        // Weight the radian offset to make the normal of the diff point towards the normalVec.
-        double angleToNormalVec = Math.Atan2(normalVec.Z, normalVec.X);
-        double angleToDiff = Math.Atan2(diff.Z, diff.X);
-        double angleDifference = angleToNormalVec - angleToDiff;
-
-        radianOffset += angleDifference * 0.1; // Weighting factor of 0.1.
-        radianOffset = Math.Clamp(radianOffset, -Math.PI * 0.2f, Math.PI * 0.2f);
 
         float maxDistance = bobber.WatchedAttributes.GetFloat("maxDistance");
         float oldDistance = maxDistance;
 
-        // Fish.
         if (bitingFish != null)
         {
+            bitingFish.UpdateStamina(dt);
+
             Vector3d movement = GetFishMovement(currentPosition, playerPos, dt);
 
-            currentPosition += movement * 3;
-
+            currentPosition += movement;
             diff = currentPosition - playerPos;
 
             // If the fish has moved past the max distance after multipliers, set new.
-            if (diff.Length > maxDistance)
+            // Max distance increases at a rate lower than the speed (placeholder for line drag).
+            if (diff.Length > maxDistance && bitingFish.IsFighting && !reeling)
             {
                 maxDistance = Math.Min(maxDistance + ((float)movement.Length * 0.2f), maxPossibleDistance);
             }
         }
-        // Fish.
 
         if (releasing)
         {
@@ -109,11 +174,18 @@ public class BobberFishable : BobberReelable
 
         if (reeling)
         {
-            if (bitingFish != null)
+            if (bitingFish != null && diff.Length > maxDistance - 1f)
             {
-                double dist = Math.Abs(radianOffset) / (Math.PI * 0.2);
+                // Reel slower based on fish fighting.
+                float reelSpeedMultiplier = reelStrength / bitingFish.kg;
 
-                maxDistance -= REEL_METERS_PER_SECOND * dt * (0.2f + ((float)dist * 0.2f));
+                if (bitingFish.IsFighting)
+                {
+                    reelSpeedMultiplier *= 0.5f;
+                    DrainDurability(dt);
+                }
+
+                maxDistance -= REEL_METERS_PER_SECOND * dt * reelSpeedMultiplier;
             }
             else
             {
@@ -155,6 +227,9 @@ public class BobberFishable : BobberReelable
                 motion.Set(motionStruct.X, motionStruct.Y, motionStruct.Z);
             }
         }
+
+        Vector3d startPos = bobber.ServerPos.ToVector();
+        currentPosition = collisionTester.DoCollision(startPos, currentPosition, bobber, bobber.Api);
 
         // Update bobber position
         bobber.ServerPos.SetPos(currentPosition.X, currentPosition.Y, currentPosition.Z);

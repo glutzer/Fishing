@@ -88,23 +88,30 @@ public partial class ItemFishingPole : Item, IRenderableItem
 
         if (MainAPI.Capi.World.GetEntityById(entityId) is not EntityBobber bobber)
         {
-            // Draw the line.
-            FishingLineRenderer.RenderLine(pos, pos + (swayNormal * 2f), 0f, lineTex);
+            ReadStack(1, stack, api, out ItemStack? bobberStack);
+            ReadStack(2, stack, api, out ItemStack? baitStack);
+            ReadStack(3, stack, api, out ItemStack? catchStack);
+
+            if (bobberStack != null)
+            {
+                float length = 1f;
+                if (baitStack != null || catchStack != null) length += 1.5f;
+
+                // Draw the line.
+                FishingLineRenderer.RenderLine(pos, pos + (swayNormal * length), 0f, lineTex);
+            }
 
             MainAPI.Capi.Render.StandardShader.Use();
 
-            if (ReadStack(1, stack, api, out ItemStack? bobberStack))
+            if (bobberStack != null)
             {
-                RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 1f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, new Vector3(0.5f), Vector3.UnitY, bobberStack);
+                float bobberScale = bobberStack.Collectible.GetBehavior<CollectibleBehaviorBobber>()?.modelScale ?? 1f;
+
+                RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 1f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, new Vector3(0.5f), Vector3.UnitY, bobberStack, bobberScale);
             }
 
-            if (ReadStack(2, stack, api, out ItemStack? hookStack))
-            {
-                RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 2f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, new Vector3(0.5f), Vector3.UnitY, hookStack);
-            }
-
-            // Bait for now can't put items in catch slot.
-            if (ReadStack(3, stack, api, out ItemStack? catchStack))
+            // Render catch.
+            if (catchStack != null && bobberStack != null)
             {
                 if (catchStack.Collectible is ItemFish fish && fish.GetSpecies(catchStack) is FishSpecies species)
                 {
@@ -116,6 +123,10 @@ public partial class ItemFishingPole : Item, IRenderableItem
                 {
                     RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 2f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, new Vector3(0.5f), Vector3.UnitY, catchStack);
                 }
+            }
+            else if (baitStack != null && bobberStack != null)
+            {
+                RenderBobberItemOpaqueShader(dt, pos + (swayNormal * 2f), (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, swayNormal, new Vector3(0.5f), Vector3.UnitY, baitStack, 1f);
             }
         }
         else
@@ -135,20 +146,26 @@ public partial class ItemFishingPole : Item, IRenderableItem
             FishingLineRenderer.RenderLine(pos, bobberPos, droop, lineTex);
 
             MainAPI.Capi.Render.StandardShader.Use();
+            ReadStack(1, stack, api, out ItemStack? bobberStack);
+            ReadStack(2, stack, api, out ItemStack? baitStack);
 
-            if (ReadStack(1, stack, api, out ItemStack? bobberStack))
+            // Render bobber.
+            if (bobberStack != null)
             {
-                RenderBobberItemOpaqueShader(dt, bobberPos, (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, -Vector3.UnitY, new Vector3(0.5f), Vector3.UnitY, bobberStack);
+                float bobberScale = bobberStack.Collectible.GetBehavior<CollectibleBehaviorBobber>()?.modelScale ?? 1f;
+
+                RenderBobberItemOpaqueShader(dt, bobberPos, (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, -Vector3.UnitY, new Vector3(0.5f), Vector3.UnitY, bobberStack, bobberScale);
             }
 
-            if (ReadStack(2, stack, api, out ItemStack? hookStack))
+            if (baitStack != null) // Render bait.
             {
-                Vector3d hookPos = bobberPos;
-                hookPos.Y -= 1;
+                Vector3d baitPos = bobberPos;
+                baitPos.Y -= 2;
+                FishingLineRenderer.RenderLine(bobberPos, baitPos, 0f, lineTex);
 
-                FishingLineRenderer.RenderLine(bobberPos, hookPos, 0f, lineTex);
+                baitPos.Y += 1;
 
-                RenderBobberItemOpaqueShader(dt, hookPos, (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, -Vector3.UnitY, new Vector3(0.5f), Vector3.UnitY, hookStack);
+                RenderBobberItemOpaqueShader(dt, baitPos, (ShaderProgramBase)MainAPI.Capi.Render.StandardShader, -Vector3.UnitY, new Vector3(0.5f), Vector3.UnitY, baitStack, 1f);
             }
         }
 
@@ -228,6 +245,7 @@ public partial class ItemFishingPole : Item, IRenderableItem
         MainAPI.Capi.Render.RenderMultiTextureMesh(renderInfo.ModelRef, "tex");
 
         // Fix shadow sampler???
+        MainAPI.Capi.Render.StandardShader.BindTexture2D("tex2dOverlay", 0, 1);
         prog.Uniform("tex2dOverlay", 0);
     }
 

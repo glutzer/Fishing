@@ -5,24 +5,37 @@ namespace Fishing3;
 
 public partial class ItemFishingPole : Item, IItemWithInventory
 {
-    public int SlotCount => 5;
+    public int SlotCount => 4;
 
     /// <summary>
     /// Implementation of IsItemAllowed delegate for the fishing pole inventory.
     /// </summary>
     public virtual bool IsAllowedInSlot(int slotId, ItemStack stackIn)
     {
+        // Line (0).
         if (slotId == 0)
         {
             return stackIn.Collectible.Attributes["lineType"].Exists;
         }
 
-        if (slotId == 4)
+        // Bobber (1).
+        if (slotId == 1)
+        {
+            return stackIn.Collectible.GetBehavior<CollectibleBehaviorBobber>() != null;
+        }
+
+        // Bait (2)
+        if (slotId == 2)
+        {
+            return stackIn.Collectible.GetBehavior<CollectibleBehaviorBait>() != null;
+        }
+
+        if (slotId == 3)
         {
             return false; // Catch slot, can't put items in.
         }
 
-        return true; // No checking.
+        return true;
     }
 
     /// <summary>
@@ -46,19 +59,26 @@ public partial class ItemFishingPole : Item, IItemWithInventory
     /// </summary>
     public static void SetStack(int slotId, ItemStack poleStack, ItemStack? toSet)
     {
+        if (toSet == null)
+        {
+            poleStack.Attributes.RemoveAttribute($"slot{slotId}");
+            return;
+        }
+
         poleStack.Attributes.SetItemstack($"slot{slotId}", toSet);
         return;
     }
 
     /// <summary>
     /// Damage a stack in a slot.
+    /// Returns true if destroyed.
     /// </summary>
-    public static void DamageStack(int slotId, ItemSlot poleSlot, ICoreAPI api, int damage)
+    public static bool DamageStack(int slotId, ItemSlot poleSlot, ICoreAPI api, int damage)
     {
-        if (!ReadStack(slotId, poleSlot.Itemstack, api, out ItemStack? readStack)) return;
+        if (!ReadStack(slotId, poleSlot.Itemstack, api, out ItemStack? readStack)) return false;
 
         // Infinite durability item.
-        if (readStack.Collectible.GetMaxDurability(readStack) == 1) return;
+        if (readStack.Collectible.GetMaxDurability(readStack) == 1) return false;
 
         int remainingDurability = readStack.Collectible.GetRemainingDurability(readStack);
         remainingDurability -= damage;
@@ -67,13 +87,15 @@ public partial class ItemFishingPole : Item, IItemWithInventory
         {
             poleSlot.Itemstack.Attributes.RemoveAttribute($"slot{slotId}");
             poleSlot.MarkDirty();
-            return;
+            return true;
         }
 
         readStack.Attributes.SetInt("durability", remainingDurability);
         poleSlot.Itemstack.Attributes.SetItemstack($"slot{slotId}", readStack);
 
         poleSlot.MarkDirty();
+
+        return false;
     }
 
     public static EntityBobber? TryGetBobber(ItemSlot rodSlot, ICoreAPI api)
