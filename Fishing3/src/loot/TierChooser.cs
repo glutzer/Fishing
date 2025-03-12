@@ -70,6 +70,7 @@ public class TierChooser
     /// <summary>
     /// Removes all items from the list except the highest rolled tier.
     /// Must have a count of atleast 1.
+    /// If NOTHING rolls min tier will be chosen (-1 for no default).
     /// </summary>
     public List<T> RollTier<T>(List<T> validItems, float rarityMultiplier, int minTier = -1) where T : ITierable
     {
@@ -95,8 +96,8 @@ public class TierChooser
             chance *= rarityMultiplier;
 
             // Base line is 1 / i + 1, then drop-off is decreased with higher tiers.
-            // Below 1 rarity, the base catch may not succeed.
-            chance = DRUtility.CalculateDR(chance, 1 / (i + 1), 1f - i * 0.1f);
+            // Below 1 rarity, nothing may roll, or literal junk (-1 tier) may be chosen.
+            chance = DRUtility.CalculateDR(chance, 1 / (i + 1), 1f - (i * 0.1f));
 
             float rarityRoll = Random.Shared.NextSingle();
             if (rarityRoll <= chance)

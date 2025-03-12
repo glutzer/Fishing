@@ -1,5 +1,5 @@
 {
-  "game:characterclass-alchemist": "Alchemist",
+  "game:characterclass-alchemist": "Apothecary",
   "game:characterdesc-alchemist": "<font color=\"#99c9f9\"><i>Rivers of power course through your veins.</i></font>",
 
   "game:characterclass-surfcaster": "Surfcaster",
@@ -9,10 +9,10 @@
   "game:charattribute-flaskEffect-0.7": "Solutions you apply have 70% increased effect",
 
   "game:trait-pirate": "<font color=\"#84ff84\">• Pirate </font>",
-  "game:charattribute-fishRarity-0.3": "30% increased rarity of catches",
+  "game:charattribute-fishRarity-0.3": "+30% rarity of catches",
 
   "game:trait-angler": "<font color=\"#84ff84\">• Angler </font>",
-  "game:charattribute-reelStrength-0.3": "30% increased reel strength",
+  "game:charattribute-reelStrength-0.3": "+30% reel strength",
 
   "game:tabname-fishing": "Fishing",
 

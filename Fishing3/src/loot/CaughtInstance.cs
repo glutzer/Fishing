@@ -1,4 +1,5 @@
 ﻿using MareLib;
+using OpenTK.Mathematics;
 using System;
 using Vintagestory.API.Common;
 
@@ -11,14 +12,17 @@ public class CaughtInstance
 {
     public readonly float kg;
     public readonly float speed;
-    public readonly ItemStack itemStack;
+    public readonly ItemStack? itemStack;
     private float secondsOfStamina;
     public readonly float maxStamina;
 
     public bool IsFighting { get; private set; } = true;
-    private Accumulator accumulator = Accumulator.WithRandomInterval(1f, 5f);
+    private Accumulator accumulator = Accumulator.WithRandomInterval(3f, 10f);
 
-    public CaughtInstance(ItemStack itemStack, float kg = 1f, float speed = 1f, float secondsOfStamina = 1f)
+    // Action called on catching, with position.
+    public Action<Vector3d>? OnCaught;
+
+    public CaughtInstance(ItemStack? itemStack, float kg = 1f, float speed = 1f, float secondsOfStamina = 1f)
     {
         this.kg = kg;
         this.speed = speed;
@@ -29,15 +33,22 @@ public class CaughtInstance
 
     public void UpdateStamina(float dt)
     {
+        if (maxStamina == 0)
+        {
+            IsFighting = false;
+            return;
+        }
+
         if (IsFighting) secondsOfStamina -= dt;
 
         accumulator.Add(dt);
 
-        if (accumulator.ConsumeAll())
+        if (accumulator.Progress(dt))
         {
-            accumulator.SetRandomInterval(1f, 5f);
+            accumulator.SetRandomInterval(3f, 10f);
 
-            float staminaRatio = secondsOfStamina / maxStamina;
+            // Minimum stamina.
+            float staminaRatio = Math.Max(secondsOfStamina / maxStamina, 0.1f);
 
             IsFighting = Random.Shared.NextSingle() < staminaRatio;
         }

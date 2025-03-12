@@ -44,6 +44,12 @@ public class WeightedCatch : ITierable, IWeightable
         }
     }
 
+    public WeightedCatch WithTag(string tag)
+    {
+        tags.Add(tag);
+        return this;
+    }
+
     public int Tier => tier;
     public float Weight => weight * multiplier;
 }

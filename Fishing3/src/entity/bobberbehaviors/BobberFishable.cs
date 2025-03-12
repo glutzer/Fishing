@@ -1,9 +1,7 @@
 ﻿using MareLib;
 using OpenTK.Mathematics;
 using System;
-using System.IO;
 using Vintagestory.API.Common;
-using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
@@ -14,13 +12,10 @@ public class BobberFishable : BobberReelable
 {
     public CaughtInstance? bitingFish;
 
-    protected Accumulator accumulator = Accumulator.WithRandomInterval(5f, 30f);
-
     // Reel strength / catch weight determines reel speed multiplier.
-    public const float BASE_REEL_STRENGTH = 10f;
-    public float reelStrength;
-
-    private float durabilityDrainAccumulation;
+    public const float BASE_REEL_STRENGTH = 5f;
+    protected float reelStrength = 1f;
+    protected float durabilityDrainAccumulation;
 
     public BobberFishable(EntityBobber bobber, bool isServer) : base(bobber, isServer)
     {
@@ -31,10 +26,8 @@ public class BobberFishable : BobberReelable
     {
         base.ServerInitialize(bobberStack, rodStack, properties);
 
-        EntityPlayer? player = bobber.GetCaster();
-        if (player == null) return;
-
-        float reelStrengthMulti = player.Stats.GetBlended("reelStrength");
+        // This is only required on the server, not saved.
+        float reelStrengthMulti = bobber.Caster?.Stats.GetBlended("reelStrength") ?? 1f;
         reelStrength = BASE_REEL_STRENGTH * reelStrengthMulti;
     }
 
@@ -49,39 +42,10 @@ public class BobberFishable : BobberReelable
         if (ItemFishingPole.DamageStack(0, bobber.rodSlot, bobber.Api, duraAccumInt))
         {
             bobber.Die();
-            if (bobber.GetCaster() is not EntityPlayer player) return;
+            if (bobber.Caster is not EntityPlayer player) return;
             MainAPI.Sapi.World.PlaySoundAt("fishing:sounds/linesnap", player.Pos.X, player.Pos.Y, player.Pos.Z, null, true, 16);
         }
         durabilityDrainAccumulation -= duraAccumInt;
-    }
-
-    public override void Dispose(EntityDespawnData? despawn)
-    {
-        base.Dispose(despawn);
-
-        if (isServer)
-        {
-            if (bobber.rodSlot?.Itemstack == null) return;
-        }
-    }
-
-    public override void ToBytes(BinaryWriter writer, bool forClient)
-    {
-        base.ToBytes(writer, forClient);
-        writer.Write(reelStrength);
-    }
-
-    public override void FromBytes(BinaryReader reader, bool forClient)
-    {
-        base.FromBytes(reader, forClient);
-        reelStrength = reader.ReadSingle();
-    }
-
-    public void FishBite()
-    {
-        if (bobber.GetCaster() is not EntityPlayer player) return;
-        bitingFish = MainAPI.GetGameSystem<CatchSystem>(EnumAppSide.Server).RollCatch(bobber.ServerPos.ToVector(), player);
-        bobber.ServerPos.Y -= 0.5f;
     }
 
     public override void TryCatch()
@@ -89,17 +53,42 @@ public class BobberFishable : BobberReelable
         base.TryCatch();
 
         if (bitingFish == null) return;
+        if (bobber.rodSlot == null || bobber.rodSlot.Itemstack == null || bobber.rodSlot.Itemstack.Collectible is not ItemFishingPole) return;
 
-        // Give the caught item to the player.
-        if (bobber.GetCaster() is not EntityPlayer player) return;
-
-        ItemSlot rodSlot = player.Player.InventoryManager.ActiveHotbarSlot;
-        if (rodSlot.Itemstack == null || rodSlot.Itemstack.Collectible is not ItemFishingPole) return;
-        ItemFishingPole.SetStack(3, rodSlot.Itemstack, bitingFish.itemStack);
+        if (bitingFish.itemStack != null) ItemFishingPole.SetStack(3, bobber.rodSlot.Itemstack, bitingFish.itemStack);
+        bitingFish.OnCaught?.Invoke(bobber.ServerPos.ToVector());
 
         DrainDurability(0.5f);
 
-        rodSlot.MarkDirty();
+        bobber.rodSlot.MarkDirty();
+    }
+
+    protected float biteTimer = -1f;
+    protected void UpdateBiting(float dt)
+    {
+        if (!bobber.Swimming || bitingFish != null) return;
+
+        if (biteTimer == -1f)
+        {
+            biteTimer = CatchSystem.GetTimeToBite(bobber.ServerPos.ToVector(), bobber.Caster);
+        }
+
+        biteTimer -= dt;
+
+        if (biteTimer < 0)
+        {
+            biteTimer = 0;
+            bitingFish = MainAPI.GetGameSystem<CatchSystem>(EnumAppSide.Server).RollCatch(bobber.ServerPos.ToVector(), bobber.Caster);
+            if (bitingFish == null)
+            {
+                biteTimer = CatchSystem.GetTimeToBite(bobber.ServerPos.ToVector(), bobber.Caster);
+            }
+            else
+            {
+                releasing = false;
+                bobber.ServerPos.Y -= 1f;
+            }
+        }
     }
 
     /// <summary>
@@ -122,20 +111,9 @@ public class BobberFishable : BobberReelable
 
     public override void OnServerPhysicsTick(float dt)
     {
-        if (bobber.GetCaster() is not EntityPlayer player) return;
+        if (bobber.Caster is not EntityPlayer player) return;
 
-        if (bobber.Swimming)
-        {
-            accumulator.Add(dt);
-            if (accumulator.ConsumeAll())
-            {
-                if (bitingFish == null)
-                {
-                    FishBite();
-                }
-                accumulator.SetRandomInterval(5f, 30f);
-            }
-        }
+        UpdateBiting(dt);
 
         Vector3d currentPosition = bobber.ServerPos.ToVector();
         Vector3d playerPos = player.ServerPos.ToVector();
@@ -156,14 +134,20 @@ public class BobberFishable : BobberReelable
 
             Vector3d movement = GetFishMovement(currentPosition, playerPos, dt);
 
+            if ((diff + movement).Length > maxDistance && !releasing)
+            {
+                movement *= 0.2f;
+            }
+
             currentPosition += movement;
+
             diff = currentPosition - playerPos;
 
             // If the fish has moved past the max distance after multipliers, set new.
             // Max distance increases at a rate lower than the speed (placeholder for line drag).
             if (diff.Length > maxDistance && bitingFish.IsFighting && !reeling)
             {
-                maxDistance = Math.Min(maxDistance + ((float)movement.Length * 0.2f), maxPossibleDistance);
+                maxDistance = Math.Min(maxDistance + (float)movement.Length, maxPossibleDistance);
             }
         }
 

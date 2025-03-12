@@ -1,8 +1,9 @@
 ﻿using MareLib;
+using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
@@ -57,22 +58,22 @@ public class FishingContext
     public readonly bool night;
 
     /// <summary>
-    /// 0-8_000 volume of the liquid.
+    /// Volume of the liquid in blocks.
     /// </summary>
     public readonly int volume;
 
-    /// <summary>
-    /// Rarity multiplier set by catch system.
-    /// </summary>
-    public float rarityMultiplier = 1f;
+    public float RarityMultiplier { get; private set; } = 1f;
+    public float QuantityMultiplier { get; private set; } = 1f;
 
     /// <summary>
     /// Multipliers set by catch system.
     /// </summary>
     public Dictionary<string, float> tagMultipliers = new();
 
-    public FishingContext(ICoreServerAPI sapi, BlockPos blockPos)
+    public FishingContext(ICoreServerAPI sapi, Vector3d position, Entity? caster)
     {
+        BlockPos blockPos = new((int)position.X, (int)(position.Y - 0.5), (int)position.Z);
+
         SystemTemporalStability systemTemporalStability = sapi.ModLoader.GetModSystem<SystemTemporalStability>();
         temporalStorm = systemTemporalStability.StormData.nowStormActive;
         moonPhase = sapi.World.Calendar.MoonPhase;
@@ -83,13 +84,8 @@ public class FishingContext
         int seaLevel = Climate.Sealevel;
         seaLevelOffset = blockPos.Y - seaLevel;
 
+        // Liquid 1-2 below bobber. Does not roll anything in shallow water.
         liquid = sapi.World.BlockAccessor.GetBlock(blockPos.AddCopy(0, -1, 0));
-
-        Stopwatch sw = Stopwatch.StartNew();
-
-        volume = CheckVolumeAtBobber(blockPos.ToVec3d(), 8000);
-
-        Console.WriteLine($"Volume check took {sw.Elapsed.TotalMilliseconds}ms");
 
         // Climate.
         ClimateCondition climate = sapi.World.BlockAccessor.GetClimateAt(blockPos);
@@ -97,6 +93,63 @@ public class FishingContext
         temperature = climate.Temperature;
         precipitation = climate.Rainfall;
         humidity = climate.WorldgenRainfall;
+
+        // Volume.
+        bool isLava = liquid.Code.FirstCodePart() == "lava";
+        volume = CheckVolumeAtBobber(blockPos.ToVec3d(), isLava ? 800 : 8000); // 10x less lava needed.
+
+        CalculateRarityQuantity(position, caster, isLava ? 200f : 2000f);
+    }
+
+    private void CalculateRarityQuantity(Vector3d position, Entity? caster, float liquidBaseLine)
+    {
+        RarityMultiplier = DRUtility.CalculateDR(volume, liquidBaseLine, 1.7f) / liquidBaseLine;
+        QuantityMultiplier = DRUtility.CalculateDR(volume, liquidBaseLine, 1.7f) / liquidBaseLine;
+
+        // 30% more quantity in stormy weather.
+        QuantityMultiplier *= 1f + (precipitation * 0.3f);
+
+        // 50% rarity and quantity multiplier in negative weather.
+        float tempMultiplier = 1f + (Math.Clamp(-temperature, 0, 20) / 20f * 0.5f);
+        RarityMultiplier *= tempMultiplier;
+        QuantityMultiplier *= tempMultiplier;
+
+        if (caster is EntityPlayer player)
+        {
+            RarityMultiplier *= caster.Stats.GetBlended("fishRarity");
+            QuantityMultiplier *= caster.Stats.GetBlended("fishQuantity");
+
+            // 0-1 quantity up to 25m away, then logarithmic.
+            float distance = (float)Vector3d.Distance(position, caster.ServerPos.ToVector());
+            float distanceMultiplier = DRUtility.CalculateDR(distance, 25f, 1f) / 25f;
+            QuantityMultiplier *= distanceMultiplier;
+
+            ItemSlot hotbarSlot = player.Player.InventoryManager.ActiveHotbarSlot;
+
+            if (hotbarSlot.Itemstack != null && hotbarSlot.Itemstack.Collectible is ItemFishingPole)
+            {
+                if (ItemFishingPole.ReadStack(2, hotbarSlot.Itemstack, MainAPI.Sapi, out ItemStack? baitStack))
+                {
+                    CollectibleBehaviorBait? baitBehavior = baitStack.Collectible.GetBehavior<CollectibleBehaviorBait>();
+
+                    if (baitBehavior != null)
+                    {
+                        RarityMultiplier *= baitBehavior.rarityMultiplier;
+                        QuantityMultiplier *= baitBehavior.quantityMultiplier;
+
+                        // Flat bonuses.
+                        RarityMultiplier += baitBehavior.extraRarity;
+                        QuantityMultiplier += baitBehavior.extraQuantity;
+                    }
+                }
+                else
+                {
+                    // No bait.
+                    QuantityMultiplier *= 0.2f;
+                    RarityMultiplier *= 0.2f;
+                }
+            }
+        }
     }
 
     private static int CheckVolumeAtBobber(Vec3d pos, int max)

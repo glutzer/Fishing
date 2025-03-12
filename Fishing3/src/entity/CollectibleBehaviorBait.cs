@@ -14,6 +14,12 @@ public class CollectibleBehaviorBait : CollectibleBehavior
     // Instead has a durability, won't use chance.
     public bool lure;
 
+    public float extraRarity = 0f;
+    public float extraQuantity = 0f;
+
+    public float rarityMultiplier = 1f;
+    public float quantityMultiplier = 1f;
+
     // Weight multiplier for catches with tag.
     public Dictionary<string, float> tagMultipliers = new();
 
@@ -38,6 +44,26 @@ public class CollectibleBehaviorBait : CollectibleBehavior
         if (properties["tagMultipliers"].Exists)
         {
             tagMultipliers = properties["tagMultipliers"].AsObject<Dictionary<string, float>>();
+        }
+
+        if (properties["extraRarity"].Exists)
+        {
+            extraRarity = properties["extraRarity"].AsFloat(0f);
+        }
+
+        if (properties["extraQuantity"].Exists)
+        {
+            extraQuantity = properties["extraQuantity"].AsFloat(0f);
+        }
+
+        if (properties["rarityMultiplier"].Exists)
+        {
+            rarityMultiplier = properties["rarityMultiplier"].AsFloat(1f);
+        }
+
+        if (properties["quantityMultiplier"].Exists)
+        {
+            quantityMultiplier = properties["quantityMultiplier"].AsFloat(1f);
         }
     }
 
@@ -75,7 +101,26 @@ public class CollectibleBehaviorBait : CollectibleBehavior
         {
             builder.AppendLine($"Bait lure");
         }
-        //builder.AppendLine($"Attractiveness: {biteChanceMultiplier}x");
+
+        if (extraRarity != 0)
+        {
+            builder.AppendLine(extraRarity > 0 ? $"+{extraRarity} rarity" : $"-{-extraRarity} rarity");
+        }
+
+        if (extraQuantity != 0)
+        {
+            builder.AppendLine(extraQuantity > 0 ? $"+{extraQuantity} quantity" : $"-{-extraQuantity} quantity");
+        }
+
+        if (rarityMultiplier != 1f)
+        {
+            builder.AppendLine($"x{rarityMultiplier} rarity");
+        }
+
+        if (quantityMultiplier != 1f)
+        {
+            builder.AppendLine($"x{quantityMultiplier} quantity");
+        }
 
         // Add tag multipliers to the tooltip
         foreach (KeyValuePair<string, float> tagMultiplier in tagMultipliers)

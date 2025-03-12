@@ -8,6 +8,7 @@ using System.Linq;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.Util;
 
 namespace Fishing3;
 
@@ -23,8 +24,14 @@ public class FishSpecies
     // What direction the mouth is facing, rotate this to point towards what's needed.
     public Vector3 mouthFacing = new(-1, 0, 0);
 
+    public Vector2 tempRange;
+
     public int tier;
     public float weight;
+
+    public float satietyMultiplier;
+
+    public HashSet<string> liquids = new();
 
     public FishSpecies(FishSpeciesJson json, ICoreAPI api)
     {
@@ -58,15 +65,21 @@ public class FishSpecies
             }
         }
 
+        tempRange = new Vector2((float)json.tempRange[0], (float)json.tempRange[1]);
+
         tier = json.tier;
         weight = json.weight;
+
+        satietyMultiplier = json.satietyMultiplier;
+
+        liquids.AddRange(json.liquids);
     }
 
-    public ItemStack CreateStack(ICoreAPI api, float weight)
+    public ItemStack CreateStack(ICoreAPI api, double weight)
     {
         ItemStack stack = new(api.World.GetItem(new AssetLocation("fishing:fish")));
         stack.Attributes.SetString("species", code);
-        stack.Attributes.SetFloat("kg", weight);
+        stack.Attributes.SetDouble("kg", weight);
         stack.StackSize = 1;
         return stack;
     }
@@ -82,11 +95,18 @@ public class FishSpeciesJson
     // Base model.
     public string model = "fishing:fish/salmon";
 
+    // Valid everywhere by default.
+    public double[] tempRange = new double[] { -25, 45 };
+
     // Texture overrides for this model (eye, fins, scales).
     public Dictionary<string, string> textures = new();
 
     public int tier = 0;
     public float weight = 1f;
+
+    public float satietyMultiplier = 1f;
+
+    public string[] liquids = new string[] { "water", "saltwater" };
 }
 
 /// <summary>
@@ -96,6 +116,8 @@ public class FishSpeciesJson
 public class FishSpeciesSystem : GameSystem
 {
     private readonly Dictionary<string, FishSpecies> types = new();
+
+    public IEnumerable<FishSpecies> SpeciesAlphabetical => types.Values.OrderBy(x => x.code);
 
     public FishSpeciesSystem(bool isServer, ICoreAPI api) : base(isServer, api)
     {

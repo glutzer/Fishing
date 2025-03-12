@@ -14,6 +14,7 @@ public class Patches
             __instance.Stats
                 .Register("flaskEffect")
                 .Register("fishRarity")
+                .Register("fishQuantity")
                 .Register("reelStrength");
         }
     }

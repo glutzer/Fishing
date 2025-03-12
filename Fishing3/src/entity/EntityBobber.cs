@@ -45,7 +45,18 @@ public class EntityBobber : Entity, IPhysicsTickable
     public BobberBehavior? behavior;
     public ItemSlot? rodSlot;
     public string? bobberClass;
-    public long casterId;
+
+    private long casterId;
+    private EntityPlayer? caster;
+
+    public EntityPlayer? Caster
+    {
+        get
+        {
+            caster ??= Api.World.GetEntityById(casterId) as EntityPlayer;
+            return caster;
+        }
+    }
 
     public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
     {
@@ -57,12 +68,6 @@ public class EntityBobber : Entity, IPhysicsTickable
         }
     }
 
-    public EntityPlayer? GetCaster()
-    {
-        if (Api.World.GetEntityById(casterId) is not EntityPlayer player) return null;
-        return player;
-    }
-
     /// <summary>
     /// Called on the server when initializing when cast.
     /// </summary>
@@ -71,7 +76,6 @@ public class EntityBobber : Entity, IPhysicsTickable
         casterId = player.EntityId;
         bobberClass = bobberType;
         behavior = MainAPI.GetGameSystem<BobberRegistry>(Api.Side).TryCreateAndInitializeBobber(bobberClass, this, bobberStack, rodStack, properties);
-
         rodSlot = player.Player.InventoryManager.ActiveHotbarSlot;
     }
 
@@ -154,10 +158,11 @@ public class EntityBobber : Entity, IPhysicsTickable
 
     public bool IsValid()
     {
-        if (Api.World.GetEntityById(casterId) is not EntityPlayer player) return false;
+        EntityPlayer? caster = Caster;
+        if (caster == null) return false;
 
-        ItemSlot hotbarSlot = player.Player.InventoryManager.ActiveHotbarSlot;
-        if (hotbarSlot.Itemstack == null || hotbarSlot.Itemstack.Collectible is not ItemFishingPole) return false;
+        ItemSlot hotbarSlot = caster.Player.InventoryManager.ActiveHotbarSlot;
+        if (hotbarSlot.Itemstack == null || hotbarSlot.Itemstack.Collectible is not ItemFishingPole || hotbarSlot != rodSlot) return false;
 
         EntityBobber? bobber = ItemFishingPole.TryGetBobber(hotbarSlot, Api);
         if (bobber == null || bobber.EntityId != EntityId) return false;
@@ -169,8 +174,9 @@ public class EntityBobber : Entity, IPhysicsTickable
     {
         if (!IsValid() && Alive)
         {
-            if (MainAPI.Sapi.World.GetEntityById(casterId) is EntityPlayer player)
+            if (Caster != null)
             {
+                EntityPlayer player = Caster;
                 MainAPI.Sapi.World.PlaySoundAt("fishing:sounds/linesnap", player.Pos.X, player.Pos.Y, player.Pos.Z, null, true, 16);
             }
 
@@ -198,6 +204,7 @@ public class EntityBobber : Entity, IPhysicsTickable
         {
             return true;
         }
+
         return false;
     }
 
@@ -219,5 +226,5 @@ public class EntityBobber : Entity, IPhysicsTickable
     public bool Ticking { get; set; } = true;
 
     public override double SwimmingOffsetY => 0.6f;
-    public override float MaterialDensity => behavior != null ? behavior.CanFloat ? 900f : 2000f : 900f;
+    public override float MaterialDensity => behavior != null ? behavior.CanFloat ? 800f : 2000f : 800f;
 }

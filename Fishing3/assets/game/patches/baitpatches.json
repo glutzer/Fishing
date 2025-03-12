@@ -8,7 +8,7 @@
         "name": "CollectibleBehaviorBait",
         "properties": {
           "consumeChance": 0.2,
-          "biteChanceMultiplier": 1.5
+          "rarityMultiplier": 1.3
         }
       }
     ]
@@ -22,7 +22,7 @@
         "name": "CollectibleBehaviorBait",
         "properties": {
           "consumeChance": 0.8,
-          "biteChanceMultiplier": 1
+          "extraQuantity": 0.3
         }
       }
     ]
@@ -36,7 +36,9 @@
         "name": "CollectibleBehaviorBait",
         "properties": {
           "consumeChance": 0.4,
-          "biteChanceMultiplier": 1
+          "tagMultipliers": {
+            "sharks": 10
+          }
         }
       }
     ]
@@ -50,7 +52,6 @@
         "name": "CollectibleBehaviorBait",
         "properties": {
           "consumeChance": 0.4,
-          "biteChanceMultiplier": 1,
           "tagMultipliers": {
             "sharks": 10
           }
@@ -67,7 +68,7 @@
         "name": "CollectibleBehaviorBait",
         "properties": {
           "consumeChance": 0.5,
-          "biteChanceMultiplier": 1
+          "quantityMultiplier": 1.3
         }
       }
     ]
@@ -81,12 +82,50 @@
         "name": "CollectibleBehaviorBait",
         "properties": {
           "consumeChance": 0.2,
-          "biteChanceMultiplier": 0.5,
           "tagMultipliers": {
-            "flotsam": 10
-          }
+            "flotsam": 10,
+            "fish": 0.25
+          },
+          "quantityMultiplier": 0.1
         }
       }
     ]
+  },
+  {
+    "file": "game:itemtypes/food/fruit.json",
+    "op": "addmerge",
+    "path": "/behaviorsByType",
+    "value": {
+      "*-cherry": [
+        {
+          "name": "CollectibleBehaviorBait",
+          "properties": {
+            "consumeChance": 0.35,
+            "extraRarity": 0.5,
+            "extraQuantity": 0.5,
+            "rarityMultiplier": 1.2,
+            "quantityMultiplier": 1.2
+          }
+        }
+      ],
+      "*-lychee": [
+        {
+          "name": "CollectibleBehaviorBait",
+          "properties": {
+            "consumeChance": 0.35,
+            "extraRarity": 1
+          }
+        }
+      ],
+      "*-saguaro": [
+        {
+          "name": "CollectibleBehaviorBait",
+          "properties": {
+            "consumeChance": 0.35,
+            "extraRarity": 3
+          }
+        }
+      ]
+    }
   }
 ]

@@ -143,7 +143,16 @@ public class ItemFish : Item, IInFirepitRendererSupplier
     {
         double kg = GetWeight(stack);
         bool smoked = stack.Attributes.GetBool("smoked");
+
+        FishSpecies? species = GetSpecies(stack);
+        if (species == null)
+        {
+            tempFoodProperties.Satiety = 0f;
+            return tempFoodProperties;
+        }
+
         tempFoodProperties.Satiety = (float)kg * (smoked ? 150f : 50f);
+        tempFoodProperties.Satiety *= species.satietyMultiplier;
         return tempFoodProperties;
     }
 

@@ -31,10 +31,9 @@ public class BobberReelable : BobberBehavior
     public BobberReelable(EntityBobber bobber, bool isServer) : base(bobber, isServer)
     {
         releasing = true; // Start released.
-        if (!isServer)
+        if (!isServer && bobber.Caster != null)
         {
-            if (bobber.GetCaster() is not EntityPlayer player) return;
-            FishingPoleSoundManager.Instance.StartSound(player, "fishing:sounds/linereel", dt => { });
+            FishingPoleSoundManager.Instance.StartSound(bobber.Caster, "fishing:sounds/linereel", dt => { });
         }
     }
 
@@ -104,7 +103,7 @@ public class BobberReelable : BobberBehavior
 
     public override void OnClientTick(float dt)
     {
-        if (bobber.GetCaster() is not EntityPlayer player) return;
+        if (bobber.Caster == null) return;
 
         float mps = Math.Abs(bobber.WatchedAttributes.GetFloat("distMps"));
 
@@ -113,7 +112,7 @@ public class BobberReelable : BobberBehavior
             currentAnimation.AnimationSpeed = mps / REEL_METERS_PER_ROTATION * 2f;
         }
 
-        FishingPoleSoundManager.Instance.UpdatePitchVolume(player, Math.Max(mps / REEL_METERS_PER_ROTATION, 0.4f), mps * 0.4f);
+        FishingPoleSoundManager.Instance.UpdatePitchVolume(bobber.Caster, Math.Max(mps / REEL_METERS_PER_ROTATION, 0.4f), mps * 0.4f);
     }
 
     /// <summary>
@@ -123,13 +122,13 @@ public class BobberReelable : BobberBehavior
     {
         bobber.Die();
 
-        if (bobber.GetCaster() is not EntityPlayer player) return;
-        MainAPI.Sapi.World.PlaySoundAt("fishing:sounds/reelin", player, null, true, 16);
+        if (bobber.Caster == null) return;
+        MainAPI.Sapi.World.PlaySoundAt("fishing:sounds/reelin", bobber.Caster, null, true, 16);
     }
 
     public override void OnServerPhysicsTick(float dt)
     {
-        if (bobber.GetCaster() is not EntityPlayer player) return;
+        if (bobber.Caster is not EntityPlayer player) return;
 
         Vector3d currentPosition = bobber.ServerPos.ToVector();
         Vector3d playerPos = player.ServerPos.ToVector();
@@ -199,7 +198,8 @@ public class BobberReelable : BobberBehavior
     {
         if (!isServer)
         {
-            if (bobber.GetCaster() is not EntityPlayer player) return;
+            if (bobber.Caster is not EntityPlayer player) return;
+
             FishingPoleSoundManager.Instance.StopSound(player);
             player.AnimManager.StopAnimation("LineReel");
 

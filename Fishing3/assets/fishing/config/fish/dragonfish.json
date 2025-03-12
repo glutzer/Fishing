@@ -1,5 +1,7 @@
 {
   "code": "dragonfish",
   "baseKg": 5,
-  "model": "fishing:fish/dragonfish"
+  "model": "fishing:fish/dragonfish",
+  "tempRange": [ -25, 0 ],
+  "weight": 0.25
 }

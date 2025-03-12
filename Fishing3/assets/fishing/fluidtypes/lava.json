@@ -1,0 +1,6 @@
+{
+  "Code": "lava",
+  "Class": "Fluid",
+  "Color": [ 1, 0.8, 0, 1 ],
+  "Glow": 255
+}
