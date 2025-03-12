@@ -29,10 +29,6 @@ public class FluidStack
         this.fluid = fluid;
     }
 
-    /// <summary>
-    /// Can these stacks merge?
-    /// For example with a solution stack: check if the properties of fluids match (like blood type or teleportation tag).
-    /// </summary>
     public virtual bool CanTakeFrom(FluidStack other)
     {
         return other.fluid == fluid;
@@ -40,13 +36,24 @@ public class FluidStack
 
     /// <summary>
     /// Tries to take from other stack, returns amount taken.
+    /// Must call OnTakenFrom from the other stack after transfer completes.
     /// </summary>
     public virtual int TakeFrom(FluidStack other, int maxUnits)
     {
         maxUnits = Math.Min(other.units, maxUnits);
         other.units -= maxUnits;
         units += maxUnits;
+        other.OnTakenFrom(maxUnits);
         return maxUnits;
+    }
+
+    /// <summary>
+    /// Called when this stack is taken from by TakeFrom.
+    /// Called regardless of amount taken, may have 0 units.
+    /// </summary>
+    public virtual void OnTakenFrom(int units)
+    {
+
     }
 
     /// <summary>

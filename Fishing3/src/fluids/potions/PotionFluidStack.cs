@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -25,12 +26,37 @@ public class PotionFluidStack : FluidStack
 
     public override bool CanTakeFrom(FluidStack other)
     {
-        return other is not PotionFluidStack;
+        return true; // Is ReagentFluid or PotionFluid.
     }
 
     public override int TakeFrom(FluidStack other, int maxUnits)
     {
         int initialUnits = maxUnits;
+
+        if (other is PotionFluidStack potionFluid)
+        {
+            int units = potionFluid.Units;
+            int unitsToMove = maxUnits;
+
+            foreach (FluidStack containedStack in potionFluid.containedStacks)
+            {
+                float ratio = containedStack.Units / (float)units;
+                int toMove = (int)Math.Ceiling(unitsToMove * ratio);
+                if (toMove > maxUnits) toMove = maxUnits;
+
+                if (CanTakeFrom(containedStack))
+                {
+                    maxUnits -= TakeFrom(containedStack, toMove);
+                }
+            }
+
+            int amountTaken = initialUnits - maxUnits;
+            potionFluid.OnTakenFrom(amountTaken);
+
+            return initialUnits - maxUnits;
+        }
+
+        // Not a potion fluid, just a normal fluid.
 
         foreach (FluidStack stack in containedStacks)
         {
@@ -40,20 +66,30 @@ public class PotionFluidStack : FluidStack
             }
         }
 
+        // Was able to take the entire amount needed into an existing stack.
         if (other.Units == 0) return initialUnits - maxUnits;
 
+        // Create a new stack...
         if (maxUnits > 0)
         {
-            FluidStack newStack = other.fluid.CreateFluidStack();
+            FluidStack stack = other.fluid.CreateFluidStack();
 
-            if (newStack.CanTakeFrom(other))
+            if (stack.CanTakeFrom(other))
             {
-                maxUnits -= newStack.TakeFrom(other, maxUnits);
-                containedStacks.Add(newStack);
+                maxUnits -= stack.TakeFrom(other, maxUnits);
+                containedStacks.Add(stack);
             }
         }
 
         return initialUnits - maxUnits;
+    }
+
+    public override void OnTakenFrom(int units)
+    {
+        // Remove empty stacks.
+        if (units == 0) return;
+
+        containedStacks.RemoveAll(x => x.Units == 0);
     }
 
     public override void ToBytes(BinaryWriter writer)
