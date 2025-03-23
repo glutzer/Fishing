@@ -20,6 +20,8 @@ public class FluidRegistry : GameSystem
     private readonly Dictionary<string, Fluid> fluidsByCode = new();
     private readonly Dictionary<string, Type> fluidTypeMapping = new();
 
+    private readonly Dictionary<string, Type> fluidBehaviorTypeMapping = new();
+
     public FluidRegistry(bool isServer, ICoreAPI api) : base(isServer, api)
     {
     }
@@ -36,6 +38,7 @@ public class FluidRegistry : GameSystem
 
     public override void OnAssetsLoaded()
     {
+        RegisterFluidBehaviors();
         RegisterFluids();
     }
 
@@ -49,10 +52,38 @@ public class FluidRegistry : GameSystem
         return fluidsByCode.TryGetValue(code, out fluid);
     }
 
+    private void RegisterFluidBehaviors()
+    {
+        (Type, FluidBehaviorAttribute)[] types = AttributeUtilities.GetAllAnnotatedClasses<FluidBehaviorAttribute>();
+        foreach ((Type type, _) in types)
+        {
+            fluidBehaviorTypeMapping.Add(type.Name, type);
+        }
+    }
+
+    private void AddFluidBehaviors(Fluid fluid, System.Text.Json.Nodes.JsonObject fluidJson)
+    {
+        if (fluidJson.TryGetPropertyValue("Behaviors", out JsonNode? behaviorsNode) && behaviorsNode is System.Text.Json.Nodes.JsonObject behaviors)
+        {
+            foreach (KeyValuePair<string, JsonNode?> behavior in behaviors)
+            {
+                string behaviorName = behavior.Key;
+                if (behavior.Value is not System.Text.Json.Nodes.JsonObject behaviorObject) continue; // Json incorrect.
+
+                fluidBehaviorTypeMapping.TryGetValue(behaviorName, out Type? behaviorType);
+                if (behaviorType == null) continue; // Behavior does not exist.
+
+                // Pass the object assigned to the behavior.
+                FluidBehavior fluidBehavior = (FluidBehavior)Activator.CreateInstance(behaviorType, behaviorObject)!;
+                fluid.AddBehavior(fluidBehavior);
+            }
+        }
+    }
+
     /// <summary>
     /// Registers all fluid classes, then loads all fluid assets.
     /// </summary>
-    public void RegisterFluids()
+    private void RegisterFluids()
     {
         // Register all types by their name.
         (Type, FluidAttribute)[] types = AttributeUtilities.GetAllAnnotatedClasses<FluidAttribute>();
@@ -87,6 +118,8 @@ public class FluidRegistry : GameSystem
                     // Instantiate the fluid.
                     Type type = fluidTypeMapping[fluidJson.Class];
                     Fluid fluid = (Fluid)Activator.CreateInstance(type, fluidJson, id, api)!;
+
+                    AddFluidBehaviors(fluid, variant);
 
                     Fluids[id++] = fluid;
                     fluidsByCode[fluidJson.Code] = fluid;

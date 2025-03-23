@@ -5,17 +5,17 @@ using Vintagestory.API.Common;
 namespace Fishing3;
 
 [Fluid]
-public class PotionFluid : Fluid
+public class FluidPotion : Fluid
 {
-    protected override Type StackType => typeof(PotionFluidStack);
+    protected override Type StackType => typeof(FluidStackPotion);
 
-    public PotionFluid(FluidJson fluidJson, int id, ICoreAPI api) : base(fluidJson, id, api)
+    public FluidPotion(FluidJson fluidJson, int id, ICoreAPI api) : base(fluidJson, id, api)
     {
     }
 
     public override Vector4 GetColor(FluidStack fluidStack)
     {
-        if (fluidStack is not PotionFluidStack potionFluidStack) return color;
+        if (fluidStack is not FluidStackPotion potionFluidStack) return color;
 
         Vector4 outColor = default;
         float weight = 0;
@@ -32,7 +32,7 @@ public class PotionFluid : Fluid
 
     public override float GetGlowLevel(FluidStack fluidStack)
     {
-        if (fluidStack is not PotionFluidStack potionFluidStack) return glowLevel;
+        if (fluidStack is not FluidStackPotion potionFluidStack) return glowLevel;
 
         float outGlow = 0;
         float weight = 0;

@@ -7,7 +7,7 @@ using Vintagestory.API.Common;
 
 namespace Fishing3;
 
-public class PotionFluidStack : FluidStack
+public class FluidStackPotion : FluidStack
 {
     public List<FluidStack> containedStacks = new();
 
@@ -20,20 +20,20 @@ public class PotionFluidStack : FluidStack
         }
     }
 
-    public PotionFluidStack(Fluid fluid) : base(fluid)
+    public FluidStackPotion(Fluid fluid) : base(fluid)
     {
     }
 
     public override bool CanTakeFrom(FluidStack other)
     {
-        return true; // Is ReagentFluid or PotionFluid.
+        return other is FluidStackPotion || other.fluid.HasBehavior<FluidBehaviorReagent>();
     }
 
     public override int TakeFrom(FluidStack other, int maxUnits)
     {
         int initialUnits = maxUnits;
 
-        if (other is PotionFluidStack potionFluid)
+        if (other is FluidStackPotion potionFluid)
         {
             int units = potionFluid.Units;
             int unitsToMove = maxUnits;

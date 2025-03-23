@@ -1,6 +1,6 @@
 {
   "Code": "potion",
-  "Class": "PotionFluid",
+  "Class": "FluidPotion",
   "Color": [ 0.5, 1, 1, 0.9 ],
   "Glow": 1
 }

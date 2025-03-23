@@ -1,5 +1,9 @@
-﻿using OpenTK.Mathematics;
+﻿using MareLib;
+using OpenTK.Mathematics;
 using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 
@@ -17,6 +21,9 @@ public class Fluid
     /// StackTypes must use the same constructors.
     /// </summary>
     protected virtual Type StackType => typeof(FluidStack);
+
+    private readonly SortedDictionary<string, FluidBehavior> behaviors = new();
+    public IEnumerable<FluidBehavior> AllBehaviors => behaviors.Values;
 
     /// <summary>
     /// Creates a fluid stack of this fluid with 0 units.
@@ -60,5 +67,44 @@ public class Fluid
     public virtual Vector4 GetColor(FluidStack fluidStack)
     {
         return color;
+    }
+
+    /// <summary>
+    /// Try to add a new behavior from the fluid registry.
+    /// </summary>
+    public void AddBehavior(FluidBehavior behavior)
+    {
+        Type type = behavior.GetType();
+        Type genericType = typeof(InnerClass<>).MakeGenericType(type);
+        string id = (string)genericType.GetField("Name", BindingFlags.Static | BindingFlags.Public)!.GetValue(null)!;
+
+        behaviors.Add(id, behavior);
+    }
+
+    public T? GetBehavior<T>() where T : FluidBehavior
+    {
+        if (behaviors.TryGetValue(InnerClass<T>.Name, out FluidBehavior? behavior))
+        {
+            return (T)behavior;
+        }
+
+        return null;
+    }
+
+    public bool HasBehavior<T>() where T : FluidBehavior
+    {
+        return behaviors.ContainsKey(InnerClass<T>.Name);
+    }
+
+    /// <summary>
+    /// Append information about this fluid.
+    /// FluidStack info -> Fluid info - FluidBehavior info.
+    /// </summary>
+    public virtual void GetFluidInfo(StringBuilder builder, FluidStack stack)
+    {
+        foreach (FluidBehavior behavior in AllBehaviors)
+        {
+            behavior.GetFluidInfo(builder, stack);
+        }
     }
 }

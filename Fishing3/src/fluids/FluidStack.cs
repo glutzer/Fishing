@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Text;
 using Vintagestory.API.Common;
+using Vintagestory.API.Datastructures;
 
 namespace Fishing3;
 
@@ -14,6 +15,8 @@ public class FluidStack
 {
     protected int units = 0;
     public readonly Fluid fluid;
+
+    public TreeAttribute Attributes { get; } = new();
 
     /// <summary>
     /// Stack volume, limited by container.
@@ -41,8 +44,17 @@ public class FluidStack
     public virtual int TakeFrom(FluidStack other, int maxUnits)
     {
         maxUnits = Math.Min(other.units, maxUnits);
+
+        // Call before move behavior.
+        foreach (FluidBehavior behavior in fluid.AllBehaviors)
+        {
+            behavior.BeforeFluidAddedToOwnStack(other, this, maxUnits);
+        }
+
+        // Add and subtract units.
         other.units -= maxUnits;
         units += maxUnits;
+
         other.OnTakenFrom(maxUnits);
         return maxUnits;
     }
@@ -58,22 +70,24 @@ public class FluidStack
 
     /// <summary>
     /// Append misc information about this fluid.
-    /// Stack size and name is already covered by container items.
     /// Example: if a potion fluid has a special property, like blood type, append it here to make it evident why it can't merge.
     /// </summary>
     public virtual void GetFluidInfo(StringBuilder builder)
     {
         builder.AppendLine($"{units} units of {fluid.code}");
+        fluid.GetFluidInfo(builder, this);
     }
 
     public virtual void ToBytes(BinaryWriter writer)
     {
         writer.Write(units);
+        Attributes.ToBytes(writer);
     }
 
     public virtual void FromBytes(BinaryReader reader, EnumAppSide side)
     {
         units = reader.ReadInt32();
+        Attributes.FromBytes(reader);
     }
 
     public static byte[] Save(FluidStack stack)

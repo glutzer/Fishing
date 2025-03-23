@@ -4,7 +4,7 @@ using Vintagestory.API.Common;
 namespace Fishing3;
 
 [Item]
-public class ItemSyringe : FluidStorageItem
+public class ItemSyringe : ItemFluidStorage
 {
     public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
     {

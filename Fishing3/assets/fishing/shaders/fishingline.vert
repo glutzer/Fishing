@@ -6,11 +6,15 @@
 
 layout(location = 0) in vec3 vertexIn;
 layout(location = 1) in vec2 uvIn;
+layout(location = 2) in vec3 normalIn;
 
 uniform mat4 modelMatrix;
 
-out vec2 uvOut;
-out vec4 colorOut;
+out vec2 uvOut;    // Uv of this vertex.
+out vec4 colorOut; // Color of this vertex.
+out vec4 gNormal;
+out vec4 cameraPos;
+out vec3 normal;
 
 out float fogAmount;
 out vec4 rgbaFog;
@@ -76,7 +80,7 @@ void main() {
     worldPos.y = max(originY.y, worldPos.y);
   }
 
-  vec4 cameraPos = offsetViewMatrix * worldPos;
+  cameraPos = offsetViewMatrix * worldPos;
   gl_Position = perspectiveMatrix * cameraPos;
 
   // Take the view matrix and the world pos relative to the camera, send shadow
@@ -94,4 +98,12 @@ void main() {
 
   uvOut = uvIn;
   uvOut.x *= length(offset) * 3;
+
+  // renderFlagsIn (vertex attribute).
+  // normal = unpackNormal, but this uses it's own normal in the vertices.
+
+  normal = normalIn;
+#if SSAOLEVEL > 0
+  gNormal = viewMatrix * modelMatrix * vec4(normalIn, 0);
+#endif
 }

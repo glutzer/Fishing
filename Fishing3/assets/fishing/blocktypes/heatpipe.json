@@ -1,0 +1,50 @@
+{
+  "code": "heatpipe",
+  "class": "BlockHeatPipe",
+  "entityclass": "BlockEntityHeatPipe",
+  "behaviors": [
+    {
+      "name": "UnstableFalling",
+      "impactDamageMul": 1
+    }
+  ],
+  "shape": {
+    "base": "fishing:parts/line"
+  },
+  "creativeinventory": {
+    "fishing": [
+      "*"
+    ]
+  },
+  "sounds": {
+    "place": "game:block/anvil",
+    "break": "game:block/anvil",
+    "hit": "game:block/anvil",
+    "walk": "game:walk/stone*"
+  },
+  "maxstacksize": 16,
+  "resistance": 2,
+  "blockmaterial": "Metal",
+  "sideopaque": {
+    "all": false
+  },
+  "emitsideao": {
+    "all": false
+  },
+  "collisionbox": {
+    "x1": 0.1,
+    "y1": 0,
+    "z1": 0.9,
+    "x2": 0.9,
+    "y2": 0.1,
+    "z2": 0.9
+  },
+  "selectionbox": {
+    "x1": 0.1,
+    "y1": 0,
+    "z1": 0.1,
+    "x2": 0.9,
+    "y2": 0.18,
+    "z2": 0.9
+  }
+}

@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Text.Json;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 

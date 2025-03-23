@@ -8,7 +8,10 @@ namespace Fishing3;
 public class FluidContainer
 {
     public int Capacity { get; private set; }
-    public int RoomLeft => Capacity - (HeldStack?.Units ?? 0);
+    public int RoomUsed => HeldStack?.Units ?? 0;
+    public int RoomLeft => Capacity - RoomUsed;
+    public bool Empty => HeldStack == null || HeldStack.Units <= 0;
+    public float FillPercent => Capacity == 0 ? 0 : (float)RoomUsed / Capacity;
 
     public FluidStack? HeldStack { get; private set; }
 
@@ -27,9 +30,14 @@ public class FluidContainer
         HeldStack = stack;
     }
 
-    public void Empty()
+    public void EmptyContainer()
     {
         HeldStack = null;
+    }
+
+    public virtual bool CanReceiveFluid(FluidStack stack)
+    {
+        return true;
     }
 
     /// <summary>
@@ -39,6 +47,8 @@ public class FluidContainer
     public static int MoveFluids(FluidContainer source, FluidContainer destination, int units = int.MaxValue)
     {
         if (source.HeldStack == null || destination.RoomLeft <= 0) return 0;
+
+        if (!destination.CanReceiveFluid(source.HeldStack)) return 0;
 
         // Incompatible fluids.
         if (destination.HeldStack != null && !destination.HeldStack.CanTakeFrom(source.HeldStack)) return 0;
@@ -56,12 +66,23 @@ public class FluidContainer
     }
 
     /// <summary>
+    /// Tries to move fluids between 2 containers.
+    /// Returns amount moved.
+    /// </summary>
+    public int MoveFluidsTo(FluidContainer destination, int units = int.MaxValue)
+    {
+        return MoveFluids(this, destination, units);
+    }
+
+    /// <summary>
     /// Tries to move fluids from a stack.
     /// Returns amount moved.
     /// </summary>
     public static int MoveFluids(FluidStack heldStack, FluidContainer destination, int units = int.MaxValue)
     {
         if (destination.RoomLeft <= 0) return 0;
+
+        if (!destination.CanReceiveFluid(heldStack)) return 0;
 
         // Incompatible fluids.
         if (destination.HeldStack != null && !destination.HeldStack.CanTakeFrom(heldStack)) return 0;

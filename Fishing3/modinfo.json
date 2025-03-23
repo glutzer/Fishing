@@ -9,6 +9,7 @@
   "version": "3.0.0",
   "dependencies": {
     "game": "",
-    "marelib": "2.3.0"
+    "marelib": "2.3.0",
+    "kemono": "0.0.2"
   }
 }

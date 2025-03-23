@@ -16,6 +16,9 @@
 
   "game:tabname-fishing": "Fishing",
 
+  "fishing:block-heatpipe": "Heat Pipe",
+  "fishing:block-alembic": "Alembic",
+
   "species-fish": "Fish",
   "smoked": "Smoked",
   "item-dummycut": "Butchering",

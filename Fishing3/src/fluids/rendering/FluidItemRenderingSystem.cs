@@ -9,35 +9,81 @@ using Vintagestory.GameContent;
 
 namespace Fishing3;
 
+public struct LiquidItemMeshInfo : IEquatable<LiquidItemMeshInfo>
+{
+    public string itemCode;
+    public Vector4 color;
+    public float glow;
+    public float fill;
+
+    public LiquidItemMeshInfo(string itemCode, Vector4 color, float glow, float fill)
+    {
+        this.itemCode = itemCode;
+        this.color = color;
+        this.glow = glow;
+        this.fill = fill;
+    }
+
+    public LiquidItemMeshInfo(string itemCode)
+    {
+        this.itemCode = itemCode;
+    }
+
+    public readonly bool Equals(LiquidItemMeshInfo other)
+    {
+        return color == other.color && glow == other.glow && fill == other.fill;
+    }
+
+    public override readonly bool Equals(object? obj)
+    {
+        return obj is LiquidItemMeshInfo other && Equals(other);
+    }
+
+    public override readonly int GetHashCode()
+    {
+        return HashCode.Combine(itemCode, color, glow, fill);
+    }
+
+    public static bool operator ==(LiquidItemMeshInfo left, LiquidItemMeshInfo right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(LiquidItemMeshInfo left, LiquidItemMeshInfo right)
+    {
+        return !(left == right);
+    }
+}
+
 /// <summary>
 /// Handles fluid items.
 /// </summary>
 [GameSystem(forSide = EnumAppSide.Client)]
-public class FluidRenderingSystem : GameSystem
+public class FluidItemRenderingSystem : GameSystem
 {
     /// <summary>
     /// Keep a dictionary of cached models. It's cleared/disposed periodically.
     /// </summary>
-    private readonly Dictionary<string, MultiTextureMeshRef> fluidModelCache = new();
+    private readonly Dictionary<LiquidItemMeshInfo, MultiTextureMeshRef> fluidModelCache = new();
 
     private int maxElements = 256;
     private long timeSinceLastClear = 0;
 
-    public FluidRenderingSystem(bool isServer, ICoreAPI api) : base(isServer, api)
+    public FluidItemRenderingSystem(bool isServer, ICoreAPI api) : base(isServer, api)
     {
     }
 
     /// <summary>
     /// Lerps the item once per frame (for all targets) if lerpDt > 0.
     /// </summary>
-    public MultiTextureMeshRef? GetFluidItemModel(FluidStorageItem item, ItemStack stack, float lerpDt = 0f)
+    public MultiTextureMeshRef? GetFluidItemModel(ItemFluidStorage item, ItemStack stack, float lerpDt = 0f)
     {
         FluidContainer container = item.GetContainer(stack);
         FluidStack? fluidStack = container.HeldStack;
 
         if (fluidStack == null)
         {
-            return GetOrCreate($"{item.Code}-empty", () =>
+            return GetOrCreate(new LiquidItemMeshInfo(item.Code), () =>
             {
                 return CreateFluidItemModel(item, Vector4.Zero, 0, 0);
             });
@@ -67,13 +113,15 @@ public class FluidRenderingSystem : GameSystem
             }
         }
 
-        return GetOrCreate($"{item.Code}-{color.X}-{color.Y}-{color.Z}-{color.W}-{glow}-{fill}", () =>
+        LiquidItemMeshInfo info = new(item.Code, color, glow, fill);
+
+        return GetOrCreate(info, () =>
         {
             return CreateFluidItemModel(item, color, glow, fill);
         });
     }
 
-    private MultiTextureMeshRef GetOrCreate(ReadOnlySpan<char> code, Func<MultiTextureMeshRef?> meshRef)
+    private MultiTextureMeshRef GetOrCreate(LiquidItemMeshInfo meshInfo, Func<MultiTextureMeshRef?> meshRef)
     {
         if (fluidModelCache.Count > maxElements)
         {
@@ -81,6 +129,7 @@ public class FluidRenderingSystem : GameSystem
             {
                 value.Dispose();
             }
+
             fluidModelCache.Clear();
 
             if ((MainAPI.Capi.World.ElapsedMilliseconds - timeSinceLastClear) / 1000f > 5)
@@ -91,13 +140,13 @@ public class FluidRenderingSystem : GameSystem
             timeSinceLastClear = MainAPI.Capi.World.ElapsedMilliseconds;
         }
 
-        if (fluidModelCache.TryGetValue(code.ToString(), out MultiTextureMeshRef? mesh))
+        if (fluidModelCache.TryGetValue(meshInfo, out MultiTextureMeshRef? mesh))
         {
             return mesh;
         }
 
         mesh = meshRef();
-        fluidModelCache.Add(code.ToString(), mesh);
+        fluidModelCache.Add(meshInfo, mesh);
         return mesh;
     }
 

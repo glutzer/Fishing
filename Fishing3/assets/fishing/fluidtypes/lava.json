@@ -1,6 +1,11 @@
 {
   "Code": "lava",
   "Class": "Fluid",
-  "Color": [ 1, 0.8, 0, 1 ],
-  "Glow": 255
+  "Color": [ 1, 0.5, 0, 1 ],
+  "GlowLevel": 1,
+  "Behaviors": {
+    "FluidBehaviorReagent": {
+
+    }
+  }
 }

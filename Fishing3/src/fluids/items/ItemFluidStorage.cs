@@ -6,21 +6,21 @@ using Vintagestory.API.Common;
 namespace Fishing3;
 
 /// <summary>
-/// Item which may hold a fluid.
+/// Item which may hold a fluid, such as a syringe or a flask.
 /// </summary>
-public class FluidStorageItem : Item
+public class ItemFluidStorage : Item
 {
     /// <summary>
     /// What capacity this item container will have when created.
     /// </summary>
     public virtual int ContainerCapacity => 100;
-    public FluidRenderingSystem fluidRenderingSystem = null!;
+    public FluidItemRenderingSystem fluidRenderingSystem = null!;
 
     public override void OnLoaded(ICoreAPI api)
     {
         base.OnLoaded(api);
 
-        if (api.Side == EnumAppSide.Client) fluidRenderingSystem = MainAPI.GetGameSystem<FluidRenderingSystem>(api.Side);
+        if (api.Side == EnumAppSide.Client) fluidRenderingSystem = MainAPI.GetGameSystem<FluidItemRenderingSystem>(api.Side);
     }
 
     public FluidContainer GetContainer(ItemStack stack)
