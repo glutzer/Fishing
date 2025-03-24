@@ -1,9 +1,11 @@
 ﻿using MareLib;
+using OpenTK.Mathematics;
 using System;
 using System.IO;
 using System.Text;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
 
 namespace Fishing3;
 
@@ -34,7 +36,7 @@ public class FluidStack
 
     public virtual bool CanTakeFrom(FluidStack other)
     {
-        return other.fluid == fluid;
+        return fluid.EventCanTakeFrom.Invoke((other, this));
     }
 
     /// <summary>
@@ -45,11 +47,7 @@ public class FluidStack
     {
         maxUnits = Math.Min(other.units, maxUnits);
 
-        // Call before move behavior.
-        foreach (FluidBehavior behavior in fluid.AllBehaviors)
-        {
-            behavior.BeforeFluidAddedToOwnStack(other, this, maxUnits);
-        }
+        fluid.EventBeforeFluidAddedToOwnStack.Invoke((other, this, maxUnits));
 
         // Add and subtract units.
         other.units -= maxUnits;
@@ -74,8 +72,11 @@ public class FluidStack
     /// </summary>
     public virtual void GetFluidInfo(StringBuilder builder)
     {
-        builder.AppendLine($"{units} units of {fluid.code}");
-        fluid.GetFluidInfo(builder, this);
+        Vector4 fluidColor = fluid.GetColor(this);
+        string hex = ColorUtil.Doubles2Hex(new double[] { fluidColor.X, fluidColor.Y, fluidColor.Z });
+        builder.AppendLine($"{units} units of <font color=\"{hex}\">{fluid.code}</font>");
+
+        fluid.EventGetFluidInfo.Invoke((builder, this));
     }
 
     public virtual void ToBytes(BinaryWriter writer)

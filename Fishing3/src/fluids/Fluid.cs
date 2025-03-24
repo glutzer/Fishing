@@ -15,6 +15,16 @@ namespace Fishing3;
 [Fluid]
 public class Fluid
 {
+    // Events.
+    public BlockEvent<(StringBuilder builder, FluidStack thisStack)> EventGetFluidInfo { get; private set; } = new();
+    public BlockEvent<(FluidStack sourceStack, FluidStack thisStack, int toMove)> EventBeforeFluidAddedToOwnStack { get; private set; } = new();
+
+    /// <summary>
+    /// Can this fluid stack take from another fluid stack?
+    /// Called from the fluid stack class.
+    /// </summary>
+    public CheckBlockEvent<(FluidStack sourceStack, FluidStack thisStack)> EventCanTakeFrom { get; private set; } = new();
+
     /// <summary>
     /// Which fluid stack class will be used for this.
     /// Must extend FluidStack.
@@ -52,6 +62,17 @@ public class Fluid
         this.color = new Vector4(color[0], color[1], color[2], color[3]);
 
         this.api = api;
+    }
+
+    /// <summary>
+    /// Register events after this fluid is created.
+    /// </summary>
+    public virtual void RegisterEvents()
+    {
+        EventCanTakeFrom.Register(args =>
+        {
+            return args.sourceStack.fluid == args.thisStack.fluid;
+        });
     }
 
     public virtual string GetName(FluidStack fluidStack)
@@ -94,17 +115,5 @@ public class Fluid
     public bool HasBehavior<T>() where T : FluidBehavior
     {
         return behaviors.ContainsKey(InnerClass<T>.Name);
-    }
-
-    /// <summary>
-    /// Append information about this fluid.
-    /// FluidStack info -> Fluid info - FluidBehavior info.
-    /// </summary>
-    public virtual void GetFluidInfo(StringBuilder builder, FluidStack stack)
-    {
-        foreach (FluidBehavior behavior in AllBehaviors)
-        {
-            behavior.GetFluidInfo(builder, stack);
-        }
     }
 }

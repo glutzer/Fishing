@@ -76,6 +76,7 @@ public class FluidRegistry : GameSystem
                 // Pass the object assigned to the behavior.
                 FluidBehavior fluidBehavior = (FluidBehavior)Activator.CreateInstance(behaviorType, behaviorObject)!;
                 fluid.AddBehavior(fluidBehavior);
+                fluidBehavior.RegisterEvents(fluid);
             }
         }
     }
@@ -118,6 +119,8 @@ public class FluidRegistry : GameSystem
                     // Instantiate the fluid.
                     Type type = fluidTypeMapping[fluidJson.Class];
                     Fluid fluid = (Fluid)Activator.CreateInstance(type, fluidJson, id, api)!;
+
+                    fluid.RegisterEvents();
 
                     AddFluidBehaviors(fluid, variant);
 

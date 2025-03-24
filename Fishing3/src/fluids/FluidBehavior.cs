@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System.Text.Json.Nodes;
+﻿using System.Text.Json.Nodes;
 
 namespace Fishing3;
 
@@ -13,19 +12,9 @@ public abstract class FluidBehavior
     }
 
     /// <summary>
-    /// Called before units are moved between stacks.
-    /// Example: to merge stats of a fluid stack.
-    /// Only called from the destination type.
+    /// Register events when this behavior is created.
     /// </summary>
-    public virtual void BeforeFluidAddedToOwnStack(FluidStack sourceStack, FluidStack thisStack, int toMove)
-    {
-
-    }
-
-    /// <summary>
-    /// Append information about this fluid.
-    /// </summary>
-    public virtual void GetFluidInfo(StringBuilder builder, FluidStack stack)
+    public virtual void RegisterEvents(Fluid fluid)
     {
 
     }

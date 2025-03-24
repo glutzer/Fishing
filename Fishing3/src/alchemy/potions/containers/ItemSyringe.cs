@@ -17,18 +17,23 @@ public class ItemSyringe : ItemFluidStorage
 
             if (container.HeldStack == null)
             {
-                Fluid fluid = registry.GetFluid("potion");
-                FluidStack stack = fluid.CreateFluidStack();
-                container.SetStack(stack);
+                Fluid fluid1 = registry.GetFluid("potion");
+                FluidStack stack1 = fluid1.CreateFluidStack();
+                container.SetStack(stack1);
             }
-            else
-            {
-                Fluid fluid = registry.GetFluid(byEntity.Controls.Sneak ? "lava" : "water");
-                FluidStack stack = fluid.CreateFluidStack();
-                stack.Units = 10;
 
-                FluidContainer.MoveFluids(stack, container);
+            if (byEntity.Controls.Sprint)
+            {
+                AlchemyEffectSystem.ApplyFluid(container, 100, byEntity, byEntity);
+                slot.MarkDirty();
+                return;
             }
+
+            Fluid fluid = registry.GetFluid(byEntity.Controls.Sneak ? "lava" : "water");
+            FluidStack stack = fluid.CreateFluidStack();
+            stack.Units = 10;
+
+            FluidContainer.MoveFluids(stack, container);
 
             slot.MarkDirty();
         }

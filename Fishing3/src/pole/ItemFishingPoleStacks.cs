@@ -15,7 +15,7 @@ public partial class ItemFishingPole : Item, IItemWithInventory
         // Line (0).
         if (slotId == 0)
         {
-            return stackIn.Collectible.Attributes["lineType"].Exists;
+            return stackIn.Collectible.Attributes != null && stackIn.Collectible.Attributes["lineType"].Exists;
         }
 
         // Bobber (1).

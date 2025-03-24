@@ -18,6 +18,12 @@ public static class NodeExtensions
                 return objectValue;
             }
 
+            if (node is JsonArray arr)
+            {
+                T? arrayValue = arr.Deserialize<T>() ?? defaultValue;
+                return arrayValue;
+            }
+
             T desValue = node.GetValue<T>();
             return desValue;
         }

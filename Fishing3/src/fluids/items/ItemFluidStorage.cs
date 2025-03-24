@@ -40,7 +40,7 @@ public class ItemFluidStorage : Item
 
     public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
     {
-        base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
+        //base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
 
         FluidContainer container = GetContainer(inSlot.Itemstack);
 

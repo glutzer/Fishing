@@ -78,23 +78,41 @@ public class FluidContainer
     /// Tries to move fluids from a stack.
     /// Returns amount moved.
     /// </summary>
-    public static int MoveFluids(FluidStack heldStack, FluidContainer destination, int units = int.MaxValue)
+    public static int MoveFluids(FluidStack sourceStack, FluidContainer destination, int units = int.MaxValue)
     {
         if (destination.RoomLeft <= 0) return 0;
 
-        if (!destination.CanReceiveFluid(heldStack)) return 0;
+        if (!destination.CanReceiveFluid(sourceStack)) return 0;
 
         // Incompatible fluids.
-        if (destination.HeldStack != null && !destination.HeldStack.CanTakeFrom(heldStack)) return 0;
+        if (destination.HeldStack != null && !destination.HeldStack.CanTakeFrom(sourceStack)) return 0;
 
-        destination.HeldStack ??= heldStack.fluid.CreateFluidStack();
+        destination.HeldStack ??= sourceStack.fluid.CreateFluidStack();
 
         units = Math.Min(units, destination.RoomLeft);
 
         // Source should have atleast 1 unit now.
-        int moved = destination.HeldStack.TakeFrom(heldStack, units);
+        int moved = destination.HeldStack.TakeFrom(sourceStack, units);
 
         return moved;
+    }
+
+    /// <summary>
+    /// Returns a fluid stack if able to take out atleast 1.
+    /// </summary>
+    public FluidStack? TakeOut(int amount = int.MaxValue)
+    {
+        if (HeldStack == null) return null;
+        FluidStack newStack = HeldStack.fluid.CreateFluidStack();
+        if (!newStack.CanTakeFrom(HeldStack)) return null;
+
+        newStack.TakeFrom(HeldStack, amount);
+
+        CheckIfStackEmpty();
+
+        if (newStack.Units <= 0) return null;
+
+        return newStack;
     }
 
     /// <summary>
