@@ -1,11 +1,40 @@
 ﻿using MareLib;
 using ProtoBuf;
+using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 
 namespace Fishing3;
+
+[ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
+public class AlchemyMarkerPacket
+{
+    public int mark;
+}
+
+[ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
+public class AlchemyDisconnectPacket
+{
+    public int x;
+    public int y;
+    public int z;
+
+    public int index;
+
+    public AlchemyDisconnectPacket()
+    {
+    }
+
+    public AlchemyDisconnectPacket(int x, int y, int z, int index)
+    {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.index = index;
+    }
+}
 
 [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
 public class AlchemyConnectionPacket
@@ -63,8 +92,16 @@ public class AlchemyConnectionSystem : NetworkedGameSystem
             return;
         }
 
+        bool swap = false;
         AlchemyAttachPoint fromPoint = lastSelectedEquipment.AlchemyAttachPoints[lastSelectedIndex];
         AlchemyAttachPoint toPoint = equipment.AlchemyAttachPoints[index];
+
+        if (toPoint.IsOutput && !fromPoint.IsOutput)
+        {
+            // Swap with tuple.
+            (fromPoint, toPoint) = (toPoint, fromPoint);
+            swap = true;
+        }
 
         // Invalid.
         if (!fromPoint.IsOutput || toPoint.IsOutput)
@@ -77,27 +114,52 @@ public class AlchemyConnectionSystem : NetworkedGameSystem
             return;
         }
 
-        AlchemyConnectionPacket packet = new(
-            lastSelectedEquipment.Pos.X,
-            lastSelectedEquipment.Pos.Y,
-            lastSelectedEquipment.Pos.Z,
-            equipment.Pos.X,
-            equipment.Pos.Y,
-            equipment.Pos.Z,
-            lastSelectedIndex,
-            index
-        );
+        AlchemyConnectionPacket packet;
 
-        lastSelectedEquipment = null;
-        lastSelectedIndex = -1;
+        if (swap)
+        {
+            packet = new(
+                equipment.Pos.X,
+                equipment.Pos.Y,
+                equipment.Pos.Z,
+                lastSelectedEquipment.Pos.X,
+                lastSelectedEquipment.Pos.Y,
+                lastSelectedEquipment.Pos.Z,
+                index,
+                lastSelectedIndex
+            );
+        }
+        else
+        {
+            packet = new(
+                lastSelectedEquipment.Pos.X,
+                lastSelectedEquipment.Pos.Y,
+                lastSelectedEquipment.Pos.Z,
+                equipment.Pos.X,
+                equipment.Pos.Y,
+                equipment.Pos.Z,
+                lastSelectedIndex,
+                index
+            );
+        }
+
+        ClearClientConnections();
 
         MainAPI.Capi.TriggerIngameError(null, "alchemy-connection-success", "Connected.");
         SendPacket(packet);
     }
 
+    public void ClearClientConnections()
+    {
+        lastSelectedEquipment = null;
+        lastSelectedIndex = -1;
+    }
+
     protected override void RegisterMessages(INetworkChannel channel)
     {
         channel.RegisterMessageType<AlchemyConnectionPacket>();
+        channel.RegisterMessageType<AlchemyMarkerPacket>();
+        channel.RegisterMessageType<AlchemyDisconnectPacket>();
     }
 
     protected override void RegisterClientMessages(IClientNetworkChannel channel)
@@ -128,6 +190,32 @@ public class AlchemyConnectionSystem : NetworkedGameSystem
             if (fromPoint.Connect(start, end, packet.toIndex))
             {
                 start.MarkDirty(true);
+            }
+        });
+
+        channel.SetMessageHandler<AlchemyMarkerPacket>((player, packet) =>
+        {
+            ItemSlot slot = player.InventoryManager.ActiveHotbarSlot;
+            if (slot.Itemstack == null || slot.Itemstack.Collectible is not ItemFluidStorage fluidStorage) return;
+
+            FluidContainer cont = fluidStorage.GetContainer(slot.Itemstack);
+
+            int mark = Math.Clamp(packet.mark, 0, cont.Capacity);
+
+            slot.Itemstack.Attributes.SetInt("mark", mark);
+            slot.MarkDirty();
+        });
+
+        channel.SetMessageHandler<AlchemyDisconnectPacket>((player, packet) =>
+        {
+            BlockPos pos = new(packet.x, packet.y, packet.z);
+            if (player.Entity.World.BlockAccessor.GetBlockEntity(pos) is not BlockEntityAlchemyEquipment equipment) return;
+            if (packet.index < 0 || packet.index >= equipment.AlchemyAttachPoints.Length) return;
+            AlchemyAttachPoint point = equipment.AlchemyAttachPoints[packet.index];
+            if (point.IsOutput)
+            {
+                point.Disconnect();
+                equipment.MarkDirty(true);
             }
         });
     }

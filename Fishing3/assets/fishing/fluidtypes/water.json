@@ -1,17 +1,5 @@
 {
   "Code": "water",
   "Class": "Fluid",
-  "Color": [ 0.7, 0.7, 1, 0.7 ],
-  "Glow": 0,
-  "Behaviors": {
-    "FluidBehaviorReagent": {
-      "Effects": [
-        {
-          "Type": "Strength",
-          "Strength": 2,
-          "Duration": 5
-        }
-      ]
-    }
-  }
+  "Color": [ 0.5, 0.8, 0.5, 0.5 ]
 }

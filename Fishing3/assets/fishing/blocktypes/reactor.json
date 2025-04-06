@@ -1,0 +1,89 @@
+{
+  "code": "reactor",
+  "class": "BlockAlchemyEquipment",
+  "entityclass": "BlockEntityReactor",
+  "variantgroups": [
+    {
+      "code": "side",
+      "loadFromProperties": "abstract/horizontalorientation"
+    }
+  ],
+  "behaviors": [
+    {
+      "name": "UnstableFalling",
+      "impactDamageMul": 1
+    },
+    { "name": "HorizontalOrientable" }
+  ],
+  "shapeByType": {
+    "*-north": {
+      "base": "fishing:alchemy/reactor",
+      "rotateY": 0
+    },
+    "*-east": {
+      "base": "fishing:alchemy/reactor",
+      "rotateY": 270
+    },
+    "*-west": {
+      "base": "fishing:alchemy/reactor",
+      "rotateY": 90
+    },
+    "*-south": {
+      "base": "fishing:alchemy/reactor",
+      "rotateY": 180
+    }
+  },
+  "creativeinventory": {
+    "fishing": [
+      "reactor-north"
+    ]
+  },
+  "sounds": {
+    "place": "game:block/anvil",
+    "break": "game:block/anvil",
+    "hit": "game:block/anvil",
+    "walk": "game:walk/stone*"
+  },
+  "maxstacksize": 16,
+  "resistance": 2,
+  "blockmaterial": "Glass",
+  "sidesolid": {
+    "all": false
+  },
+  "sideopaque": {
+    "all": false
+  },
+  "emitsideao": {
+    "all": false
+  },
+  "collisionselectionboxes": [
+    {
+      "x1": 0.15,
+      "y1": 0.2,
+      "z1": 0.4,
+      "x2": 0.35,
+      "y2": 1,
+      "z2": 0.6,
+      "rotateYByType": {
+        "*-north": 0,
+        "*-east": 270,
+        "*-west": 90,
+        "*-south": 180
+      }
+    },
+    {
+      "x1": 0.65,
+      "y1": 0.2,
+      "z1": 0.4,
+      "x2": 0.85,
+      "y2": 1,
+      "z2": 0.6,
+      "rotateYByType": {
+        "*-north": 0,
+        "*-east": 270,
+        "*-west": 90,
+        "*-south": 180
+      }
+    }
+  ]
+}

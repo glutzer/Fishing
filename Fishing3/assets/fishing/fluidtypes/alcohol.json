@@ -1,0 +1,11 @@
+{
+  "Code": "alcohol",
+  "Class": "Fluid",
+  "Color": [ 1, 1, 1, 0.2 ],
+  "Behaviors": {
+    "FluidBehaviorReagent": {
+      "Effects": [
+      ]
+    }
+  }
+}

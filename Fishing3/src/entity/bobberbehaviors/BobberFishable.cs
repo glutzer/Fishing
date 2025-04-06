@@ -162,6 +162,7 @@ public class BobberFishable : BobberReelable
             {
                 // Reel slower based on fish fighting.
                 float reelSpeedMultiplier = reelStrength / bitingFish.kg;
+                if (reelSpeedMultiplier > 1f) reelSpeedMultiplier = 1f;
 
                 if (bitingFish.IsFighting)
                 {

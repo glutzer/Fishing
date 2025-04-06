@@ -13,16 +13,31 @@ using Vintagestory.GameContent;
 namespace Fishing3;
 
 [Item]
-public class ItemFish : Item, IInFirepitRendererSupplier
+public class ItemFish : ItemFluidStorage, IInFirepitRendererSupplier
 {
     public FishSpeciesSystem speciesSystem = null!;
     public FoodNutritionProperties tempFoodProperties = null!;
+
+    // Max container, can't have fluids put into it.
+    public override int ContainerCapacity => int.MaxValue;
+
+    public override void OnHeldAttackStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, ref EnumHandHandling handling)
+    {
+        handling = EnumHandHandling.PreventDefault;
+
+        // Only add to container.
+        InteractWithSelection(blockSel, false, slot, 100);
+    }
 
     public override void OnLoaded(ICoreAPI api)
     {
         base.OnLoaded(api);
         speciesSystem = MainAPI.GetGameSystem<FishSpeciesSystem>(api.Side);
-        CreativeInventoryStacks = speciesSystem.GetCreativeStacks();
+
+        if (api.Side == EnumAppSide.Server)
+        {
+            CreativeInventoryStacks = speciesSystem.GetCreativeStacks();
+        }
 
         tempFoodProperties = new FoodNutritionProperties
         {
@@ -237,5 +252,10 @@ public class ItemFish : Item, IInFirepitRendererSupplier
     public EnumFirepitModel GetDesiredFirepitModel(ItemStack stack, BlockEntityFirepit firepit, bool forOutputSlot)
     {
         return EnumFirepitModel.Spit;
+    }
+
+    public override string? GetHeldTpHitAnimation(ItemSlot slot, Entity byEntity)
+    {
+        return null;
     }
 }

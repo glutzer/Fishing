@@ -8,10 +8,12 @@ namespace Fishing3;
 /// </summary>
 public class StoppableBlockEvent<T1>
 {
-    private readonly List<(Func<T1, bool>, float)> orderedList = new();
+    private List<(Func<T1, bool>, float)>? orderedList;
 
     public void Register(Func<T1, bool> subscriber, float order = 0f)
     {
+        orderedList ??= new List<(Func<T1, bool>, float)>(1);
+
         for (int i = 0; i < orderedList.Count; i++)
         {
             if (orderedList[i].Item2 > order)
@@ -29,6 +31,8 @@ public class StoppableBlockEvent<T1>
     /// </summary>
     public bool Invoke(T1 param1)
     {
+        if (orderedList == null) return true;
+
         foreach ((Func<T1, bool> subscriber, float _) in orderedList)
         {
             bool continueExecuting = subscriber(param1);
@@ -40,6 +44,8 @@ public class StoppableBlockEvent<T1>
 
     public void Unregister(Func<T1, bool> subscriber)
     {
+        if (orderedList == null) return;
+
         for (int i = 0; i < orderedList.Count; i++)
         {
             if (orderedList[i].Item1 == subscriber)

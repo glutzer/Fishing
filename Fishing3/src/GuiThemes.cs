@@ -24,6 +24,9 @@ public static class GuiThemes
     public static NineSliceTexture Button => GetOrCreate("button", () => Texture.Create("fishing:textures/gui/button.png").AsNineSlice(14, 14));
     public static NineSliceTexture ScrollBar => GetOrCreate("scrollbar", () => Texture.Create("fishing:textures/gui/title.png").AsNineSlice(14, 14));
     public static NineSliceTexture Title => GetOrCreate("title", () => Texture.Create("fishing:textures/gui/title.png").AsNineSlice(14, 14));
+    public static NineSliceTexture TitleBorder => GetOrCreate("titleborder", () => Texture.Create("fishing:textures/gui/titleborder.png").AsNineSlice(14, 14));
+
+    public static NineSliceTexture SyringeMarker => GetOrCreate("syringemarker", () => Texture.Create("fishing:textures/gui/syringemarker.png").AsNineSlice(0, 20000)); // 84x20 slice, do not scale on y. Always repeat on x.
 
     // Nine slice is over y coordinate to display entire thing, so sizing is important here.
     public static Texture Tab => GetOrCreate("tab", () => Texture.Create("fishing:textures/gui/tab40.png"));

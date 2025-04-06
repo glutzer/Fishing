@@ -1,12 +1,10 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Vintagestory.API.Common;
-using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 
 namespace Fishing3;
 
-public static class AttributeExtensions
+public static class AttributeExtensions1
 {
     public static FluidContainer? GetFluidContainer(this ITreeAttribute instance, string key, ICoreAPI api)
     {
@@ -61,16 +59,17 @@ public class FluidContainerAttribute : IAttribute
         // Container can't contain.
         if (fluidContainer.Capacity == 0) return null;
 
-        if (fluidContainer.HeldStack != null || stackData == null) return fluidContainer;
+        // Attempt to convert the stack data into a container, then remove it.
+        if (stackData != null)
+        {
+            FluidStack? stack = FluidStack.Load(stackData, api.Side);
 
-        FluidStack? stack = FluidStack.Load(stackData, api.Side);
-        if (stack == null)
-        {
+            if (stack != null)
+            {
+                fluidContainer.SetStack(stack);
+            }
+
             stackData = null;
-        }
-        else
-        {
-            fluidContainer.SetStack(stack);
         }
 
         return fluidContainer;

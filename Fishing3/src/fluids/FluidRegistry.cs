@@ -1,4 +1,5 @@
 ﻿using MareLib;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -34,6 +35,8 @@ public class FluidRegistry : GameSystem
     public override void Initialize()
     {
         TreeAttribute.RegisterAttribute(233, typeof(FluidContainerAttribute));
+        TreeAttribute.RegisterAttribute(234, typeof(Vector3Attribute));
+        TreeAttribute.RegisterAttribute(235, typeof(Vector4Attribute));
     }
 
     public override void OnAssetsLoaded()
@@ -129,5 +132,43 @@ public class FluidRegistry : GameSystem
                 });
             }
         }
+    }
+
+    /// <summary>
+    /// Get creative stacks for this item, in the fishing-fluids category.
+    /// </summary>
+    public CreativeTabAndStackList[] GetCreativeStacks(ItemFluidStorage fluidStorageItem)
+    {
+        CreativeTabAndStackList[] array = new CreativeTabAndStackList[1];
+        CreativeTabAndStackList tab = new();
+        array[0] = tab;
+
+        tab.Tabs = new string[] { "fishing-fluids" };
+        List<JsonItemStack> stacks = new();
+
+        foreach (Fluid type in Fluids)
+        {
+            if (type == null) break; // Reached end.
+            Vintagestory.API.Datastructures.JsonObject attributes = new(JToken.Parse("{ \"fillWith\": \"" + type.code + "\" }"));
+
+            // Special type of fluid where units can't be set, don't display.
+            FluidStack stack = type.CreateFluidStack(100);
+            if (stack.Units == 0) continue;
+
+            JsonItemStack jsonStack = new()
+            {
+                Type = EnumItemClass.Item,
+                Code = fluidStorageItem.Code,
+                Attributes = attributes
+            };
+
+            jsonStack.Resolve(api.World, "", false);
+
+            stacks.Add(jsonStack);
+        }
+
+        tab.Stacks = stacks.ToArray();
+
+        return array;
     }
 }

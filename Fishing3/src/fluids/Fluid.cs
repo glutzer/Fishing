@@ -15,9 +15,13 @@ namespace Fishing3;
 [Fluid]
 public class Fluid
 {
-    // Events.
     public BlockEvent<(StringBuilder builder, FluidStack thisStack)> EventGetFluidInfo { get; private set; } = new();
     public BlockEvent<(FluidStack sourceStack, FluidStack thisStack, int toMove)> EventBeforeFluidAddedToOwnStack { get; private set; } = new();
+
+    /// <summary>
+    /// Check a fluid periodically, for things like spoilage.
+    /// </summary>
+    public BlockEvent<(FluidContainer container, object containingObject, ICoreAPI api)> EventCheckFluid { get; private set; } = new();
 
     /// <summary>
     /// Can this fluid stack take from another fluid stack?
@@ -41,6 +45,16 @@ public class Fluid
     public virtual FluidStack CreateFluidStack()
     {
         FluidStack fluidStack = (FluidStack)Activator.CreateInstance(StackType, this)!;
+        return fluidStack;
+    }
+
+    /// <summary>
+    /// Creates a fluid stack of this fluid and sets the units.
+    /// </summary>
+    public FluidStack CreateFluidStack(int units)
+    {
+        FluidStack fluidStack = CreateFluidStack();
+        fluidStack.Units = units;
         return fluidStack;
     }
 
@@ -77,7 +91,7 @@ public class Fluid
 
     public virtual string GetName(FluidStack fluidStack)
     {
-        return Lang.Get(code);
+        return Lang.Get("fluid-" + code);
     }
 
     public virtual float GetGlowLevel(FluidStack fluidStack)

@@ -1,0 +1,18 @@
+[
+  {
+    "Ingredients": [
+      {
+        "Code": "water",
+        "Units": 10
+      },
+      {
+        "Code": "blood",
+        "Units": 100
+      }
+    ],
+    "OutputFluid": {
+      "Code": "fentanyl",
+      "Units": 100
+    }
+  }
+]

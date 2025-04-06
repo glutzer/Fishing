@@ -2,6 +2,7 @@
 
 namespace Fishing3;
 
+[FluidBehavior]
 public class FluidBehaviorBlood : FluidBehavior
 {
     public FluidBehaviorBlood(JsonObject data) : base(data)
@@ -31,6 +32,9 @@ public class FluidBehaviorBlood : FluidBehavior
                 args.thisStack.Attributes.RemoveAttribute("entityId");
             }
 
+            // New stack.
+            if (args.thisStack.Units == 0) args.thisStack.Attributes.SetLong("entityId", sourceEntityId);
+
             string? sourceEntity = args.sourceStack.Attributes.GetString("entityType");
 
             if (sourceEntity != null)
@@ -42,7 +46,7 @@ public class FluidBehaviorBlood : FluidBehavior
         fluid.EventGetFluidInfo.Register(args =>
         {
             // Append entity type.
-            args.builder.AppendLine("Entity: " + args.thisStack.Attributes.GetString("entityType", "unknown"));
+            args.builder.AppendLine($"Blood type: {args.thisStack.Attributes.GetString("entityType", "unknown")} | Tagged: {args.thisStack.Attributes.HasAttribute("entityId")}");
         });
     }
 }

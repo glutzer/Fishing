@@ -42,18 +42,10 @@ public class BlockEntityHeatedAlchemyEquipment : BlockEntityAlchemyEquipment
 
     // Fundamental game bug - these sometimes do not get called.
 
-    public override void OnBlockRemoved()
+    public override void OnBlockGone()
     {
-        base.OnBlockRemoved();
-
-        heatPipeSystem?.UnregisterPipe(heatPipeInstance);
-    }
-
-    public override void OnBlockUnloaded()
-    {
-        base.OnBlockUnloaded();
-
-        heatPipeSystem?.UnregisterPipe(heatPipeInstance);
+        base.OnBlockGone();
+        heatPipeSystem.UnregisterPipe(heatPipeInstance);
     }
 
     public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc)

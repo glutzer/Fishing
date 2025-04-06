@@ -242,7 +242,12 @@ public partial class ItemFishingPole : Item, IRenderableItem
         prog.Uniform("normalShaded", renderInfo.NormalShaded ? 1 : 0);
         prog.Uniform(MainAPI.PerspectiveMatrix, "projectionMatrix");
         prog.UniformMatrix("viewMatrix", MainAPI.Capi.Render.CameraMatrixOriginf);
+
+        RenderTools.DisableCulling();
+
         MainAPI.Capi.Render.RenderMultiTextureMesh(renderInfo.ModelRef, "tex");
+
+        RenderTools.EnableCulling();
 
         // Fix shadow sampler???
         MainAPI.Capi.Render.StandardShader.BindTexture2D("tex2dOverlay", 0, 1);

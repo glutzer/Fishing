@@ -33,6 +33,9 @@ public class FishSpecies
 
     public HashSet<string> liquids = new();
 
+    public string oilFluid;
+    public float oilFluidPerKg = 100f;
+
     public FishSpecies(FishSpeciesJson json, ICoreAPI api)
     {
         code = json.code!;
@@ -73,14 +76,33 @@ public class FishSpecies
         satietyMultiplier = json.satietyMultiplier;
 
         liquids.AddRange(json.liquids);
+
+        oilFluid = json.oilFluid ?? "fishoil-generic";
+        oilFluidPerKg = json.oilFluidPerKg;
     }
 
     public ItemStack CreateStack(ICoreAPI api, double weight)
     {
-        ItemStack stack = new(api.World.GetItem(new AssetLocation("fishing:fish")));
+        ItemFish itemFish = (ItemFish)api.World.GetItem(new AssetLocation("fishing:fish"));
+
+        ItemStack stack = new(itemFish);
         stack.Attributes.SetString("species", code);
         stack.Attributes.SetDouble("kg", weight);
         stack.StackSize = 1;
+
+        if (oilFluid != null)
+        {
+            FluidRegistry fluidRegistry = MainAPI.GetGameSystem<FluidRegistry>(api.Side);
+            if (fluidRegistry.TryGetFluid(oilFluid, out Fluid? fluid))
+            {
+                FluidStack oilStack = fluid.CreateFluidStack();
+                oilStack.Units = (int)(weight * oilFluidPerKg);
+
+                FluidContainer container = itemFish.GetContainer(stack);
+                container.SetStack(oilStack);
+            }
+        }
+
         return stack;
     }
 }
@@ -107,6 +129,9 @@ public class FishSpeciesJson
     public float satietyMultiplier = 1f;
 
     public string[] liquids = new string[] { "water", "saltwater" };
+
+    public string? oilFluid;
+    public float oilFluidPerKg = 100f;
 }
 
 /// <summary>

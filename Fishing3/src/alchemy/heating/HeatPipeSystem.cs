@@ -76,49 +76,44 @@ public class HeatPipeSystem : GameSystem, IRenderer
         }
     }
 
-    private Accumulator accum = Accumulator.WithInterval(0.2f);
-
-    private void PerSecondServer(float dt)
+    private void ServerTick(int tick)
     {
-        accum.Max(1);
-        accum.Add(dt);
-        while (accum.Consume())
+        if (tick % 5 != 0) return;
+
+        foreach (HeatPipeInstance instance in activePipes.Values)
         {
-            foreach (HeatPipeInstance instance in activePipes.Values)
+            if (instance.celsius > 15)
             {
-                if (instance.celsius > 15)
-                {
-                    instance.ChangeTemperature(-0.1f);
-                    MainAPI.Sapi.World.BlockAccessor.MarkBlockEntityDirty(new BlockPos(instance.position.X, instance.position.Y, instance.position.Z));
-                }
-
-                if (instance.celsius < 15)
-                {
-                    instance.celsius = 15;
-                    MainAPI.Sapi.World.BlockAccessor.MarkBlockEntityDirty(new BlockPos(instance.position.X, instance.position.Y, instance.position.Z));
-                }
+                instance.ChangeTemperature(-0.1f);
+                MainAPI.Sapi.World.BlockAccessor.MarkBlockEntityDirty(new BlockPos(instance.position.X, instance.position.Y, instance.position.Z));
             }
 
-            foreach (HeatPipeInstance instance in activePipes.Values)
+            if (instance.celsius < 15)
             {
-                ForEachAdjacentPipe(adja =>
-                {
-                    float difference = adja.celsius - instance.celsius;
-                    difference -= 10f; // Up to 10 degrees of transfer.
-                    if (difference <= 0.001f) return; // Actual floating point inaccuracy problem.
-
-                    if (difference > 1f) difference *= 0.5f;
-
-                    difference *= 0.5f;
-
-                    adja.ChangeTemperature(-difference);
-                    instance.ChangeTemperature(difference);
-
-                    // Mark both dirty.
-                    MainAPI.Sapi.World.BlockAccessor.MarkBlockEntityDirty(new BlockPos(instance.position.X, instance.position.Y, instance.position.Z));
-                    MainAPI.Sapi.World.BlockAccessor.MarkBlockEntityDirty(new BlockPos(adja.position.X, adja.position.Y, adja.position.Z));
-                }, instance.position);
+                instance.celsius = 15;
+                MainAPI.Sapi.World.BlockAccessor.MarkBlockEntityDirty(new BlockPos(instance.position.X, instance.position.Y, instance.position.Z));
             }
+        }
+
+        foreach (HeatPipeInstance instance in activePipes.Values)
+        {
+            ForEachAdjacentPipe(adja =>
+            {
+                float difference = adja.celsius - instance.celsius;
+                difference -= 10f; // Up to 10 degrees of transfer.
+                if (difference <= 0.001f) return; // Actual floating point inaccuracy problem.
+
+                if (difference > 1f) difference *= 0.5f;
+
+                difference *= 0.5f;
+
+                adja.ChangeTemperature(-difference);
+                instance.ChangeTemperature(difference);
+
+                // Mark both dirty.
+                MainAPI.Sapi.World.BlockAccessor.MarkBlockEntityDirty(new BlockPos(instance.position.X, instance.position.Y, instance.position.Z));
+                MainAPI.Sapi.World.BlockAccessor.MarkBlockEntityDirty(new BlockPos(adja.position.X, adja.position.Y, adja.position.Z));
+            }, instance.position);
         }
     }
 
@@ -135,7 +130,7 @@ public class HeatPipeSystem : GameSystem, IRenderer
             }
             else
             {
-                listenerId = MainAPI.Sapi.Event.RegisterGameTickListener(PerSecondServer, 100);
+                listenerId = TickSystem.Server!.RegisterTicker(ServerTick);
             }
         }
 
@@ -182,7 +177,7 @@ public class HeatPipeSystem : GameSystem, IRenderer
             }
             else
             {
-                MainAPI.Sapi.Event.UnregisterGameTickListener(listenerId);
+                TickSystem.Server?.UnregisterTicker(listenerId);
             }
         }
     }

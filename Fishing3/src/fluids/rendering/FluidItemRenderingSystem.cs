@@ -79,27 +79,40 @@ public class FluidItemRenderingSystem : GameSystem
     public MultiTextureMeshRef? GetFluidItemModel(ItemFluidStorage item, ItemStack stack, float lerpDt = 0f)
     {
         FluidContainer container = item.GetContainer(stack);
-        FluidStack? fluidStack = container.HeldStack;
+        FluidStack? fluidContainerStack = container.HeldStack;
 
-        if (fluidStack == null)
+        // Does not lerp if the item is emptied.
+        //if (fluidStack == null)
+        //{
+        //    return GetOrCreate(new LiquidItemMeshInfo(item.Code), () =>
+        //    {
+        //        return CreateFluidItemModel(item, Vector4.Zero, 0, 0);
+        //    });
+        //}
+
+        Vector4 color;
+        float glow;
+        float fill;
+
+        if (fluidContainerStack != null)
         {
-            return GetOrCreate(new LiquidItemMeshInfo(item.Code), () =>
-            {
-                return CreateFluidItemModel(item, Vector4.Zero, 0, 0);
-            });
+            Fluid fluid = fluidContainerStack.fluid;
+            color = fluid.GetColor(fluidContainerStack);
+            glow = fluid.GetGlowLevel(fluidContainerStack);
+            fill = (float)fluidContainerStack.Units / container.Capacity;
         }
-
-        Fluid fluid = fluidStack.fluid;
-
-        Vector4 color = fluid.GetColor(fluidStack);
-        float glow = fluid.GetGlowLevel(fluidStack);
-        float fill = (float)fluidStack.Units / container.Capacity;
+        else
+        {
+            color = stack.TempAttributes.GetVector4("lc", Vector4.Zero);
+            glow = stack.TempAttributes.GetFloat("gl", 0f);
+            fill = 0f;
+        }
 
         if (lerpDt > 0)
         {
             if (stack.TempAttributes.GetInt("fn") != MainAPI.FrameNumber)
             {
-                float currentMl = stack.TempAttributes.GetFloat("cMl", 0f);
+                float currentMl = stack.TempAttributes.GetFloat("cMl", fill);
                 currentMl = Math.Clamp(GameMath.Lerp(currentMl, fill, lerpDt), 0f, 1f);
                 if (Math.Abs(currentMl - fill) < 0.03f) currentMl = fill;
                 stack.TempAttributes.SetFloat("cMl", currentMl);
@@ -111,9 +124,21 @@ public class FluidItemRenderingSystem : GameSystem
             {
                 fill = stack.TempAttributes.GetFloat("cMl");
             }
+
+            if (fluidContainerStack != null)
+            {
+                stack.TempAttributes.SetVector4("lc", color);
+                stack.TempAttributes.SetFloat("gl", glow);
+            }
+            else if (fill == 0f)
+            {
+                color = Vector4.Zero; // Empty container should have nothing there.
+                glow = 0;
+            }
         }
 
-        LiquidItemMeshInfo info = new(item.Code, color, glow, fill);
+        // Round, should be integers later.
+        LiquidItemMeshInfo info = new(item.Code, color, MathF.Round(glow, 2), MathF.Round(fill, 2));
 
         return GetOrCreate(info, () =>
         {
@@ -121,7 +146,7 @@ public class FluidItemRenderingSystem : GameSystem
         });
     }
 
-    private MultiTextureMeshRef GetOrCreate(LiquidItemMeshInfo meshInfo, Func<MultiTextureMeshRef?> meshRef)
+    private MultiTextureMeshRef GetOrCreate(LiquidItemMeshInfo meshInfo, Func<MultiTextureMeshRef> meshRef)
     {
         if (fluidModelCache.Count > maxElements)
         {
@@ -155,14 +180,12 @@ public class FluidItemRenderingSystem : GameSystem
     /// For every element that starts with "Contents", it is altered.
     /// Must be facing up.
     /// </summary>
-    public static MultiTextureMeshRef? CreateFluidItemModel(Item item, Vector4 color, float glowLevel, float fillLevel)
+    public static MultiTextureMeshRef CreateFluidItemModel(Item item, Vector4 color, float glowLevel, float fillLevel)
     {
         ICoreClientAPI capi = MainAPI.Capi;
 
         // Get the shape this item uses.
-        IAsset? shapeAsset = capi.Assets.TryGet($"{item.Shape.Base.Domain}:shapes/{item.Shape.Base.Path}.json");
-        if (shapeAsset == null) return null;
-
+        IAsset? shapeAsset = capi.Assets.TryGet($"{item.Shape.Base.Domain}:shapes/{item.Shape.Base.Path}.json") ?? throw new Exception("Unable to find shape for item: " + item.Shape.Base.Path + " in domain: " + item.Shape.Base.Domain);
         Shape shape = shapeAsset.ToObject<Shape>();
 
         // Add every texture for this item.

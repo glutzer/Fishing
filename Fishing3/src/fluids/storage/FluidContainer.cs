@@ -1,4 +1,5 @@
 ﻿using System;
+using Vintagestory.API.Common;
 
 namespace Fishing3;
 
@@ -30,6 +31,24 @@ public class FluidContainer
         HeldStack = stack;
     }
 
+    /// <summary>
+    /// Load a stack from bytes.
+    /// </summary>
+    public void LoadStack(byte[] bytes, EnumAppSide side)
+    {
+        if (bytes.Length == 0) return;
+        HeldStack = FluidStack.Load(bytes, side);
+    }
+
+    /// <summary>
+    /// Save the stack to bytes.
+    /// </summary>
+    public byte[] SaveStack()
+    {
+        if (HeldStack == null) return Array.Empty<byte>();
+        return FluidStack.Save(HeldStack);
+    }
+
     public void EmptyContainer()
     {
         HeldStack = null;
@@ -37,7 +56,19 @@ public class FluidContainer
 
     public virtual bool CanReceiveFluid(FluidStack stack)
     {
+        if (HeldStack == null) return true; // Can take anything.
+
+        if (!HeldStack.fluid.EventCanTakeFrom.Invoke((stack, HeldStack))) return false; // Can't receive this stack.
+
         return true;
+    }
+
+    /// <summary>
+    /// Does this container have room for this stack?
+    /// </summary>
+    public virtual bool HasRoomFor(FluidStack stack)
+    {
+        return RoomLeft - stack.Units >= 0;
     }
 
     /// <summary>

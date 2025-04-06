@@ -24,10 +24,24 @@ public class BlockAlchemyEquipment : Block
     {
         int index = blockSel.SelectionBoxIndex;
 
-        if (index > 0 && world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityAlchemyEquipment be)
+        if (api.Side == EnumAppSide.Client && byPlayer.Entity.Controls.Sneak && index < SelectionBoxes.Length && api.World.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityAlchemyEquipment bea)
+        {
+            bea.OnClientInteract();
+        }
+
+        if (world.Side == EnumAppSide.Client && index >= SelectionBoxes.Length && world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityAlchemyEquipment be)
         {
             AlchemyConnectionSystem system = MainAPI.GetGameSystem<AlchemyConnectionSystem>(world.Side);
-            system.AddConnection(be, index - 1); // Ignore main single selection box.
+
+            if (byPlayer.Entity.Controls.Sneak)
+            {
+                system.SendPacket(new AlchemyDisconnectPacket(blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, index - SelectionBoxes.Length));
+                system.ClearClientConnections();
+            }
+            else
+            {
+                system.AddConnection(be, index - SelectionBoxes.Length); // Ignore main single selection box.
+            }
         }
 
         return base.OnBlockInteractStart(world, byPlayer, blockSel);
@@ -38,9 +52,9 @@ public class BlockAlchemyEquipment : Block
         BlockSelection? sel = MainAPI.Capi.World.Player.CurrentBlockSelection;
         int index = sel?.SelectionBoxIndex ?? 0;
 
-        if (index > 0 && capi.World.BlockAccessor.GetBlockEntity(pos) is BlockEntityAlchemyEquipment be)
+        if (index >= SelectionBoxes.Length && capi.World.BlockAccessor.GetBlockEntity(pos) is BlockEntityAlchemyEquipment be)
         {
-            AlchemyAttachPoint point = be.AlchemyAttachPoints[index - 1];
+            AlchemyAttachPoint point = be.AlchemyAttachPoints[index - SelectionBoxes.Length];
 
             if (point.IsOutput)
             {
@@ -51,7 +65,6 @@ public class BlockAlchemyEquipment : Block
                 return new Vec4f(0f, 0.5f, 1f, 1f);
             }
         }
-
 
         return base.GetSelectionColor(capi, pos);
     }

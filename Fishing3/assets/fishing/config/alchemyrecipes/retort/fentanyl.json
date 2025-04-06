@@ -1,0 +1,10 @@
+[
+  {
+    "InputItem": "game:ingot-*",
+    "OutputFluid": {
+      "Code": "fentanyl",
+      "Units": 100
+    },
+    "Ticks": 100
+  }
+]

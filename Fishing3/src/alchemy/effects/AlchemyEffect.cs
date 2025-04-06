@@ -37,9 +37,9 @@ public abstract class AlchemyEffect : Effect, IStrength
     }
 
     /// <summary>
-    /// Collect data from the reagent's custom effect properties, if supplied.
+    /// Collect data from the reagent's Data property, if supplied.
     /// </summary>
-    public virtual void CollectDataFromReagent(JsonObject jsonObject)
+    public virtual void CollectDataFromReagent(JsonObject data)
     {
 
     }

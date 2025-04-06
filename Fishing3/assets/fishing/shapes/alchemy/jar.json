@@ -1,0 +1,86 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+		"glass": [16,16],
+		"heatpipe": [16,16],
+		"metalcopper": [32,32]
+	},
+	"textures": {
+		"glass": "fishing:glass"
+	},
+	"elements": [
+		{
+			"name": "Base",
+			"from": [ 2.0, 0.5, 2.0 ],
+			"to": [ 14.0, 1.0, 14.0 ],
+			"renderPass": 3,
+			"rotationOrigin": [ 2.0, 0.5, 2.0 ],
+			"faces": {
+				"north": { "texture": "#glass", "uv": [ 0.0, 0.0, 12.0, 0.5 ] },
+				"east": { "texture": "#glass", "uv": [ 0.0, 0.0, 12.0, 0.5 ] },
+				"south": { "texture": "#glass", "uv": [ 0.0, 0.0, 12.0, 0.5 ] },
+				"west": { "texture": "#glass", "uv": [ 0.0, 0.0, 12.0, 0.5 ] },
+				"up": { "texture": "#glass", "uv": [ 0.0, 0.0, 12.0, 12.0 ] },
+				"down": { "texture": "#glass", "uv": [ 0.0, 0.0, 12.0, 12.0 ] }
+			},
+			"children": [
+				{
+					"name": "North",
+					"from": [ 0.0, 0.5, 0.0 ],
+					"to": [ 12.0, 14.0, 1.0 ],
+					"renderPass": 3,
+					"rotationOrigin": [ 0.0, 0.5, 0.0 ],
+					"faces": {
+						"north": { "texture": "#glass", "uv": [ 0.0, 0.0, 12.0, 13.5 ] },
+						"east": { "texture": "#glass", "uv": [ 0.0, 0.0, 1.0, 13.5 ] },
+						"south": { "texture": "#glass", "uv": [ 0.0, 0.0, 12.0, 13.5 ] },
+						"west": { "texture": "#glass", "uv": [ 0.0, 0.0, 1.0, 13.5 ] },
+						"up": { "texture": "#glass", "uv": [ 0.0, 0.0, 12.0, 1.0 ] }
+					}
+				},
+				{
+					"name": "South",
+					"from": [ 0.0, 0.5, 11.0 ],
+					"to": [ 12.0, 14.0, 12.0 ],
+					"renderPass": 3,
+					"rotationOrigin": [ 0.0, 0.5, 11.0 ],
+					"faces": {
+						"north": { "texture": "#glass", "uv": [ 0.0, 0.0, 12.0, 13.5 ] },
+						"east": { "texture": "#glass", "uv": [ 0.0, 0.0, 1.0, 13.5 ] },
+						"south": { "texture": "#glass", "uv": [ 0.0, 0.0, 12.0, 13.5 ] },
+						"west": { "texture": "#glass", "uv": [ 0.0, 0.0, 1.0, 13.5 ] },
+						"up": { "texture": "#glass", "uv": [ 0.0, 0.0, 12.0, 1.0 ] }
+					}
+				},
+				{
+					"name": "East",
+					"from": [ 11.0, 0.5, 1.0 ],
+					"to": [ 12.0, 14.0, 11.0 ],
+					"renderPass": 3,
+					"rotationOrigin": [ 11.0, 0.5, 12.0 ],
+					"faces": {
+						"east": { "texture": "#glass", "uv": [ 0.0, 0.0, 10.0, 13.5 ] },
+						"west": { "texture": "#glass", "uv": [ 0.0, 0.0, 10.0, 13.5 ] },
+						"up": { "texture": "#glass", "uv": [ 0.0, 0.0, 1.0, 10.0 ] }
+					}
+				},
+				{
+					"name": "West",
+					"from": [ 0.0, 0.5, 1.0 ],
+					"to": [ 1.0, 14.0, 11.0 ],
+					"renderPass": 3,
+					"rotationOrigin": [ 0.0, 0.5, 12.0 ],
+					"faces": {
+						"east": { "texture": "#glass", "uv": [ 0.0, 0.0, 10.0, 13.5 ] },
+						"west": { "texture": "#glass", "uv": [ 0.0, 0.0, 10.0, 13.5 ] },
+						"up": { "texture": "#glass", "uv": [ 0.0, 0.0, 1.0, 10.0 ] }
+					}
+				}
+			]
+		}
+	]}

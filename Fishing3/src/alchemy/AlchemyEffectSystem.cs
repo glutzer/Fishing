@@ -33,7 +33,7 @@ public class AlchemyEffectSystem : GameSystem
 
         float statMultiplier = fromEntity?.Stats.GetBlended("flaskEffect") ?? 1f;
 
-        if (container.HeldStack is FluidStackPotion)
+        if (container.HeldStack is FluidStackCompound)
         {
             ApplyPotion(container, amount, toEntity, statMultiplier);
             return;
@@ -45,27 +45,38 @@ public class AlchemyEffectSystem : GameSystem
     private static void ApplyPotion(FluidContainer container, int amount, Entity toEntity, float statMultiplier)
     {
         // Will be the same as apply reagent, but compiling all effects and getting ratios.
-        if (container.TakeOut(amount) is not FluidStackPotion stack) return; // Nothing taken.
+        if (container.TakeOut(amount) is not FluidStackCompound stack) return; // Nothing taken.
 
         // Aggregate all effects and how many units were used to apply them.
         List<(Effect effect, int units)> createdEffects = new();
 
         foreach (FluidStack reagentStack in stack.containedStacks)
         {
-            if (reagentStack.fluid.GetBehavior<FluidBehaviorReagent>() is not FluidBehaviorReagent reagent || reagentStack.Units <= 0) continue; // Anything with 0 units would break.
+            if (reagentStack.fluid.GetBehavior<FluidBehaviorReagent>() is not FluidBehaviorReagent reagent || reagentStack.Units <= 0) continue;
 
             int units = reagentStack.Units;
+            float purityMultiplier = FluidBehaviorReagent.GetPurityMultiplier(reagentStack);
+
+            // The base duration for an effect is reached at 100 units? Linear scaling.
+            float durationMultiplier = units / 100f;
 
             foreach (EffectProperties props in reagent.Properties)
             {
                 Effect? effect = EffectManager.CreateEffect(props.Type);
                 if (effect == null) continue;
 
+                // For all effects?
+                effect.Duration *= durationMultiplier;
+                effect.Duration *= props.Duration;
+
                 if (effect is AlchemyEffect alchemyEffect)
                 {
+                    if (units < alchemyEffect.MinimumVolume) continue; // Not enough units to apply this effect.
+
                     alchemyEffect.StrengthMultiplier *= props.Strength;
                     alchemyEffect.StrengthMultiplier *= statMultiplier; // Also by the player's stat multiplier.
-                    alchemyEffect.Duration *= props.Duration;
+                    alchemyEffect.StrengthMultiplier *= purityMultiplier; // Also by the reagent's purity.
+
                     alchemyEffect.Units = units;
 
                     if (props.Data != null) alchemyEffect.CollectDataFromReagent(props.Data);
@@ -109,6 +120,10 @@ public class AlchemyEffectSystem : GameSystem
         if (reagent == null) return; // May inject any fluid, but won't do anything unless it's a reagent.
 
         int units = stack.Units;
+        float purityMultiplier = FluidBehaviorReagent.GetPurityMultiplier(stack);
+
+        // The base duration for an effect is reached at 100 units? Linear scaling.
+        float durationMultiplier = units / 100f;
 
         List<Effect> createdEffects = new();
 
@@ -118,11 +133,15 @@ public class AlchemyEffectSystem : GameSystem
             Effect? effect = EffectManager.CreateEffect(props.Type);
             if (effect == null) continue;
 
+            effect.Duration *= durationMultiplier;
+            effect.Duration *= props.Duration;
+
             if (effect is AlchemyEffect alchemyEffect)
             {
                 alchemyEffect.StrengthMultiplier *= props.Strength;
                 alchemyEffect.StrengthMultiplier *= statMultiplier; // Also by the player's stat multiplier.
-                alchemyEffect.Duration *= props.Duration;
+                alchemyEffect.StrengthMultiplier *= purityMultiplier; // Also by the reagent's purity.
+
                 alchemyEffect.Units = units;
 
                 if (props.Data != null) alchemyEffect.CollectDataFromReagent(props.Data);

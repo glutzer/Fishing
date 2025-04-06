@@ -15,17 +15,24 @@
   "game:charattribute-reelStrength-0.3": "+30% reel strength",
 
   "game:tabname-fishing": "Fishing",
+  "game:tabname-fishing-fluids": "Fishing Fluids",
 
   "fishing:block-heatpipe": "Heat Pipe",
-  "fishing:block-alembic": "Alembic",
+  "fishing:block-jar": "Jar",
+  "fishing:block-alembic-north": "Alembic",
+  "fishing:block-furnace-north": "Furnace",
+  "fishing:block-reactor-north": "Reactor",
+  "fishing:block-distiller-north": "Distiller",
+  "fishing:block-retort": "Retort",
+  "fishing:block-cauldron": "Cauldron",
 
   "species-fish": "Fish",
   "smoked": "Smoked",
-  "item-dummycut": "Butchering",
 
   "bobber-BobberReelable": "Reelable",
   "bobber-BobberFishable": "Fishing",
   "bobber-BobberBomb": "Bomb",
+  "bobber-BobberFlask": "Splash",
 
   "species-salmon": "Salmon",
   "species-mackerel": "Mackerel",
@@ -64,15 +71,6 @@
   "item-cork": "Cork",
   "item-bobber-cork": "Cork Bobber",
 
-  "item-fishcut-fillet-fresh": "Fresh Fillet",
-  "item-fishcut-fillet-smoked": "Smoked Fillet",
-  "item-fishcut-akami-fresh": "Fresh Akami",
-  "item-fishcut-akami-smoked": "Smoked Akami",
-  "item-fishcut-flake-fresh": "Fresh Flake",
-  "item-fishcut-flake-smoked": "Smoked Flake",
-  "item-fishcut-serpentmeat-fresh": "Fresh Serpent Meat",
-  "item-fishcut-serpentmeat-smoked": "Smoked Serpent Meat",
-
   "item-flask-small-unlabeled": "Small Flask",
   "item-flask-medium-unlabeled": "Medium Flask",
   "item-flask-large-unlabeled": "Large Flask",
@@ -81,5 +79,31 @@
   "item-flask-medium-labeled": "Medium Flask (Blank Label)",
   "item-flask-large-labeled": "Large Flask (Blank Label)",
 
-  "item-edibleseaweed": "Seaweed"
+  "game:fluid-blood": "Blood",
+  "game:fluid-fentanyl": "Fentanyl",
+
+  "game:fluid-fishoil-generic": "Fish Oil",
+  "game:fluid-fishoil-dragonfish": "Dragonfish Oil",
+
+  "game:fluid-juice-blueberry": "Blueberry Juice",
+  "game:fluid-juice-cranberry": "Cranberry Juice",
+  "game:fluid-juice-redcurrant": "Red Currant Juice",
+  "game:fluid-juice-whitecurrant": "White Currant Juice",
+  "game:fluid-juice-blackcurrant": "Black Currant Juice",
+  "game:fluid-juice-saguaro": "Saguaro Juice",
+  "game:fluid-juice-pineapple": "Pineapple Juice",
+  "game:fluid-juice-apple": "Apple Juice",
+  "game:fluid-juice-cherry": "Cherry Juice",
+  "game:fluid-juice-peach": "Peach Juice",
+  "game:fluid-juice-pear": "Pear Juice",
+  "game:fluid-juice-orange": "Orange Juice",
+  "game:fluid-juice-mango": "Mango Juice",
+  "game:fluid-juice-breadfruit": "Breadfruit Juice",
+  "game:fluid-juice-lychee": "Lychee Juice",
+  "game:fluid-juice-pomegranate": "Pomegranate Juice",
+
+  "game:fluid-lava": "Lava",
+  "game:fluid-liquidrot": "Liquid Rot",
+  "game:fluid-potion": "Potion",
+  "game:fluid-water": "Water"
 }

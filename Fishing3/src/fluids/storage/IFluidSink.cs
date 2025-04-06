@@ -5,5 +5,6 @@
 /// </summary>
 public interface IFluidSink
 {
-    public FluidContainer SinkContainer { get; }
+    public FluidContainer GetSink(int index);
+    public void MarkContainerDirty();
 }

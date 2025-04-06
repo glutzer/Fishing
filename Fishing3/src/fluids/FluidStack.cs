@@ -74,7 +74,7 @@ public class FluidStack
     {
         Vector4 fluidColor = fluid.GetColor(this);
         string hex = ColorUtil.Doubles2Hex(new double[] { fluidColor.X, fluidColor.Y, fluidColor.Z });
-        builder.AppendLine($"{units} units of <font color=\"{hex}\">{fluid.code}</font>");
+        builder.AppendLine($"{units}mL of <font color=\"{hex}\">{fluid.GetName(this)}</font>");
 
         fluid.EventGetFluidInfo.Invoke((builder, this));
     }

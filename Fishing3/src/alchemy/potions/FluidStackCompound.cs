@@ -7,7 +7,7 @@ using Vintagestory.API.Common;
 
 namespace Fishing3;
 
-public class FluidStackPotion : FluidStack
+public class FluidStackCompound : FluidStack
 {
     public List<FluidStack> containedStacks = new();
 
@@ -20,20 +20,20 @@ public class FluidStackPotion : FluidStack
         }
     }
 
-    public FluidStackPotion(Fluid fluid) : base(fluid)
+    public FluidStackCompound(Fluid fluid) : base(fluid)
     {
     }
 
     public override bool CanTakeFrom(FluidStack other)
     {
-        return other is FluidStackPotion || other.fluid.HasBehavior<FluidBehaviorReagent>();
+        return true; // Can hold anything.
     }
 
     public override int TakeFrom(FluidStack other, int maxUnits)
     {
         int initialUnits = maxUnits;
 
-        if (other is FluidStackPotion potionFluid)
+        if (other is FluidStackCompound potionFluid)
         {
             int units = potionFluid.Units;
             int unitsToMove = maxUnits;
@@ -64,10 +64,9 @@ public class FluidStackPotion : FluidStack
             {
                 maxUnits -= stack.TakeFrom(other, maxUnits);
             }
-        }
 
-        // Was able to take the entire amount needed into an existing stack.
-        if (other.Units == 0) return initialUnits - maxUnits;
+            if (stack.fluid == other.fluid) goto Finish; // Prevent a new potion stack from being created if this type of fluid already exists in the compound stack.
+        }
 
         // Create a new stack...
         if (maxUnits > 0)
@@ -78,9 +77,16 @@ public class FluidStackPotion : FluidStack
             {
                 maxUnits -= stack.TakeFrom(other, maxUnits);
                 containedStacks.Add(stack);
+
+                // Sort on adding a new fluid.
+                containedStacks.Sort((a, b) =>
+                {
+                    return string.Compare(a.fluid.code, b.fluid.code, StringComparison.Ordinal);
+                });
             }
         }
 
+    Finish:
         return initialUnits - maxUnits;
     }
 

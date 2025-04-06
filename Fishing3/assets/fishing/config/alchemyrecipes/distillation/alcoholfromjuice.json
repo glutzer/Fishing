@@ -1,0 +1,13 @@
+[
+  {
+    "InputFluid": {
+      "Code": "juice-blueberry",
+      "Units": 10
+    },
+    "OutputFluid": {
+      "Code": "alcohol",
+      "Units": 1
+    },
+    "OutputItem": "game:ingot-iron"
+  }
+]

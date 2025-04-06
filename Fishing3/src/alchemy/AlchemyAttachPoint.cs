@@ -32,6 +32,9 @@ public class AlchemyAttachPoint
     [ProtoMember(3)]
     public GridPos ConnectedToPos { get; private set; }
 
+    /// <summary>
+    /// Index of the point on the other block that this is connected to.
+    /// </summary>
     [ProtoMember(4)]
     public int ConnectedToIndex { get; private set; }
 

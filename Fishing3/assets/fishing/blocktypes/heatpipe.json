@@ -1,6 +1,5 @@
 {
   "code": "heatpipe",
-  "class": "BlockHeatPipe",
   "entityclass": "BlockEntityHeatPipe",
   "behaviors": [
     {
@@ -25,6 +24,9 @@
   "maxstacksize": 16,
   "resistance": 2,
   "blockmaterial": "Metal",
+  "sidesolid": {
+    "all": false
+  },
   "sideopaque": {
     "all": false
   },
@@ -34,7 +36,7 @@
   "collisionbox": {
     "x1": 0.1,
     "y1": 0,
-    "z1": 0.9,
+    "z1": 0.1,
     "x2": 0.9,
     "y2": 0.1,
     "z2": 0.9
