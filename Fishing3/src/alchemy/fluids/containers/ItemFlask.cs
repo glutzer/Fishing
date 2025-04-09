@@ -138,7 +138,7 @@ public class ItemFlask : ItemFluidStorage
                     int mark = GetMark(slot.Itemstack);
                     byEntity.World.PlaySoundAt(new AssetLocation("game:sounds/player/drink1"), byEntity, null, true, 8, 5);
 
-                    AlchemyEffectSystem.ApplyFluid(container, mark, byEntity, byEntity);
+                    AlchemyEffectSystem.ApplyFluid(container, mark, byEntity, byEntity, ApplicationMethod.Consume);
 
                     slot.MarkDirty();
                 }

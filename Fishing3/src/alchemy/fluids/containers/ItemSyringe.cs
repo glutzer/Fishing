@@ -62,7 +62,7 @@ public class ItemSyringe : ItemFluidStorage
                 if (api.Side == EnumAppSide.Server)
                 {
                     api.World.PlaySoundAt(new AssetLocation("fishing:sounds/stab"), byEntity, null, false);
-                    AlchemyEffectSystem.ApplyFluid(container, GetMark(slot.Itemstack), byEntity, byEntity);
+                    AlchemyEffectSystem.ApplyFluid(container, GetMark(slot.Itemstack), byEntity, byEntity, ApplicationMethod.Blood);
                     slot.MarkDirty();
                 }
             }
@@ -77,7 +77,7 @@ public class ItemSyringe : ItemFluidStorage
                 if (api.Side == EnumAppSide.Server && entitySel != null && byEntity.Pos.DistanceTo(entitySel.Entity.ServerPos) < 20)
                 {
                     api.World.PlaySoundAt(new AssetLocation("fishing:sounds/stab"), byEntity, null, false);
-                    AlchemyEffectSystem.ApplyFluid(container, GetMark(slot.Itemstack), byEntity, entitySel.Entity);
+                    AlchemyEffectSystem.ApplyFluid(container, GetMark(slot.Itemstack), byEntity, entitySel.Entity, ApplicationMethod.Blood);
                     slot.MarkDirty();
                 }
             }

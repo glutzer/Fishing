@@ -31,7 +31,7 @@ public abstract class AlchemyEffect : Effect, IStrength
     /// <summary>
     /// Collect data from the reagent which applied this effect on the server.
     /// </summary>
-    public virtual void CollectDataFromFluidStack(FluidStack stack)
+    public virtual void CollectDataFromFluidStack(FluidStack stack, ApplicationMethod method)
     {
 
     }

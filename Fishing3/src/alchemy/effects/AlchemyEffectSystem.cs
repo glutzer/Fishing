@@ -6,6 +6,13 @@ using Vintagestory.API.Common.Entities;
 
 namespace Fishing3;
 
+public enum ApplicationMethod
+{
+    Consume,
+    Blood,
+    Skin
+}
+
 /// <summary>
 /// Creates and applies alchemical effects on the server.
 /// </summary>
@@ -27,7 +34,7 @@ public class AlchemyEffectSystem : GameSystem
     /// Consumes any fluid to apply it to an entity.
     /// Only potions and reagents will do anything.
     /// </summary>
-    public static void ApplyFluid(FluidContainer container, int amount, Entity? fromEntity, Entity toEntity)
+    public static void ApplyFluid(FluidContainer container, int amount, Entity? fromEntity, Entity toEntity, ApplicationMethod method)
     {
         if (container.HeldStack == null) return;
 
@@ -35,14 +42,14 @@ public class AlchemyEffectSystem : GameSystem
 
         if (container.HeldStack is FluidStackCompound)
         {
-            ApplyPotion(container, amount, toEntity, statMultiplier);
+            ApplyPotion(container, amount, toEntity, statMultiplier, method);
             return;
         }
 
-        ApplyReagent(container, amount, toEntity, statMultiplier);
+        ApplyReagent(container, amount, toEntity, statMultiplier, method);
     }
 
-    private static void ApplyPotion(FluidContainer container, int amount, Entity toEntity, float statMultiplier)
+    private static void ApplyPotion(FluidContainer container, int amount, Entity toEntity, float statMultiplier, ApplicationMethod method)
     {
         // Will be the same as apply reagent, but compiling all effects and getting ratios.
         if (container.TakeOut(amount) is not FluidStackCompound stack) return; // Nothing taken.
@@ -80,6 +87,7 @@ public class AlchemyEffectSystem : GameSystem
                     alchemyEffect.Units = units;
 
                     if (props.Data != null) alchemyEffect.CollectDataFromReagent(props.Data);
+                    alchemyEffect.CollectDataFromFluidStack(reagentStack, method);
                 }
 
                 createdEffects.Add((effect, units));
@@ -111,7 +119,7 @@ public class AlchemyEffectSystem : GameSystem
         }
     }
 
-    private static void ApplyReagent(FluidContainer container, int amount, Entity toEntity, float statMultiplier)
+    private static void ApplyReagent(FluidContainer container, int amount, Entity toEntity, float statMultiplier, ApplicationMethod method)
     {
         FluidStack? stack = container.TakeOut(amount);
         if (stack == null) return; // Nothing taken.
@@ -145,6 +153,7 @@ public class AlchemyEffectSystem : GameSystem
                 alchemyEffect.Units = units;
 
                 if (props.Data != null) alchemyEffect.CollectDataFromReagent(props.Data);
+                alchemyEffect.CollectDataFromFluidStack(stack, method);
             }
 
             createdEffects.Add(effect);
