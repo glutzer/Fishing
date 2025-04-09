@@ -1,13 +1,15 @@
 [
   {
+    "Variants": {
+      "fruit": [ "blueberry", "cranberry", "redcurrant", "whitecurrant", "blackcurrant", "saguaro", "pineapple", "apple", "cherry", "peach", "pear", "orange", "mango", "breadfruit", "lychee", "pomegranate" ]
+    },
     "InputFluid": {
-      "Code": "juice-blueberry",
+      "Code": "juice-{fruit}",
       "Units": 10
     },
     "OutputFluid": {
       "Code": "alcohol",
       "Units": 1
-    },
-    "OutputItem": "game:ingot-iron"
+    }
   }
 ]

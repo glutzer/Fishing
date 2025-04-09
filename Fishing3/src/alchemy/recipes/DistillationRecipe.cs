@@ -33,9 +33,8 @@ public class DistillationRecipe : IAlchemyRecipe, IParchmentable
         return temp >= Temp[0] && temp <= Temp[1];
     }
 
-    public virtual bool Matches(FluidContainer container, float celsius)
+    public virtual bool Matches(FluidContainer container)
     {
-        if (!InTempRange(celsius)) return false;
         return InputFluid.ContainerContains(container);
     }
 

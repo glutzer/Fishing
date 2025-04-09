@@ -1,0 +1,15 @@
+[
+  {
+    "InputFluid": {
+      "Code": "water",
+      "Units": 50
+    },
+    "InputItem": "game:powder-sulfur",
+    "OutputFluid": {
+      "Code": "acid-sulfuric",
+      "Units": 50
+    },
+    "Ticks": 1200,
+    "Temp": [ 100, 500 ]
+  }
+]

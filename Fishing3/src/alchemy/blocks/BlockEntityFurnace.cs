@@ -78,20 +78,18 @@ public class BlockEntityFurnace : BlockEntity
     public void OnInteractServer(ItemSlot slot, EntityAgent byEntity)
     {
         if (slot.Itemstack == null || slot.Itemstack.Collectible.CombustibleProps == null || slot.Itemstack.Collectible.CombustibleProps.BurnTemperature <= 0) return;
-
         if (inventory[0].Itemstack != null && inventory[0].Itemstack.Collectible != slot.Itemstack.Collectible) return;
-
         if (inventory[0].Itemstack != null && inventory[0].Itemstack.StackSize >= inventory[0].Itemstack.Collectible.MaxStackSize) return; // No room.
-
-        ItemStack newStack = slot.TakeOut(1);
 
         if (inventory[0].Itemstack == null)
         {
+            ItemStack newStack = slot.TakeOut(byEntity.Controls.Sneak ? 8 : 1);
             inventory[0].Itemstack = newStack;
         }
         else
         {
-            inventory[0].Itemstack.StackSize++;
+            int toTake = Math.Min(inventory[0].Itemstack.Collectible.MaxStackSize - inventory[0].Itemstack.StackSize, byEntity.Controls.Sneak ? 8 : 1);
+            slot.TryPutInto(Api.World, inventory[0], toTake);
         }
 
         slot.MarkDirty();
@@ -164,6 +162,15 @@ public class BlockEntityFurnace : BlockEntity
     }
 
     // Fundamental game bug - these sometimes do not get called.
+    public override void OnBlockBroken(IPlayer? byPlayer = null)
+    {
+        base.OnBlockBroken(byPlayer);
+
+        if (Api.Side == EnumAppSide.Server)
+        {
+            inventory.DropAll(Pos.ToVec3d().Add(0.5f));
+        }
+    }
 
     public override void OnBlockRemoved()
     {
@@ -193,6 +200,11 @@ public class BlockEntityFurnace : BlockEntity
     {
         base.GetBlockInfo(forPlayer, dsc);
         dsc.AppendLine($"Heat: {System.MathF.Round(heatPipeInstance.celsius, 2)}°C");
+
+        if (inventory[0].Itemstack != null)
+        {
+            dsc.AppendLine($"{inventory[0].Itemstack.StackSize}x {inventory[0].Itemstack.Collectible.GetHeldItemName(inventory[0].Itemstack)}");
+        }
     }
 
     public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tessThreadTesselator)
@@ -215,14 +227,14 @@ public class BlockEntityFurnace : BlockEntity
 
         if (ignited)
         {
-            TextureAtlasPosition emberTex = MainAPI.Capi.BlockTextureAtlas[new AssetLocation($"game:block/coal/ember")];
+            TextureAtlasPosition emberTex = MainAPI.Capi.BlockTextureAtlas[$"game:block/coal/ember"];
             TessellatorTools.MapUvToAtlasTexture(meshInfo, emberTex);
             MeshData meshData = TessellatorTools.ConvertToMeshData(meshInfo, emberTex.atlasTextureId, Vector4.One, 0, ColorSpace.GBRA, 1f); // 0 = opaque?
             mesher.AddMeshData(meshData);
         }
         else
         {
-            TextureAtlasPosition cokeTex = MainAPI.Capi.BlockTextureAtlas[new AssetLocation($"game:block/coal/coke")];
+            TextureAtlasPosition cokeTex = MainAPI.Capi.BlockTextureAtlas[$"game:block/coal/coke"];
             TessellatorTools.MapUvToAtlasTexture(meshInfo, cokeTex);
             MeshData meshData = TessellatorTools.ConvertToMeshData(meshInfo, cokeTex.atlasTextureId, Vector4.One, 0, ColorSpace.GBRA);
             mesher.AddMeshData(meshData);

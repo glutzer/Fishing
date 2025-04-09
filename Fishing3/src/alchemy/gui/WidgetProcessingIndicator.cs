@@ -61,7 +61,7 @@ public class WidgetProcessingIndicator : Widget
             SpawnParticle();
         }
 
-        if (processing) shader.Uniform("color", new Vector4(0.9f, 0.5f, 0.3f, 0.6f));
+        shader.Uniform("color", processing ? new Vector4(0.9f, 0.5f, 0.3f, 0.6f) : new Vector4(0.4f, 0.4f, 0.4f, 0.6f));
         RenderTools.RenderNineSlice(background, shader, X, Y, Width, Height); // Background.
 
         int queueCount = particleQueue.Count;

@@ -40,8 +40,8 @@ public class BlockEntityCauldron : BlockEntityHeatedAlchemyEquipment, IFluidSour
                 RelativePosition = false,
                 Volume = 0f,
                 SoundType = EnumSoundType.Sound,
-                Range = 16f,
-                Pitch = 0.3f
+                Range = 8f,
+                Pitch = 0.5f
             });
 
             bubblingSound.Start();
@@ -64,7 +64,7 @@ public class BlockEntityCauldron : BlockEntityHeatedAlchemyEquipment, IFluidSour
     {
         if (Api.Side == EnumAppSide.Client) return;
         if (tick % 20 != 0) return;
-        if (inputBuffer.Empty || heatPipeInstance.celsius < 200f) return;
+        if (inputBuffer.Empty || heatPipeInstance.celsius < 100f) return;
 
         // Create a new potion stack.
         if (outputBuffer.Empty)
@@ -133,9 +133,10 @@ public class BlockEntityCauldron : BlockEntityHeatedAlchemyEquipment, IFluidSour
 
         if (worldAccessForResolve.Side == EnumAppSide.Client)
         {
-            if (heatPipeInstance.celsius > 200f && !inputBuffer.Empty)
+            if (heatPipeInstance.celsius > 100f && !inputBuffer.Empty)
             {
-                bubblingSound?.SetVolume(0.5f);
+                //bubblingSound?.SetVolume(0.1f);
+                // No sound.
             }
             else
             {

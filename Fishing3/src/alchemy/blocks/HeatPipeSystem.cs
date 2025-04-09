@@ -78,13 +78,13 @@ public class HeatPipeSystem : GameSystem, IRenderer
 
     private void ServerTick(int tick)
     {
-        if (tick % 5 != 0) return;
+        if (tick % 20 != 0) return;
 
         foreach (HeatPipeInstance instance in activePipes.Values)
         {
             if (instance.celsius > 15)
             {
-                instance.ChangeTemperature(-0.1f);
+                instance.ChangeTemperature(-0.4f);
                 MainAPI.Sapi.World.BlockAccessor.MarkBlockEntityDirty(new BlockPos(instance.position.X, instance.position.Y, instance.position.Z));
             }
 

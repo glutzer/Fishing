@@ -9,12 +9,12 @@ namespace Fishing3;
 [BlockEntity]
 public class BlockEntityJar : BlockEntityAlchemyEquipment, IFluidSource, IFluidSink
 {
-    public readonly FluidContainer container = new(5000);
+    public readonly FluidContainer container = new(3000);
     public FluidRenderingInstance? renderInstance;
 
     public override AlchemyAttachPoint[] AlchemyAttachPoints { get; set; } = new[]
             {
-                new AlchemyAttachPoint(new Vector3(0.5f, 0.9f, 0.5f), false)
+                new AlchemyAttachPoint(new Vector3(0.5f, 0.7f, 0.5f), false)
             };
 
     public override void Initialize(ICoreAPI api)
@@ -23,7 +23,7 @@ public class BlockEntityJar : BlockEntityAlchemyEquipment, IFluidSource, IFluidS
 
         if (api.Side == EnumAppSide.Client)
         {
-            renderInstance = new(container, new Vector3(0.15f, 0.05f, 0.15f), new Vector3(0.85f, 0.8f, 0.85f), Pos);
+            renderInstance = new(container, new Vector3(0.3f, 0.05f, 0.3f), new Vector3(0.7f, 0.6f, 0.7f), Pos);
             FluidBlockRenderingSystem.Instance?.RegisterInstance(renderInstance);
         }
     }

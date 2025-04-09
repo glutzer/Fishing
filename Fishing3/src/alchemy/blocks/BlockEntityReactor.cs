@@ -12,10 +12,10 @@ namespace Fishing3;
 [BlockEntity]
 public class BlockEntityReactor : BlockEntityHeatedAlchemyEquipment, IFluidSink, IFluidSource
 {
-    protected readonly FluidContainer containerLeft = new(1000);
+    protected readonly FluidContainer containerLeft = new(500);
     protected FluidRenderingInstance? renderInstanceLeft;
 
-    protected readonly FluidContainer containerRight = new(1000);
+    protected readonly FluidContainer containerRight = new(500);
     protected FluidRenderingInstance? renderInstanceRight;
 
     protected ILoadedSound? bubblingSound;
@@ -84,7 +84,7 @@ public class BlockEntityReactor : BlockEntityHeatedAlchemyEquipment, IFluidSink,
             {
                 FluidContainer[] containers = new FluidContainer[] { containerLeft, containerRight };
 
-                if (!selectedRecipe.Matches(containers, heatPipeInstance.celsius))
+                if (!selectedRecipe.Matches(containers))
                 {
                     UpdateRecipe();
                     return;
@@ -140,7 +140,7 @@ public class BlockEntityReactor : BlockEntityHeatedAlchemyEquipment, IFluidSink,
                 RelativePosition = false,
                 Volume = 0f,
                 SoundType = EnumSoundType.Sound,
-                Range = 16f,
+                Range = 8f,
                 Pitch = 1.5f
             });
 
@@ -202,6 +202,18 @@ public class BlockEntityReactor : BlockEntityHeatedAlchemyEquipment, IFluidSink,
         // Sync current recipe.
         selectedRecipe = MainAPI.GetGameSystem<AlchemyRecipeRegistry>(worldAccessForResolve.Side).GetById<ReactorRecipe>(tree.GetInt("recipe", -1));
         recipeTicksLeft = tree.GetInt("ticksLeft", 0);
+
+        if (worldAccessForResolve.Side == EnumAppSide.Client)
+        {
+            if (selectedRecipe != null && selectedRecipe.InTempRange(heatPipeInstance.celsius))
+            {
+                bubblingSound?.SetVolume(0.2f);
+            }
+            else
+            {
+                bubblingSound?.SetVolume(0f);
+            }
+        }
     }
 
     public FluidContainer GetSink(int index)
@@ -267,7 +279,7 @@ public class BlockEntityReactor : BlockEntityHeatedAlchemyEquipment, IFluidSink,
 
         FluidContainer[] containers = new FluidContainer[] { containerLeft, containerRight };
 
-        if (onCompleted && selectedRecipe?.Matches(containers, heatPipeInstance.celsius) == true)
+        if (onCompleted && selectedRecipe?.Matches(containers) == true)
         {
             pendingOutput = null;
             recipeTicksLeft = selectedRecipe.Ticks;
@@ -280,7 +292,7 @@ public class BlockEntityReactor : BlockEntityHeatedAlchemyEquipment, IFluidSink,
 
         foreach (ReactorRecipe recipe in registry.AllRecipes<ReactorRecipe>())
         {
-            if (recipe.Matches(containers, heatPipeInstance.celsius))
+            if (recipe.Matches(containers))
             {
                 foundRecipe = recipe;
                 break;

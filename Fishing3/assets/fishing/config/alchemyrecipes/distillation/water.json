@@ -1,0 +1,14 @@
+[
+  {
+    "InputFluid": {
+      "Code": "saltwater",
+      "Units": 100
+    },
+    "OutputFluid": {
+      "Code": "water",
+      "Units": 100
+    },
+    "OutputItem": "game:salt",
+    "Ticks": 1200
+  }
+]

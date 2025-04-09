@@ -4,6 +4,7 @@ using System.Text;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Config;
 
 namespace Fishing3;
 
@@ -177,5 +178,25 @@ public class ItemFlask : ItemFluidStorage
         dsc.AppendLine($"Mark: {mark}mL");
 
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
+
+        if (inSlot.Itemstack.Attributes.HasAttribute("fillWith"))
+        {
+            string? fillCode = inSlot.Itemstack.Attributes.GetString("fillWith");
+            dsc.AppendLine($"Fill with: {Lang.Get($"fluid-{fillCode}")}");
+        }
+    }
+
+    public override string GetHeldItemName(ItemStack itemStack)
+    {
+        FluidContainer cont = GetContainer(itemStack);
+
+        string baseName = base.GetHeldItemName(itemStack);
+
+        if (cont.HeldStack != null)
+        {
+            baseName += $" ({cont.HeldStack.fluid.GetName(cont.HeldStack)})";
+        }
+
+        return baseName;
     }
 }

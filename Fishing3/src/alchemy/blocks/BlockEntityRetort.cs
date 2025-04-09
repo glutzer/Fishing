@@ -1,6 +1,7 @@
 ﻿using MareLib;
 using OpenTK.Mathematics;
 using System;
+using System.Text;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -21,6 +22,7 @@ public class BlockEntityRetort : BlockEntityHeatedAlchemyEquipment
     private RetortRecipe? selectedRecipe;
     private FluidStack? pendingOutput;
     private int recipeTicksLeft;
+    private bool wasEmpty;
 
     public override AlchemyAttachPoint[] AlchemyAttachPoints { get; set; } = new[]
             {
@@ -44,7 +46,7 @@ public class BlockEntityRetort : BlockEntityHeatedAlchemyEquipment
                 RelativePosition = false,
                 Volume = 0f,
                 SoundType = EnumSoundType.Sound,
-                Range = 16f,
+                Range = 8f,
                 Pitch = 1.5f
             });
 
@@ -89,14 +91,14 @@ public class BlockEntityRetort : BlockEntityHeatedAlchemyEquipment
 
             if (cont.HasRoomFor(pendingOutput) && cont.CanReceiveFluid(pendingOutput))
             {
-                selectedRecipe.ConsumeIngredients(genericInventory[0]);
-
                 // The slot modified event may remove it.
                 if (pendingOutput == null) return;
 
                 int times = Math.Min(pendingOutput.Units, 5);
 
                 FluidContainer.MoveFluids(pendingOutput, cont);
+
+                selectedRecipe.ConsumeIngredients(genericInventory[0]);
 
                 EmitParticles(EnumAlchemyParticle.Drip, AlchemyAttachPoints[0].Position + AlchemyAttachPoints[0].CachedOffset, cont, 1f, times);
 
@@ -127,7 +129,7 @@ public class BlockEntityRetort : BlockEntityHeatedAlchemyEquipment
             return;
         }
 
-        if (onCompleted && selectedRecipe?.Matches(genericInventory[0].Itemstack, heatPipeInstance.celsius) == true)
+        if (onCompleted && selectedRecipe?.Matches(genericInventory[0].Itemstack) == true)
         {
             pendingOutput = null;
             recipeTicksLeft = selectedRecipe.Ticks;
@@ -140,7 +142,7 @@ public class BlockEntityRetort : BlockEntityHeatedAlchemyEquipment
 
         foreach (RetortRecipe recipe in registry.AllRecipes<RetortRecipe>())
         {
-            if (recipe.Matches(genericInventory[0].Itemstack, heatPipeInstance.celsius))
+            if (recipe.Matches(genericInventory[0].Itemstack))
             {
                 foundRecipe = recipe;
                 break;
@@ -187,8 +189,6 @@ public class BlockEntityRetort : BlockEntityHeatedAlchemyEquipment
     {
         base.FromTreeAttributes(tree, worldAccessForResolve);
 
-        genericInventory.FromTreeAttributes(tree);
-
         // Sync current recipe.
         selectedRecipe = MainAPI.GetGameSystem<AlchemyRecipeRegistry>(worldAccessForResolve.Side).GetById<RetortRecipe>(tree.GetInt("recipe", -1));
         recipeTicksLeft = tree.GetInt("ticksLeft", 0);
@@ -205,6 +205,16 @@ public class BlockEntityRetort : BlockEntityHeatedAlchemyEquipment
                 bubblingSound?.SetVolume(0f);
             }
         }
+
+        genericInventory.FromTreeAttributes(tree);
+
+        // Retessellate.
+        if (worldAccessForResolve.Side == EnumAppSide.Client && wasEmpty != (genericInventory[0].Itemstack == null))
+        {
+            MarkDirty(true);
+        }
+
+        wasEmpty = genericInventory[0].Itemstack == null;
     }
 
     public override void ToggleInventory(IPlayer player, bool open)
@@ -236,11 +246,40 @@ public class BlockEntityRetort : BlockEntityHeatedAlchemyEquipment
         }
     }
 
+    public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc)
+    {
+        if (genericInventory[0].Itemstack != null)
+        {
+            dsc.AppendLine($"{genericInventory[0].Itemstack.StackSize}x {genericInventory[0].Itemstack.Collectible.GetHeldItemName(genericInventory[0].Itemstack)}");
+        }
+        base.GetBlockInfo(forPlayer, dsc);
+    }
+
     public override void OnBlockGone()
     {
         base.OnBlockGone();
 
         bubblingSound?.Stop();
         bubblingSound?.Dispose();
+    }
+
+    public override void OnBlockBroken(IPlayer? byPlayer = null)
+    {
+        base.OnBlockBroken(byPlayer);
+
+        if (Api.Side == EnumAppSide.Server)
+        {
+            genericInventory.DropAll(Pos.ToVec3d().Add(0.5f));
+        }
+    }
+
+    public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tessThreadTesselator)
+    {
+        if (!genericInventory[0].Empty)
+        {
+            AlchemyTessellationUtility.TessellateSolid(mesher, 0.15f, 0.38f);
+        }
+
+        return base.OnTesselation(mesher, tessThreadTesselator);
     }
 }

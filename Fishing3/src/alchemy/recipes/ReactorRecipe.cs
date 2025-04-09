@@ -30,10 +30,8 @@ public class ReactorRecipe : IAlchemyRecipe, IParchmentable
     /// <summary>
     /// Can this recipe be crafted?
     /// </summary>
-    public virtual bool Matches(FluidContainer[] containers, float temperature)
+    public virtual bool Matches(FluidContainer[] containers)
     {
-        if (!InTempRange(temperature)) return false;
-
         // Check if all ingredients are present in the containers.
         foreach (FluidIngredient ingredient in Ingredients)
         {

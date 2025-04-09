@@ -23,6 +23,7 @@
   "fishing:block-furnace-north": "Furnace",
   "fishing:block-reactor-north": "Reactor",
   "fishing:block-distiller-north": "Distiller",
+  "fishing:block-beaker-north": "Beaker",
   "fishing:block-retort": "Retort",
   "fishing:block-cauldron": "Cauldron",
 
@@ -102,8 +103,17 @@
   "game:fluid-juice-lychee": "Lychee Juice",
   "game:fluid-juice-pomegranate": "Pomegranate Juice",
 
+  "game:fluid-mushroomextract-generic": "Mushroom Extract",
+  "game:fluid-mushroomextract-amatoxin": "Amatoxin Extract",
+
   "game:fluid-lava": "Lava",
   "game:fluid-liquidrot": "Liquid Rot",
   "game:fluid-potion": "Potion",
-  "game:fluid-water": "Water"
+
+  "game:fluid-water": "Water",
+  "game:fluid-saltwater": "Salt Water",
+
+  "game:fluid-alcohol": "Alcohol",
+
+  "game:fluid-acid-sulfuric": "Sulfuric Acid"
 }

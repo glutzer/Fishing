@@ -26,4 +26,17 @@ public static class DRUtility
         float y = 1 + MathF.Log(MathF.Pow(ratio, 1 / rate));
         return y * baseLine;
     }
+
+    /// <summary>
+    /// Takes a value with DR applied, gets the reverse of it.
+    /// </summary>
+    public static float ReverseDR(float value, float baseLine, float rate)
+    {
+        if (value < baseLine)
+        {
+            return value;
+        }
+
+        return baseLine * MathF.Exp(rate * ((value / baseLine) - 1));
+    }
 }

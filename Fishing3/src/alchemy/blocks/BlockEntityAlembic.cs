@@ -41,7 +41,7 @@ public class BlockEntityAlembic : BlockEntityHeatedAlchemyEquipment, IFluidSourc
                 RelativePosition = false,
                 Volume = 0f,
                 SoundType = EnumSoundType.Sound,
-                Range = 16f
+                Range = 8f
             });
 
             bubblingSound.Start();
@@ -70,7 +70,13 @@ public class BlockEntityAlembic : BlockEntityHeatedAlchemyEquipment, IFluidSourc
         if (newStack.fluid.HasBehavior<FluidBehaviorReagent>())
         {
             float purity = newStack.Attributes.GetFloat("purity");
-            newStack.Attributes.SetFloat("purity", purity + Random.Shared.NextSingle());
+
+            // Add a random value to the purity, before DR is applied, then convert it back with DR.
+            purity = DRUtility.ReverseDR(purity, 1, 0.5f);
+            purity += Random.Shared.NextSingle();
+            purity = DRUtility.CalculateDR(purity, 1, 0.5f);
+
+            newStack.Attributes.SetFloat("purity", purity);
         }
 
         FluidContainer.MoveFluids(newStack, cont);
@@ -126,7 +132,7 @@ public class BlockEntityAlembic : BlockEntityHeatedAlchemyEquipment, IFluidSourc
         {
             if (heatPipeInstance.celsius > 200f && !container.Empty)
             {
-                bubblingSound?.SetVolume(0.5f);
+                bubblingSound?.SetVolume(0.2f);
             }
             else
             {

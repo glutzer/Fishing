@@ -17,7 +17,7 @@ public class BlockEntityDistiller : BlockEntityHeatedAlchemyEquipment, IFluidSin
 {
     protected ILoadedSound? bubblingSound;
 
-    protected FluidContainer inputContainer = new(1000);
+    protected readonly FluidContainer inputContainer = new(1000);
     protected FluidRenderingInstance? renderInstance;
 
     private readonly InventoryGeneric genericInventory = new(1, null, null);
@@ -26,6 +26,7 @@ public class BlockEntityDistiller : BlockEntityHeatedAlchemyEquipment, IFluidSin
     private FluidStack? pendingFluidOutput;
     private ItemStack? pendingItemOutput;
     private int recipeTicksLeft;
+    private bool wasEmpty;
 
     public override AlchemyAttachPoint[] AlchemyAttachPoints { get; set; } = new[]
             {
@@ -59,8 +60,8 @@ public class BlockEntityDistiller : BlockEntityHeatedAlchemyEquipment, IFluidSin
                 RelativePosition = false,
                 Volume = 0f,
                 SoundType = EnumSoundType.Sound,
-                Range = 16f,
-                Pitch = 1.2f
+                Range = 8f,
+                Pitch = 1f
             });
 
             bubblingSound.Start();
@@ -76,7 +77,13 @@ public class BlockEntityDistiller : BlockEntityHeatedAlchemyEquipment, IFluidSin
         AlchemyRecipeRegistry registry = MainAPI.GetServerSystem<AlchemyRecipeRegistry>();
         DistillationRecipe? foundRecipe = null;
 
-        if (selectedRecipe?.Matches(inputContainer, heatPipeInstance.celsius) == true)
+        if (inputContainer.Empty)
+        {
+            if (selectedRecipe != null) ResetRecipe();
+            return;
+        }
+
+        if (selectedRecipe?.Matches(inputContainer) == true)
         {
             if (onCompleted)
             {
@@ -89,7 +96,7 @@ public class BlockEntityDistiller : BlockEntityHeatedAlchemyEquipment, IFluidSin
 
         foreach (DistillationRecipe recipe in registry.AllRecipes<DistillationRecipe>())
         {
-            if (recipe.Matches(inputContainer, heatPipeInstance.celsius))
+            if (recipe.Matches(inputContainer))
             {
                 foundRecipe = recipe;
                 break;
@@ -167,8 +174,11 @@ public class BlockEntityDistiller : BlockEntityHeatedAlchemyEquipment, IFluidSin
                     }
 
                     // Move the slot.
-                    slot.TryPutInto(Api.World, genericInventory[0], slot.Itemstack.StackSize);
-                    genericInventory[0].MarkDirty();
+                    if (Random.Shared.NextSingle() <= selectedRecipe.OutputItemChance)
+                    {
+                        slot.TryPutInto(Api.World, genericInventory[0], slot.Itemstack.StackSize);
+                        genericInventory[0].MarkDirty();
+                    }
                 }
 
                 // Consume the input fluids.
@@ -251,8 +261,6 @@ public class BlockEntityDistiller : BlockEntityHeatedAlchemyEquipment, IFluidSin
     {
         base.FromTreeAttributes(tree, worldAccessForResolve);
 
-        genericInventory.FromTreeAttributes(tree);
-
         // Sync current recipe.
         selectedRecipe = MainAPI.GetGameSystem<AlchemyRecipeRegistry>(worldAccessForResolve.Side).GetById<DistillationRecipe>(tree.GetInt("recipe", -1));
         recipeTicksLeft = tree.GetInt("ticksLeft", 0);
@@ -279,6 +287,16 @@ public class BlockEntityDistiller : BlockEntityHeatedAlchemyEquipment, IFluidSin
         {
             inputContainer.LoadStack(bytes, worldAccessForResolve.Side);
         }
+
+        genericInventory.FromTreeAttributes(tree);
+
+        // Retessellate.
+        if (worldAccessForResolve.Side == EnumAppSide.Client && wasEmpty != (genericInventory[0].Itemstack == null))
+        {
+            MarkDirty(true);
+        }
+
+        wasEmpty = genericInventory[0].Itemstack == null;
     }
 
     public override void ToggleInventory(IPlayer player, bool open)
@@ -314,5 +332,25 @@ public class BlockEntityDistiller : BlockEntityHeatedAlchemyEquipment, IFluidSin
     public override void OnClientInteract()
     {
         SendClientPacket(OPEN_INVENTORY_PACKET);
+    }
+
+    public override void OnBlockBroken(IPlayer? byPlayer = null)
+    {
+        base.OnBlockBroken(byPlayer);
+
+        if (Api.Side == EnumAppSide.Server)
+        {
+            genericInventory.DropAll(Pos.ToVec3d().Add(0.5f));
+        }
+    }
+
+    public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tessThreadTesselator)
+    {
+        if (!genericInventory[0].Empty)
+        {
+            AlchemyTessellationUtility.TessellateSolid(mesher, 0.15f, 0.38f);
+        }
+
+        return base.OnTesselation(mesher, tessThreadTesselator);
     }
 }

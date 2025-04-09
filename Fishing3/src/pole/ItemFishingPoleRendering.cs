@@ -262,7 +262,7 @@ public partial class ItemFishingPole : Item, IRenderableItem
 
         renderinfo.ModelRef = ObjectCacheUtil.GetOrCreate(capi, $"{Id}-{lineCode}", () =>
         {
-            string shapePath = Shape.Base.ToString();
+            string shapePath = Shape.Base;
             shapePath = shapePath.Replace(":", ":shapes/");
             shapePath += ".json";
 

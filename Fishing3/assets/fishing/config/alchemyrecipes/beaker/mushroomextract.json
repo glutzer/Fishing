@@ -1,0 +1,57 @@
+[
+  {
+    "Variants": {
+      "mushroom": [
+        "fieldmushroom",
+        "almondmushroom",
+        "flyagaric",
+        "bitterbolete",
+        "blacktrumpet",
+        "chanterelle",
+        "commonmorel",
+        "deathcap",
+        "devilstooth",
+        "devilbolete",
+        "earthball",
+        "elfinsaddle",
+        "golddropmilkcap",
+        "greencrackedrussula",
+        "indigomilkcap",
+        "jackolantern",
+        "kingbolete",
+        "lobster",
+        "orangeoakbolete",
+        "paddystraw",
+        "puffball",
+        "redwinecap",
+        "saffronmilkcap",
+        "violetwebcap",
+        "witchhat"
+      ]
+    },
+    "VariantOverrides": {
+      "flyagaric|bitterbolete|deathcap|devilstooth|devilbolete|earthball|elfinsaddle|golddropmilkcap|jackolantern": {
+        "OutputFluid": {
+          "Code": "mushroomextract-amatoxin",
+          "Units": 10
+        }
+      },
+      "deathcap|devilbolete": {
+        "OutputFluid": {
+          "Units": 50
+        }
+      }
+    },
+    "InputFluid": {
+      "Code": "alcohol",
+      "Units": 10
+    },
+    "InputItem": "game:mushroom-{mushroom}-normal",
+    "OutputFluid": {
+      "Code": "mushroomextract-generic",
+      "Units": 50
+    },
+    "Ticks": 600,
+    "Temp": [ 100, 500 ]
+  }
+]

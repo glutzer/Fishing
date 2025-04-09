@@ -81,15 +81,6 @@ public class FluidItemRenderingSystem : GameSystem
         FluidContainer container = item.GetContainer(stack);
         FluidStack? fluidContainerStack = container.HeldStack;
 
-        // Does not lerp if the item is emptied.
-        //if (fluidStack == null)
-        //{
-        //    return GetOrCreate(new LiquidItemMeshInfo(item.Code), () =>
-        //    {
-        //        return CreateFluidItemModel(item, Vector4.Zero, 0, 0);
-        //    });
-        //}
-
         Vector4 color;
         float glow;
         float fill;

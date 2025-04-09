@@ -249,4 +249,18 @@ public class ItemSyringe : ItemFluidStorage
 
         base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
     }
+
+    public override string GetHeldItemName(ItemStack itemStack)
+    {
+        FluidContainer cont = GetContainer(itemStack);
+
+        string baseName = base.GetHeldItemName(itemStack);
+
+        if (cont.HeldStack != null)
+        {
+            baseName += $" ({cont.HeldStack.fluid.GetName(cont.HeldStack)})";
+        }
+
+        return baseName;
+    }
 }

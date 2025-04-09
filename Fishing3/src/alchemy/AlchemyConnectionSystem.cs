@@ -178,6 +178,9 @@ public class AlchemyConnectionSystem : NetworkedGameSystem
             player.Entity.World.BlockAccessor.GetBlockEntity(startPos) is not BlockEntityAlchemyEquipment start ||
             player.Entity.World.BlockAccessor.GetBlockEntity(endPos) is not BlockEntityAlchemyEquipment end) return;
 
+            // Can't connect to same block entity.
+            if (start == end) return;
+
             if (start.Pos.DistanceTo(end.Pos) > 3f) return;
 
             if (
