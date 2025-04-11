@@ -5,15 +5,18 @@
   },
   "VariantOverrides": {
     "*-amatoxin": {
-      "Color": [ 0.3, 0.15, 0, 0.9 ]
+      "Color": [ 0.6, 0.8, 0, 0.8 ],
+      "Behaviors": {
+        "FluidBehaviorReagent": {
+          "Effects": [
+            {
+              "Type": "EffectToxin"
+            }
+          ]
+        }
+      }
     }
   },
   "Color": [ 0.6, 0.3, 0, 0.8 ],
-  "Class": "Fluid",
-  "Behaviors": {
-    "FluidBehaviorReagent": {
-      "Effects": [
-      ]
-    }
-  }
+  "Class": "Fluid"
 }

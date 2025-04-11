@@ -22,7 +22,7 @@ public class MetaEffectBlood : AlchemyEffect, IMetaEffect
         }
     }
 
-    public override void CollectDataFromFluidStack(FluidStack stack)
+    public override void CollectDataFromFluidStack(FluidStack stack, ApplicationMethod method)
     {
         EntityType = stack.Attributes.GetString("entityType", "none");
         EntityId = stack.Attributes.GetLong("entityId", -1);

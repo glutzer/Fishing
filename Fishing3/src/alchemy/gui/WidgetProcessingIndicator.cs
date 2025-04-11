@@ -21,7 +21,7 @@ public class WidgetProcessingIndicator : Widget
 
     public override int SortPriority => 1;
 
-    private Accumulator accum = Accumulator.WithRandomInterval(0.3f, 1f);
+    private Accumulator accum = Accumulator.WithInterval(0.6f);
 
     private readonly NineSliceTexture background;
     private readonly Texture blank;

@@ -15,6 +15,12 @@ public class AlchemyMarkerPacket
 }
 
 [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
+public class AlchemyFlaskNamePacket
+{
+    public string? name;
+}
+
+[ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
 public class AlchemyDisconnectPacket
 {
     public int x;
@@ -158,8 +164,9 @@ public class AlchemyConnectionSystem : NetworkedGameSystem
     protected override void RegisterMessages(INetworkChannel channel)
     {
         channel.RegisterMessageType<AlchemyConnectionPacket>();
-        channel.RegisterMessageType<AlchemyMarkerPacket>();
         channel.RegisterMessageType<AlchemyDisconnectPacket>();
+        channel.RegisterMessageType<AlchemyMarkerPacket>();
+        channel.RegisterMessageType<AlchemyFlaskNamePacket>();
     }
 
     protected override void RegisterClientMessages(IClientNetworkChannel channel)
@@ -220,6 +227,25 @@ public class AlchemyConnectionSystem : NetworkedGameSystem
                 point.Disconnect();
                 equipment.MarkDirty(true);
             }
+        });
+
+        channel.SetMessageHandler<AlchemyFlaskNamePacket>((player, packet) =>
+        {
+            if (packet.name == null) return;
+
+            ItemSlot hotbarSlot = player.Entity.ActiveHandItemSlot;
+            if (hotbarSlot.Itemstack == null || hotbarSlot.Itemstack.Collectible is not ItemLabeledFlask labeledFlask) return;
+
+            if (packet.name.Length > 100) return; // Too long.
+
+            hotbarSlot.Itemstack.Attributes.RemoveAttribute("label");
+
+            if (packet.name.Length > 0 && packet.name != hotbarSlot.Itemstack.GetName())
+            {
+                hotbarSlot.Itemstack.Attributes.SetString("label", packet.name);
+            }
+
+            hotbarSlot.MarkDirty();
         });
     }
 }

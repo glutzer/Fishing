@@ -28,10 +28,10 @@
     },
     "shelvable": true,
     "onshelfTransform": {
-      "scale": 0.5,
+      "scale": 0.4,
       "translation": {
         "x": 0,
-        "y": -0.25,
+        "y": -0.35,
         "z": 0
       }
     }

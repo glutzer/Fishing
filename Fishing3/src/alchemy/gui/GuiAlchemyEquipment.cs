@@ -27,6 +27,8 @@ public class GuiAlchemyEquipment : Gui
         slice.Fixed(0, 0, 200, 100).Alignment(Align.Center);
         AddWidget(slice);
 
+        GuiThemes.AddTitleBar(this, "Alchemy Equipment", slice);
+
         WidgetContainer elementsContainer = new(slice);
         elementsContainer.Percent(0, 0, 0.8f, 0.8f).Alignment(Align.Center);
 

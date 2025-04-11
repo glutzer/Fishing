@@ -9,13 +9,11 @@ public class ItemLabeledFlask : ItemFlask
 {
     public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
     {
-        if (api.Side == EnumAppSide.Client && IsWritingTool(byEntity.LeftHandItemSlot) && slot.Itemstack != null)
+        if (api.Side == EnumAppSide.Client && byEntity.Controls.Sneak)
         {
-            //FlaskLabelingGui gui = new((ICoreClientAPI)api, slot.Itemstack.Attributes.GetString("label"));
-            //gui.TryOpen();
-            //return;
-
-            // Labeling, not implemented.
+            GuiNamedFluidMarker gui = new(slot.Itemstack);
+            gui.TryOpen();
+            return;
         }
 
         base.OnHeldInteractStart(slot, byEntity, blockSel, entitySel, firstEvent, ref handling);

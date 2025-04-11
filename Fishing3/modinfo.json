@@ -9,6 +9,6 @@
   "version": "3.0.0",
   "dependencies": {
     "game": "",
-    "marelib": "2.5.0"
+    "marelib": "2.6.0"
   }
 }

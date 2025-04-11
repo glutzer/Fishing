@@ -1,15 +1,19 @@
 ﻿using MareLib;
+using OpenTK.Mathematics;
+using System;
 using System.Linq;
 using System.Text;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
+using Vintagestory.API.MathTools;
+using Vintagestory.GameContent;
 
 namespace Fishing3;
 
 [Item]
-public class ItemFlask : ItemFluidStorage
+public class ItemFlask : ItemFluidStorage, IContainedMeshSource
 {
     protected int flaskCapacity;
     public override int ContainerCapacity => flaskCapacity;
@@ -198,5 +202,37 @@ public class ItemFlask : ItemFluidStorage
         }
 
         return baseName;
+    }
+
+    // Chunks do not store RGB so these are white.
+
+    public MeshData GenMesh(ItemStack itemStack, ITextureAtlasAPI targetAtlas, BlockPos atBlockPos)
+    {
+        FluidContainer container = GetContainer(itemStack);
+
+        if (container.HeldStack == null)
+        {
+            return FluidItemRenderingSystem.CreateFluidItemModel(this, Vector4.Zero, 0, 0);
+        }
+
+        float glow = container.HeldStack.fluid.GetGlowLevel(container.HeldStack);
+        float fill = MathF.Round(container.FillPercent, 2);
+
+        return FluidItemRenderingSystem.CreateFluidItemModel(this, Vector4.One, glow, fill);
+    }
+
+    public string GetMeshCacheKey(ItemStack itemStack)
+    {
+        FluidContainer container = GetContainer(itemStack);
+
+        if (container.HeldStack == null)
+        {
+            return $"{Code}-empty";
+        }
+
+        float glow = container.HeldStack.fluid.GetGlowLevel(container.HeldStack);
+        float fill = MathF.Round(container.FillPercent, 2);
+
+        return $"{Code}-{glow}-{fill}";
     }
 }

@@ -1,4 +1,5 @@
-﻿using MareLib;
+﻿using Fishing3.src.alchemy.gui;
+using MareLib;
 using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,20 @@ namespace Fishing3;
 
 public static class GuiThemes
 {
+    public static void AddTitleBar(Gui gui, string title, Widget parent)
+    {
+        new WidgetTitleBar(parent, parent, title)
+            .Alignment(Align.CenterTop, AlignFlags.OutsideV)
+            .FixedHeight(8)
+            .PercentWidth(1f)
+            .As(out WidgetTitleBar titleBar);
+
+        new WidgetLabeledButton(titleBar, () =>
+        {
+            gui.TryClose();
+        }, "", new Vector4(0.75f, 0f, 0f, 1f)).Alignment(Align.RightMiddle).FixedSize(8, 8);
+    }
+
     public static Font Font => FontRegistry.GetFont("soria");
 
     public static Vector3 Red => new(1, 0, 0);

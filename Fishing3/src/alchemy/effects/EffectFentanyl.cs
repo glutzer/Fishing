@@ -13,6 +13,8 @@ public class EffectFentanyl : AlchemyEffect
 
     public override void OnLoaded()
     {
+        if (!IsServer) return;
+
         // 10% increased movement speed at baseline.
         Entity.Stats.Set("walkspeed", "fent", StrengthMultiplier * 0.1f, true);
         EffectBehavior.onDamaging += DamageToPregnantAnimals;
@@ -42,6 +44,8 @@ public class EffectFentanyl : AlchemyEffect
 
     public override void OnUnloaded()
     {
+        if (!IsServer) return;
+
         Entity.Stats.Remove("walkspeed", "fent");
         EffectBehavior.onDamaging -= DamageToPregnantAnimals;
     }

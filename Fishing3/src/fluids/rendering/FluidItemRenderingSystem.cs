@@ -133,7 +133,7 @@ public class FluidItemRenderingSystem : GameSystem
 
         return GetOrCreate(info, () =>
         {
-            return CreateFluidItemModel(item, color, glow, fill);
+            return MainAPI.Capi.Render.UploadMultiTextureMesh(CreateFluidItemModel(item, color, glow, fill));
         });
     }
 
@@ -171,7 +171,7 @@ public class FluidItemRenderingSystem : GameSystem
     /// For every element that starts with "Contents", it is altered.
     /// Must be facing up.
     /// </summary>
-    public static MultiTextureMeshRef CreateFluidItemModel(Item item, Vector4 color, float glowLevel, float fillLevel)
+    public static MeshData CreateFluidItemModel(Item item, Vector4 color, float glowLevel, float fillLevel)
     {
         ICoreClientAPI capi = MainAPI.Capi;
 
@@ -240,6 +240,6 @@ public class FluidItemRenderingSystem : GameSystem
             }
         }
 
-        return capi.Render.UploadMultiTextureMesh(meshData);
+        return meshData;
     }
 }
