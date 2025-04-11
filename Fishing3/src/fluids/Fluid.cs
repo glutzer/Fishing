@@ -91,7 +91,7 @@ public class Fluid
 
     public virtual string GetName(FluidStack fluidStack)
     {
-        return Lang.Get("fluid-" + code);
+        return Lang.Get("fishing:fluid-" + code);
     }
 
     public virtual float GetGlowLevel(FluidStack fluidStack)

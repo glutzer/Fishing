@@ -11,7 +11,7 @@ public interface IMetaEffect
     public float BaseRatio { get; }
 
     /// <summary>
-    /// Apply a meta effect, with a strength multiplier calculated from the ratio MetaFluid / ReagentFluid.
+    /// Apply a meta effect, with a strength multiplier calculated from the ratio MetaFluid / ReagentFluid, up to the BaseRatio at 1.
     /// </summary>
     public void ApplyTo(Effect effect, float ratioStrengthMultiplier);
 }

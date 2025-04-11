@@ -1,7 +1,7 @@
 ﻿using MareLib;
 using OpenTK.Mathematics;
 
-namespace Fishing3.src.alchemy.gui;
+namespace Fishing3;
 
 public class WidgetTitleBar : WidgetBaseDraggableTitle
 {

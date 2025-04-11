@@ -1,4 +1,5 @@
 ﻿using MareLib;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,10 @@ public class FluidRenderingInstance
     public FluidRenderingInstance(FluidContainer container, Vector3 localStart, Vector3 localEnd, BlockPos blockPos)
     {
         this.container = container;
-        cubeScale = localEnd - localStart;
 
+        (localStart, localEnd) = (Vector3.ComponentMin(localEnd, localStart), Vector3.ComponentMax(localEnd, localStart));
+
+        cubeScale = localEnd - localStart;
         cubeOffset.X = blockPos.X + (double)localStart.X;
         cubeOffset.Y = blockPos.Y + (double)localStart.Y;
         cubeOffset.Z = blockPos.Z + (double)localStart.Z;

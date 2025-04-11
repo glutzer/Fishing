@@ -5,6 +5,10 @@
   "Behaviors": {
     "FluidBehaviorReagent": {
       "Effects": [
+        {
+          "Type": "EffectToxin",
+          "Strength": 0.05
+        }
       ]
     }
   }

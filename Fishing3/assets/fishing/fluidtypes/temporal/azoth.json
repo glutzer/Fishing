@@ -1,17 +1,15 @@
 {
-  "Code": "blood",
+  "Code": "azoth",
   "Class": "Fluid",
-  "Color": [ 0.8, 0, 0, 1 ],
+  "Color": [ 0, 0.7, 1, 1 ],
+  "GlowLevel": 0.8,
   "Behaviors": {
     "FluidBehaviorReagent": {
       "Effects": [
         {
-          "Type": "MetaEffectBlood"
+          "Type": "EffectChameleon"
         }
       ]
-    },
-    "FluidBehaviorBlood": {
-
     }
   }
 }

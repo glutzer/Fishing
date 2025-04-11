@@ -1,0 +1,19 @@
+[
+  {
+    "Ingredients": [
+      {
+        "Code": "primamateria",
+        "Units": 50
+      },
+      {
+        "Code": "fishoil-dragonfish",
+        "Units": 500
+      }
+    ],
+    "OutputFluid": {
+      "Code": "azoth",
+      "Units": 100
+    },
+    "Ticks": 1200
+  }
+]

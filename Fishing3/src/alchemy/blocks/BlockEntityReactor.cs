@@ -101,7 +101,7 @@ public class BlockEntityReactor : BlockEntityHeatedAlchemyEquipment, IFluidSink,
 
                 EmitParticles(EnumAlchemyParticle.Drip, AlchemyAttachPoints[2].Position + AlchemyAttachPoints[2].CachedOffset, cont, 1f, times);
 
-                MarkConnectionDirty(0);
+                MarkConnectionDirty(2);
                 UpdateRecipe(true);
             }
         }
