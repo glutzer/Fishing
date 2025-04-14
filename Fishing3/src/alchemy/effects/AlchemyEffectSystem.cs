@@ -34,11 +34,12 @@ public class AlchemyEffectSystem : GameSystem
     /// Consumes any fluid to apply it to an entity.
     /// Only potions and reagents will do anything.
     /// </summary>
-    public static void ApplyFluid(FluidContainer container, int amount, Entity? fromEntity, Entity toEntity, ApplicationMethod method)
+    public static void ApplyFluid(FluidContainer container, int amount, Entity? fromEntity, Entity toEntity, ApplicationMethod method, float auxMultiplier = 1f)
     {
         if (container.HeldStack == null) return;
 
         float statMultiplier = fromEntity?.Stats.GetBlended("flaskEffect") ?? 1f;
+        statMultiplier *= auxMultiplier;
 
         if (container.HeldStack is FluidStackCompound)
         {

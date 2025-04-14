@@ -69,9 +69,11 @@ public class EffectToxin : AlchemyEffect
             }
         }
 
+        if (health.Health < 0) health.Health = 0;
+
         toxinInstances.RemoveAll(x => x.timeActive > x.maxDuration);
 
-        if (health.Health < 0 && Entity is EntityAgent agent)
+        if (health.Health <= 0 && Entity is EntityAgent agent)
         {
             Entity.ReceiveDamage(new DamageSource()
             {

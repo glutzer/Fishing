@@ -153,4 +153,12 @@ public class FluidContainer
     {
         if (HeldStack?.Units <= 0) HeldStack = null;
     }
+
+    public virtual FluidContainer Copy(EnumAppSide side)
+    {
+        byte[] bytes = SaveStack();
+        FluidContainer copy = new(Capacity);
+        copy.LoadStack(bytes, side);
+        return copy;
+    }
 }

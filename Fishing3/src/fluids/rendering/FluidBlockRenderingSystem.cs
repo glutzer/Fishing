@@ -1,5 +1,4 @@
 ﻿using MareLib;
-using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
@@ -74,7 +73,9 @@ public class FluidBlockRenderingSystem : GameSystem
         shader.BindTexture(fluidTexture, "tex2d");
         shader.UniformMatrix("offsetViewMatrix", MainAPI.Capi.Render.CameraMatrixOriginf);
 
-        Vector3d offset = MainAPI.CameraPosition - new Vector3d(MainAPI.Capi.World.Player.Entity.CameraPos.X, MainAPI.Capi.World.Player.Entity.CameraPos.Y, MainAPI.Capi.World.Player.Entity.CameraPos.Z);
+        // Later this needs to be integrated into the shader for the original shadow map.
+
+        // Vector3d offset = MainAPI.CameraPosition - new Vector3d(MainAPI.Capi.World.Player.Entity.CameraPos.X, MainAPI.Capi.World.Player.Entity.CameraPos.Y, MainAPI.Capi.World.Player.Entity.CameraPos.Z);
 
         RenderTools.EnableCulling();
 
@@ -98,10 +99,15 @@ public class FluidBlockRenderingSystem : GameSystem
             Vector3 scale = instance.cubeScale;
             scale.Y *= instance.lerpedFill;
 
-            Matrix4 mat = Matrix4.CreateScale(scale) * RenderTools.CameraRelativeTranslation(instance.cubeOffset + offset);
+            Matrix4 mat = Matrix4.CreateScale(scale) * RenderTools.CameraRelativeTranslation(instance.cubeOffset /*+ offset*/);
             shader.Uniform("modelMatrix", mat);
             shader.Uniform("uniformColor", instance.container.HeldStack.fluid.GetColor(instance.container.HeldStack));
             shader.Uniform("glowAmount", (int)(instance.container.HeldStack.fluid.GetGlowLevel(instance.container.HeldStack) * 255));
+
+            Vector3 worldPos = RenderTools.CameraRelativePosition(instance.cubeOffset /*+ offset*/);
+
+            shader.Uniform("cubePosition", worldPos + (scale / 2));
+            shader.Uniform("cubeScale", scale);
 
             RenderTools.RenderMesh(cubeMesh);
         }

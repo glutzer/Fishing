@@ -22,6 +22,14 @@ public class EffectSatiety : AlchemyEffect, IEffectInfoProvider
         }
     }
 
+    public override void CollectDataFromFluidStack(FluidStack stack, ApplicationMethod method)
+    {
+        if (method == ApplicationMethod.Skin)
+        {
+            StrengthMultiplier *= 0.25f;
+        }
+    }
+
     public override void CollectDataFromReagent(JsonObject jsonObject)
     {
         category = jsonObject.Get("Category", "Fruit")!.ToLower() switch

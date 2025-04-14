@@ -200,12 +200,7 @@ public class EntityBobber : Entity, IPhysicsTickable
 
     public bool CanProceedOnThisThread()
     {
-        if (RuntimeEnv.MainThreadId == Environment.CurrentManagedThreadId)
-        {
-            return true;
-        }
-
-        return false;
+        return RuntimeEnv.ServerMainThreadId == Environment.CurrentManagedThreadId;
     }
 
     public override void OnGameTick(float dt)

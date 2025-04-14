@@ -27,6 +27,11 @@ public class FishingGameSystem : NetworkedGameSystem
     {
         api.RegisterCollectibleBehaviorClass("CollectibleBehaviorBait", typeof(CollectibleBehaviorBait));
         api.RegisterCollectibleBehaviorClass("CollectibleBehaviorBobber", typeof(CollectibleBehaviorBobber));
+
+        if (api.Side == EnumAppSide.Client)
+        {
+            MainAPI.Capi.RegisterEntityRendererClass("LeviathanRenderer", typeof(LeviathanRenderer));
+        }
     }
 
     public override void PreInitialize()
