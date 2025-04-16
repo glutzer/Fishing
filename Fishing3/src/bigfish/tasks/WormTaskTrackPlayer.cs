@@ -9,7 +9,15 @@ namespace Fishing3;
 public class WormTaskTrackPlayer : WormTask
 {
     private float duration;
-    public EntityPlayer? currentTarget;
+    private EntityPlayer? currentTarget;
+
+    private Vector3 facing = new();
+
+    /// <summary>
+    /// 1 when underground for a time.
+    /// </summary>
+    private float undergroundPower;
+    private const float UNDERGROUND_MAX_POWER_SECONDS = 5f;
 
     public WormTaskTrackPlayer(float priority, EntityLeviathanHead head) : base(priority, head)
     {
@@ -23,6 +31,55 @@ public class WormTaskTrackPlayer : WormTask
         {
             currentTarget = players[0].Entity;
         }
+    }
+
+    public override void TickTask(float dt)
+    {
+        if (!IsServer) return;
+
+        // 1 underground power when underground for a duration, back to 0 when above ground for a duration.
+        if (!Head.CollidingWithGround)
+        {
+            undergroundPower = Math.Clamp(undergroundPower - (dt / UNDERGROUND_MAX_POWER_SECONDS), 0, 1);
+        }
+        else
+        {
+            undergroundPower = Math.Clamp(undergroundPower + (dt / UNDERGROUND_MAX_POWER_SECONDS), 0, 1);
+        }
+
+        // Move.
+        float speed = 50f;
+        Head.ServerPos.Add(facing.X * dt * speed, facing.Y * dt * speed, facing.Z * dt * speed);
+
+        // Don't go below world.
+        if (Head.ServerPos.Y < 0) Head.ServerPos.Y = 0;
+
+        TargetNewPlayer();
+
+        if (currentTarget != null)
+        {
+            Vector3d playerPos = currentTarget.ServerPos.ToVector();
+            Vector3d pos = Head.ServerPos.ToVector();
+
+            Vector3d normal = playerPos - pos;
+            normal.Normalize();
+
+            Quaternion currentQuat = QuaternionUtility.FromToRotation(new Vector3(1f, 0f, 0f), facing);
+            Quaternion targetQuat = QuaternionUtility.FromToRotation(new Vector3(1f, 0f, 0f), (Vector3)normal);
+
+            // Slerp slightly.
+            Quaternion newQuat = Quaternion.Slerp(currentQuat, targetQuat, dt);
+
+            Quaternion downQuat = QuaternionUtility.FromToRotation(new Vector3(1f, 0f, 0f), -Vector3.UnitY);
+
+            newQuat = Quaternion.Slerp(newQuat, downQuat, dt * (1f - undergroundPower) * 2f);
+
+            facing = newQuat * new Vector3(1f, 0f, 0f);
+        }
+
+        Vector3d facingNormal = facing.Normalized();
+        Head.ServerPos.Yaw = (float)Math.Atan2(-facingNormal.X, -facingNormal.Z);
+        Head.ServerPos.Pitch = (float)Math.Asin(facingNormal.Y);
     }
 
     public override bool CanContinueTask(float dt)
@@ -46,30 +103,5 @@ public class WormTaskTrackPlayer : WormTask
     public override void OnTaskStopped()
     {
 
-    }
-
-    public override void TickTask(float dt)
-    {
-        Head.ServerPos.Roll = 0;
-        Head.ServerPos.Yaw = 0;
-        Head.ServerPos.Pitch = 0;
-
-        TargetNewPlayer();
-
-        if (currentTarget == null) return;
-
-        Vector3d playerPos = currentTarget.ServerPos.ToVector();
-        Vector3d pos = Head.ServerPos.ToVector();
-
-        Vector3d delta = playerPos - pos;
-        Vector3d normal = delta.Normalized();
-        Head.ServerPos.Yaw = (float)Math.Atan2(-normal.X, -normal.Z);
-        Head.ServerPos.Pitch = (float)Math.Asin(normal.Y);
-
-        if (delta.Length > 10)
-        {
-            normal *= 50;
-            Head.ServerPos.Add(normal.X * dt, normal.Y * dt, normal.Z * dt);
-        }
     }
 }

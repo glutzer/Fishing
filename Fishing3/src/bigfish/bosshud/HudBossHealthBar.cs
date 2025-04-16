@@ -24,14 +24,11 @@ public class HudBossHealthBar : Gui
 
     public override void PopulateWidgets()
     {
-        WidgetBossHealthBar? bar = null;
-
         int index = 1;
 
         foreach (Entity entity in bossEntities)
         {
-            bar = new WidgetBossHealthBar(bar, entity);
-
+            WidgetBossHealthBar? bar = new(null, entity);
             bar.Percent(0f, 0f, 0.5f, 0f).FixedY(index * 12).FixedHeight(10).Alignment(Align.CenterTop);
             index++;
 

@@ -1,13 +1,16 @@
 ﻿using MareLib;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
-using static OpenTK.Graphics.OpenGL.GL;
+using Vintagestory.API.Server;
 
 namespace Fishing3;
+
+// It is calculated if: the entity is CollidedWithGround, or Swimming.
 
 [Entity]
 public class EntityLeviathanHead : EntityLeviathanBase, IPhysicsTickable
@@ -17,6 +20,15 @@ public class EntityLeviathanHead : EntityLeviathanBase, IPhysicsTickable
 
     private readonly List<WormTask> tasks = new();
     private WormTask? currentTask;
+
+    private readonly WormCollisionTester collTester = new();
+
+    /// <summary>
+    /// Is the head's hitbox colliding with a block?
+    /// </summary>
+    public bool CollidingWithGround { get; private set; }
+
+    public Accumulator clientTicker = Accumulator.WithInterval(1 / 20f).Max(1f);
 
     public void StartTask<T>() where T : WormTask
     {
@@ -41,21 +53,25 @@ public class EntityLeviathanHead : EntityLeviathanBase, IPhysicsTickable
         {
             GenerateSegments();
             MainAPI.Sapi.Server.AddPhysicsTickable(this);
-
-            // Instantiate all tasks.
-            (Type, WormTaskAttribute)[] attribs = AttributeUtilities.GetAllAnnotatedClasses<WormTaskAttribute>();
-            foreach ((Type type, WormTaskAttribute attrib) in attribs)
-            {
-                WormTask task = (WormTask)Activator.CreateInstance(type, attrib.priority, this)!;
-                tasks.Add(task);
-            }
-
-            // Sort list with higher priority being first.
-            tasks.Sort((a, b) => a.Priority.CompareTo(b.Priority));
         }
         else
         {
             MainAPI.GetGameSystem<BossSystem>(api.Side).RegisterEntity(this);
+        }
+
+        // Instantiate all tasks.
+        (Type, WormTaskAttribute)[] attribs = AttributeUtilities.GetAllAnnotatedClasses<WormTaskAttribute>();
+        foreach ((Type type, WormTaskAttribute attrib) in attribs)
+        {
+            WormTask task = (WormTask)Activator.CreateInstance(type, attrib.priority, this)!;
+            tasks.Add(task);
+        }
+
+        // Sort list with higher priority being first.
+        tasks.Sort((a, b) => a.Priority.CompareTo(b.Priority));
+        for (int i = 0; i < tasks.Count; i++)
+        {
+            tasks[i].SetId(i);
         }
     }
 
@@ -95,6 +111,7 @@ public class EntityLeviathanHead : EntityLeviathanBase, IPhysicsTickable
                 {
                     currentTask = task;
                     task.OnTaskStarted();
+                    SendTaskUpdate();
                     break;
                 }
             }
@@ -118,12 +135,18 @@ public class EntityLeviathanHead : EntityLeviathanBase, IPhysicsTickable
                     break;
                 }
             }
+
+            SendTaskUpdate();
         }
     }
 
     public void OnPhysicsTick(float dt)
     {
         if (!Alive) return;
+
+        CollidingWithGround = collTester.IsColliding(this, Api);
+        Block fluidBlockAtPos = MainAPI.Sapi.World.BlockAccessor.GetBlock(ServerPos.AsBlockPos, BlockLayersAccess.Fluid);
+        Swimming = fluidBlockAtPos.Id != 0;
 
         UpdateTasks(dt);
 
@@ -180,6 +203,23 @@ public class EntityLeviathanHead : EntityLeviathanBase, IPhysicsTickable
         }
     }
 
+    public override void OnGameTick(float dt)
+    {
+        base.OnGameTick(dt);
+
+        if (Api.Side == EnumAppSide.Server || !Alive) return;
+
+        clientTicker.Add(dt);
+        while (clientTicker.Consume())
+        {
+            CollidingWithGround = collTester.IsColliding(this, Api);
+            Block fluidBlockAtPos = MainAPI.Capi.World.BlockAccessor.GetBlock(Pos.AsBlockPos, BlockLayersAccess.Fluid);
+            Swimming = fluidBlockAtPos.Id != 0;
+
+            currentTask?.TickTask(clientTicker.interval);
+        }
+    }
+
     public void AfterPhysicsTick(float dt)
     {
     }
@@ -202,7 +242,78 @@ public class EntityLeviathanHead : EntityLeviathanBase, IPhysicsTickable
         }
         else
         {
-            MainAPI.GetGameSystem<BossSystem>(Api.Side).UnregisterEntity(this);
+            MainAPI.TryGetGameSystem(Api.Side, out BossSystem? bossSystem);
+            bossSystem?.UnregisterEntity(this);
+        }
+
+        foreach (WormTask task in tasks)
+        {
+            task.OnEntityUnloaded();
+        }
+    }
+
+    /// <summary>
+    /// On the server, sends a task update to the client.
+    /// Suitable when a new task is started, or when the current task needs a data update.
+    /// </summary>
+    public void SendTaskUpdate()
+    {
+        if (Api.Side != EnumAppSide.Server) return;
+
+        if (currentTask == null)
+        {
+            MainAPI.Sapi.Network.BroadcastEntityPacket(EntityId, 1011, null);
+        }
+        else
+        {
+            using MemoryStream stream = new();
+            using BinaryWriter writer = new(stream);
+
+            writer.Write(currentTask.Id);
+            currentTask.ToBytes(writer);
+
+            MainAPI.Sapi.Network.BroadcastEntityPacket(EntityId, 1010, stream.ToArray());
+        }
+    }
+
+    public override void OnReceivedClientPacket(IServerPlayer player, int packetId, byte[]? data)
+    {
+        base.OnReceivedClientPacket(player, packetId, data);
+
+        if (packetId == 1010)
+        {
+            if (data == null) return;
+
+            using MemoryStream stream = new(data);
+            using BinaryReader reader = new(stream);
+
+            try
+            {
+                int taskId = reader.ReadInt32();
+                WormTask? task = tasks.Find(t => t.Id == taskId);
+
+                if (task != null)
+                {
+                    task.FromBytes(reader);
+
+                    if (task != currentTask)
+                    {
+                        currentTask?.OnTaskStopped();
+                        currentTask = task;
+                        currentTask.OnTaskStarted();
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        if (packetId == 1011)
+        {
+            currentTask?.OnTaskStopped();
+            currentTask = null;
         }
     }
 }
