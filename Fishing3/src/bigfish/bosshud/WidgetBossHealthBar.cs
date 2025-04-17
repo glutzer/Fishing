@@ -26,7 +26,6 @@ public class WidgetBossHealthBar : Widget
 
     public override void OnRender(float dt, MareShader shader)
     {
-
         ITreeAttribute? healthTree = entity.WatchedAttributes.GetTreeAttribute("health");
         if (healthTree == null) return;
 

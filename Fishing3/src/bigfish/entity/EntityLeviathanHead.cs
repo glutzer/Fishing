@@ -1,4 +1,5 @@
 ﻿using MareLib;
+using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +16,8 @@ namespace Fishing3;
 [Entity]
 public class EntityLeviathanHead : EntityLeviathanBase, IPhysicsTickable
 {
+    public Vector3 Facing { get; private set; } = Vector3.UnitY;
+
     public EntityLeviathanBase[] segments = new EntityLeviathanBase[MAX_SEGMENTS];
     public bool Ticking { get; set; } = true;
 
@@ -28,21 +31,94 @@ public class EntityLeviathanHead : EntityLeviathanBase, IPhysicsTickable
     /// </summary>
     public bool CollidingWithGround { get; private set; }
 
-    public Accumulator clientTicker = Accumulator.WithInterval(1 / 20f).Max(1f);
+    private Accumulator clientTicker = Accumulator.WithInterval(1 / 20f).Max(1f);
 
-    public void StartTask<T>() where T : WormTask
+    /// <summary>
+    /// Move the head towards it's current facing.
+    /// </summary>
+    public void Move(float distance)
+    {
+        ServerPos.Add(Facing.X * distance, Facing.Y * distance, Facing.Z * distance);
+        if (ServerPos.Y < 1) ServerPos.Y = 1;
+
+        EntityLeviathanBase lastSegment = segments[0];
+        for (int i = 1; i < segments.Length; i++)
+        {
+            EntityLeviathanBase segment = segments[i];
+
+            segment.MoveToSegment(lastSegment);
+            lastSegment = segment;
+        }
+    }
+
+    /// <summary>
+    /// Set the current facing and yaw/pitch.
+    /// </summary>
+    public void SetFacing(Vector3 facing)
+    {
+        Facing = facing.Normalized();
+        ServerPos.Yaw = (float)Math.Atan2(-Facing.X, -Facing.Z);
+        ServerPos.Pitch = (float)Math.Asin(Facing.Y);
+    }
+
+    /// <summary>
+    /// Lerp to a facing and set it.
+    /// </summary>
+    public void LerpToFacing(Vector3 facing, float value)
+    {
+        Quaternion currentQuat = QuaternionUtility.FromToRotation(new Vector3(1f, 0f, 0f), Facing);
+        Quaternion targetQuat = QuaternionUtility.FromToRotation(new Vector3(1f, 0f, 0f), facing);
+        Quaternion lerpedQuat = Quaternion.Slerp(currentQuat, targetQuat, value);
+        Facing = lerpedQuat * new Vector3(1f, 0f, 0f);
+        ServerPos.Yaw = (float)Math.Atan2(-Facing.X, -Facing.Z);
+        ServerPos.Pitch = (float)Math.Asin(Facing.Y);
+    }
+
+    /// <summary>
+    /// Start a task and return it.
+    /// </summary>
+    public T StartTask<T>() where T : WormTask
     {
         currentTask?.OnTaskStopped();
 
         foreach (WormTask task in tasks)
         {
-            if (task is T)
+            if (task is T t)
             {
                 currentTask = task;
                 task.OnTaskStarted();
-                break;
+                return t;
             }
         }
+
+        throw new Exception("Task not found.");
+    }
+
+    /// <summary>
+    /// Get a task, execute a delegate, then start it.
+    /// </summary>
+    public void StartTask<T>(Action<T>? dele) where T : WormTask
+    {
+        currentTask?.OnTaskStopped();
+
+        foreach (WormTask task in tasks)
+        {
+            if (task is T t)
+            {
+                currentTask = task;
+                dele?.Invoke(t);
+                task.OnTaskStarted();
+            }
+        }
+
+        throw new Exception("Task not found.");
+    }
+
+    public void StopTask()
+    {
+        currentTask?.OnTaskStopped();
+        currentTask = null;
+        SendTaskUpdate();
     }
 
     public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
@@ -149,20 +225,6 @@ public class EntityLeviathanHead : EntityLeviathanBase, IPhysicsTickable
         Swimming = fluidBlockAtPos.Id != 0;
 
         UpdateTasks(dt);
-
-        for (int i = 1; i < segments.Length; i++)
-        {
-            EntityLeviathanSegment? seg = (EntityLeviathanSegment?)segments[i];
-
-            if (seg == null || !seg.Alive)
-            {
-                // A segment is broken for some reason, this kills the worm.
-                Die(EnumDespawnReason.Expire);
-                return;
-            }
-
-            seg?.CascadingPhysicsTick(dt);
-        }
 
         // Every tick try to deal damage from every segment.
         TouchDamage();

@@ -118,5 +118,8 @@
   "fluid-acid-sulfuric": "Sulfuric Acid",
 
   "fluid-primamateria": "Prima Materia",
-  "fluid-azoth": "Azoth"
+  "fluid-azoth": "Azoth",
+
+  "fishing:item-creature-leviathan": "Leviathan",
+  "fishing:item-creature-leviathansegment": "Leviathan"
 }

@@ -30,7 +30,7 @@ public class WormTask
     /// </summary>
     public virtual bool CanStartTask(float dt)
     {
-        return true;
+        return false;
     }
 
     /// <summary>

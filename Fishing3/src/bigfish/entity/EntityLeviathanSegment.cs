@@ -1,6 +1,5 @@
 ﻿using MareLib;
 using OpenTK.Mathematics;
-using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.GameContent;
@@ -20,28 +19,55 @@ public class EntityLeviathanSegment : EntityLeviathanBase
         }
     }
 
-    public void CascadingPhysicsTick(float dt)
+    private void DoIK()
     {
-        if (ParentSegment == null) return;
+        if (Head == null) return;
 
-        Vector3d parentPos = ParentSegment.ServerPos.ToVector();
-        Vector3d pos = ServerPos.ToVector();
+        EntityLeviathanBase[] segments = Head.segments;
 
-        // Need to move the segment to it's parent, minus the parent size. Only if it's > 0.
-        Vector3d delta = parentPos - pos;
-        Vector3d normal = delta.Normalized();
-        double desiredDistance = delta.Length - 10;
-
-        if (desiredDistance > 0.1f)
+        // Move segments from front.
+        EntityLeviathanBase lastSegment = this;
+        for (int i = SegmentId; i > 0; i--)
         {
-            ServerPos.Add(desiredDistance * normal.X, desiredDistance * normal.Y, desiredDistance * normal.Z);
+            EntityLeviathanBase segment = segments[i];
 
-            // Set rotation.
-            delta = parentPos - pos;
-            normal = delta.Normalized();
-            ServerPos.Yaw = (float)Math.Atan2(-normal.X, -normal.Z);
-            ServerPos.Pitch = (float)Math.Asin(normal.Y);
+            segment.MoveToSegment(lastSegment);
+            lastSegment = segment;
         }
+
+        // Move segments from back.
+        lastSegment = this;
+        for (int i = SegmentId + 1; i < segments.Length; i++)
+        {
+            EntityLeviathanBase segment = segments[i];
+
+            segment.MoveToSegment(lastSegment);
+            lastSegment = segment;
+        }
+
+        // Move the head
+        lastSegment = segments[0];
+        for (int i = 1; i < segments.Length; i++)
+        {
+            EntityLeviathanBase segment = segments[i];
+
+            segment.MoveToSegment(lastSegment);
+            lastSegment = segment;
+        }
+    }
+
+    public void MoveToWithIK(Vector3d position)
+    {
+        ServerPos.SetPos(position.X, position.Y, position.Z);
+        if (ServerPos.Y < 1) ServerPos.Y = 1;
+        DoIK();
+    }
+
+    public void MoveWithIK(Vector3 movement)
+    {
+        ServerPos.Add(movement.X, movement.Y, movement.Z);
+        if (ServerPos.Y < 1) ServerPos.Y = 1;
+        DoIK();
     }
 
     public override bool ReceiveDamage(DamageSource damageSource, float damage)

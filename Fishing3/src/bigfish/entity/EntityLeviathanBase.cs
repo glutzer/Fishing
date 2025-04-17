@@ -1,11 +1,14 @@
-﻿using Vintagestory.API.Common;
+﻿using MareLib;
+using OpenTK.Mathematics;
+using System;
+using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
 namespace Fishing3;
 
 public class EntityLeviathanBase : EntityAgent
 {
-    public const int MAX_SEGMENTS = 80;
+    public const int MAX_SEGMENTS = 40;
 
     public int SegmentId { get; set; }
     public EntityLeviathanHead? Head { get; set; }
@@ -42,4 +45,41 @@ public class EntityLeviathanBase : EntityAgent
 
         OriginCollisionBox = CollisionBox.Clone();
     }
+
+    public void MoveToSegment(EntityLeviathanBase? segment)
+    {
+        segment ??= ParentSegment;
+
+        if (segment == null) return;
+
+        Vector3d parentPos = segment.ServerPos.ToVector();
+        Vector3d pos = ServerPos.ToVector();
+
+        Vector3d delta = parentPos - pos;
+        Vector3d normal = delta.Normalized();
+
+        double desiredDistance = delta.Length - 10;
+
+        if (desiredDistance > 0.1f)
+        {
+            ServerPos.Add(desiredDistance * normal.X, desiredDistance * normal.Y, desiredDistance * normal.Z);
+        }
+
+        // Set rotation.
+        delta = parentPos - pos;
+        normal = delta.Normalized();
+        ServerPos.Yaw = (float)Math.Atan2(-normal.X, -normal.Z);
+        ServerPos.Pitch = (float)Math.Asin(normal.Y);
+    }
+
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //public void FaceToParent()
+    //{
+    //    if (ParentSegment == null) return;
+
+    //    Vector3d facingNormal = new(ParentSegment.ServerPos.X - ServerPos.X, ParentSegment.ServerPos.Y - ServerPos.Y, ParentSegment.ServerPos.Z - ServerPos.Z);
+    //    facingNormal.Normalize();
+    //    ServerPos.Yaw = (float)Math.Atan2(-facingNormal.X, -facingNormal.Z);
+    //    ServerPos.Pitch = (float)Math.Asin(facingNormal.Y);
+    //}
 }
