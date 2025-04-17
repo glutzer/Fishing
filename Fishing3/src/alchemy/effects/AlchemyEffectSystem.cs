@@ -105,7 +105,7 @@ public class AlchemyEffectSystem : GameSystem
                 if (otherTuple.effect == effect) continue; // Can't apply to self.
 
                 float metaEffectRatio = units / (float)otherTuple.units;
-                float strengthMulti = Math.Clamp(metaEffectRatio / metaEffect.BaseRatio, 0, 1);
+                float strengthMulti = Math.Clamp(metaEffectRatio / metaEffect.BaseRatio, 0f, 1f);
 
                 metaEffect.ApplyTo(otherTuple.effect, strengthMulti);
             }

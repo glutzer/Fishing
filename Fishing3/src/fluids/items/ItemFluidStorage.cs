@@ -112,10 +112,10 @@ public class ItemFluidStorage : Item
         // I don't feel like making mappings for this right now.
         string? fluidCode = firstCodePart switch
         {
-            "water" => "water",
-            "saltwater" => "water",
+            "water" => "water-tainted",
+            "saltwater" => "water-salt",
             "lava" => "lava",
-            "boilingwater" => "water",
+            "boilingwater" => "water-tainted",
             _ => null
         };
 

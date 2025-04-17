@@ -22,6 +22,12 @@ public class ItemSyringe : ItemFluidStorage
     {
         if (!firstEvent) return;
 
+        if (api.Side == EnumAppSide.Server)
+        {
+            ItemStack parchment = MainAPI.GetServerSystem<AlchemyRecipeRegistry>().GenerateRandomParchment();
+            api.World.SpawnItemEntity(parchment, byEntity.ServerPos.AsBlockPos);
+        }
+
         if (byEntity.Controls.Sneak && api.Side == EnumAppSide.Client)
         {
             new GuiFluidMarker(slot.Itemstack).TryOpen();

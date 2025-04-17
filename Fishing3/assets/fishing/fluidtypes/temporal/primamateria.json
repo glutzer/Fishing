@@ -8,6 +8,10 @@
       "Effects": [
         {
           "Type": "EffectTranslocation"
+        },
+        {
+          "Type": "MetaEffectExtender",
+          "Strength": 5
         }
       ]
     }

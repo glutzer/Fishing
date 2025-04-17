@@ -1,12 +1,12 @@
 [
   {
     "InputFluid": {
-      "Code": "water",
+      "Code": "water-fresh",
       "Units": 100
     },
     "InputItem": "game:salt",
     "OutputFluid": {
-      "Code": "saltwater",
+      "Code": "water-salt",
       "Units": 100
     },
     "Ticks": 100

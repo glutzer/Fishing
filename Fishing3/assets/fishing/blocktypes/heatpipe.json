@@ -8,7 +8,7 @@
     }
   ],
   "shape": {
-    "base": "fishing:parts/line"
+    "base": "fishing:rod"
   },
   "creativeinventory": {
     "fishing": [
@@ -48,5 +48,40 @@
     "x2": 0.9,
     "y2": 0.18,
     "z2": 0.9
+  },
+  "tpHandTransform": {
+    "translation": {
+      "x": -3.6,
+      "y": -0,
+      "z": -1.1
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0,
+      "z": 0.5
+    },
+    "scale": 0.4
+  },
+  "guiTransform": {
+    "translation": {
+      "x": 10,
+      "y": 0,
+      "z": 0
+    },
+    "rotation": {
+      "x": -40,
+      "y": 0,
+      "z": 40
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0,
+      "z": 0.5
+    }
   }
 }

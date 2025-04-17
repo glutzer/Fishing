@@ -5,6 +5,9 @@
   "Behaviors": {
     "FluidBehaviorReagent": {
       "Effects": [
+        {
+          "Type": "EffectIntoxication"
+        }
       ]
     }
   }

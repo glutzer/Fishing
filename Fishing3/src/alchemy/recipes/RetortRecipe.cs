@@ -62,10 +62,11 @@ public class RetortRecipe : IAlchemyRecipe, IParchmentable
         {
             CollectibleObject? obj = api.World.GetItem(InputItem);
             obj ??= api.World.GetBlock(InputItem);
-            if (obj == null) return;
-
-            ItemStack stack = new(obj, 1);
-            dsc.AppendLine($"Input: {obj.GetHeldItemName(stack)}");
+            if (obj != null)
+            {
+                ItemStack stack = new(obj, 1);
+                dsc.AppendLine($"Input: {obj.GetHeldItemName(stack)}");
+            }
         }
         else
         {

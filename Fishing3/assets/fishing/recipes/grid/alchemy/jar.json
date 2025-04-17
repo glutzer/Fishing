@@ -1,0 +1,18 @@
+[
+  {
+    "ingredientPattern": "B B,B B,BBB",
+    "recipeGroup": 1,
+    "ingredients": {
+      "B": {
+        "type": "block",
+        "code": "game:glass-quartz"
+      }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+      "type": "block",
+      "code": "fishing:jar"
+    }
+  }
+]

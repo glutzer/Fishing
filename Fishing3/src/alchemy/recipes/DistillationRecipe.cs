@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using MareLib;
+using System.Text;
 using Vintagestory.API.Common;
 
 namespace Fishing3;
@@ -45,6 +46,28 @@ public class DistillationRecipe : IAlchemyRecipe, IParchmentable
 
     public virtual void WriteParchmentData(StringBuilder dsc, ICoreAPI api)
     {
+        FluidRegistry reg = MainAPI.GetGameSystem<FluidRegistry>(api.Side);
 
+        FluidStack? stack = InputFluid.CreateStack(reg);
+        if (stack != null)
+        {
+            dsc.AppendLine($"{InputFluid.Units}mL of {stack.fluid.GetName(stack)} distills into:");
+        }
+
+        dsc.AppendLine();
+
+        stack = OutputFluid.CreateStack(reg);
+        if (stack != null)
+        {
+            dsc.AppendLine($"- {stack.fluid.GetName(stack)}: {OutputFluid.Units}mL");
+        }
+
+        if (OutputItem != null)
+        {
+            dsc.AppendLine($"- {OutputItem}: {OutputItemQuantity}");
+        }
+
+        dsc.AppendLine();
+        dsc.AppendLine($"at {Temp[0]}°C-{Temp[1]}°C");
     }
 }

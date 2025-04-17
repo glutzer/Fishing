@@ -50,7 +50,7 @@ public class AlchemyRecipeRegistry : GameSystem
 
     private readonly List<IAlchemyRecipe> allRecipes = new();
 
-    private readonly string[] validNames = new string[] { "Xethyr", "Professor Vector", "Floyd" };
+    private readonly string[] validNames = new string[] { "Xethyr", "Posh", "Floyd" };
 
     /// <summary>
     /// Event where you can call AddRecipe.

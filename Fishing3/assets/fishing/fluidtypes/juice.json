@@ -57,6 +57,22 @@
       "Behaviors": {
         "FluidBehaviorReagent": {
           "Effects": [
+            {
+              "Type": "EffectMoveSpeed",
+              "Duration": 3
+            }
+          ]
+        }
+      }
+    },
+    "*-pineapple": {
+      "MergeArrays": true,
+      "Behaviors": {
+        "FluidBehaviorReagent": {
+          "Effects": [
+            {
+              "Type": "MetaEffectAmplifier"
+            }
           ]
         }
       }

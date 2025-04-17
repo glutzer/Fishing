@@ -11,7 +11,7 @@ public static class GuiThemes
     {
         new WidgetTitleBar(parent, parent, title)
             .Alignment(Align.CenterTop, AlignFlags.OutsideV)
-            .FixedHeight(12)
+            .FixedHeight(8)
             .PercentWidth(1f)
             .As(out WidgetTitleBar titleBar);
 

@@ -26,7 +26,7 @@ public class EffectSatiety : AlchemyEffect, IEffectInfoProvider
     {
         if (method == ApplicationMethod.Skin)
         {
-            StrengthMultiplier *= 0.25f;
+            StrengthMultiplier *= 0.5f;
         }
     }
 

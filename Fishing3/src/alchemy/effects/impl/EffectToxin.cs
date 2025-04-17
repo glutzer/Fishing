@@ -32,7 +32,7 @@ public class EffectToxin : AlchemyEffect
     public readonly List<ToxinInstance> toxinInstances = new();
 
     public override EffectType Type => EffectType.Duration;
-    public override float BaseDuration => 1f; // Serves as a multiplier instead.
+    public override float BaseDuration => 50f; // Serves as a multiplier instead.
 
     private Accumulator accumulator = Accumulator.WithInterval(3f).Max(30f);
 
@@ -40,16 +40,11 @@ public class EffectToxin : AlchemyEffect
 
     public override void Initialize()
     {
-        // 1 second per 2 units.
-        float dura = Units * 0.5f * Duration;
-
         toxinInstances.Add(new ToxinInstance()
         {
-            maxDuration = dura,
+            maxDuration = Duration,
             strength = StrengthMultiplier
         });
-
-        Duration = dura;
     }
 
     public override void OnTick(float dt)

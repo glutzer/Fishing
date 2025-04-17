@@ -146,6 +146,16 @@ public class FluidRegistry : GameSystem
         tab.Tabs = new string[] { "fishing-fluids" };
         List<JsonItemStack> stacks = new();
 
+        JsonItemStack emptyStack = new()
+        {
+            Type = EnumItemClass.Item,
+            Code = fluidStorageItem.Code,
+            Attributes = new(JToken.Parse("{}"))
+        };
+        emptyStack.Resolve(api.World, "", false);
+
+        stacks.Add(emptyStack);
+
         foreach (Fluid type in Fluids)
         {
             if (type == null) break; // Reached end.

@@ -308,9 +308,9 @@ public class Patches
                             }
                             else if (entity.State != EnumEntityState.Despawned && matches(entity))
                             {
-                                float xDist = (float)Math.Abs(entity.SidedPos.X - position.X) - entity.SelectionBox.XSize / 2f;
-                                float yDist = (float)Math.Abs(entity.SidedPos.Y - position.Y) - entity.SelectionBox.YSize / 2f;
-                                float zDist = (float)Math.Abs(entity.SidedPos.Z - position.Z) - entity.SelectionBox.ZSize / 2f;
+                                float xDist = (float)Math.Abs(entity.SidedPos.X - position.X) - (entity.SelectionBox.XSize / 2f);
+                                float yDist = (float)Math.Abs(entity.SidedPos.Y - position.Y) - (entity.SelectionBox.YSize / 2f);
+                                float zDist = (float)Math.Abs(entity.SidedPos.Z - position.Z) - (entity.SelectionBox.ZSize / 2f);
 
                                 if (xDist < initialHorizontalRange && yDist < initialVerticalRange && zDist < initialHorizontalRange)
                                 {

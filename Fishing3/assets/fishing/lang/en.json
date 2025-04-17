@@ -110,8 +110,9 @@
   "fluid-liquidrot": "Liquid Rot",
   "fluid-potion": "Potion",
 
-  "fluid-water": "Water",
-  "fluid-saltwater": "Salt Water",
+  "fluid-water-fresh": "Fresh Water",
+  "fluid-water-salt": "Salt Water",
+  "fluid-water-tainted": "Tainted Water",
 
   "fluid-alcohol": "Alcohol",
 

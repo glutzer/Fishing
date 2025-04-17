@@ -8,7 +8,7 @@
   "textureSizes": {
   },
   "textures": {
-    "metaliron": "fishing:metals/metaliron"
+    "metaliron": "fishing:metals/metalcopper"
   },
   "elements": [
     {

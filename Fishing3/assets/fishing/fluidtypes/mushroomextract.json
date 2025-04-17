@@ -18,5 +18,14 @@
     }
   },
   "Color": [ 0.6, 0.3, 0, 0.8 ],
-  "Class": "Fluid"
+  "Class": "Fluid",
+  "Behaviors": {
+    "FluidBehaviorReagent": {
+      "Effects": [
+        {
+          "Type": "EffectRegeneration"
+        }
+      ]
+    }
+  }
 }

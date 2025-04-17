@@ -1,14 +1,25 @@
 [
   {
     "InputFluid": {
-      "Code": "saltwater",
-      "Units": 100
+      "Code": "water-salt",
+      "Units": 200
     },
     "OutputFluid": {
-      "Code": "water",
+      "Code": "water-fresh",
       "Units": 100
     },
     "OutputItem": "game:salt",
+    "Ticks": 1200
+  },
+  {
+    "InputFluid": {
+      "Code": "water-tainted",
+      "Units": 200
+    },
+    "OutputFluid": {
+      "Code": "water-fresh",
+      "Units": 100
+    },
     "Ticks": 1200
   }
 ]

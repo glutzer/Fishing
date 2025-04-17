@@ -77,10 +77,9 @@ public class BeakerRecipe : IAlchemyRecipe, IParchmentable
             dsc.AppendLine($"Input: {InputItem}");
         }
 
-
         FluidStack? inputStack = InputFluid.CreateStack(MainAPI.GetGameSystem<FluidRegistry>(api.Side));
         if (inputStack == null) return;
-        dsc.AppendLine($"Input: {inputStack.fluid.GetName(inputStack)}");
+        dsc.AppendLine($"Input: {InputFluid.Units}mL of {inputStack.fluid.GetName(inputStack)}");
 
         dsc.AppendLine();
 

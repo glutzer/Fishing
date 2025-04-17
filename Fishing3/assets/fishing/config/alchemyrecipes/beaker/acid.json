@@ -1,7 +1,7 @@
 [
   {
     "InputFluid": {
-      "Code": "water",
+      "Code": "water-fresh",
       "Units": 50
     },
     "InputItem": "game:powder-sulfur",
