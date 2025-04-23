@@ -18,7 +18,7 @@ public static class GuiThemes
         new WidgetLabeledButton(titleBar, () =>
         {
             gui.TryClose();
-        }, "", new Vector4(0.75f, 0f, 0f, 1f)).Alignment(Align.RightMiddle).FixedSize(12, 12);
+        }, "", new Vector4(0.75f, 0f, 0f, 1f)).Alignment(Align.RightMiddle).FixedSize(8, 8);
     }
 
     public static Font Font => FontRegistry.GetFont("soria");
