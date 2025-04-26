@@ -120,11 +120,8 @@ public class AlchemyConnectionSystem : NetworkedGameSystem
             return;
         }
 
-        AlchemyConnectionPacket packet;
-
-        if (swap)
-        {
-            packet = new(
+        AlchemyConnectionPacket packet = swap
+            ? new(
                 equipment.Pos.X,
                 equipment.Pos.Y,
                 equipment.Pos.Z,
@@ -133,11 +130,8 @@ public class AlchemyConnectionSystem : NetworkedGameSystem
                 lastSelectedEquipment.Pos.Z,
                 index,
                 lastSelectedIndex
-            );
-        }
-        else
-        {
-            packet = new(
+            )
+            : new(
                 lastSelectedEquipment.Pos.X,
                 lastSelectedEquipment.Pos.Y,
                 lastSelectedEquipment.Pos.Z,
@@ -147,8 +141,6 @@ public class AlchemyConnectionSystem : NetworkedGameSystem
                 lastSelectedIndex,
                 index
             );
-        }
-
         ClearClientConnections();
 
         MainAPI.Capi.TriggerIngameError(null, "alchemy-connection-success", "Connected.");

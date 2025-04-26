@@ -1,6 +1,8 @@
 ﻿using MareLib;
 using OpenTK.Mathematics;
+using Vintagestory.API.Client;
 using Vintagestory.API.MathTools;
+using Vintagestory.Client;
 using Vintagestory.Client.NoObf;
 
 namespace Fishing3;
@@ -28,6 +30,12 @@ public static class FishingLineRenderer
         lineShader.Use();
         lineShader.Uniform("droop", droopLevel);
         lineShader.BindTexture(texture, "tex2d");
+
+        // For murkiness.
+        DefaultShaderUniforms shaderUniforms = ScreenManager.Platform.ShaderUniforms;
+        lineShader.Uniform("zNear", shaderUniforms.ZNear);
+        lineShader.Uniform("zFar", shaderUniforms.ZFar);
+        lineShader.UnderwaterEffects();
 
         lineShader.ObsoleteUniform("rgbaLightIn", lightRGBs);
 

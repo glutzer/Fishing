@@ -180,12 +180,9 @@ public class ItemFish : ItemFluidStorage, IInFirepitRendererSupplier
         bool smoked = stack.Attributes.GetBool("smoked");
         double kg = GetWeight(stack);
 
-        if (smoked)
-        {
-            return $"{Lang.Get("fishing:smoked")} {Lang.Get($"fishing:species-{species.code}")} ({kg}kg)";
-        }
-
-        return $"{Lang.Get($"fishing:species-{species.code}")} ({kg}kg)";
+        return smoked
+            ? $"{Lang.Get("fishing:smoked")} {Lang.Get($"fishing:species-{species.code}")} ({kg}kg)"
+            : $"{Lang.Get($"fishing:species-{species.code}")} ({kg}kg)";
     }
 
     public override void GetHeldItemInfo(ItemSlot slot, StringBuilder builder, IWorldAccessor world, bool withDebugInfo)

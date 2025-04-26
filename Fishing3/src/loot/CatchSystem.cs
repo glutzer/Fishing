@@ -2,6 +2,7 @@
 using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 
@@ -75,6 +76,16 @@ public class CatchSystem : GameSystem
             potentialCatches.AddRange(catchable.GetCatches(context, MainAPI.Sapi));
         }
 
+#if DEBUG
+        Console.WriteLine("### POSSIBLE CATCHES");
+        float totalWeight = potentialCatches.Sum(x => x.Weight);
+
+        foreach (WeightedCatch catchable in potentialCatches)
+        {
+            Console.WriteLine($"Code: {catchable.code}, Weight: {catchable.Weight}, Chance: {catchable.Weight / totalWeight}, Tier: {catchable.Tier}");
+        }
+#endif
+
         // Set tag multipliers (like more sharks, flotsam).
         foreach (WeightedCatch catchable in potentialCatches)
         {
@@ -84,6 +95,11 @@ public class CatchSystem : GameSystem
         // Roll one.
         WeightedCatch? rolledCatch = tierChooser.RollItem(potentialCatches, context.RarityMultiplier, -1);
         if (rolledCatch == null) return null;
+
+#if DEBUG
+        Console.WriteLine("### ROLLED CATCH");
+        Console.WriteLine($"Code: {rolledCatch.code}, Weight: {rolledCatch.Weight}, Chance: {rolledCatch.Weight / totalWeight}, Tier: {rolledCatch.Tier}");
+#endif
 
         // Consume bait.
         ConsumeBait(caster);

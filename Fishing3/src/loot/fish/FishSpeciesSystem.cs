@@ -36,10 +36,14 @@ public class FishSpecies
     public string oilFluid;
     public float oilFluidPerKg = 100f;
 
+    public bool riverOnly;
+
     public FishSpecies(FishSpeciesJson json, ICoreAPI api)
     {
         code = json.code!;
         baseKg = json.baseKg;
+
+        riverOnly = json.riverOnly;
 
         // Replace textures and set mouth offset for the client.
         if (api is ICoreClientAPI capi)
@@ -132,6 +136,8 @@ public class FishSpeciesJson
 
     public string? oilFluid;
     public float oilFluidPerKg = 100f;
+
+    public bool riverOnly;
 }
 
 /// <summary>

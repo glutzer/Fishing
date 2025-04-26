@@ -7,6 +7,6 @@ namespace Fishing3;
 /// </summary>
 public interface IItemWithInventory
 {
-    public int SlotCount { get; }
-    public bool IsAllowedInSlot(int slotId, ItemStack stackIn);
+    int SlotCount { get; }
+    bool IsAllowedInSlot(int slotId, ItemStack stackIn);
 }

@@ -16,10 +16,12 @@ public enum ApplicationMethod
 /// <summary>
 /// Creates and applies alchemical effects on the server.
 /// </summary>
-[GameSystem(forSide = EnumAppSide.Server)]
+[GameSystem]
 public class AlchemyEffectSystem : GameSystem
 {
-    public static EffectManager EffectManager { get; private set; } = null!;
+    public static EffectManager Server { get; private set; } = null!;
+
+    private HudEffects? hudEffects;
 
     public AlchemyEffectSystem(bool isServer, ICoreAPI api) : base(isServer, api)
     {
@@ -27,12 +29,36 @@ public class AlchemyEffectSystem : GameSystem
 
     public override void PreInitialize()
     {
-        EffectManager = MainAPI.GetGameSystem<EffectManager>(EnumAppSide.Server);
+        if (!isServer) return;
+        Server = MainAPI.GetGameSystem<EffectManager>(EnumAppSide.Server);
+    }
+
+    public override void OnStart()
+    {
+        if (isServer) return;
+
+        // Init HUD.
+        hudEffects = new HudEffects();
+
+        MainAPI.GetGameSystem<EffectManager>(api.Side).OnPlayerEffectCountChanged += args =>
+        {
+            if (!args.player.IsSelf()) return;
+
+            if (args.currentCount <= 0)
+            {
+                hudEffects?.TryClose();
+            }
+            else if (args.previousCount == 0)
+            {
+                hudEffects?.TryOpen();
+            }
+        };
     }
 
     /// <summary>
     /// Consumes any fluid to apply it to an entity.
     /// Only potions and reagents will do anything.
+    /// Only call this on the server.
     /// </summary>
     public static void ApplyFluid(FluidContainer container, int amount, Entity? fromEntity, Entity toEntity, ApplicationMethod method, float auxMultiplier = 1f)
     {
@@ -70,7 +96,7 @@ public class AlchemyEffectSystem : GameSystem
 
             foreach (EffectProperties props in reagent.Properties)
             {
-                Effect? effect = EffectManager.CreateEffect(props.Type);
+                Effect? effect = Server.CreateEffect(props.Type);
                 if (effect == null) continue;
 
                 // For all effects?
@@ -140,7 +166,7 @@ public class AlchemyEffectSystem : GameSystem
         // Multiply initial stats by reagent properties.
         foreach (EffectProperties props in reagent.Properties)
         {
-            Effect? effect = EffectManager.CreateEffect(props.Type);
+            Effect? effect = Server.CreateEffect(props.Type);
             if (effect == null) continue;
 
             effect.Duration *= durationMultiplier;
@@ -189,6 +215,6 @@ public class AlchemyEffectSystem : GameSystem
 
     public override void OnClose()
     {
-        EffectManager = null!;
+        Server = null!;
     }
 }

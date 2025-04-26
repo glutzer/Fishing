@@ -2,5 +2,5 @@
 
 public interface IStrength
 {
-    public float StrengthMultiplier { get; set; }
+    float StrengthMultiplier { get; set; }
 }

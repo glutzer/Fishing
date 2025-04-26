@@ -5,6 +5,6 @@
 /// </summary>
 public interface IBloodBound
 {
-    public string EntityType { set; }
-    public long EntityId { set; }
+    string EntityType { set; }
+    long EntityId { set; }
 }

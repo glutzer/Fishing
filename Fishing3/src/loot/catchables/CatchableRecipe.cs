@@ -24,6 +24,6 @@ public class CatchableRecipe : Catchable
     public override IEnumerable<WeightedCatch> GetCatches(FishingContext context, ICoreServerAPI sapi)
     {
         // What should the weight of catching one of these be? Maybe change depending on context, or yield nothing?
-        yield return new WeightedCatch(this, 1f, 0, "recipe");
+        yield return new WeightedCatch(this, 20f, 0, "recipe");
     }
 }

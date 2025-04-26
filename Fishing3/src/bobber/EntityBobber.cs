@@ -165,9 +165,7 @@ public class EntityBobber : Entity, IPhysicsTickable
         if (hotbarSlot.Itemstack == null || hotbarSlot.Itemstack.Collectible is not ItemFishingPole || hotbarSlot != rodSlot) return false;
 
         EntityBobber? bobber = ItemFishingPole.TryGetBobber(hotbarSlot, Api);
-        if (bobber == null || bobber.EntityId != EntityId) return false;
-
-        return true;
+        return bobber != null && bobber.EntityId == EntityId;
     }
 
     public void OnPhysicsTick(float dt)

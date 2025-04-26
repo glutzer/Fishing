@@ -40,12 +40,7 @@ public class BeakerRecipe : IAlchemyRecipe, IParchmentable
     {
         if (!InputFluid.ContainerContains(inputContainer)) return false;
 
-        if (regex != null)
-        {
-            return BetterWildCard.Matches(input, regex);
-        }
-
-        return input.Collectible.Code.ToString() == InputItem;
+        return regex != null ? BetterWildCard.Matches(input, regex) : input.Collectible.Code.ToString() == InputItem;
     }
 
     public virtual FluidStack? GetOutputStack(ItemStack input, FluidContainer inputContainer)

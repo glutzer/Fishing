@@ -57,7 +57,14 @@ public class CatchableFish : Catchable
         string liquid = context.liquid.FirstCodePart();
 
         return fishSpeciesSystem.SpeciesAlphabetical
-            .Where(x => x.tempRange.X < context.temperature && x.tempRange.Y > context.temperature && x.liquids.Contains(liquid))
+            .Where(x =>
+            {
+                if (x.tempRange.X > context.temperature || x.tempRange.Y < context.temperature) return false;
+                if (!x.liquids.Contains(liquid)) return false;
+                if (x.riverOnly && !context.isRiver) return false;
+
+                return true;
+            })
             .Select(x => new WeightedCatch(this, x.weight, x.tier, x.code).WithTag("fish"));
     }
 }

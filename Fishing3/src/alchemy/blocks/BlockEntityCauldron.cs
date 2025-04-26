@@ -178,8 +178,6 @@ public class BlockEntityCauldron : BlockEntityHeatedAlchemyEquipment, IFluidSour
 
     public override FluidContainer? GetInputContainer(int inputIndex)
     {
-        if (inputIndex == 0) return inputBuffer;
-
-        return null;
+        return inputIndex == 0 ? inputBuffer : null;
     }
 }

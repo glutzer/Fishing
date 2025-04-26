@@ -18,6 +18,7 @@ out vec2 uv;
 out vec4 colorOut;
 
 uniform mat4 offsetViewMatrix;
+uniform mat4 offsetModelMatrix;
 
 uniform vec4 rgbaFogIn;
 out vec4 rgbaFog;
@@ -41,7 +42,7 @@ void main() {
   vec3 vert = vertexIn;
 
   vec4 worldPos = modelMatrix * vec4(vert, 1.0);
-  gl_Position = perspectiveMatrix * viewMatrix * worldPos;
+  gl_Position = perspectiveMatrix * offsetViewMatrix * worldPos;
 
   uv = uvIn;
 
@@ -49,8 +50,8 @@ void main() {
   float glowFloat = glowAmount / 255.0;
   vec3 mixedAmbient = mix(rgbaAmbientIn, vec3(1.0), glowFloat);
 
-  colorOut =
-      applyLight(mixedAmbient, rgbaLightIn, glowAmount, viewMatrix * worldPos);
+  colorOut = applyLight(mixedAmbient, rgbaLightIn, glowAmount,
+                        offsetViewMatrix * worldPos);
 
   // Render flag is here replaced with glowAmount, since that's the first 8 bits
   // of the flags.
@@ -61,5 +62,5 @@ void main() {
   rgbaFog = rgbaFogIn;
   fogAmount = getFogLevel(worldPos, fogMinIn, fogDensityIn);
 
-  hitPos = worldPos.xyz;
+  hitPos = (offsetModelMatrix * vec4(vert, 1.0)).xyz;
 }

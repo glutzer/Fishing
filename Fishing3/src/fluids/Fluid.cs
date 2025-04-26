@@ -118,12 +118,7 @@ public class Fluid
 
     public T? GetBehavior<T>() where T : FluidBehavior
     {
-        if (behaviors.TryGetValue(InnerClass<T>.Name, out FluidBehavior? behavior))
-        {
-            return (T)behavior;
-        }
-
-        return null;
+        return behaviors.TryGetValue(InnerClass<T>.Name, out FluidBehavior? behavior) ? (T)behavior : null;
     }
 
     public bool HasBehavior<T>() where T : FluidBehavior

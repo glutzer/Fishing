@@ -39,10 +39,10 @@
     ]
   },
   "sounds": {
-    "place": "game:block/anvil",
-    "break": "game:block/anvil",
-    "hit": "game:block/anvil",
-    "walk": "game:walk/stone*"
+    "place": "game:player/buildhigh",
+    "break": "game:block/glass",
+    "hit": "game:block/glass",
+    "walk": "game:walk/glass*"
   },
   "maxstacksize": 16,
   "resistance": 2,

@@ -22,7 +22,7 @@ public interface IEffectInfoProvider
     /// The strength from the properties is also applied.
     /// Purity may be obtained from the stack, from FluidBehaviorReagent.GetPurityMultiplier().
     /// </summary>
-    public void GetInfo(StringBuilder builder, FluidStack stack);
+    void GetInfo(StringBuilder builder, FluidStack stack);
 }
 
 [FluidBehavior]

@@ -101,9 +101,7 @@ public class BlockEntityAlembic : BlockEntityHeatedAlchemyEquipment, IFluidSourc
 
     public override FluidContainer? GetInputContainer(int inputIndex)
     {
-        if (inputIndex == 0) return container;
-
-        return null;
+        return inputIndex == 0 ? container : null;
     }
 
     public override void ToTreeAttributes(ITreeAttribute tree)

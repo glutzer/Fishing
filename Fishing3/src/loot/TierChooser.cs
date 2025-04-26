@@ -9,7 +9,7 @@ public interface ITierable
     /// <summary>
     /// Tier of item, starting at 0 and getting rarer.
     /// </summary>
-    public int Tier { get; }
+    int Tier { get; }
 }
 
 public interface IWeightable
@@ -17,7 +17,7 @@ public interface IWeightable
     /// <summary>
     /// Weight of item, higher is more common.
     /// </summary>
-    public float Weight { get; }
+    float Weight { get; }
 }
 
 /// <summary>
@@ -44,8 +44,7 @@ public class TierChooser
     public T? RollItem<T>(List<T> validItems, float rarityMultiplier, int minTier = -1) where T : ITierable, IWeightable
     {
         List<T> rolledtiers = RollTier(validItems, rarityMultiplier, minTier);
-        if (rolledtiers.Count == 0) return default;
-        return RollWeightedList(rolledtiers);
+        return rolledtiers.Count == 0 ? default : RollWeightedList(rolledtiers);
     }
 
     /// <summary>

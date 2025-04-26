@@ -31,7 +31,7 @@ public class EffectNightVision : AlchemyEffect, IRenderer
 
     public override void OnLoaded()
     {
-        if (IsServer || Entity != MainAPI.Capi.World.Player.Entity) return;
+        if (IsServer || !Entity.IsSelf()) return;
 
         // Set ambience to day.
         AmbientManager ambient = (AmbientManager)MainAPI.Capi.Ambient;
@@ -82,7 +82,7 @@ public class EffectNightVision : AlchemyEffect, IRenderer
 
     public override void OnUnloaded()
     {
-        if (IsServer || Entity != MainAPI.Capi.World.Player.Entity) return;
+        if (IsServer || !Entity.IsSelf()) return;
 
         // Set ambience to day.
         AmbientManager ambient = (AmbientManager)MainAPI.Capi.Ambient;

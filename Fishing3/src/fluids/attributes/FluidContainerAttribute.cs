@@ -149,10 +149,12 @@ public class FluidContainerAttribute : IAttribute
 
     public string ToJsonToken()
     {
-        return $"{{ \"capacity\": {fluidContainer.Capacity}," +
-            $" \"roomLeft\": {fluidContainer.RoomLeft}," +
-            $" \"fluidType\": {fluidContainer.HeldStack?.fluid.code ?? "none"}," +
-            $" \"fluidStackType\": {fluidContainer.HeldStack?.GetType().Name ?? "none"} }}";
+        return ""; // Breaks page code.
+
+        //return $"{{ \"capacity\": {fluidContainer.Capacity}," +
+        //    $" \"roomLeft\": {fluidContainer.RoomLeft}," +
+        //    $" \"fluidType\": {fluidContainer.HeldStack?.fluid.code ?? "none"}," +
+        //    $" \"fluidStackType\": {fluidContainer.HeldStack?.GetType().Name ?? "none"} }}";
     }
 
     public int GetAttributeId()

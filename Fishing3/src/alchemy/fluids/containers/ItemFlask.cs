@@ -26,14 +26,9 @@ public class ItemFlask : ItemFluidStorage, IContainedMeshSource
         if (Code.Path == "flask-large-unlabeled" && api.Side == EnumAppSide.Server)
         {
             FluidRegistry registry = MainAPI.GetGameSystem<FluidRegistry>(api.Side);
-            if (CreativeInventoryStacks == null)
-            {
-                CreativeInventoryStacks = registry.GetCreativeStacks(this);
-            }
-            else
-            {
-                CreativeInventoryStacks = CreativeInventoryStacks.Concat(registry.GetCreativeStacks(this)).ToArray();
-            }
+            CreativeInventoryStacks = CreativeInventoryStacks == null
+                ? registry.GetCreativeStacks(this)
+                : CreativeInventoryStacks.Concat(registry.GetCreativeStacks(this)).ToArray();
         }
     }
 
@@ -137,10 +132,10 @@ public class ItemFlask : ItemFluidStorage, IContainedMeshSource
 
                 FluidContainer container = GetContainer(slot.Itemstack);
 
-                if (container != null && api.Side == EnumAppSide.Server)
+                if (container != null && api.Side == EnumAppSide.Server && !container.Empty)
                 {
                     int mark = GetMark(slot.Itemstack);
-                    byEntity.World.PlaySoundAt(new AssetLocation("game:sounds/player/drink1"), byEntity, null, true, 8, 5);
+                    byEntity.World.PlaySoundAt(new AssetLocation("fishing:sounds/flaskdrink"), byEntity, null, true, 8, 5);
 
                     AlchemyEffectSystem.ApplyFluid(container, mark, byEntity, byEntity, ApplicationMethod.Consume);
 

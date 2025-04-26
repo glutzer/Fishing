@@ -31,14 +31,9 @@ public class WormTaskTrackPlayer : WormTask
     {
         if (!IsServer) return;
 
-        if (!Head.CollidingWithGround)
-        {
-            undergroundPower = Math.Clamp(undergroundPower - (dt / UNDERGROUND_MAX_POWER_SECONDS), 0, 1);
-        }
-        else
-        {
-            undergroundPower = Math.Clamp(undergroundPower + (dt / UNDERGROUND_MAX_POWER_SECONDS), 0, 1);
-        }
+        undergroundPower = !Head.CollidingWithGround
+            ? Math.Clamp(undergroundPower - (dt / UNDERGROUND_MAX_POWER_SECONDS), 0, 1)
+            : Math.Clamp(undergroundPower + (dt / UNDERGROUND_MAX_POWER_SECONDS), 0, 1);
 
         float speed = 50f;
         TargetNewPlayer();

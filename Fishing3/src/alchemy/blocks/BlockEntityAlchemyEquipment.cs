@@ -397,16 +397,16 @@ public class BlockEntityAlchemyEquipment : BlockEntity
     {
         string? variant = Block.Variant["side"];
 
-        if (variant == null) return 0f;
-
-        return variant switch
-        {
-            "north" => 0f,
-            "east" => MathF.PI / 2f,
-            "south" => MathF.PI,
-            "west" => 3f * MathF.PI / 2f,
-            _ => 0f
-        };
+        return variant == null
+            ? 0f
+            : variant switch
+            {
+                "north" => 0f,
+                "east" => MathF.PI / 2f,
+                "south" => MathF.PI,
+                "west" => 3f * MathF.PI / 2f,
+                _ => 0f
+            };
     }
 
     public Vector3 RotateVectorToSide(Vector3 vec)

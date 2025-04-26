@@ -62,14 +62,7 @@ public class WidgetFluidMeter : Widget
 
         if (hovered)
         {
-            if (container.HeldStack == null)
-            {
-                textObj.Text = "Empty";
-            }
-            else
-            {
-                textObj.Text = $"{container.HeldStack.fluid.GetName(container.HeldStack)} {container.RoomUsed}mL";
-            }
+            textObj.Text = container.HeldStack == null ? "Empty" : $"{container.HeldStack.fluid.GetName(container.HeldStack)} {container.RoomUsed}mL";
 
             textObj.RenderLine(Gui.MouseX + 30, Gui.MouseY, shader, 0, true);
         }

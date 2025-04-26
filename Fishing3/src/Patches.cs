@@ -41,12 +41,7 @@ public class Patches
         [HarmonyPrefix]
         public static bool Prefix(EntityBehaviorNameTag __instance)
         {
-            if (EntityOverlaySystem.EntityHasRenderingDisabled(__instance.entity))
-            {
-                return false;
-            }
-
-            return true;
+            return !EntityOverlaySystem.EntityHasRenderingDisabled(__instance.entity);
         }
     }
 
@@ -212,14 +207,7 @@ public class Patches
                         }
                     }
                 }
-                if (minRangeSq < trackRange)
-                {
-                    entity.IsTracked = (byte)((minRangeSq >= 2500.0) ? 1 : 2);
-                }
-                else
-                {
-                    entity.IsTracked = 0;
-                }
+                entity.IsTracked = minRangeSq < trackRange ? (byte)((minRangeSq >= 2500.0) ? 1 : 2) : (byte)0;
             }
 
             using FastMemoryStream ms = new();

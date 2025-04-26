@@ -42,11 +42,7 @@ public class Vector4Attribute : IAttribute
 
     public bool Equals(IWorldAccessor worldForResolve, IAttribute attr)
     {
-        if (attr is Vector4Attribute vector4Attr)
-        {
-            return value.Equals(vector4Attr.value);
-        }
-        return false;
+        return attr is Vector4Attribute vector4Attr && value.Equals(vector4Attr.value);
     }
 
     public void FromBytes(BinaryReader stream)

@@ -102,7 +102,7 @@ public class FishingGameSystem : NetworkedGameSystem
             ItemSlot hotbarSlot = player.InventoryManager.ActiveHotbarSlot;
             if (hotbarSlot.Itemstack == null || hotbarSlot.Itemstack.Collectible is not ItemFishingPole pole) return;
 
-            ItemInventory inv = new("iteminv", $"fishingpole{player.PlayerUID}", MainAPI.Capi, pole.SlotCount, pole.IsAllowedInSlot, hotbarSlot);
+            ItemInventory inv = new("iteminv", $"fishingpole{player.PlayerUID}", MainAPI.Sapi, pole.SlotCount, pole.IsAllowedInSlot, hotbarSlot);
             player.InventoryManager.OpenInventory(inv);
 
             // Send packet to client.

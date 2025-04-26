@@ -7,6 +7,7 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
+using Vintagestory.Server;
 
 namespace Fishing3;
 
@@ -21,6 +22,11 @@ public class FishingContext
     /// Liquid being fished.
     /// </summary>
     public readonly Block liquid;
+
+    /// <summary>
+    /// Is the bobber in a river?
+    /// </summary>
+    public readonly bool isRiver;
 
     /// <summary>
     /// Current precipitation from 0-1
@@ -93,6 +99,22 @@ public class FishingContext
         temperature = climate.Temperature;
         precipitation = climate.Rainfall;
         humidity = climate.WorldgenRainfall;
+
+        // Check if on a river.
+        ServerChunk chunk = (ServerChunk)sapi.World.BlockAccessor.GetChunk(blockPos.X / 32, 0, blockPos.Z / 32);
+        float[]? flowVectors = chunk.GetModdata<float[]>("flowVectors");
+        if (flowVectors != null && flowVectors.Length == 2048)
+        {
+            int localX = blockPos.X % 32;
+            int localZ = blockPos.Z % 32;
+
+            int chunkIndex = ChunkMath.ChunkIndex2d(localX, localZ);
+
+            float xFlowVector = flowVectors[chunkIndex];
+            float zFlowVector = flowVectors[chunkIndex + 1024];
+
+            isRiver = xFlowVector != 0 || zFlowVector != 0;
+        }
 
         // Volume.
         bool isLava = liquid.Code.FirstCodePart() == "lava";

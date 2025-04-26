@@ -38,8 +38,6 @@ layout(std140) uniform renderGlobals {
   mat4 perspectiveMatrix;
   mat4 orthographicMatrix;
   mat4 perspectiveViewMatrix;
-  float zNear;
-  float zFar;
 };
 
 uniform mat4 offsetViewMatrix;

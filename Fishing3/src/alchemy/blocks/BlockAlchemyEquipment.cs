@@ -10,9 +10,7 @@ public class BlockAlchemyEquipment : Block
 {
     public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos)
     {
-        if (blockAccessor.GetBlockEntity(pos) is not BlockEntityAlchemyEquipment be) return SelectionBoxes;
-
-        return be.NewSelectionBoxes;
+        return blockAccessor.GetBlockEntity(pos) is not BlockEntityAlchemyEquipment be ? SelectionBoxes : be.NewSelectionBoxes;
     }
 
     public override bool DoParticalSelection(IWorldAccessor world, BlockPos pos)
@@ -56,14 +54,7 @@ public class BlockAlchemyEquipment : Block
         {
             AlchemyAttachPoint point = be.AlchemyAttachPoints[index - SelectionBoxes.Length];
 
-            if (point.IsOutput)
-            {
-                return new Vec4f(1f, 0.5f, 0f, 1f);
-            }
-            else
-            {
-                return new Vec4f(0f, 0.5f, 1f, 1f);
-            }
+            return point.IsOutput ? new Vec4f(1f, 0.5f, 0f, 1f) : new Vec4f(0f, 0.5f, 1f, 1f);
         }
 
         return base.GetSelectionColor(capi, pos);

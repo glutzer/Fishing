@@ -8,10 +8,10 @@ public interface IMetaEffect
     /// Ratio of a meta effect to fluid to apply at full strength.
     /// Linear increase up to 1.
     /// </summary>
-    public float BaseRatio { get; }
+    float BaseRatio { get; }
 
     /// <summary>
     /// Apply a meta effect, with a strength multiplier calculated from the ratio MetaFluid / ReagentFluid, up to the BaseRatio at 1.
     /// </summary>
-    public void ApplyTo(Effect effect, float ratioStrengthMultiplier);
+    void ApplyTo(Effect effect, float ratioStrengthMultiplier);
 }

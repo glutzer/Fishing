@@ -103,8 +103,7 @@ public partial class ItemFishingPole : Item, IItemWithInventory
         if (rodSlot.Itemstack == null) return null;
         long bobberId = rodSlot.Itemstack.Attributes.GetLong("bobber", 0);
         if (bobberId == 0) return null;
-        if (api.World.GetEntityById(bobberId) is not EntityBobber bobber || !bobber.Alive) return null;
-        return bobber;
+        return api.World.GetEntityById(bobberId) is not EntityBobber bobber || !bobber.Alive ? null : bobber;
     }
 
     public static bool HasBobber(ItemSlot rodSlot)

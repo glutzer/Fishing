@@ -5,6 +5,6 @@
 /// </summary>
 public interface IFluidSource
 {
-    public FluidContainer GetSource(int index);
-    public void MarkContainerDirty();
+    FluidContainer GetSource(int index);
+    void MarkContainerDirty();
 }

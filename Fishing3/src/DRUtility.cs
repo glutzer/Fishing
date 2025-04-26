@@ -32,11 +32,6 @@ public static class DRUtility
     /// </summary>
     public static float ReverseDR(float value, float baseLine, float rate)
     {
-        if (value < baseLine)
-        {
-            return value;
-        }
-
-        return baseLine * MathF.Exp(rate * ((value / baseLine) - 1));
+        return value < baseLine ? value : baseLine * MathF.Exp(rate * ((value / baseLine) - 1));
     }
 }

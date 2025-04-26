@@ -48,7 +48,6 @@ public class ItemLabeledFlask : ItemFlask
     public static bool IsWritingTool(ItemSlot slot)
     {
         ItemStack itemstack = slot.Itemstack;
-        if (itemstack == null) return false;
-        return itemstack.Collectible.Attributes?.IsTrue("writingTool") == true;
+        return itemstack != null && itemstack.Collectible.Attributes?.IsTrue("writingTool") == true;
     }
 }

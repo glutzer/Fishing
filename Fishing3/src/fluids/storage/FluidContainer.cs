@@ -45,8 +45,7 @@ public class FluidContainer
     /// </summary>
     public byte[] SaveStack()
     {
-        if (HeldStack == null) return Array.Empty<byte>();
-        return FluidStack.Save(HeldStack);
+        return HeldStack == null ? Array.Empty<byte>() : FluidStack.Save(HeldStack);
     }
 
     public void EmptyContainer()
@@ -141,9 +140,7 @@ public class FluidContainer
 
         CheckIfStackEmpty();
 
-        if (newStack.Units <= 0) return null;
-
-        return newStack;
+        return newStack.Units <= 0 ? null : newStack;
     }
 
     /// <summary>

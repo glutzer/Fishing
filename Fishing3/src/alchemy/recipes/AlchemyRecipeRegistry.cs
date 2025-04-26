@@ -25,18 +25,18 @@ public interface IAlchemyRecipe
     /// <summary>
     /// Global recipe id, for equating.
     /// </summary>
-    public int Id { get; set; }
+    int Id { get; set; }
 
     /// <summary>
     /// Called after created and id set.
     /// </summary>
-    public void Initialize();
+    void Initialize();
 }
 
 public interface IParchmentable
 {
-    public void WriteParchmentData(StringBuilder dsc, ICoreAPI api);
-    public string Title { get; }
+    void WriteParchmentData(StringBuilder dsc, ICoreAPI api);
+    string Title { get; }
 }
 
 [GameSystem]
@@ -110,11 +110,7 @@ public class AlchemyRecipeRegistry : GameSystem
     {
         if (id < 0 || id >= allRecipes.Count) return default;
         IAlchemyRecipe recipe = allRecipes[id];
-        if (recipe is T typedRecipe)
-        {
-            return typedRecipe;
-        }
-        return default;
+        return recipe is T typedRecipe ? typedRecipe : default;
     }
 
     public override void PreInitialize()
