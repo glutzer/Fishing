@@ -15,7 +15,10 @@ public class WidgetAlchemyItemGrid : WidgetBaseItemGrid
         tex = GuiThemes.Button;
         blank = GuiThemes.Blank;
 
-        countObject = new TextObject("", GuiThemes.Font, slotSize, GuiThemes.TextColor);
+        countObject = new TextObject("", GuiThemes.Font, slotSize, GuiThemes.TextColor)
+        {
+            Shadow = true
+        };
     }
 
     public override void RenderBackground(Vector2 start, int size, float dt, MareShader shader, ItemSlot slot, int slotIndex)

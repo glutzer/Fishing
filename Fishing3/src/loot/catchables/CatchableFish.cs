@@ -60,10 +60,7 @@ public class CatchableFish : Catchable
             .Where(x =>
             {
                 if (x.tempRange.X > context.temperature || x.tempRange.Y < context.temperature) return false;
-                if (!x.liquids.Contains(liquid)) return false;
-                if (x.riverOnly && !context.isRiver) return false;
-
-                return true;
+                return x.liquids.Contains(liquid) && (!x.riverOnly || context.isRiver);
             })
             .Select(x => new WeightedCatch(this, x.weight, x.tier, x.code).WithTag("fish"));
     }

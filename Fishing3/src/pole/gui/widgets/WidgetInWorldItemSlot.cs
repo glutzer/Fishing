@@ -31,6 +31,9 @@ public class WidgetInWorldItemSlot : WidgetBaseItemGrid
         NoScaling();
         textObject = new TextObject(label, GuiThemes.Font, 50, GuiThemes.TextColor);
         countObject = new TextObject("", GuiThemes.Font, 50, GuiThemes.TextColor);
+
+        textObject.Shadow = true;
+        countObject.Shadow = true;
     }
 
     public WidgetInWorldItemSlot(ItemSlot[] slots, int width, int height, int slotSize, Widget? parent, Func<Vector3d> getPosDelegate, string label, bool labelRight) : base(slots, width, height, slotSize, parent)

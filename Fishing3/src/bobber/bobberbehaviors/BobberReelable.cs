@@ -118,7 +118,7 @@ public class BobberReelable : BobberBehavior
     /// <summary>
     /// Try to catch an entity on the server.
     /// </summary>
-    public virtual void TryCatch()
+    public virtual void TryCatchServer()
     {
         bobber.Die();
 
@@ -156,7 +156,7 @@ public class BobberReelable : BobberBehavior
 
             if (reeling)
             {
-                TryCatch();
+                TryCatchServer();
                 return;
             }
         }

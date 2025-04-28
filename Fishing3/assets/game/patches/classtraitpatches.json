@@ -16,10 +16,22 @@
     "op": "add",
     "path": "/-",
     "value": {
+      "code": "lucky",
+      "type": "positive",
+      "attributes": {
+        "luckness": 1
+      }
+    }
+  },
+  {
+    "file": "game:config/traits.json",
+    "op": "add",
+    "path": "/-",
+    "value": {
       "code": "pirate",
       "type": "positive",
       "attributes": {
-        "fishRarity": 0.3
+        "fishQuantity": 0.3
       }
     }
   },

@@ -20,7 +20,10 @@ public class WidgetFluidMeter : Widget
         tex = GuiThemes.TitleBorder;
         blank = GuiThemes.Blank;
 
-        textObj = new TextObject("", GuiThemes.Font, 30, GuiThemes.TextColor);
+        textObj = new TextObject("", GuiThemes.Font, 30, GuiThemes.TextColor)
+        {
+            Shadow = true
+        };
     }
 
     public override void RegisterEvents(GuiEvents guiEvents)

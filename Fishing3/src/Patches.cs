@@ -17,6 +17,17 @@ using Vintagestory.Server.Systems;
 
 namespace Fishing3;
 
+public static class StatExtensions
+{
+    /// <summary>
+    /// Can this entity roll lucky odds?
+    /// </summary>
+    public static bool IsLucky(this Entity entity)
+    {
+        return entity.Stats.GetBlended("luckness") > 1f;
+    }
+}
+
 public class Patches
 {
     [HarmonyPatch(typeof(EntityPlayer), MethodType.Constructor)]
@@ -26,6 +37,7 @@ public class Patches
         public static void Postfix(EntityPlayer __instance)
         {
             __instance.Stats
+                .Register("luckness")
                 .Register("flaskEffect")
                 .Register("fishRarity")
                 .Register("fishQuantity")

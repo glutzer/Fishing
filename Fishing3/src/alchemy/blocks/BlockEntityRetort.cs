@@ -235,6 +235,7 @@ public class BlockEntityRetort : BlockEntityHeatedAlchemyEquipment
             // Alembic has no inventory, just open a gui.
             GuiAlchemyEquipment gui = new(() =>
             {
+                ToggleInventory(MainAPI.Capi.World.Player, false);
                 SendClientPacket(CLOSE_INVENTORY_PACKET);
             });
             gui.AddItemGrid(genericInventory[0]);
@@ -261,6 +262,8 @@ public class BlockEntityRetort : BlockEntityHeatedAlchemyEquipment
 
         bubblingSound?.Stop();
         bubblingSound?.Dispose();
+
+        genericInventory.CloseForAllPlayers();
     }
 
     public override void OnBlockBroken(IPlayer? byPlayer = null)

@@ -10,7 +10,10 @@ public class WidgetTitleBar : WidgetBaseDraggableTitle
 
     public WidgetTitleBar(Widget? parent, Widget draggableWidget, string title) : base(parent, draggableWidget)
     {
-        textObj = new TextObject(title, GuiThemes.Font, 50, GuiThemes.TextColor);
+        textObj = new TextObject(title, GuiThemes.Font, 50, GuiThemes.TextColor)
+        {
+            Shadow = true
+        };
 
         OnResize += () =>
         {

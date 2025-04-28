@@ -1,6 +1,7 @@
 {
   "code": "flotsam",
   "class": "BlockFlotsam",
+  "entityClass": "BlockEntityFlotsam",
   "sideopaque": {
     "all": false
   },
@@ -36,16 +37,16 @@
   "blockmaterial": "Wood",
   "tpHandTransform": {
     "translation": {
-      "x": -0.5,
+      "x": -0.7,
       "y": -0.6,
-      "z": -0.35
+      "z": -0.45
     },
     "rotation": {
       "x": 15,
       "y": 15,
       "z": 15
     },
-    "scale": 1
+    "scale": 0.7
   },
   "guiTransform": {
     "rotation": {

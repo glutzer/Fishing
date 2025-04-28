@@ -106,7 +106,7 @@ public class EntityBobber : Entity, IPhysicsTickable
         behavior?.FromBytes(reader, forClient);
     }
 
-    public override void OnReceivedServerPacket(int packetId, byte[] data)
+    public override void OnReceivedServerPacket(int packetId, byte[]? data)
     {
         base.OnReceivedServerPacket(packetId, data);
 
@@ -136,7 +136,11 @@ public class EntityBobber : Entity, IPhysicsTickable
                     behavior?.OnAttackEnd(false, hotbarSlot, player);
                     break;
             }
+
+            return;
         }
+
+        behavior?.OnReceivedServerPacket(packetId, data);
     }
 
     // Mirror use to player.

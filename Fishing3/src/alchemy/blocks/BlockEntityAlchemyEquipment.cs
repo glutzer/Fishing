@@ -264,17 +264,18 @@ public class BlockEntityAlchemyEquipment : BlockEntity
         base.OnReceivedClientPacket(fromPlayer, packetId, data);
 
         // Inventory open request.
-        if (packetId == 5555)
+        if (packetId == OPEN_INVENTORY_PACKET)
         {
             ToggleInventory(fromPlayer, true);
-            SendServerPacket(5555, fromPlayer);
+            SendServerPacket(OPEN_INVENTORY_PACKET, fromPlayer);
         }
 
         // Inventory close request.
-        if (packetId == 5556)
+        if (packetId == CLOSE_INVENTORY_PACKET)
         {
             ToggleInventory(fromPlayer, false);
-            SendServerPacket(5556, fromPlayer);
+            //SendServerPacket(CLOSE_INVENTORY_PACKET, fromPlayer);
+            // Should be done by the client, first.
         }
     }
 
@@ -283,13 +284,13 @@ public class BlockEntityAlchemyEquipment : BlockEntity
         base.OnReceivedServerPacket(packetId, data);
 
         // Inventory open request.
-        if (packetId == 5555)
+        if (packetId == OPEN_INVENTORY_PACKET)
         {
             ToggleInventory(MainAPI.Capi.World.Player, true);
         }
 
         // Inventory close request.
-        if (packetId == 5556)
+        if (packetId == CLOSE_INVENTORY_PACKET)
         {
             ToggleInventory(MainAPI.Capi.World.Player, false);
         }

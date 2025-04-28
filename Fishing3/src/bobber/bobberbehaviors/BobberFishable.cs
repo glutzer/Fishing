@@ -1,10 +1,10 @@
 ﻿using MareLib;
 using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.Client.NoObf;
 
 namespace Fishing3;
 
@@ -17,6 +17,12 @@ public class BobberFishable : BobberReelable
     public const float BASE_REEL_STRENGTH = 5f;
     protected float reelStrength = 1f;
     protected float durabilityDrainAccumulation;
+
+    // Current time left for something to bite.
+    protected float biteTimer = -1f;
+    protected float poolBiteSpeed;
+
+    public const float BASE_BITE_TIME = 60f;
 
     public BobberFishable(EntityBobber bobber, bool isServer) : base(bobber, isServer)
     {
@@ -33,13 +39,15 @@ public class BobberFishable : BobberReelable
     }
 
     /// <summary>
-    /// Drain 10 durability/s base line.
+    /// Drain catch weight/s durability base line.
     /// </summary>
-    public void DrainDurability(float dt)
+    public void DrainDurabilityServer(float dt)
     {
-        durabilityDrainAccumulation += dt * 10f;
+        //durabilityDrainAccumulation += dt * 10f;
+        durabilityDrainAccumulation += dt * bitingFish?.kg ?? 0f;
+
         int duraAccumInt = (int)durabilityDrainAccumulation;
-        if (bobber.rodSlot == null) return;
+        if (bobber.rodSlot == null || duraAccumInt == 0) return;
         if (ItemFishingPole.DamageStack(0, bobber.rodSlot, bobber.Api, duraAccumInt))
         {
             bobber.Die();
@@ -49,9 +57,9 @@ public class BobberFishable : BobberReelable
         durabilityDrainAccumulation -= duraAccumInt;
     }
 
-    public override void TryCatch()
+    public override void TryCatchServer()
     {
-        base.TryCatch();
+        base.TryCatchServer();
 
         if (bitingFish == null) return;
         if (bobber.rodSlot == null || bobber.rodSlot.Itemstack == null || bobber.rodSlot.Itemstack.Collectible is not ItemFishingPole) return;
@@ -59,22 +67,40 @@ public class BobberFishable : BobberReelable
         if (bitingFish.itemStack != null) ItemFishingPole.SetStack(3, bobber.rodSlot.Itemstack, bitingFish.itemStack);
         bitingFish.OnCaught?.Invoke(bobber.ServerPos.ToVector());
 
-        DrainDurability(0.5f);
+        DrainDurabilityServer(0.5f);
 
         bobber.rodSlot.MarkDirty();
     }
 
-    protected float biteTimer = -1f;
+    public override unsafe void OnReceivedServerPacket(int packetId, byte[]? data)
+    {
+        if (packetId == 6000 && bobber.Caster?.IsSelf() == true)
+        {
+            if (!MainAPI.Capi.Forms.Window.IsFocused)
+            {
+                GLFW.RequestWindowAttention(MainAPI.Capi.Forms.Window.WindowPtr);
+            }
+        }
+    }
+
     protected void UpdateBiting(float dt)
     {
-        if (!bobber.Swimming || bitingFish != null) return;
+        void ResetBiteTimer()
+        {
+            // 0.5x - 1.5x base time.
+            biteTimer = (BASE_BITE_TIME * 0.5f) + (Random.Shared.NextSingle() * BASE_BITE_TIME);
+        }
+
+        if (!bobber.Swimming || bitingFish != null || bobber.Caster == null) return;
 
         if (biteTimer == -1f)
         {
-            biteTimer = CatchSystem.GetTimeToBite(bobber.ServerPos.ToVector(), bobber.Caster);
+            ResetBiteTimer();
+            poolBiteSpeed = CatchSystem.GetBiteSpeedMultiplier(bobber.ServerPos.ToVector(), bobber.Caster);
         }
 
-        biteTimer -= dt;
+        float distMulti = CatchSystem.GetPlayerDistanceBiteSpeedMultiplier(bobber.ServerPos.ToVector(), bobber.Caster);
+        biteTimer -= dt * distMulti * poolBiteSpeed;
 
         if (biteTimer < 0)
         {
@@ -82,10 +108,11 @@ public class BobberFishable : BobberReelable
             bitingFish = MainAPI.GetGameSystem<CatchSystem>(EnumAppSide.Server).RollCatch(bobber.ServerPos.ToVector(), bobber.Caster);
             if (bitingFish == null)
             {
-                biteTimer = CatchSystem.GetTimeToBite(bobber.ServerPos.ToVector(), bobber.Caster);
+                ResetBiteTimer();
             }
             else
             {
+                MainAPI.Server.BroadcastEntityPacket(bobber.EntityId, 6000);
                 releasing = false;
                 bobber.ServerPos.Y -= 1f;
             }
@@ -168,7 +195,7 @@ public class BobberFishable : BobberReelable
                 if (bitingFish.IsFighting)
                 {
                     reelSpeedMultiplier *= 0.5f;
-                    DrainDurability(dt);
+                    DrainDurabilityServer(dt);
                 }
 
                 maxDistance -= REEL_METERS_PER_SECOND * dt * reelSpeedMultiplier;
@@ -185,7 +212,7 @@ public class BobberFishable : BobberReelable
 
             if (reeling)
             {
-                TryCatch();
+                TryCatchServer();
                 return;
             }
         }

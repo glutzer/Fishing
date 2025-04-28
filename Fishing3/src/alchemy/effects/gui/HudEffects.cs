@@ -28,6 +28,8 @@ public class HudEffects : Gui
             .SetChildSizing(ChildSizing.Width | ChildSizing.Height);
 
         AddWidget(background);
+
+        ResizeEffects(effectWidgets.Count);
     }
 
     public void UpdateEffects(int tick)
@@ -35,7 +37,7 @@ public class HudEffects : Gui
         if (tick % 20 != 0) return;
 
         // Every second, update all effects.
-        EntityBehaviorEffects? effects = MainAPI.Capi.World.Player.Entity.GetBehavior<EntityBehaviorEffects>();
+        EntityBehaviorEffects? effects = MainAPI.Capi.World.Player?.Entity.GetBehavior<EntityBehaviorEffects>();
         if (effects == null || background == null) return;
 
         // Sort effects by duration, low to high.
@@ -51,6 +53,8 @@ public class HudEffects : Gui
             WidgetEffectDisplay widget = effectWidgets[i];
             widget.SetEffect(effectsList[i]);
         }
+
+        background.SetBounds();
     }
 
     public void ResizeEffects(int newCount)
@@ -65,7 +69,7 @@ public class HudEffects : Gui
         {
             new WidgetEffectDisplay(background)
                 .Alignment(Align.RightBottom)
-                .Fixed(0, -i * 12, 64, 12)
+                .Fixed(0, -i * Scaled(12), 64, 12)
                 .As(out WidgetEffectDisplay widget);
 
             effectWidgets.Add(widget);

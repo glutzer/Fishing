@@ -36,7 +36,7 @@ public class EffectToxin : AlchemyEffect
 
     private Accumulator accumulator = Accumulator.WithInterval(3f).Max(30f);
 
-    public const float DAMAGE_PER_STRENGTH_CONSTANT = 0.1f;
+    public const float DAMAGE_PER_STRENGTH_CONSTANT = 0.5f;
 
     public override void Initialize()
     {
@@ -60,7 +60,7 @@ public class EffectToxin : AlchemyEffect
             foreach (ToxinInstance instance in toxinInstances)
             {
                 instance.timeActive += accumulator.interval;
-                health.Health -= instance.StrengthOverTime * DAMAGE_PER_STRENGTH_CONSTANT;
+                health.Health -= instance.StrengthOverTime * DAMAGE_PER_STRENGTH_CONSTANT * accumulator.interval;
             }
         }
 

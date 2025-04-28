@@ -59,6 +59,7 @@
     "value": {
       "code": "surfcaster",
       "traits": [
+        "lucky",
         "pirate",
         "angler",
         "fleetfooted",

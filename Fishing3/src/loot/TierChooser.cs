@@ -96,7 +96,7 @@ public class TierChooser
 
             // Base line is 1 / i + 1, then drop-off is decreased with higher tiers.
             // Below 1 rarity, nothing may roll, or literal junk (-1 tier) may be chosen.
-            chance = DRUtility.CalculateDR(chance, 1 / (i + 1), 1f - (i * 0.1f));
+            chance = DRUtility.CalculateDR(chance, 1f / (i + 1), 0.7f);
 
             float rarityRoll = Random.Shared.NextSingle();
             if (rarityRoll <= chance)

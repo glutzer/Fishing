@@ -14,17 +14,18 @@ public static class DRUtility
     /// 2 rate -> 1 at 1, 1.15 at 2, 1.24 at 3.
     /// 
     /// These are calculated from the value / baseLine, then multiplied back.
+    /// https://www.desmos.com/calculator/n840ul1tst
     /// </summary>
     public static float CalculateDR(float value, float baseLine, float rate)
     {
-        if (value < baseLine)
-        {
-            return value;
-        }
+        if (value <= baseLine) return value;
 
         float ratio = value / baseLine;
-        float y = 1 + MathF.Log(MathF.Pow(ratio, 1 / rate));
-        return y * baseLine;
+        float power = 1 / rate;
+        power = MathF.Pow(ratio, power);
+        power = MathF.Log(power, 10);
+        power += 1;
+        return power * baseLine;
     }
 
     /// <summary>

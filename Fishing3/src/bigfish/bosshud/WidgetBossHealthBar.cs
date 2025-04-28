@@ -22,6 +22,8 @@ public class WidgetBossHealthBar : Widget
         {
             textObj.SetScaleFromWidget(this, 0.9f, 0.6f);
         };
+
+        textObj.Shadow = true;
     }
 
     public override void OnRender(float dt, MareShader shader)

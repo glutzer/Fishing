@@ -91,7 +91,7 @@ public class FishingContext
         seaLevelOffset = blockPos.Y - seaLevel;
 
         // Liquid 1-2 below bobber. Does not roll anything in shallow water.
-        liquid = sapi.World.BlockAccessor.GetBlock(blockPos.AddCopy(0, -1, 0));
+        liquid = sapi.World.BlockAccessor.GetBlock(blockPos.AddCopy(0, 0, 0));
 
         // Climate.
         ClimateCondition climate = sapi.World.BlockAccessor.GetClimateAt(blockPos);
@@ -120,10 +120,10 @@ public class FishingContext
         bool isLava = liquid.Code.FirstCodePart() == "lava";
         volume = CheckVolumeAtBobber(blockPos.ToVec3d(), isLava ? 800 : 8000); // 10x less lava needed.
 
-        CalculateRarityQuantity(position, caster, isLava ? 200f : 2000f);
+        CalculateRarityQuantity(caster, isLava ? 200f : 2000f);
     }
 
-    private void CalculateRarityQuantity(Vector3d position, Entity? caster, float liquidBaseLine)
+    private void CalculateRarityQuantity(Entity? caster, float liquidBaseLine)
     {
         RarityMultiplier = DRUtility.CalculateDR(volume, liquidBaseLine, 1.7f) / liquidBaseLine;
         QuantityMultiplier = DRUtility.CalculateDR(volume, liquidBaseLine, 1.7f) / liquidBaseLine;
@@ -140,11 +140,6 @@ public class FishingContext
         {
             RarityMultiplier *= caster.Stats.GetBlended("fishRarity");
             QuantityMultiplier *= caster.Stats.GetBlended("fishQuantity");
-
-            // 0-1 quantity up to 25m away, then logarithmic.
-            float distance = (float)Vector3d.Distance(position, caster.ServerPos.ToVector());
-            float distanceMultiplier = DRUtility.CalculateDR(distance, 25f, 1f) / 25f;
-            QuantityMultiplier *= distanceMultiplier;
 
             ItemSlot hotbarSlot = player.Player.InventoryManager.ActiveHotbarSlot;
 
@@ -176,7 +171,7 @@ public class FishingContext
 
     private static int CheckVolumeAtBobber(Vec3d pos, int max)
     {
-        FVec3i blockPos = new((int)pos.X, (int)(pos.Y - 0.5), (int)pos.Z);
+        FVec3i blockPos = new((int)pos.X, (int)pos.Y, (int)pos.Z);
 
         int blockId = MainAPI.Sapi.World.BlockAccessor.GetBlock(blockPos.X, blockPos.Y, blockPos.Z, BlockLayersAccess.Fluid)?.BlockId ?? 0;
         if (blockId == 0) return 0;

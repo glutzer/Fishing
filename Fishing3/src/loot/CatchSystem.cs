@@ -19,7 +19,8 @@ public class CatchSystem : GameSystem
     // Each tier has half the chance to appear as the last one.
     public TierChooser tierChooser = new(0.5f);
 
-    private const float BASE_BITE_TIME = 40f;
+    // Config later.
+    public static float BiteTimeMultiplier => 1f;
 
     public CatchSystem(bool isServer, ICoreAPI api) : base(isServer, api)
     {
@@ -38,9 +39,10 @@ public class CatchSystem : GameSystem
     }
 
     /// <summary>
-    /// On the server, get time for a bite.
+    /// What the delta should be multiplied by to get the time it takes for a fish to bite.
+    /// Rolls a new fishing context.
     /// </summary>
-    public static float GetTimeToBite(Vector3d position, Entity? caster)
+    public static float GetBiteSpeedMultiplier(Vector3d position, Entity? caster)
     {
         FishingContext context = new(MainAPI.Sapi, position, caster);
 
@@ -51,13 +53,18 @@ public class CatchSystem : GameSystem
         Console.WriteLine($"Temperature: {context.temperature}");
 #endif
 
-        float time = BASE_BITE_TIME / Math.Clamp(context.QuantityMultiplier, 0.1f, 2f);
+        return BiteTimeMultiplier * context.QuantityMultiplier;
+    }
 
-        // 0.5-1.5x multiplier on time.
-        // Max time: 600 seconds. Min time: 10 seconds.
-        time *= 0.5f + Random.Shared.NextSingle();
-
-        return time;
+    /// <summary>
+    /// Additional bite speed multiplier from player distance.
+    /// </summary>
+    public static float GetPlayerDistanceBiteSpeedMultiplier(Vector3d position, Entity caster)
+    {
+        // 0-1 quantity up to 25m away, then logarithmic.
+        float distance = (float)Vector3d.Distance(position, caster.ServerPos.ToVector());
+        float distanceMultiplier = DRUtility.CalculateDR(distance, 25f, 1f) / 25f;
+        return distanceMultiplier;
     }
 
     /// <summary>
@@ -78,11 +85,10 @@ public class CatchSystem : GameSystem
 
 #if DEBUG
         Console.WriteLine("### POSSIBLE CATCHES");
-        float totalWeight = potentialCatches.Sum(x => x.Weight);
 
         foreach (WeightedCatch catchable in potentialCatches)
         {
-            Console.WriteLine($"Code: {catchable.code}, Weight: {catchable.Weight}, Chance: {catchable.Weight / totalWeight}, Tier: {catchable.Tier}");
+            Console.WriteLine($"Code: {catchable.code}, Weight: {catchable.Weight}, Chance: {Math.Round(catchable.Weight / potentialCatches.Sum(x => x.Tier == catchable.Tier ? x.Weight : 0f) * 100f, 2)}%, Tier: {catchable.Tier}");
         }
 #endif
 
@@ -94,11 +100,23 @@ public class CatchSystem : GameSystem
 
         // Roll one.
         WeightedCatch? rolledCatch = tierChooser.RollItem(potentialCatches, context.RarityMultiplier, -1);
+
+        if (caster?.IsLucky() == true)
+        {
+            WeightedCatch? luckyCatch = tierChooser.RollItem(potentialCatches, context.RarityMultiplier, -1);
+            int originalTier = rolledCatch?.Tier ?? -1;
+            if (luckyCatch != null && luckyCatch.Tier > originalTier)
+            {
+                // Problem: will catch TOO many good things now.
+                rolledCatch = luckyCatch;
+            }
+        }
+
         if (rolledCatch == null) return null;
 
 #if DEBUG
         Console.WriteLine("### ROLLED CATCH");
-        Console.WriteLine($"Code: {rolledCatch.code}, Weight: {rolledCatch.Weight}, Chance: {rolledCatch.Weight / totalWeight}, Tier: {rolledCatch.Tier}");
+        Console.WriteLine($"Code: {rolledCatch.code}, Weight: {rolledCatch.Weight}, Tier: {rolledCatch.Tier}");
 #endif
 
         // Consume bait.

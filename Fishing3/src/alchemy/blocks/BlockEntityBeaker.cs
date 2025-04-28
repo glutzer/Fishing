@@ -294,6 +294,7 @@ public class BlockEntityBeaker : BlockEntityHeatedAlchemyEquipment, IFluidSink, 
             // Alembic has no inventory, just open a gui.
             GuiAlchemyEquipment gui = new(() =>
             {
+                ToggleInventory(MainAPI.Capi.World.Player, false);
                 SendClientPacket(CLOSE_INVENTORY_PACKET);
             });
             gui.AddItemGrid(genericInventory[0]);
@@ -316,6 +317,8 @@ public class BlockEntityBeaker : BlockEntityHeatedAlchemyEquipment, IFluidSink, 
             bubblingSound?.Dispose();
             if (renderInstance != null) FluidBlockRenderingSystem.Instance?.UnregisterInstance(renderInstance);
         }
+
+        genericInventory.CloseForAllPlayers();
     }
 
     public override void OnBlockBroken(IPlayer? byPlayer = null)

@@ -41,19 +41,19 @@ public class GuiAlchemyEquipment : Gui
             if (obj is ItemSlot[] slots)
             {
                 widget = new WidgetAlchemyItemGrid(slots, 1, slots.Length, 15, elementsContainer);
-                widget.Fixed(index * 25, 0, 15, 15).PercentHeight(0.8f);
+                widget.Fixed(index * Scaled(25), 0, 15, 15).PercentHeight(0.8f);
             }
 
             if (obj is FluidContainer cont)
             {
                 widget = new WidgetFluidMeter(elementsContainer, cont);
-                widget.Fixed(index * 25, 0, 15, 15).PercentHeight(0.8f);
+                widget.Fixed(index * Scaled(25), 0, 15, 15).PercentHeight(0.8f);
             }
 
             if (obj is Func<bool> func)
             {
                 widget = new WidgetProcessingIndicator(elementsContainer, func);
-                widget.Fixed(index * 25, 0, 15, 15);
+                widget.Fixed(index * Scaled(25), 0, 15, 15);
             }
 
             if (widget == null) continue;

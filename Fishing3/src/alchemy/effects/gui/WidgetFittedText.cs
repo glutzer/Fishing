@@ -12,7 +12,10 @@ public class WidgetFittedText : Widget
 
     public WidgetFittedText(Widget? parent, string initialText, Vector4 color) : base(parent)
     {
-        text = new TextObject(initialText, GuiThemes.Font, 50, color);
+        text = new TextObject(initialText, GuiThemes.Font, 50, color)
+        {
+            Shadow = true
+        };
 
         OnResize += () =>
         {

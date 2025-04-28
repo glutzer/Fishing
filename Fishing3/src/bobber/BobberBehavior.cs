@@ -87,4 +87,9 @@ public class BobberBehavior
     {
 
     }
+
+    public virtual void OnReceivedServerPacket(int packetId, byte[]? data)
+    {
+
+    }
 }

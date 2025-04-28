@@ -21,6 +21,7 @@ public class WidgetLabeledButton : WidgetBaseButton
 
         this.color = color;
         tex = GuiThemes.Button;
+        this.label.Shadow = true;
     }
 
     public override void OnRender(float dt, MareShader shader)

@@ -23,7 +23,10 @@ public class WidgetFluidMarker : WidgetBaseSlider
         background = GuiThemes.TitleBorder;
         blank = GuiThemes.Blank;
 
-        text = new($"{currentMark}mL", GuiThemes.Font, Gui.Scaled(10), GuiThemes.TextColor);
+        text = new($"{currentMark}mL", GuiThemes.Font, Gui.Scaled(10), GuiThemes.TextColor)
+        {
+            Shadow = true
+        };
     }
 
     public override void OnRender(float dt, MareShader shader)

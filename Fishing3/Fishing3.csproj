@@ -21,6 +21,15 @@
       <HintPath>$(VINTAGE_STORY)/Lib/OpenTK.Mathematics.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="OpenTK.Windowing.Common">
+      <HintPath>$(VINTAGE_STORY)/Lib/OpenTK.Windowing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.Windowing.Desktop">
+      <HintPath>$(VINTAGE_STORY)/Lib/OpenTK.Windowing.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.Windowing.GraphicsLibraryFramework">
+      <HintPath>$(VINTAGE_STORY)/Lib/OpenTK.Windowing.GraphicsLibraryFramework.dll</HintPath>
+    </Reference>
     <Reference Include="SkiaSharp">
       <HintPath>$(VINTAGE_STORY)/Lib/SkiaSharp.dll</HintPath>
       <Private>False</Private>
@@ -78,10 +87,6 @@
 
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="src\flotsam\" />
   </ItemGroup>
 
   <ProjectExtensions>

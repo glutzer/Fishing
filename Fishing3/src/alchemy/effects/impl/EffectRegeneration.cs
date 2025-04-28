@@ -28,6 +28,8 @@ public class EffectRegeneration : AlchemyEffect
         {
             health.Health += StrengthMultiplier * STRENGTH_RATIO * accumulator.interval;
         }
+
+        if (health.Health > health.MaxHealth) health.Health = health.MaxHealth;
     }
 
     public override bool MergeEffects(Effect other)

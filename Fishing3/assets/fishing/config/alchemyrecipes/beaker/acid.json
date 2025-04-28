@@ -11,5 +11,18 @@
     },
     "Ticks": 1200,
     "Temp": [ 100, 500 ]
+  },
+  {
+    "InputFluid": {
+      "Code": "acid-sulfuric",
+      "Units": 50
+    },
+    "InputItem": "game:saltpeter",
+    "OutputFluid": {
+      "Code": "acid-nitric",
+      "Units": 25
+    },
+    "Ticks": 1200,
+    "Temp": [ 100, 500 ]
   }
 ]

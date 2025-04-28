@@ -8,8 +8,11 @@
   "game:trait-charged": "<font color=\"#84ff84\">• Charged </font>",
   "game:charattribute-flaskEffect-0.7": "Solutions you apply have 70% increased effect",
 
+  "game:trait-lucky": "<font color=\"#84ff84\">• Lucky </font>",
+  "game:charattribute-luckness-1": "Your odds are lucky",
+
   "game:trait-pirate": "<font color=\"#84ff84\">• Pirate </font>",
-  "game:charattribute-fishRarity-0.3": "+30% rarity of catches",
+  "game:charattribute-fishQuantity-0.3": "+30% quantity of catches",
 
   "game:trait-angler": "<font color=\"#84ff84\">• Angler </font>",
   "game:charattribute-reelStrength-0.3": "+30% reel strength",
@@ -26,6 +29,7 @@
   "block-beaker-north": "Beaker",
   "block-retort": "Retort",
   "block-cauldron": "Cauldron",
+  "block-flotsam-normal": "Flotsam",
 
   "species-fish": "Fish",
   "smoked": "Smoked",
