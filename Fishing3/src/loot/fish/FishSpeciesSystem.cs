@@ -161,7 +161,7 @@ public class FishSpeciesSystem : GameSystem
 
     public override void OnAssetsLoaded()
     {
-        List<IAsset> assets = api.Assets.GetMany("config/fish");
+        List<IAsset> assets = api.Assets.GetMany("config/fish/");
 
         foreach (IAsset asset in assets)
         {

@@ -86,9 +86,27 @@ public class CatchSystem : GameSystem
 #if DEBUG
         Console.WriteLine("### POSSIBLE CATCHES");
 
+        bool luckyCaster = caster?.IsLucky() == true;
+
         foreach (WeightedCatch catchable in potentialCatches)
         {
-            Console.WriteLine($"Code: {catchable.code}, Weight: {catchable.Weight}, Chance: {Math.Round(catchable.Weight / potentialCatches.Sum(x => x.Tier == catchable.Tier ? x.Weight : 0f) * 100f, 2)}%, Tier: {catchable.Tier}");
+            float tierChance = MathF.Pow(tierChooser.divisionPerTier, catchable.Tier);
+            tierChance *= context.RarityMultiplier;
+            tierChance = DRUtility.CalculateDR(tierChance, 1f / (catchable.Tier + 1), 0.7f);
+
+            tierChance = Math.Clamp(tierChance, 0f, 1f);
+
+            if (luckyCaster)
+            {
+                float failChance = 1f - tierChance;
+                failChance *= failChance;
+                tierChance = 1f - failChance;
+            }
+
+            tierChance *= 100f;
+            tierChance = MathF.Round(tierChance, tierChance < 1f ? 4 : 2);
+
+            Console.WriteLine($"Code: {catchable.code}, Weight: {catchable.Weight}, Chance: {Math.Round(catchable.Weight / potentialCatches.Sum(x => x.Tier == catchable.Tier ? x.Weight : 0f) * 100f, 2)}%, Tier: {catchable.Tier}, {tierChance}%");
         }
 #endif
 
@@ -99,11 +117,11 @@ public class CatchSystem : GameSystem
         }
 
         // Roll one.
-        WeightedCatch? rolledCatch = tierChooser.RollItem(potentialCatches, context.RarityMultiplier, -1);
+        WeightedCatch? rolledCatch = tierChooser.RollItem(potentialCatches, context.RarityMultiplier);
 
         if (caster?.IsLucky() == true)
         {
-            WeightedCatch? luckyCatch = tierChooser.RollItem(potentialCatches, context.RarityMultiplier, -1);
+            WeightedCatch? luckyCatch = tierChooser.RollItem(potentialCatches, context.RarityMultiplier);
             int originalTier = rolledCatch?.Tier ?? -1;
             if (luckyCatch != null && luckyCatch.Tier > originalTier)
             {
