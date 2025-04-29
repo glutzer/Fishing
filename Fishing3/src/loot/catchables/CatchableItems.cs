@@ -8,6 +8,7 @@ namespace Fishing3;
 public class FishingItemJson
 {
     public string[] liquids = new string[] { "water", "saltwater" };
+    public bool riverOnly;
     public string code = null!;
     public double[] tempRange = new double[] { -25, 45 };
     public float weight = 1f;
@@ -35,9 +36,15 @@ public class CatchableItems : Catchable
         List<IAsset> assets = sapi.Assets.GetMany("config/fishableitems");
         foreach (IAsset asset in assets)
         {
-            FishingItemJson? flotsam = asset.ToObject<FishingItemJson>();
-            if (flotsam == null || flotsam.code == null) continue;
-            flotsamList.Add(flotsam);
+            FishingItemJson[]? flotsamArr = asset.ToObject<FishingItemJson[]>();
+
+            if (flotsamArr == null) continue;
+
+            foreach (FishingItemJson flotsam in flotsamArr)
+            {
+                if (flotsam.code == null) continue;
+                flotsamList.Add(flotsam);
+            }
         }
         flotsamList.Sort((a, b) => a.code.CompareTo(b.code));
     }
@@ -61,7 +68,12 @@ public class CatchableItems : Catchable
     {
         string liquid = context.liquid.FirstCodePart();
         return flotsamList
-            .Where(x => context.temperature > x.tempRange[0] && context.temperature < x.tempRange[1] && x.liquids.Contains(liquid))
+            .Where(x =>
+            {
+                if (context.temperature < x.tempRange[0] || context.temperature > x.tempRange[1]) return false;
+                if (!x.liquids.Contains(liquid)) return false;
+                return !x.riverOnly || context.isRiver;
+            })
             .Select(x => new WeightedFlotsam(this, x.weight, x.tier, x.code, x.kg));
     }
 }

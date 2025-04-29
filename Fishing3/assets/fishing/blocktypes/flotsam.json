@@ -32,6 +32,34 @@
   "creativeinventory": {
     "fishing": [ "*" ]
   },
+  "creativeinventoryStacks": [
+    {
+      "tabs": [ "fishing" ],
+      "stacks": [
+        {
+          "type": "block",
+          "code": "fishing:flotsam-normal",
+          "attributes": {
+            "tier": 1
+          }
+        },
+        {
+          "type": "block",
+          "code": "fishing:flotsam-normal",
+          "attributes": {
+            "tier": 2
+          }
+        },
+        {
+          "type": "block",
+          "code": "fishing:flotsam-normal",
+          "attributes": {
+            "tier": 3
+          }
+        }
+      ]
+    }
+  ],
   "maxStackSize": 1,
   "resistance": 1,
   "blockmaterial": "Wood",

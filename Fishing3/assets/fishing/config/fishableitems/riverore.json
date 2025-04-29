@@ -1,0 +1,16 @@
+[
+  {
+    "code": "game:ore-bountiful-quartz_nativegold-slate",
+    "weight": 0.2,
+    "tier": 2,
+    "kg": 1,
+    "riverOnly": true
+  },
+  {
+    "code": "game:ore-bountiful-quartz_nativesilver-slate",
+    "weight": 0.2,
+    "tier": 2,
+    "kg": 1,
+    "riverOnly": true
+  }
+]

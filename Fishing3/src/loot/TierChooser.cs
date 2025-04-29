@@ -25,29 +25,16 @@ public interface IWeightable
 /// </summary>
 public class TierChooser
 {
-    public float divisionPerTier;
+    public float baseUpgradeChance;
 
     /// <summary>
     /// Create a new tier chooser.
     /// Tier chance is multiplied by rarity.
     /// </summary>
-    /// <param name="divisionPerTier">With 0.5f division, 100% chance, 50% chance, 25% chance.</param>
-    public TierChooser(float divisionPerTier = 0.5f)
+    /// <param name="divisionPerTier">Base chance to upgrade a tier. 10% for t1, 1% for t2, 0.1% for t3. -> 20% for t1, 4% for t2, 0.8% for t3. 2x rarity = 8x as many t4.</param>
+    public TierChooser(float baseUpgradeChance = 0.1f)
     {
-        this.divisionPerTier = divisionPerTier;
-    }
-
-    public void PrintTierChances<T>(List<T> items, float rarityMultiplier, bool luckyRoll) where T : ITierable, IWeightable
-    {
-        float totalWeight = 0;
-        HashSet<int> availableTiers = new();
-        foreach (T item in items)
-        {
-            if (availableTiers.Add(item.Tier))
-            {
-
-            }
-        }
+        this.baseUpgradeChance = baseUpgradeChance;
     }
 
     /// <summary>
@@ -92,34 +79,61 @@ public class TierChooser
             availableTiers.Add(item.Tier);
         }
 
-        float totalWeight = 0;
-        List<(int tier, float weight)> tierWeights = new();
+        int highestRolledTier = 0;
+        float tierUpgradeChance = baseUpgradeChance * rarityMultiplier;
 
-        foreach (int tier in availableTiers)
+        // Roll up to tier 10.
+        for (int i = 1; i <= 10; i++)
         {
-            float chance = MathF.Pow(divisionPerTier, tier);
-            chance *= rarityMultiplier;
-
-            // Base line is 1 / i + 1, then drop-off is decreased with higher tiers.
-            // Below 1 rarity, nothing may roll, or literal junk (-1 tier) may be chosen.
-            chance = DRUtility.CalculateDR(chance, 1f / (tier + 1), 0.7f);
-
-            totalWeight += chance;
-            tierWeights.Add((tier, chance));
+            if (Random.Shared.NextSingle() > tierUpgradeChance) break;
+            highestRolledTier++;
         }
 
-        float roll = Random.Shared.NextSingle() * totalWeight;
-        int chosenTier = -1;
-        foreach ((int tier, float weight) in tierWeights)
+        // Get the highest tier in available tiers that's equal or lower to the highest rolled tier.
+        int highestAvailableTier = availableTiers.Where(tier => tier <= highestRolledTier).DefaultIfEmpty(-1).Max();
+
+        return validItems.Where(item => item.Tier == highestAvailableTier).ToList();
+    }
+
+    /// <summary>
+    /// Write the chance to roll every item, and the tier it's in.
+    /// For debug only.
+    /// </summary>
+    public void PrintChances<T>(List<T> validItems, float rarityMultiplier, Func<T, string> getIdentifier) where T : ITierable, IWeightable
+    {
+        Console.WriteLine();
+        Console.WriteLine("--- TIER CHANCES ---");
+
+        // Group items by tier.
+        IOrderedEnumerable<IGrouping<int, T>> itemsByTier = validItems
+            .GroupBy(item => item.Tier)
+            .OrderBy(group => group.Key);
+
+        foreach (IGrouping<int, T>? tierGroup in itemsByTier)
         {
-            roll -= weight;
-            if (roll <= 0)
+            int tier = tierGroup.Key;
+            if (tier > 10) continue; // Max tier is 10.
+
+            List<T> items = tierGroup.ToList();
+
+            // Calculate the chance to roll this tier.
+            float tierChance = baseUpgradeChance * rarityMultiplier;
+            float cumulativeChance = 1f;
+            for (int i = 0; i < tier; i++)
             {
-                chosenTier = tier;
-                break;
+                cumulativeChance *= tierChance;
+            }
+            float chanceToRollTier = cumulativeChance * (1 - tierChance);
+
+            Console.WriteLine($"Tier {tier}: {chanceToRollTier:P2}");
+
+            // Calculate and print the chance for each item in this tier.
+            float totalWeight = items.Sum(item => item.Weight);
+            foreach (T? item in items)
+            {
+                float itemChance = item.Weight / totalWeight * chanceToRollTier;
+                Console.WriteLine($"  Item: {getIdentifier(item)}, Chance: {itemChance:P2}");
             }
         }
-
-        return validItems.Where(item => item.Tier == chosenTier).ToList();
     }
 }

@@ -1,0 +1,27 @@
+[
+  {
+    "Code": "game:ingot-iron",
+    "Weight": 1,
+    "Tier": 4
+  },
+  {
+    "Code": "game:ingot-steel",
+    "Weight": 1,
+    "Tier": 5
+  },
+  {
+    "Code": "game:decalcan-scribbles",
+    "Weight": 1,
+    "Tier": 5
+  },
+  {
+    "Code": "game:decalcan-alchemy",
+    "Weight": 1,
+    "Tier": 5
+  },
+  {
+    "Code": "game:decalcan-geometry",
+    "Weight": 1,
+    "Tier": 5
+  }
+]

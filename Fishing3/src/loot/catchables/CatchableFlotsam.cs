@@ -10,6 +10,15 @@ using Vintagestory.API.Server;
 
 namespace Fishing3;
 
+public class RecipeFlotsam : FlotsamLoot
+{
+    public override ItemStack? CreateItem(ICoreServerAPI sapi)
+    {
+        AlchemyRecipeRegistry registry = MainAPI.GetGameSystem<AlchemyRecipeRegistry>(sapi.Side);
+        return registry.GenerateRandomParchment();
+    }
+}
+
 public class FlotsamLoot : IWeightable, ITierable
 {
     // Item code.
@@ -24,7 +33,7 @@ public class FlotsamLoot : IWeightable, ITierable
 
     public System.Text.Json.Nodes.JsonObject? Attributes { get; set; }
 
-    public ItemStack? CreateItem(ICoreServerAPI sapi)
+    public virtual ItemStack? CreateItem(ICoreServerAPI sapi)
     {
         CollectibleObject? thing = sapi.World.GetItem(Code);
         thing ??= sapi.World.GetBlock(Code);
@@ -49,11 +58,14 @@ public class FlotsamLoot : IWeightable, ITierable
 [Catchable]
 public class CatchableFlotsam : Catchable
 {
-    public TierChooser tierChooser = new(0.5f);
+    public TierChooser tierChooser = new(0.1f);
     public List<FlotsamLoot> flotsamList = new();
 
     public CatchableFlotsam(ICoreServerAPI sapi) : base(sapi)
     {
+        RecipeFlotsam recipeFlotsam = new() { Code = "recipe" };
+        flotsamList.Add(recipeFlotsam);
+
         List<IAsset> assets = sapi.Assets.GetMany("config/flotsamitems");
         foreach (IAsset asset in assets)
         {
@@ -61,18 +73,24 @@ public class CatchableFlotsam : Catchable
             // Convert to json with System.Text.Json.
             JsonNode? json = JsonNode.Parse(jsonText);
 
-            if (json is System.Text.Json.Nodes.JsonObject jsonObject)
+            if (json is JsonArray jsonArray)
             {
-                jsonObject = JsonUtilities.HandleExtends(jsonObject, sapi);
-
-                JsonUtilities.ForEachVariant(jsonObject, variant =>
+                // Loop over every jsonObject in the jsonArray.
+                foreach (JsonNode? arrayObj in jsonArray)
                 {
-                    // Deserialize JsonObject to FluidJson.
-                    FlotsamLoot? flotsamVariant = JsonSerializer.Deserialize<FlotsamLoot>(variant);
-                    if (flotsamVariant == null) return; // Deserialization failed.
+                    if (arrayObj is not System.Text.Json.Nodes.JsonObject jsonObj) continue;
 
-                    flotsamList.Add(flotsamVariant);
-                });
+                    System.Text.Json.Nodes.JsonObject? jsonObject = JsonUtilities.HandleExtends(jsonObj, sapi);
+
+                    JsonUtilities.ForEachVariant(jsonObject, variant =>
+                    {
+                        // Deserialize JsonObject to FluidJson.
+                        FlotsamLoot? flotsamVariant = JsonSerializer.Deserialize<FlotsamLoot>(variant);
+                        if (flotsamVariant == null) return; // Deserialization failed.
+
+                        flotsamList.Add(flotsamVariant);
+                    });
+                }
             }
         }
 
@@ -82,7 +100,7 @@ public class CatchableFlotsam : Catchable
     public override CaughtInstance Catch(FishingContext context, WeightedCatch weightedCatch, ICoreServerAPI sapi)
     {
         int tier = int.Parse(weightedCatch.code[^1].ToString());
-        ItemStack flotsamStack = CreateFlotsamStack(context, out int itemCount, tier);
+        ItemStack flotsamStack = CreateFlotsamStack(out int itemCount, tier);
         return new CaughtInstance(flotsamStack, 10f + (itemCount * 5f), 0f, 0f);
     }
 
@@ -102,7 +120,7 @@ public class CatchableFlotsam : Catchable
         }
     }
 
-    public ItemStack CreateFlotsamStack(FishingContext context, out int itemCount, int tier)
+    public ItemStack CreateFlotsamStack(out int itemCount, int tier)
     {
         Block flotsamBlock = sapi.World.GetBlock("fishing:flotsam-normal");
         ItemStack stack = new(flotsamBlock, 1);
@@ -118,7 +136,6 @@ public class CatchableFlotsam : Catchable
 
             ItemSlot slot = dummyInventory[i];
 
-            // Can roll nothing if not above a tier, 0 tier things will ALWAYS roll (ignore them).
             FlotsamLoot? loot = tierChooser.RollItem(flotsamList, tier);
             if (loot == null) continue;
 

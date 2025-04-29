@@ -1,0 +1,14 @@
+[
+  {
+    "Code": "game:rope",
+    "Weight": 1,
+    "Tier": 0,
+    "StackSizeAdd": 5
+  },
+  {
+    "Code": "game:resin",
+    "Weight": 1,
+    "Tier": 0,
+    "StackSizeAdd": 5
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "Code": "game:gear-rusty",
+    "Weight": 1,
+    "Tier": 1,
+    "StackSizeAdd": 10
+  },
+  {
+    "Code": "game:gear-temporal",
+    "Weight": 1,
+    "Tier": 1
+  },
+  {
+    "Code": "fishing:flask-medium-labeled",
+    "weight": 0.25,
+    "Tier": 1,
+    "Attributes": {
+      "fillWith": "liquidrot",
+      "label": "Canned Sardines"
+    }
+  },
+  {
+    "Code": "game:cattailroot",
+    "Weight": 1,
+    "Tier": 0,
+    "StackSizeAdd": 10
+  }
+]

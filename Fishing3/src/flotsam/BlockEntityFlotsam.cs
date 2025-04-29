@@ -105,7 +105,22 @@ public class BlockEntityFlotsam : BlockEntity
         // Initialize inventory on server.
         if (byItemStack == null || Api.Side == EnumAppSide.Client) return;
 
-        genericInventory.FromTreeAttributes(byItemStack.Attributes.Clone());
+        if (byItemStack.Attributes.HasAttribute("tier"))
+        {
+            long tier = byItemStack.Attributes.GetLong("tier");
+            CatchableFlotsam catchable = MainAPI.GetServerSystem<CatchSystem>().GetCatchable<CatchableFlotsam>();
+
+#if DEBUG
+            catchable.tierChooser.PrintChances(catchable.flotsamList, tier, x => x.Code);
+#endif
+
+            ItemStack newFlotsam = catchable.CreateFlotsamStack(out int _, (int)tier);
+            genericInventory.FromTreeAttributes(newFlotsam.Attributes.Clone());
+        }
+        else
+        {
+            genericInventory.FromTreeAttributes(byItemStack.Attributes.Clone());
+        }
     }
 
     public override void OnBlockBroken(IPlayer? byPlayer = null)

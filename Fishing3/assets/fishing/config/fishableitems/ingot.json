@@ -1,5 +1,7 @@
-{
-  "code": "game:ingot-iron",
-  "weight": 0.0001,
-  "tier": 20
-}
+[
+  {
+    "code": "game:ingot-iron",
+    "weight": 0.0001,
+    "tier": 20
+  }
+]

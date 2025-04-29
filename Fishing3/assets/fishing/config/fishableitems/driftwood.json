@@ -1,0 +1,26 @@
+[
+  {
+    "code": "game:flotsam-driftwood-1",
+    "weight": 0.1,
+    "tier": 0,
+    "kg": 10
+  },
+  {
+    "code": "game:flotsam-driftwood-2",
+    "weight": 0.1,
+    "tier": 0,
+    "kg": 10
+  },
+  {
+    "code": "game:flotsam-driftwood-3",
+    "weight": 0.1,
+    "tier": 0,
+    "kg": 10
+  },
+  {
+    "code": "game:flotsam-driftwood-4",
+    "weight": 0.1,
+    "tier": 0,
+    "kg": 10
+  }
+]

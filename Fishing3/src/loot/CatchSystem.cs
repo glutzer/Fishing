@@ -2,7 +2,6 @@
 using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 
@@ -17,13 +16,22 @@ public class CatchSystem : GameSystem
     public readonly List<Catchable> catchables = new();
 
     // Each tier has half the chance to appear as the last one.
-    public TierChooser tierChooser = new(0.5f);
+    public TierChooser tierChooser = new(0.1f);
 
     // Config later.
     public static float BiteTimeMultiplier => 1f;
 
     public CatchSystem(bool isServer, ICoreAPI api) : base(isServer, api)
     {
+    }
+
+    public T GetCatchable<T>() where T : Catchable
+    {
+        foreach (Catchable catchable in catchables)
+        {
+            if (catchable is T t) return t;
+        }
+        throw new InvalidOperationException($"No catchable of type {typeof(T)} found.");
     }
 
     public override void OnAssetsLoaded()
@@ -84,38 +92,7 @@ public class CatchSystem : GameSystem
         }
 
 #if DEBUG
-        Console.WriteLine("### POSSIBLE CATCHES");
-
-        float totalTierWeight = 0;
-        HashSet<int> availableTiers = new();
-        foreach (WeightedCatch catchable in potentialCatches)
-        {
-            if (availableTiers.Add(catchable.Tier))
-            {
-                // Calculate the total weight of this tier.
-                float tierChance = MathF.Pow(tierChooser.divisionPerTier, catchable.Tier);
-                tierChance *= context.RarityMultiplier;
-                tierChance = DRUtility.CalculateDR(tierChance, 1f / (catchable.Tier + 1), 0.7f);
-                totalTierWeight += tierChance;
-            }
-        }
-
-        foreach (WeightedCatch catchable in potentialCatches)
-        {
-            float tierChance = MathF.Pow(tierChooser.divisionPerTier, catchable.Tier);
-            tierChance *= context.RarityMultiplier;
-            tierChance = DRUtility.CalculateDR(tierChance, 1f / (catchable.Tier + 1), 0.7f);
-
-            tierChance = Math.Clamp(tierChance / totalTierWeight, 0f, 1f);
-            float roundedTierChance = MathF.Round(tierChance * 100f, 3);
-
-            float inTierChance = catchable.Weight / potentialCatches.Sum(x => x.Tier == catchable.Tier ? x.Weight : 0f);
-            float roundedInTierChance = MathF.Round(inTierChance * 100f, 3);
-
-            float absoluteChance = MathF.Round(inTierChance * tierChance * 100f, 3);
-
-            Console.WriteLine($"{catchable.code}, W:{catchable.Weight}, C:{roundedInTierChance}%, T:{catchable.Tier}, T:{roundedTierChance}%, Final:{absoluteChance}%");
-        }
+        tierChooser.PrintChances(potentialCatches, context.RarityMultiplier, x => x.code);
 #endif
 
         // Set tag multipliers (like more sharks, flotsam).
