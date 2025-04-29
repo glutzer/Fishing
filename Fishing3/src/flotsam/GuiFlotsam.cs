@@ -17,7 +17,7 @@ public class GuiFlotsam : Gui
     public override void OnGuiOpened()
     {
         // Make tex.
-        flotsamTex = Texture.Create("fishing:textures/gui/flotsam.png").AsNineSlice(6, 6);
+        flotsamTex = Texture.Create("fishing:textures/gui/flotsam.png").AsNineSlice(8, 8);
 
         base.OnGuiOpened();
     }

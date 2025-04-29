@@ -86,7 +86,19 @@ public class CatchSystem : GameSystem
 #if DEBUG
         Console.WriteLine("### POSSIBLE CATCHES");
 
-        bool luckyCaster = caster?.IsLucky() == true;
+        float totalTierWeight = 0;
+        HashSet<int> availableTiers = new();
+        foreach (WeightedCatch catchable in potentialCatches)
+        {
+            if (availableTiers.Add(catchable.Tier))
+            {
+                // Calculate the total weight of this tier.
+                float tierChance = MathF.Pow(tierChooser.divisionPerTier, catchable.Tier);
+                tierChance *= context.RarityMultiplier;
+                tierChance = DRUtility.CalculateDR(tierChance, 1f / (catchable.Tier + 1), 0.7f);
+                totalTierWeight += tierChance;
+            }
+        }
 
         foreach (WeightedCatch catchable in potentialCatches)
         {
@@ -94,19 +106,15 @@ public class CatchSystem : GameSystem
             tierChance *= context.RarityMultiplier;
             tierChance = DRUtility.CalculateDR(tierChance, 1f / (catchable.Tier + 1), 0.7f);
 
-            tierChance = Math.Clamp(tierChance, 0f, 1f);
+            tierChance = Math.Clamp(tierChance / totalTierWeight, 0f, 1f);
+            float roundedTierChance = MathF.Round(tierChance * 100f, 3);
 
-            if (luckyCaster)
-            {
-                float failChance = 1f - tierChance;
-                failChance *= failChance;
-                tierChance = 1f - failChance;
-            }
+            float inTierChance = catchable.Weight / potentialCatches.Sum(x => x.Tier == catchable.Tier ? x.Weight : 0f);
+            float roundedInTierChance = MathF.Round(inTierChance * 100f, 3);
 
-            tierChance *= 100f;
-            tierChance = MathF.Round(tierChance, tierChance < 1f ? 4 : 2);
+            float absoluteChance = MathF.Round(inTierChance * tierChance * 100f, 3);
 
-            Console.WriteLine($"Code: {catchable.code}, Weight: {catchable.Weight}, Chance: {Math.Round(catchable.Weight / potentialCatches.Sum(x => x.Tier == catchable.Tier ? x.Weight : 0f) * 100f, 2)}%, Tier: {catchable.Tier}, {tierChance}%");
+            Console.WriteLine($"{catchable.code}, W:{catchable.Weight}, C:{roundedInTierChance}%, T:{catchable.Tier}, T:{roundedTierChance}%, Final:{absoluteChance}%");
         }
 #endif
 

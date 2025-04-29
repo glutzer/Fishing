@@ -187,6 +187,16 @@ public class ItemFish : ItemFluidStorage, IInFirepitRendererSupplier
 
     public override void GetHeldItemInfo(ItemSlot slot, StringBuilder builder, IWorldAccessor world, bool withDebugInfo)
     {
+        EntityPlayer? entityPlayer = (world.Side == EnumAppSide.Client) ? ((IClientWorldAccessor)world).Player.Entity : null;
+        float spoilState = AppendPerishableInfoText(slot, builder, world);
+        FoodNutritionProperties nutritionProperties = GetNutritionProperties(world, slot.Itemstack, entityPlayer!);
+        if (nutritionProperties != null)
+        {
+            float satLoss = GlobalConstants.FoodSpoilageSatLossMul(spoilState, slot.Itemstack, entityPlayer);
+            builder.AppendLine(Lang.Get((MatterState == EnumMatterState.Liquid) ? "liquid-when-drunk-saturation" : "When eaten: {0} sat", Math.Round(nutritionProperties.Satiety * satLoss)));
+            builder.AppendLine(Lang.Get("Food Category: {0}", Lang.Get("foodcategory-" + nutritionProperties.FoodCategory.ToString().ToLowerInvariant())));
+        }
+
         bool smoked = slot.Itemstack.Attributes.GetBool("smoked");
 
         if (!smoked) builder.AppendLine("Dryable over a fire.");

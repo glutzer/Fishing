@@ -37,13 +37,26 @@ public class TierChooser
         this.divisionPerTier = divisionPerTier;
     }
 
+    public void PrintTierChances<T>(List<T> items, float rarityMultiplier, bool luckyRoll) where T : ITierable, IWeightable
+    {
+        float totalWeight = 0;
+        HashSet<int> availableTiers = new();
+        foreach (T item in items)
+        {
+            if (availableTiers.Add(item.Tier))
+            {
+
+            }
+        }
+    }
+
     /// <summary>
     /// Takes tiered and weighted items, rolls one.
     /// If no tiers are rolled, returns null.
     /// </summary>
-    public T? RollItem<T>(List<T> validItems, float rarityMultiplier, int minTier = -1) where T : ITierable, IWeightable
+    public T? RollItem<T>(List<T> validItems, float rarityMultiplier) where T : ITierable, IWeightable
     {
-        List<T> rolledtiers = RollTier(validItems, rarityMultiplier, minTier);
+        List<T> rolledtiers = RollTier(validItems, rarityMultiplier);
         return rolledtiers.Count == 0 ? default : RollWeightedList(rolledtiers);
     }
 
@@ -67,45 +80,46 @@ public class TierChooser
     }
 
     /// <summary>
-    /// Removes all items from the list except the highest rolled tier.
-    /// Must have a count of atleast 1.
-    /// If NOTHING rolls min tier will be chosen (-1 for no default).
+    /// Rolls a tier of item.
+    /// Will always return something if items are supplied.
     /// </summary>
-    public List<T> RollTier<T>(List<T> validItems, float rarityMultiplier, int minTier = -1) where T : ITierable
+    public List<T> RollTier<T>(List<T> validItems, float rarityMultiplier) where T : ITierable
     {
-        int highestTier = 0;
         HashSet<int> availableTiers = new();
 
         foreach (T item in validItems)
         {
-            if (item.Tier > highestTier)
-            {
-                highestTier = item.Tier;
-            }
             availableTiers.Add(item.Tier);
         }
 
-        int rolledTier = minTier;
+        float totalWeight = 0;
+        List<(int tier, float weight)> tierWeights = new();
 
-        for (int i = highestTier; i > minTier; i--)
+        foreach (int tier in availableTiers)
         {
-            if (!availableTiers.Contains(i)) continue;
-
-            float chance = MathF.Pow(divisionPerTier, i);
+            float chance = MathF.Pow(divisionPerTier, tier);
             chance *= rarityMultiplier;
 
             // Base line is 1 / i + 1, then drop-off is decreased with higher tiers.
             // Below 1 rarity, nothing may roll, or literal junk (-1 tier) may be chosen.
-            chance = DRUtility.CalculateDR(chance, 1f / (i + 1), 0.7f);
+            chance = DRUtility.CalculateDR(chance, 1f / (tier + 1), 0.7f);
 
-            float rarityRoll = Random.Shared.NextSingle();
-            if (rarityRoll <= chance)
+            totalWeight += chance;
+            tierWeights.Add((tier, chance));
+        }
+
+        float roll = Random.Shared.NextSingle() * totalWeight;
+        int chosenTier = -1;
+        foreach ((int tier, float weight) in tierWeights)
+        {
+            roll -= weight;
+            if (roll <= 0)
             {
-                rolledTier = i;
+                chosenTier = tier;
                 break;
             }
         }
 
-        return validItems.Where(item => item.Tier == rolledTier).ToList();
+        return validItems.Where(item => item.Tier == chosenTier).ToList();
     }
 }

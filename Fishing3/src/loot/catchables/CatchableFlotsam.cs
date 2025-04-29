@@ -98,9 +98,6 @@ public class CatchableFlotsam : Catchable
             // Add the flotsam tag to this.
             weightedCatch.WithTag("flotsam");
 
-            // Apply multipliers.
-            weightedCatch.SetMultiplier(context.tagMultipliers);
-
             yield return weightedCatch;
         }
     }
@@ -117,6 +114,8 @@ public class CatchableFlotsam : Catchable
         // Some items can only roll in certain areas.
         for (int i = 0; i < 9; i++)
         {
+            if (Random.Shared.NextSingle() > 0.5f) continue;
+
             ItemSlot slot = dummyInventory[i];
 
             // Can roll nothing if not above a tier, 0 tier things will ALWAYS roll (ignore them).
