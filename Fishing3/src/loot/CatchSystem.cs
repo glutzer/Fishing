@@ -36,6 +36,8 @@ public class CatchSystem : GameSystem
 
     public override void OnAssetsLoaded()
     {
+        if (api.Side == EnumAppSide.Client) return;
+
         // Sorted list of classes.
         (Type, CatchableAttribute)[] attribs = AttributeUtilities.GetAllAnnotatedClasses<CatchableAttribute>();
 

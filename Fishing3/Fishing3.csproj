@@ -23,12 +23,15 @@
     </Reference>
     <Reference Include="OpenTK.Windowing.Common">
       <HintPath>$(VINTAGE_STORY)/Lib/OpenTK.Windowing.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="OpenTK.Windowing.Desktop">
       <HintPath>$(VINTAGE_STORY)/Lib/OpenTK.Windowing.Desktop.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="OpenTK.Windowing.GraphicsLibraryFramework">
       <HintPath>$(VINTAGE_STORY)/Lib/OpenTK.Windowing.GraphicsLibraryFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="SkiaSharp">
       <HintPath>$(VINTAGE_STORY)/Lib/SkiaSharp.dll</HintPath>
