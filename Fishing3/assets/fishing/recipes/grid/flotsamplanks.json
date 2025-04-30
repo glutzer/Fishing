@@ -1,0 +1,20 @@
+[
+  {
+    "ingredientPattern": "L",
+    "recipeGroup": 1,
+    "shapeless": true,
+    "ingredients": {
+      "L": {
+        "type": "block",
+        "code": "fishing:flotsam-normal"
+      }
+    },
+    "width": 1,
+    "height": 1,
+    "output": {
+      "type": "item",
+      "code": "game:plank-aged",
+      "quantity": 32
+    }
+  }
+]

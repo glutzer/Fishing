@@ -70,9 +70,7 @@ public class CatchableItems : Catchable
         return flotsamList
             .Where(x =>
             {
-                if (context.temperature < x.tempRange[0] || context.temperature > x.tempRange[1]) return false;
-                if (!x.liquids.Contains(liquid)) return false;
-                return !x.riverOnly || context.isRiver;
+                return context.temperature >= x.tempRange[0] && context.temperature <= x.tempRange[1] && x.liquids.Contains(liquid) && (!x.riverOnly || context.isRiver);
             })
             .Select(x => new WeightedFlotsam(this, x.weight, x.tier, x.code, x.kg));
     }

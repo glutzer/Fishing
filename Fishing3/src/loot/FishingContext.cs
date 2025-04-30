@@ -71,6 +71,8 @@ public class FishingContext
     public float RarityMultiplier { get; private set; } = 1f;
     public float QuantityMultiplier { get; private set; } = 1f;
 
+    public readonly bool isLucky;
+
     /// <summary>
     /// Multipliers set by catch system.
     /// </summary>
@@ -92,6 +94,8 @@ public class FishingContext
 
         // Liquid 1-2 below bobber. Does not roll anything in shallow water.
         liquid = sapi.World.BlockAccessor.GetBlock(blockPos.AddCopy(0, 0, 0));
+
+        isLucky = caster?.IsLucky() == true;
 
         // Climate.
         ClimateCondition climate = sapi.World.BlockAccessor.GetClimateAt(blockPos);

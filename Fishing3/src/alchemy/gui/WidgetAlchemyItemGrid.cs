@@ -1,5 +1,6 @@
 ﻿using MareLib;
 using OpenTK.Mathematics;
+using System;
 using Vintagestory.API.Common;
 
 namespace Fishing3;
@@ -9,11 +10,13 @@ public class WidgetAlchemyItemGrid : WidgetBaseItemGrid
     private readonly NineSliceTexture tex;
     private readonly Texture blank;
     private readonly TextObject countObject;
+    private readonly string[] slotSounds;
 
-    public WidgetAlchemyItemGrid(ItemSlot[] slots, int width, int height, int slotSize, Widget? parent) : base(slots, width, height, slotSize, parent)
+    public WidgetAlchemyItemGrid(ItemSlot[] slots, int width, int height, int slotSize, Widget? parent, string[]? slotSounds = null) : base(slots, width, height, slotSize, parent)
     {
         tex = GuiThemes.Button;
         blank = GuiThemes.Blank;
+        this.slotSounds = slotSounds ?? new[] { "fishing:sounds/pinpull" };
 
         countObject = new TextObject("", GuiThemes.Font, slotSize, GuiThemes.TextColor)
         {
@@ -30,7 +33,7 @@ public class WidgetAlchemyItemGrid : WidgetBaseItemGrid
 
     public override void OnSlotActivated(int slotIndex, ItemSlot slot)
     {
-        MainAPI.Capi.World.PlaySoundAt("fishing:sounds/pinpull", MainAPI.Capi.World.Player);
+        MainAPI.Capi.World.PlaySoundAt(slotSounds[Random.Shared.Next(slotSounds.Length)], MainAPI.Capi.World.Player);
     }
 
     public override void RenderOverlay(Vector2 start, int size, float dt, MareShader shader, ItemSlot slot, int slotIndex)

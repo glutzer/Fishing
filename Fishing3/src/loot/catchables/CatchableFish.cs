@@ -1,4 +1,5 @@
 ﻿using MareLib;
+using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ public class CatchableFish : Catchable
 
         // Random multiplier, 1-3 weighted towards 1.
         float sizeMultiplier = 1f + (MathF.Pow(Random.Shared.NextSingle(), 3) * 2);
+        if (context.isLucky) sizeMultiplier = Math.Max(sizeMultiplier, 1f + (MathF.Pow(Random.Shared.NextSingle(), 3) * 2));
 
         // Cubed increase of size as temperature lowers. 45% larger at 0 temperature. (May roll up to 6x size here).
         float northernSizeMultiplier = Math.Clamp(60f - (context.temperature + 20f), 0f, 60f) / 60f;
@@ -43,13 +45,15 @@ public class CatchableFish : Catchable
         ItemStack stack = species.CreateStack(sapi, kg);
         CaughtInstance instance = new(stack, (float)kg, speed, secondsOfStamina);
 
-        // Add fish sound?
-        //instance.OnCaught += vector =>
-        //{
-        //    sapi.World.PlaySoundAt();
-        //};
+        //Add fish sound?
+        instance.OnCaught += OnCaught;
 
         return instance;
+    }
+
+    public void OnCaught(Vector3d vector)
+    {
+        sapi.World.PlaySoundAt("fishing:sounds/fishsplash", vector.X, vector.Y, vector.Z, null, false, 16);
     }
 
     public override IEnumerable<WeightedCatch> GetCatches(FishingContext context, ICoreServerAPI sapi)

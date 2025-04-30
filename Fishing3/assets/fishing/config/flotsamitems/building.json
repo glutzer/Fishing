@@ -3,30 +3,30 @@
     "Code": "game:supportchain-two",
     "Weight": 1,
     "Tier": 1,
-    "StackSizeAdd": 10
+    "StackAdd": 10
   },
   {
     "Code": "game:supportchain-twonew",
     "Weight": 1,
     "Tier": 2,
-    "StackSizeAdd": 10
+    "StackAdd": 10
   },
   {
     "Code": "game:supportrope-one-old",
     "Weight": 0.5,
     "Tier": 0,
-    "StackSizeAdd": 10
+    "StackAdd": 10
   },
   {
     "Code": "game:supportrope-two-old",
     "Weight": 0.5,
     "Tier": 0,
-    "StackSizeAdd": 10
+    "StackAdd": 10
   },
   {
     "Code": "game:supportrope-three-old",
     "Weight": 0.5,
     "Tier": 0,
-    "StackSizeAdd": 10
+    "StackAdd": 10
   }
 ]

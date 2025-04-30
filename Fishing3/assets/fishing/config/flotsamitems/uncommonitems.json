@@ -3,7 +3,7 @@
     "Code": "game:gear-rusty",
     "Weight": 1,
     "Tier": 1,
-    "StackSizeAdd": 10
+    "StackAdd": 10
   },
   {
     "Code": "game:gear-temporal",
@@ -23,6 +23,6 @@
     "Code": "game:cattailroot",
     "Weight": 1,
     "Tier": 0,
-    "StackSizeAdd": 10
+    "StackAdd": 10
   }
 ]

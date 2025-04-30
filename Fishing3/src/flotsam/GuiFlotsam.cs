@@ -48,7 +48,7 @@ public class GuiFlotsam : Gui
 
         ItemSlot[] slots = flotsam.genericInventory.GetField<ItemSlot[]>("slots");
 
-        new WidgetAlchemyItemGrid(slots, 3, 3, 16, bg)
+        new WidgetAlchemyItemGrid(slots, 3, 3, 20, bg, new string[] { "game:sounds/player/gluerepair1", "game:sounds/player/gluerepair2", "game:sounds/player/gluerepair3", "game:sounds/player/gluerepair4" })
             .Percent(0f, 0f, 0.8f, 0.8f)
             .Alignment(Align.Center);
     }
