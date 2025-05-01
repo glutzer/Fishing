@@ -73,7 +73,7 @@ public class CatchSystem : GameSystem
     {
         // 0-1 quantity up to 25m away, then logarithmic.
         float distance = (float)Vector3d.Distance(position, caster.ServerPos.ToVector());
-        float distanceMultiplier = DRUtility.CalculateDR(distance, 25f, 1f) / 25f;
+        float distanceMultiplier = DrUtility.CalculateDr(distance, 25f, 1f) / 25f;
         return distanceMultiplier;
     }
 

@@ -33,7 +33,7 @@ public class CatchableFish : Catchable
         sizeMultiplier *= 1f + MathF.Pow(northernSizeMultiplier, 3);
 
         // Logarithmic rarity scaling.
-        float rarityMultiplier = DRUtility.CalculateDR(context.RarityMultiplier, 1f, 1f);
+        float rarityMultiplier = DrUtility.CalculateDr(context.RarityMultiplier, 1f, 1f);
         sizeMultiplier *= rarityMultiplier;
 
         kg *= sizeMultiplier;

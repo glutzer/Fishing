@@ -72,9 +72,9 @@ public class BlockEntityAlembic : BlockEntityHeatedAlchemyEquipment, IFluidSourc
             float purity = newStack.Attributes.GetFloat("purity");
 
             // Add a random value to the purity, before DR is applied, then convert it back with DR.
-            purity = DRUtility.ReverseDR(purity, 1, 0.5f);
+            purity = DrUtility.ReverseDr(purity, 1, 0.5f);
             purity += Random.Shared.NextSingle();
-            purity = DRUtility.CalculateDR(purity, 1, 0.5f);
+            purity = DrUtility.CalculateDr(purity, 1, 0.5f);
 
             newStack.Attributes.SetFloat("purity", purity);
         }

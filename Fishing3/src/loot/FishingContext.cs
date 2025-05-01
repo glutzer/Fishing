@@ -129,8 +129,8 @@ public class FishingContext
 
     private void CalculateRarityQuantity(Entity? caster, float liquidBaseLine)
     {
-        RarityMultiplier = DRUtility.CalculateDR(volume, liquidBaseLine, 1.7f) / liquidBaseLine;
-        QuantityMultiplier = DRUtility.CalculateDR(volume, liquidBaseLine, 1.7f) / liquidBaseLine;
+        RarityMultiplier = DrUtility.CalculateDr(volume, liquidBaseLine, 1.7f) / liquidBaseLine;
+        QuantityMultiplier = DrUtility.CalculateDr(volume, liquidBaseLine, 1.7f) / liquidBaseLine;
 
         // 30% more quantity in stormy weather.
         QuantityMultiplier *= 1f + (precipitation * 0.3f);

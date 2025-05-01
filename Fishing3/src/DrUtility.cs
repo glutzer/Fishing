@@ -2,11 +2,11 @@
 
 namespace Fishing3;
 
-public static class DRUtility
+public static class DrUtility
 {
     /// <summary>
     /// rate = DR rate. Higher decreases faster, lower decreases slower.
-    /// Linear until base line then drops off.
+    /// Linear until baseline then drops off.
     /// 1 rate -> 1 at 1, 1.3 at 2, 1.47 at 3.
     /// 0.5 rate -> 1 at 1, 1.6 at 2, 1.95 at 3.
     /// 0.33 rate -> 1 at 1, 1.9 at 2, 2.42 at 3.
@@ -16,10 +16,10 @@ public static class DRUtility
     /// These are calculated from the value / baseLine, then multiplied back.
     /// https://www.desmos.com/calculator/n840ul1tst
     /// </summary>
-    public static float CalculateDR(float value, float baseLine, float rate)
+    public static float CalculateDr(float value, float baseLine, float rate)
     {
-        if (value <= baseLine) return value;
-
+        if (value <= baseLine) return value; 
+        
         float ratio = value / baseLine;
         float power = 1 / rate;
         power = MathF.Pow(ratio, power);
@@ -27,11 +27,11 @@ public static class DRUtility
         power += 1;
         return power * baseLine;
     }
-
+    
     /// <summary>
     /// Takes a value with DR applied, gets the reverse of it.
     /// </summary>
-    public static float ReverseDR(float value, float baseLine, float rate)
+    public static float ReverseDr(float value, float baseLine, float rate)
     {
         return value < baseLine ? value : baseLine * MathF.Exp(rate * ((value / baseLine) - 1));
     }

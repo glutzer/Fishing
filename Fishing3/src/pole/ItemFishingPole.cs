@@ -18,7 +18,7 @@ public partial class ItemFishingPole : Item
         if (!firstEvent) return;
         if (byEntity is not EntityPlayer player) return;
         EntityBobber? currentBobber = TryGetBobber(slot, api);
-
+        
         if (api.Side == EnumAppSide.Client)
         {
             if (currentBobber != null)
