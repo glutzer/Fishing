@@ -4,6 +4,7 @@ using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -194,7 +195,7 @@ public class FishSpeciesSystem : GameSystem
                 if (i == 4) scale *= 4;
                 if (i == 5) scale *= 8;
 
-                JsonObject attributes = new(JToken.Parse("{ \"species\": \"" + type.code + "\", \"kg\": " + (1.5 + scale) + " }"));
+                JsonObject attributes = new(JToken.Parse("{ \"species\": \"" + type.code + "\", \"kg\": " + (1.5f + scale).ToString(CultureInfo.InvariantCulture) + " }"));
 
                 JsonItemStack jsonStack = new()
                 {
