@@ -23,5 +23,15 @@
     "Code": "game:decalcan-geometry",
     "Weight": 1,
     "Tier": 5
+  },
+  {
+    "Code": "kemono:clothes-face-cowboyhat",
+    "Weight": 0.5,
+    "Tier": 4
+  },
+  {
+    "Code": "kemono:clothes-face-vinylscratchglasses",
+    "Weight": 0.5,
+    "Tier": 4
   }
 ]
