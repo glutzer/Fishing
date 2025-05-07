@@ -4,7 +4,8 @@
     "path": "/animations/-",
     "value": {
       "name": "EntityInject",
-      "code": "entityinject",
+      "code": "EntityInject",
+      "version": 1,
       "quantityframes": 14,
       "onActivityStopped": "EaseOut",
       "onAnimationEnd": "Hold",
@@ -12,98 +13,26 @@
         {
           "frame": 0,
           "elements": {
-            "LowerTorso": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
+            "b_Head": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
               "rotationX": 0.0,
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "UpperTorso": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
+            "b_ArmUpperR": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
               "rotationX": 0.0,
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "UpperArmR": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": 0.0
-            },
-            "LowerArmR": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": 0.0
-            },
-            "UpperArmL": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": 0.0
-            },
-            "LowerArmL": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": 0.0
-            },
-            "Neck": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": 0.0
-            },
-            "Head": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": 0.0
-            },
-            "UpperFootL": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": 0.0
-            },
-            "LowerFootL": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": 0.0
-            },
-            "UpperFootR": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": 0.0
-            },
-            "LowerFootR": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
+            "b_ArmLowerR": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
               "rotationX": 0.0,
               "rotationY": 0.0,
               "rotationZ": 0.0
@@ -113,208 +42,56 @@
         {
           "frame": 8,
           "elements": {
-            "LowerTorso": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": -10.0,
-              "rotationZ": -2.0
+            "b_ArmUpperR": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": -80.08912481,
+              "rotationY": 66.07492218,
+              "rotationZ": 97.86460333
             },
-            "UpperTorso": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": -10.0,
-              "rotationZ": -4.0
-            },
-            "UpperArmR": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": -11.0,
-              "rotationY": -22.0,
-              "rotationZ": -92.0
-            },
-            "LowerArmR": {
-              "offsetX": 0.0,
-              "offsetY": 1.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": -58.0
-            },
-            "UpperArmL": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": -19.0,
-              "rotationY": 25.0,
-              "rotationZ": -25.0
-            },
-            "LowerArmL": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": -22.0
-            },
-            "Neck": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 3.0,
-              "rotationZ": 0.0
-            },
-            "Head": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 7.0,
-              "rotationZ": 1.0
-            },
-            "UpperFootL": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": -1.0
-            },
-            "LowerFootL": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": 7.0
-            },
-            "UpperFootR": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": -7.0
-            },
-            "LowerFootR": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": 12.0
+            "b_ArmLowerR": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": 49.13167147,
+              "rotationY": 37.68209559,
+              "rotationZ": -17.5769198
             }
           }
         },
         {
           "frame": 13,
           "elements": {
-            "LowerTorso": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 30.0,
-              "rotationZ": 1.0
+            "b_Head": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": 3.58671632,
+              "rotationY": 1.63900634,
+              "rotationZ": 17.23122173
             },
-            "UpperTorso": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 20.0,
-              "rotationZ": 4.0
+            "b_ArmUpperR": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": -60.32322671,
+              "rotationY": 69.18415407,
+              "rotationZ": 73.42256648
             },
-            "UpperArmR": {
-              "offsetX": 0.0,
-              "offsetY": -1.0,
-              "offsetZ": 0.0,
-              "rotationX": -22.0,
-              "rotationY": -42.0,
-              "rotationZ": -33.0
-            },
-            "LowerArmR": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 14.0,
-              "rotationZ": -97.0
-            },
-            "UpperArmL": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": -22.0,
-              "rotationY": 22.0,
-              "rotationZ": -8.0
-            },
-            "LowerArmL": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": -17.0
-            },
-            "Neck": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": -9.0,
-              "rotationZ": 0.0
-            },
-            "Head": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": -12.0,
-              "rotationZ": 6.0
-            },
-            "UpperFootL": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": -19.0,
-              "rotationZ": -7.0
-            },
-            "LowerFootL": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": 7.0
-            },
-            "UpperFootR": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": -22.0,
-              "rotationZ": -1.0
-            },
-            "LowerFootR": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": 6.0
+            "b_ArmLowerR": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": 66.37106552,
+              "rotationY": 4.72851307,
+              "rotationZ": -23.77612414
             }
           }
         }
       ]
     },
-    "file": "game:shapes/entity/humanoid/seraph-faceless.json"
+    "file": "kemono:shapes/entity/horse/main/horse0.json"
   },
   {
     "file": "game:entities/humanoid/player.json",
@@ -327,12 +104,6 @@
       "animationSpeed": 1,
       "weight": 1,
       "elementWeight": {
-        "LowerTorso": 100,
-        "UpperTorso": 100,
-        "UpperArmL": 100,
-        "LowerArmL": 100,
-        "Neck": 100,
-        "Head": 100,
         "UpperArmR": 100,
         "LowerArmR": 100
       }

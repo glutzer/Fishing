@@ -1,0 +1,14 @@
+[
+  {
+    "file": "ponyraces:race/races.json",
+    "op": "add",
+    "path": "/5/traits/-",
+    "value": "brewer"
+  },
+  {
+    "file": "ponyraces:race/races.json",
+    "op": "add",
+    "path": "/0/traits/-",
+    "value": "horsepower"
+  }
+]

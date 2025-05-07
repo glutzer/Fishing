@@ -21,7 +21,7 @@ public static class GuiThemes
         }, "", new Vector4(0.75f, 0f, 0f, 1f)).Alignment(Align.RightMiddle).FixedSize(8, 8);
     }
 
-    public static Font Font => FontRegistry.GetFont("soria");
+    public static Font Font => FontRegistry.GetFont("celestia");
 
     public static Vector3 Red => new(1, 0, 0);
     public static Vector3 Green => new(0, 1, 0);

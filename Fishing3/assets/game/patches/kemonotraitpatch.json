@@ -1,0 +1,26 @@
+[
+  {
+    "file": "ponyraces:race/traits.json",
+    "op": "add",
+    "path": "/-",
+    "value": {
+      "code": "brewer",
+      "type": "positive",
+      "attributes": {
+        "flaskEffect": 0.3
+      }
+    }
+  },
+  {
+    "file": "ponyraces:race/traits.json",
+    "op": "add",
+    "path": "/-",
+    "value": {
+      "code": "horsepower",
+      "type": "positive",
+      "attributes": {
+        "reelStrength": 0.3
+      }
+    }
+  }
+]

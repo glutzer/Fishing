@@ -4,90 +4,137 @@
     "path": "/animations/-",
     "value": {
       "name": "RodCatch",
-      "code": "rodcatch",
-      "quantityframes": 10,
+      "code": "RodCatch",
+      "version": 1,
+      "quantityframes": 11,
       "onActivityStopped": "EaseOut",
       "onAnimationEnd": "EaseOut",
       "keyframes": [
         {
           "frame": 0,
           "elements": {
-            "UpperTorso": {
-              "rotationX": 0.0,
+            "b_TorsoLower": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": -0.0,
               "rotationY": 0.0,
-              "rotationZ": 20.0
+              "rotationZ": -11.60073565
             },
-            "UpperArmR": {
-              "rotationX": 0.0,
+            "b_LegUpperL": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": -0.0,
               "rotationY": 0.0,
-              "rotationZ": -60.0
+              "rotationZ": 22.49361952
             },
-            "LowerArmR": {
-              "rotationX": -5.0,
-              "rotationY": -5.0,
-              "rotationZ": -15.0
-            },
-            "UpperArmL": {
-              "offsetX": 0.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": 0.0,
-              "rotationY": -10.0,
-              "rotationZ": -70.0
-            },
-            "LowerArmL": {
-              "rotationX": 20.0,
+            "b_LegUpperR": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": -0.0,
               "rotationY": 0.0,
-              "rotationZ": 0.0
+              "rotationZ": -11.37959035
             },
-            "Head": {
-              "rotationX": 0.0,
+            "b_ArmUpperL": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": 4.945e-05,
+              "rotationY": 74.53234245,
+              "rotationZ": -7.883e-05
+            },
+            "b_ArmLowerL": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": 1.31063241,
+              "rotationY": 31.23426041,
+              "rotationZ": 9.8391146
+            },
+            "b_ArmUpperR": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": 8.13e-06,
+              "rotationY": 46.47013117,
+              "rotationZ": -2.342e-05
+            },
+            "b_ArmLowerR": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": 0.36698201,
+              "rotationY": 15.23756976,
+              "rotationZ": -12.37389855
+            },
+            "b_Neck": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": -0.0,
               "rotationY": 0.0,
-              "rotationZ": -15.0
+              "rotationZ": -0.0
+            },
+            "b_Head": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": -0.0,
+              "rotationY": 0.0,
+              "rotationZ": -0.0
             }
           }
         },
         {
-          "frame": 9,
+          "frame": 10,
           "elements": {
-            "UpperTorso": {
-              "rotationX": 0.0,
-              "rotationY": -25.0,
-              "rotationZ": 0.0
+            "b_ArmUpperL": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": -3.791e-05,
+              "rotationY": 154.53236061,
+              "rotationZ": -6.4e-07
             },
-            "Head": {
-              "rotationX": 0.0,
-              "rotationY": 25.0,
-              "rotationZ": 0.0
+            "b_ArmLowerL": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": 5.02083535,
+              "rotationY": 45.20680572,
+              "rotationZ": 44.99205774
             },
-            "UpperArmR": {
-              "rotationX": 35.0,
-              "rotationY": -70.0,
-              "rotationZ": -15.0
+            "b_ArmUpperR": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": 24.21265007,
+              "rotationY": 124.51369287,
+              "rotationZ": -18.03975049
             },
-            "LowerArmR": {
-              "rotationX": -80.0,
-              "rotationY": 40.0,
-              "rotationZ": -100.0
+            "b_ArmLowerR": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": 6.22506856,
+              "rotationY": 53.52744803,
+              "rotationZ": 11.43348225
             },
-            "UpperArmL": {
-              "offsetX": 2.0,
-              "offsetY": 0.0,
-              "offsetZ": 0.0,
-              "rotationX": -20.0,
-              "rotationY": -55.0,
-              "rotationZ": -110.0
-            },
-            "LowerArmL": {
-              "rotationX": 25.0,
-              "rotationY": -15.0,
-              "rotationZ": -70.0
+            "b_Neck": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": -1.65452251,
+              "rotationY": -8.96465573,
+              "rotationZ": -6.18706155
             }
           }
         }
       ]
     },
-    "file": "game:shapes/entity/humanoid/seraph-faceless.json"
+    "file": "kemono:shapes/entity/horse/main/horse0.json"
   },
   {
     "file": "game:entities/humanoid/player.json",

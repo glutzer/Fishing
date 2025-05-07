@@ -4,7 +4,8 @@
     "path": "/animations/-",
     "value": {
       "name": "InspectRod",
-      "code": "inspectrod",
+      "code": "InspectRod",
+      "version": 1,
       "quantityframes": 1,
       "onActivityStopped": "Rewind",
       "onAnimationEnd": "Repeat",
@@ -12,26 +13,35 @@
         {
           "frame": 0,
           "elements": {
-            "UpperArmR": {
-              "rotationX": 40.0,
-              "rotationY": 5.0,
-              "rotationZ": -40.0
+            "b_ArmUpperR": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": 200.0639589,
+              "rotationY": 111.3253694,
+              "rotationZ": -145.66098307
             },
-            "LowerArmR": {
-              "rotationX": 0.0,
-              "rotationY": -10.0,
-              "rotationZ": 5.0
+            "b_ArmLowerR": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": -27.88078267,
+              "rotationY": -3.8847973,
+              "rotationZ": -44.02463316
             },
-            "ItemAnchor": {
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": 0.0
+            "b_Head": {
+              "rotShortestDistanceX": true,
+              "rotShortestDistanceY": true,
+              "rotShortestDistanceZ": true,
+              "rotationX": 3.58671632,
+              "rotationY": 1.63900634,
+              "rotationZ": 17.23122173
             }
           }
         }
       ]
     },
-    "file": "game:shapes/entity/humanoid/seraph-faceless.json"
+    "file": "kemono:shapes/entity/horse/main/horse0.json"
   },
   {
     "file": "game:entities/humanoid/player.json",

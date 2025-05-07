@@ -4,7 +4,8 @@
     "path": "/animations/-",
     "value": {
       "name": "HoldRod",
-      "code": "holdrod",
+      "code": "HoldRod",
+      "version": 1,
       "quantityframes": 1,
       "onActivityStopped": "Rewind",
       "onAnimationEnd": "Repeat",
@@ -12,21 +13,23 @@
         {
           "frame": 0,
           "elements": {
-            "UpperArmR": {
-              "rotationX": 0.0,
-              "rotationY": 0.0,
-              "rotationZ": -15.0
+            "b_ArmUpperR": {
+              "rotShortestDistance": true,
+              "rotationX": -6.14,
+              "rotationY": 46.47,
+              "rotationZ": -7.14
             },
-            "ItemAnchor": {
-              "rotationX": 5.0,
-              "rotationY": 0.0,
-              "rotationZ": -45.0
+            "b_ArmLowerR": {
+              "rotShortestDistance": true,
+              "rotationX": 0.408898479409937,
+              "rotationY": 15.237236792949666,
+              "rotationZ": -12.48196238742861
             }
           }
         }
       ]
     },
-    "file": "game:shapes/entity/humanoid/seraph-faceless.json"
+    "file": "kemono:shapes/entity/horse/main/horse0.json"
   },
   {
     "file": "game:entities/humanoid/player.json",
@@ -40,8 +43,7 @@
       "weight": 1,
       "elementWeight": {
         "UpperArmR": 10,
-        "LowerArmR": 10,
-        "ItemAnchor": 10
+        "LowerArmR": 10
       }
     }
   }

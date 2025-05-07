@@ -4,57 +4,62 @@
     "path": "/animations/-",
     "value": {
       "name": "RodIdle",
-      "code": "rodidle",
+      "code": "RodIdle",
+      "version": 1,
       "quantityframes": 1,
-      "onActivityStopped": "EaseOut",
-      "onAnimationEnd": "Hold",
+      "onActivityStopped": "Rewind",
+      "onAnimationEnd": "Repeat",
       "keyframes": [
         {
           "frame": 0,
           "elements": {
-            "UpperArmL": {
-              "rotationX": 15.0,
-              "rotationY": 0.0,
-              "rotationZ": -36.0
-            },
-            "UpperArmR": {
-              "rotationX": -10.0,
-              "rotationY": -60.0,
-              "rotationZ": -60.0
-            },
-            "LowerArmR": {
-              "rotationX": -91.0,
-              "rotationY": 0.0,
-              "rotationZ": 47.0
-            },
-            "ItemAnchor": {
-              "offsetX": 0.5,
-              "offsetY": -2.5,
-              "offsetZ": 0.5,
-              "rotationX": 60.0,
-              "rotationY": 0.0,
-              "rotationZ": 0.0
-            },
-            "LowerArmL": {
-              "rotationX": -14.0,
-              "rotationY": -18.0,
-              "rotationZ": -66.0
-            },
-            "UpperTorso": {
+            "b_TorsoLower": {
+              "rotShortestDistance": true,
               "rotationX": 0.0,
               "rotationY": 0.0,
-              "rotationZ": 0.0
+              "rotationZ": -11.60
             },
-            "Head": {
+            "b_LegUpperL": {
+              "rotShortestDistance": true,
               "rotationX": 0.0,
               "rotationY": 0.0,
-              "rotationZ": 0.0
+              "rotationZ": 22.49
+            },
+            "b_LegUpperR": {
+              "rotShortestDistance": true,
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": -11.37
+            },
+            "b_ArmUpperL": {
+              "rotShortestDistance": true,
+              "rotationX": -6.14,
+              "rotationY": 74.53,
+              "rotationZ": -9.07
+            },
+            "b_ArmLowerL": {
+              "rotShortestDistance": true,
+              "rotationX": 1.61,
+              "rotationY": 31.22,
+              "rotationZ": 9.35
+            },
+            "b_ArmUpperR": {
+              "rotShortestDistance": true,
+              "rotationX": -6.14,
+              "rotationY": 46.47,
+              "rotationZ": -7.14
+            },
+            "b_ArmLowerR": {
+              "rotShortestDistance": true,
+              "rotationX": 0.40,
+              "rotationY": 15.23,
+              "rotationZ": -12.48
             }
           }
         }
       ]
     },
-    "file": "game:shapes/entity/humanoid/seraph-faceless.json"
+    "file": "kemono:shapes/entity/horse/main/horse0.json"
   },
   {
     "file": "game:entities/humanoid/player.json",
@@ -68,12 +73,10 @@
       "weight": 2,
       "elementWeight": {
         "UpperTorso": 40,
-        "ItemAnchor": 100,
-        "Head": 100,
-        "UpperArmR": 100,
-        "LowerArmR": 100,
-        "UpperArmL": 100,
-        "LowerArmL": 100
+        "b_ArmUpperR": 10,
+        "b_ArmLowerR": 10,
+        "b_ArmUpperL": 10,
+        "b_ArmLowerL": 10
       }
     }
   }

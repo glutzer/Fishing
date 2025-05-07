@@ -3,10 +3,11 @@
   "modid": "fishing",
   "name": "Fishing",
   "authors": [
-    "nuts"
+    "nuts",
+    "sparklebooty"
   ],
   "description": "",
-  "version": "3.0.3",
+  "version": "3.0.5",
   "dependencies": {
     "game": "",
     "marelib": "2.6.2",

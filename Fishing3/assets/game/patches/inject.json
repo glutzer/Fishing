@@ -4,7 +4,8 @@
     "path": "/animations/-",
     "value": {
       "name": "Inject",
-      "code": "inject",
+      "code": "Inject",
+      "version": 1,
       "quantityframes": 36,
       "onActivityStopped": "EaseOut",
       "onAnimationEnd": "Hold",
@@ -12,66 +13,57 @@
         {
           "frame": 0,
           "elements": {
-            "UpperArmR": {
+            "b_ArmUpperR": {
+              "rotShortestDistance": true,
               "rotationX": 0.0,
               "rotationY": 0.0,
               "rotationZ": 0.0
             },
-            "LowerArmR": {
+            "b_ArmLowerR": {
+              "rotShortestDistance": true,
               "rotationX": 0.0,
               "rotationY": 0.0,
               "rotationZ": 0.0
-            }
-          }
-        },
-        {
-          "frame": 15,
-          "elements": {
-            "UpperArmR": {
-              "rotationX": -3.0,
-              "rotationY": -30.0,
-              "rotationZ": -64.0
-            },
-            "LowerArmR": {
-              "rotationX": -66.0,
-              "rotationY": 3.0,
-              "rotationZ": -50.0
             }
           }
         },
         {
           "frame": 30,
           "elements": {
-            "LowerArmR": {
-              "rotationX": -66.0,
-              "rotationY": -6.0,
-              "rotationZ": -36.0
+            "b_ArmUpperR": {
+              "rotShortestDistance": true,
+              "rotationX": 0.592990193551337,
+              "rotationY": 99.98138824053551,
+              "rotationZ": 13.626133479074351
             },
-            "UpperArmR": {
-              "rotationX": -3.0,
-              "rotationY": -30.0,
-              "rotationZ": -64.0
+            "b_ArmLowerR": {
+              "rotShortestDistance": true,
+              "rotationX": 68.48660733604133,
+              "rotationY": -29.786598404398205,
+              "rotationZ": -14.531507496958113
             }
           }
         },
         {
           "frame": 35,
           "elements": {
-            "LowerArmR": {
-              "rotationX": -100.0,
-              "rotationY": -55.0,
-              "rotationZ": 25.0
+            "b_ArmUpperR": {
+              "rotShortestDistance": true,
+              "rotationX": -2.7268847242358802,
+              "rotationY": 97.08911048554778,
+              "rotationZ": 56.060396367712954
             },
-            "UpperArmR": {
-              "rotationX": -19.0,
-              "rotationY": -42.0,
-              "rotationZ": -75.0
+            "b_ArmLowerR": {
+              "rotShortestDistance": true,
+              "rotationX": 118.11942868578994,
+              "rotationY": -125.19037860895105,
+              "rotationZ": 7.494679605028608
             }
           }
         }
       ]
     },
-    "file": "game:shapes/entity/humanoid/seraph-faceless.json"
+    "file": "kemono:shapes/entity/horse/main/horse0.json"
   },
   {
     "file": "game:entities/humanoid/player.json",
