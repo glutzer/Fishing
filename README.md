@@ -1,1 +1,1 @@
-https://www.nexusmods.com/vintagestory/mods/11
+Permission to fork this mod is granted.
