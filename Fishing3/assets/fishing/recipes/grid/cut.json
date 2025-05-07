@@ -1,0 +1,52 @@
+[
+  {
+    "ingredientPattern": "K,F",
+    "recipeGroup": 1,
+    "shapeless": true,
+    "ingredients": {
+      "K": {
+        "type": "item",
+        "code": "game:knife-*",
+        "isTool": true,
+        "toolDurabilityCost": 10
+      },
+      "F": {
+        "type": "item",
+        "code": "fishing:fish",
+        "quantity": 0
+      }
+    },
+    "width": 1,
+    "height": 2,
+    "output": {
+      "type": "item",
+      "code": "fishing:dummycut",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "K,F",
+    "recipeGroup": 2,
+    "shapeless": true,
+    "ingredients": {
+      "K": {
+        "type": "item",
+        "code": "game:cleaver-*",
+        "isTool": true,
+        "toolDurabilityCost": 5
+      },
+      "F": {
+        "type": "item",
+        "code": "fishing:fish",
+        "quantity": 0
+      }
+    },
+    "width": 1,
+    "height": 2,
+    "output": {
+      "type": "item",
+      "code": "fishing:dummycut",
+      "quantity": 16
+    }
+  }
+]

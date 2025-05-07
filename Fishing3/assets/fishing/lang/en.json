@@ -1,4 +1,6 @@
 {
+  "item-dummycut": "Fish Cut",
+
   "game:characterclass-alchemist": "Apothecary",
   "game:characterdesc-alchemist": "<font color=\"#99c9f9\"><i>Rivers of power course through your veins.</i></font>",
 
