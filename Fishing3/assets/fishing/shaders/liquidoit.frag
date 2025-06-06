@@ -44,7 +44,7 @@ void drawPixel(vec4 colorA) {
       colorA.a *
       clamp(0.03 / (1e-5 + pow(gl_FragCoord.z / 200, 4.0)), 1e-2, 3e3);
 
-  outAccu = vec4(colorA.rgb * colorA.a, colorA.a) * weight; // Half weight.
+  outAccu = vec4(colorA.rgb * colorA.a, colorA.a) * weight;
 
   outReveal.r = colorA.a;
 
