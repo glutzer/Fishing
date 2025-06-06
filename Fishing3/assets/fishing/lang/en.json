@@ -20,6 +20,8 @@
   "game:tabname-fishing": "Fishing",
   "game:tabname-fishing-fluids": "Fishing Fluids",
 
+  "item-dummycut": "Butcher Fish",
+
   "block-heatpipe": "Heat Pipe",
   "block-jar": "Jar",
   "block-alembic-north": "Alembic",
