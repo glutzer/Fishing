@@ -64,10 +64,10 @@ public class WidgetInWorldItemSlot : WidgetBaseItemGrid
             Vector3d slotPos = getPosDelegate();
             RenderTools.WorldPosToPixelCoords(slotPos, out float x, out float y, out double depth, out bool isBehind);
 
-            float size = Math.Clamp(1f - depth, 0.04f, 0.1f);
+            double size = Math.Clamp(1f - depth, 0.04f, 0.1f);
             size *= 15f;
 
-            sizeMulti = size;
+            sizeMulti = (float)size;
 
             FixedPos((int)(x - (SlotSize * width * size)), (int)(y - (SlotSize * height * size)));
             FixedSize((int)(SlotSize * 2 * width * size), (int)(SlotSize * 2 * height * size));
