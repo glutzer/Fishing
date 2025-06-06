@@ -31,6 +31,8 @@ public class EntityLeviathanHead : EntityLeviathanBase, IPhysicsTickable
     /// </summary>
     public bool CollidingWithGround { get; private set; }
 
+    public Entity Entity => this;
+
     private Accumulator clientTicker = Accumulator.WithInterval(1 / 20f).Max(1f);
 
     /// <summary>

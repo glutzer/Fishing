@@ -224,4 +224,6 @@ public class EntityBobber : Entity, IPhysicsTickable
 
     public override double SwimmingOffsetY => 0.6f;
     public override float MaterialDensity => behavior != null ? behavior.CanFloat ? 800f : 2000f : 800f;
+
+    public Entity Entity => this;
 }
