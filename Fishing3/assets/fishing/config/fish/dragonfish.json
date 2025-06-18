@@ -3,5 +3,6 @@
   "baseKg": 5,
   "model": "fishing:fish/dragonfish",
   "tempRange": [ -25, 0 ],
-  "weight": 0.25
+  "weight": 0.25,
+  "oilFluid": "fishoil-dragonfish"
 }

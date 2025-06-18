@@ -75,9 +75,4 @@ public class DummyCut : Item
 
         return base.ConsumeCraftingIngredients(slots, outputSlot, matchingRecipe);
     }
-
-    public override bool Satisfies(ItemStack thisStack, ItemStack otherStack)
-    {
-        return true;
-    }
 }

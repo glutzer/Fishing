@@ -1,12 +1,12 @@
 {
   "type": "code",
-  "modid": "fishmod",
+  "modid": "horsedarksoulsmod",
   "name": "Fishing",
   "authors": [
     "nuts"
   ],
   "description": "",
-  "version": "3.0.5",
+  "version": "3.0.7",
   "dependencies": {
     "game": "",
     "ponylib": "2.7.0"

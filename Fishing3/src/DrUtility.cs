@@ -18,8 +18,8 @@ public static class DrUtility
     /// </summary>
     public static float CalculateDr(float value, float baseLine, float rate)
     {
-        if (value <= baseLine) return value; 
-        
+        if (value <= baseLine) return value;
+
         float ratio = value / baseLine;
         float power = 1 / rate;
         power = MathF.Pow(ratio, power);
@@ -27,7 +27,7 @@ public static class DrUtility
         power += 1;
         return power * baseLine;
     }
-    
+
     /// <summary>
     /// Takes a value with DR applied, gets the reverse of it.
     /// </summary>

@@ -44,6 +44,15 @@ public partial class ItemFishingPole : Item, IRenderableItem
         if (!ReadStack(0, stack, api, out ItemStack? lineStack)) return true;
 
         AnimationUtility.GetRightHandPosition(player, new Vector3(0.5f - 4.5f, 0, 0.5f), out Vector3d pos);
+        Vec3d camPos = MainAPI.Capi.World.Player.Entity.CameraPos;
+        Vec3d offset = camPos - player.Pos.XYZ;
+
+        if (!player.IsSelf())
+        {
+            pos.X += offset.X;
+            pos.Y += offset.Y;
+            pos.Z += offset.Z;
+        }
 
         // Calc sway.
         float xSway = stack.Attributes.GetFloat("xSway", 0);

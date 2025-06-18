@@ -14,7 +14,7 @@
     "InputItem": "game:fruit-{fruit}",
     "OutputFluid": {
       "Code": "juice-{fruit}",
-      "Units": 10
+      "Units": 30
     },
     "Ticks": 100
   }
