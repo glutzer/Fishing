@@ -1,0 +1,32 @@
+{
+  "Code": "fishoil",
+  "Variants": {
+    "fish": ["generic", "dragonfish"]
+  },
+  "VariantOverrides": {
+    "*-dragonfish": {
+      "Color": [0.2, 0.2, 1, 0.9],
+      "GlowLevel": 0.5,
+      "Behaviors": {
+        "FluidBehaviorReagent": {
+          "Effects": [
+            {
+              "Type": "EffectNightVision"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "Color": [1, 0.9, 0, 0.6],
+  "Class": "Fluid",
+  "Behaviors": {
+    "FluidBehaviorReagent": {
+      "Effects": [
+        {
+          "Type": "MetaEffectExtender"
+        }
+      ]
+    }
+  }
+}

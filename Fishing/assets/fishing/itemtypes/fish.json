@@ -1,0 +1,60 @@
+{
+  "comment": "Single fish item used for all fish species.",
+  "heldRightTpIdleAnimation": "holdinglanternrighthand",
+  "heldLeftTpIdleAnimation": "holdinglanternlefthand",
+  "storageFlags": 257,
+  "materialDensity": 600,
+  "code": "fish",
+  "class": "ItemFish",
+  "maxstacksize": 1,
+  "shape": {
+    "base": "fishing:fish/salmon"
+  },
+  "attributes": {
+    "maxTemperature": 200
+  },
+  "creativeinventory": {
+    "fishing": ["*"]
+  },
+  "transitionablePropsByType": {
+    "*": [
+      {
+        "type": "Perish",
+        "freshHours": {
+          "avg": 72
+        },
+        "transitionHours": {
+          "avg": 36
+        },
+        "transitionedStack": {
+          "type": "item",
+          "code": "game:rot"
+        },
+        "transitionRatio": 1
+      }
+    ]
+  },
+  "tpHandTransform": {
+    "translation": { "x": 0, "y": 0, "z": 0 },
+    "rotation": { "x": 0, "y": 8, "z": 0 },
+    "origin": { "x": 0, "y": 0, "z": 0 },
+    "scale": 1
+  },
+  "tpOffHandTransform": {
+    "translation": { "x": -0.05, "y": -0.05, "z": -0.05 },
+    "rotation": { "x": 0, "y": -8, "z": 0 },
+    "origin": { "x": 0, "y": 0, "z": 0 },
+    "scale": 1
+  },
+  "guiTransform": {
+    "translation": { "x": 2, "y": -15, "z": 0 },
+    "rotation": { "x": 0, "y": 0, "z": -90 },
+    "origin": { "x": 0, "y": 0, "z": 0 }
+  },
+  "groundTransform": {
+    "translation": { "x": 0, "y": 0.1, "z": 0 },
+    "rotation": { "x": 90, "y": 0, "z": 0 },
+    "origin": { "x": 0, "y": 0, "z": 0 },
+    "scale": 5
+  }
+}

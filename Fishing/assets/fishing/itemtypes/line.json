@@ -1,0 +1,42 @@
+{
+  "code": "line",
+  "HeldRightReadyAnimation": "none",
+  "HeldLeftReadyAnimation": "none",
+  "maxstacksize": 1,
+  "variantgroups": [
+    {
+      "code": "type",
+      "states": ["linen", "rope"]
+    }
+  ],
+  "attributes": {
+    "lineTypeByType": {
+      "line-linen": "linen",
+      "line-rope": "rope"
+    }
+  },
+  "durabilityByType": {
+    "line-linen": 200,
+    "line-rope": 100
+  },
+  "shape": {
+    "base": "fishing:parts/line"
+  },
+  "textures": {
+    "linen": {
+      "baseByType": {
+        "line-linen": "fishing:lines/linen",
+        "line-rope": "fishing:lines/rope"
+      }
+    }
+  },
+  "creativeinventory": {
+    "fishing": ["*"]
+  },
+  "guiTransform": {
+    "translation": { "x": 0, "y": 0, "z": 0 },
+    "rotation": { "x": -20, "y": 20, "z": -1 },
+    "origin": { "x": 0.64, "y": 0.44, "z": 0 },
+    "scale": 1.6
+  }
+}

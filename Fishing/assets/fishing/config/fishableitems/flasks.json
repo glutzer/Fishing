@@ -1,0 +1,30 @@
+[
+  {
+    "code": "fishing:flask-small-unlabeled",
+    "weight": 0.02,
+    "tier": 0,
+    "kg": 1,
+    "liquids": ["saltwater"]
+  },
+  {
+    "code": "fishing:flask-medium-unlabeled",
+    "weight": 0.02,
+    "tier": 1,
+    "kg": 1,
+    "liquids": ["saltwater"]
+  },
+  {
+    "code": "fishing:flask-large-unlabeled",
+    "weight": 0.02,
+    "tier": 2,
+    "kg": 1,
+    "liquids": ["saltwater"]
+  },
+  {
+    "code": "game:jug-brown-fired",
+    "weight": 0.02,
+    "tier": 1,
+    "kg": 1,
+    "liquids": ["water"]
+  }
+]

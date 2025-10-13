@@ -1,0 +1,15 @@
+{
+  "ingredient": {
+    "type": "item",
+    "code": "game:ingot-*",
+    "name": "metal",
+    "allowedVariants": ["copper", "tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel"]
+  },
+  "pattern": [
+    ["_______________", "###############", "_______________"]
+  ],
+  "output": {
+    "type": "item",
+    "code": "fishing:metalrod-{metal}"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "Code": "blood",
+  "Class": "Fluid",
+  "Color": [0.8, 0, 0, 1],
+  "Behaviors": {
+    "FluidBehaviorReagent": {
+      "Effects": [
+        {
+          "Type": "MetaEffectBlood"
+        }
+      ]
+    },
+    "FluidBehaviorBlood": {
+
+    }
+  }
+}

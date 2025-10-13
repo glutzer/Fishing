@@ -1,0 +1,56 @@
+{
+  "code": "leviathansegment",
+  "class": "EntityLeviathanSegment",
+  "collisionBoxSize": {
+    "x": 10,
+    "y": 10
+  },
+  "deadCollisionBoxSize": {
+    "x": 10,
+    "y": 10
+  },
+  "selectionBoxSize": {
+    "x": 12,
+    "y": 12
+  },
+  "deadSelectionBoxSize": {
+    "x": 12,
+    "y": 12
+  },
+  "client": {
+    "size": 10,
+    "pitchStep": false,
+    "renderer": "LeviathanRenderer",
+    "shape": {
+      "base": "fishing:leviathan/segment"
+    },
+    "behaviors": [
+      {
+        "code": "interpolateposition"
+      },
+      {
+        "code": "repulseagents"
+      }
+    ]
+  },
+  "server": {
+    "behaviors": [
+      {
+        "code": "repulseagents"
+      },
+      {
+        "code": "health",
+        "currenthealthByType": {
+          "*": 200
+        },
+        "maxhealthByType": {
+          "*": 200
+        }
+      }
+    ]
+  },
+  "sounds": {
+    "hurt": "game:creature/locust/hurt",
+    "death": "game:creature/locust/death"
+  }
+}

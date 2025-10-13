@@ -1,0 +1,47 @@
+{
+  "code": "bobber",
+  "HeldRightReadyAnimation": "none",
+  "HeldLeftReadyAnimation": "none",
+  "maxstacksize": 1,
+  "variantgroups": [
+    {
+      "code": "type",
+      "states": ["cork"]
+    }
+  ],
+  "shapeByType": {
+    "bobber-cork": {
+      "base": "fishing:parts/corkbobber"
+    }
+  },
+  "behaviorsByType": {
+    "*-cork": [
+      {
+        "name": "CollectibleBehaviorBobber",
+        "properties": {
+          "bobberType": "BobberFishable"
+        }
+      }
+    ]
+  },
+  "creativeinventory": {
+    "fishing": ["*"]
+  },
+  "guiTransform": {
+    "translation": { "x": 2, "y": 3, "z": 0 },
+    "rotation": { "x": 0, "y": -45, "z": -180 },
+    "origin": { "x": 0.5, "y": 0.5, "z": 0.5 },
+    "scale": 2.6
+  },
+  "tpHandTransform": {
+    "translation": { "x": -1, "y": -0.8, "z": -0.8 },
+    "rotation": { "x": 5, "y": 5, "z": 5 },
+    "scale": 0.6
+  },
+  "groundTransform": {
+    "translation": { "x": 0, "y": 0.1, "z": 0 },
+    "rotation": { "x": 90, "y": 0, "z": 0 },
+    "origin": { "x": 0.5, "y": 0.5, "z": 0.5 },
+    "scale": 3
+  }
+}

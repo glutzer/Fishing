@@ -1,0 +1,34 @@
+[
+  {
+    "ingredientPattern": "  R,CRA,RCN",
+    "recipeGroup": 1,
+    "ingredients": {
+      "N": {
+        "type": "item",
+        "code": "game:metalnailsandstrips-*",
+        "allowedVariants": ["copper", "tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel"],
+        "quantity": 8
+      },
+      "R": {
+        "type": "item",
+        "code": "fishing:metalrod-*",
+        "name": "metal",
+        "allowedVariants": ["copper", "tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel"]
+      },
+      "C": {
+        "type": "item",
+        "code": "fishing:cork"
+      },
+      "A": {
+        "type": "block",
+        "code": "game:woodenaxle-*"
+      }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+      "type": "item",
+      "code": "fishing:fishingrod-metal{metal}"
+    }
+  }
+]
