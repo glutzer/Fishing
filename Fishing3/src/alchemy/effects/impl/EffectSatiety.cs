@@ -2,7 +2,7 @@
 using Vintagestory.API.Common;
 using JsonObject = System.Text.Json.Nodes.JsonObject;
 
-namespace Fishing3;
+namespace Fishing;
 
 [Effect]
 public class EffectSatiety : AlchemyEffect, IEffectInfoProvider

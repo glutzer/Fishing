@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Text.Json.Nodes;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Effect spawned from a reagent.

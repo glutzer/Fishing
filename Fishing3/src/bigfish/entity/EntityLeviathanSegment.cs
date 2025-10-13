@@ -3,7 +3,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.GameContent;
 
-namespace Fishing3;
+namespace Fishing;
 
 [Entity]
 public class EntityLeviathanSegment : EntityLeviathanBase

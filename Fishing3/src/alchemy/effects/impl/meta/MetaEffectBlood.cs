@@ -1,4 +1,4 @@
-﻿namespace Fishing3;
+﻿namespace Fishing;
 
 [Effect]
 public class MetaEffectBlood : AlchemyEffect, IMetaEffect

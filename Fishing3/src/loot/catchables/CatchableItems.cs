@@ -3,7 +3,7 @@ using System.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class FishingItemJson
 {

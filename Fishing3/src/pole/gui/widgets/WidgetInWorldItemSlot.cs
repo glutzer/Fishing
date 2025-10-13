@@ -2,7 +2,7 @@
 using System;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class WidgetInWorldItemSlot : WidgetBaseItemGrid
 {
@@ -77,7 +77,7 @@ public class WidgetInWorldItemSlot : WidgetBaseItemGrid
         };
     }
 
-    public override void RenderBackground(Vector2 start, int size, float dt, MareShader shader, ItemSlot slot, int slotIndex)
+    public override void RenderBackground(Vector2 start, int size, float dt, NuttyShader shader, ItemSlot slot, int slotIndex)
     {
         shader.Uniform("color", MousedSlotIndex == slotIndex ? GuiThemes.DarkColor * 1.5f : GuiThemes.DarkColor);
         RenderTools.RenderNineSlice(bgTex, shader, start.X, start.Y, size, size);
@@ -93,7 +93,7 @@ public class WidgetInWorldItemSlot : WidgetBaseItemGrid
         }
     }
 
-    public override void RenderOverlay(Vector2 start, int size, float dt, MareShader shader, ItemSlot slot, int slotIndex)
+    public override void RenderOverlay(Vector2 start, int size, float dt, NuttyShader shader, ItemSlot slot, int slotIndex)
     {
         // Get durability of stack.
         if (slot.Itemstack == null) return;

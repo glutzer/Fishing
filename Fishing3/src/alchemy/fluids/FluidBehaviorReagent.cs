@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.Json.Nodes;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class EffectProperties
 {

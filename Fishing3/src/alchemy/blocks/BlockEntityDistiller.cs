@@ -6,7 +6,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Distills a fluid, leaving behind an item and outputting a distilled version.

@@ -2,7 +2,7 @@
 using System;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Something that has been caught and given to the bobber.

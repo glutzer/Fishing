@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 public partial class ItemFishingPole : Item, IItemWithInventory
 {

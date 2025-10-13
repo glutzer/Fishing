@@ -4,7 +4,7 @@ using System.Text;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class CollectibleBehaviorBait : CollectibleBehavior
 {
@@ -12,7 +12,7 @@ public class CollectibleBehaviorBait : CollectibleBehavior
     public float consumeChance = 1f;
 
     // Instead has a durability, won't use chance.
-    public bool lure;
+    public bool Lure { get; private set; }
 
     public float extraRarity = 0f;
     public float extraQuantity = 0f;
@@ -38,7 +38,7 @@ public class CollectibleBehaviorBait : CollectibleBehavior
 
         if (properties["lure"].Exists)
         {
-            lure = properties["lure"].AsBool(false);
+            Lure = properties["lure"].AsBool(false);
         }
 
         if (properties["tagMultipliers"].Exists)
@@ -72,7 +72,7 @@ public class CollectibleBehaviorBait : CollectibleBehavior
     /// </summary>
     public bool ConsumeBait(ItemStack stack)
     {
-        if (lure) // Remove 1 durability.
+        if (Lure) // Remove 1 durability.
         {
             int currentDurability = stack.Attributes.GetInt("durability", stack.Collectible.Durability);
             currentDurability -= 1;
@@ -93,7 +93,7 @@ public class CollectibleBehaviorBait : CollectibleBehavior
 
     public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder builder, IWorldAccessor world, bool withDebugInfo)
     {
-        if (!lure)
+        if (!Lure)
         {
             builder.AppendLine($"Bait consumption chance: {consumeChance * 100}%");
         }

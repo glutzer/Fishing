@@ -6,7 +6,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.Client.NoObf;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class FluidRenderingInstance
 {
@@ -41,7 +41,7 @@ public class FluidBlockRenderingSystem : GameSystem
 
     public static FluidBlockRenderingSystem? Instance { get; private set; }
 
-    private MareShader shader = null!;
+    private NuttyShader shader = null!;
 
     public FluidBlockRenderingSystem(bool isServer, ICoreAPI api) : base(isServer, api)
     {
@@ -57,7 +57,7 @@ public class FluidBlockRenderingSystem : GameSystem
         });
 
         Instance = this;
-        shader = MareShaderRegistry.AddShader("fishing:liquidoit", "fishing:liquidoit", "liquidoit");
+        shader = NuttyShaderRegistry.AddShader("fishing:liquidoit", "fishing:liquidoit", "liquidoit");
     }
 
     private void Render(float dt)

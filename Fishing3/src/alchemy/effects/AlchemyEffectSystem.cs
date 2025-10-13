@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 
-namespace Fishing3;
+namespace Fishing;
 
 public enum ApplicationMethod
 {

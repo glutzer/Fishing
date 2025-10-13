@@ -1,4 +1,4 @@
-﻿using Fishing3;
+﻿using Fishing;
 using System;
 using System.Linq;
 using Vintagestory.API.Common;

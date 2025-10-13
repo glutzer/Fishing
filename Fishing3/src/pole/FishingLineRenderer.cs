@@ -4,7 +4,7 @@ using Vintagestory.API.MathTools;
 using Vintagestory.Client;
 using Vintagestory.Client.NoObf;
 
-namespace Fishing3;
+namespace Fishing;
 
 public static class FishingLineRenderer
 {
@@ -25,7 +25,7 @@ public static class FishingLineRenderer
     {
         ShaderProgramBase? currentShader = ShaderProgramBase.CurrentShaderProgram;
         Vec4f lightRGBs = MainAPI.Capi.World.BlockAccessor.GetLightRGBs((int)startPos.X, (int)startPos.Y, (int)startPos.Z);
-        MareShader lineShader = MareShaderRegistry.Get("fishingline");
+        NuttyShader lineShader = NuttyShaderRegistry.Get("fishingline");
         lineShader.Use();
         lineShader.Uniform("droop", droopLevel);
         lineShader.BindTexture(texture, "tex2d");

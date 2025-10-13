@@ -7,7 +7,7 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Class for a bobber than can be reeled around, but doesn't catch anything.
@@ -77,7 +77,7 @@ public class BobberReelable : BobberBehavior
         {
             if (currentAnimation != null)
             {
-                currentAnimation.AnimationSpeed = 1; // Animation with 0 speed can't be stopped.
+                currentAnimation.AnimationSpeed = 1f; // Animation with 0 speed can't be stopped.
                 currentAnimation = null;
                 player.AnimManager.StopAnimation("LineReel");
             }
@@ -176,7 +176,7 @@ public class BobberReelable : BobberBehavior
 
             double velocityProjection = Vector3d.Dot(motionStruct, diff);
 
-            if (velocityProjection > 0) // Only correct velocity if it's moving outward
+            if (velocityProjection > 0) // Only correct velocity if it's moving outward.
             {
                 motionStruct -= velocityProjection * diff; // Remove outward velocity component.
                 motionStruct *= 0.98f;
@@ -187,7 +187,7 @@ public class BobberReelable : BobberBehavior
         Vector3d startPos = bobber.ServerPos.ToVector();
         currentPosition = collisionTester.DoCollision(startPos, currentPosition, bobber, bobber.Api);
 
-        // Update bobber position
+        // Update bobber position.
         bobber.ServerPos.SetPos(currentPosition.X, currentPosition.Y, currentPosition.Z);
         bobber.Pos.SetPos(currentPosition.X, currentPosition.Y, currentPosition.Z);
     }

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 [Item]
 public class ItemLabeledFlask : ItemFlask

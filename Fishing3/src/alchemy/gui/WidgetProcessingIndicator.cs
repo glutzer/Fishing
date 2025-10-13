@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Fishing3;
+namespace Fishing;
 
 public struct ProcessingParticleInstance
 {
@@ -51,7 +51,7 @@ public class WidgetProcessingIndicator : Widget
         particleQueue.Enqueue(inst);
     }
 
-    public override void OnRender(float dt, MareShader shader)
+    public override void OnRender(float dt, NuttyShader shader)
     {
         bool processing = isProcessing();
 

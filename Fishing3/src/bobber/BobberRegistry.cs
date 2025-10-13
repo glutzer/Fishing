@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 
-namespace Fishing3;
+namespace Fishing;
 
 [GameSystem]
 public class BobberRegistry : GameSystem

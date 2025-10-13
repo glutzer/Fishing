@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// A fluid with many others, for things like potions or separating.

@@ -1,6 +1,6 @@
 ﻿using Vintagestory.API.Config;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class WidgetEffectDisplay : Widget
 {

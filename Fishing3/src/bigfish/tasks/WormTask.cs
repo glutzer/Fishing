@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Server side worm tasks.

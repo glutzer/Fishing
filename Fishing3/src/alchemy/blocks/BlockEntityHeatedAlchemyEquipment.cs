@@ -2,7 +2,7 @@
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Has methods for interfacing with the heat pipe system.

@@ -3,7 +3,7 @@ using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class EntityLeviathanBase : EntityAgent
 {

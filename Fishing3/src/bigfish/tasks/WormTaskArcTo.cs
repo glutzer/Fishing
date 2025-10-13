@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using System;
 
-namespace Fishing3;
+namespace Fishing;
 
 [WormTask]
 public class WormTaskArcTo : WormTask

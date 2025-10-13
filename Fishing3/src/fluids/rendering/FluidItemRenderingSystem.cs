@@ -5,7 +5,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
-namespace Fishing3;
+namespace Fishing;
 
 public struct LiquidItemMeshInfo : IEquatable<LiquidItemMeshInfo>
 {

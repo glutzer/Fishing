@@ -6,7 +6,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.Client.NoObf;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class HeatPipeInstance
 {
@@ -53,7 +53,7 @@ public class HeatPipeSystem : GameSystem, IRenderer
         {
             pipeTexture = Texture.Create("fishing:textures/heatpipe.png", true, true);
             //pipeTexture = Texture.Create("game:textures/block/metal/sheet/cupronickel1.png", true, true);
-            MareShaderRegistry.AddShader("marelib:opaque", "fishing:heatpipe", "heatpipe");
+            NuttyShaderRegistry.AddShader("marelib:opaque", "fishing:heatpipe", "heatpipe");
         }
     }
 
@@ -188,7 +188,7 @@ public class HeatPipeSystem : GameSystem, IRenderer
         ShaderProgramBase? currentShader = ShaderProgramBase.CurrentShaderProgram;
         currentShader?.Stop();
 
-        MareShader pipeShader = MareShaderRegistry.Get("heatpipe");
+        NuttyShader pipeShader = NuttyShaderRegistry.Get("heatpipe");
         pipeShader.Use();
 
         pipeShader.LightUniforms();

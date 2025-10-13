@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Generic event.

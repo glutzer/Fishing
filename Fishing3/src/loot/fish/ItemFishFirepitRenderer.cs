@@ -4,7 +4,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class ItemFishFirepitRenderer : IInFirepitRenderer
 {

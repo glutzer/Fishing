@@ -5,7 +5,7 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class LeviathanRenderer : EntityShapeRenderer
 {

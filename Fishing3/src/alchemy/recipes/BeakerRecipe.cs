@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 // I have pasted the retort 5 times.
 [AlchemyRecipeType("beaker")]

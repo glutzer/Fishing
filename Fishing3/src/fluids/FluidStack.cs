@@ -6,7 +6,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Base fluid stack class.

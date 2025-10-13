@@ -4,7 +4,7 @@ using ProtoBuf.Meta;
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Defines, in local space a point of an attachment and a size.

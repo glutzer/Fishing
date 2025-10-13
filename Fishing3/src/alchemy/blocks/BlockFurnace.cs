@@ -2,7 +2,7 @@
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
-namespace Fishing3;
+namespace Fishing;
 
 [Block]
 public class BlockFurnace : Block, IIgnitable

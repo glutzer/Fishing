@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Fishing3;
+namespace Fishing;
 
 public interface ITierable
 {

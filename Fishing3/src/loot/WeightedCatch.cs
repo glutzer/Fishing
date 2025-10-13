@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class WeightedCatch : ITierable, IWeightable
 {

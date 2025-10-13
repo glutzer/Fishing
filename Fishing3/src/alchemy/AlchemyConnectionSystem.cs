@@ -5,7 +5,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 
-namespace Fishing3;
+namespace Fishing;
 
 [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
 public class AlchemyMarkerPacket

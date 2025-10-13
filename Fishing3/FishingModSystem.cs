@@ -1,10 +1,12 @@
-﻿using HarmonyLib;
+﻿global using NutsLib;
+
+using HarmonyLib;
 using ProtoBuf;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 
-namespace Fishing3;
+namespace Fishing;
 
 // Client sends to server to request opening item inventory of pole.
 [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
@@ -53,7 +55,7 @@ public class FishingGameSystem : NetworkedGameSystem
 
         if (!isServer)
         {
-            MareShaderRegistry.AddShader("fishing:fishingline", "marelib:opaque", "fishingline");
+            NuttyShaderRegistry.AddShader("fishing:fishingline", "marelib:opaque", "fishingline");
         }
     }
 
@@ -124,6 +126,6 @@ public class FishingGameSystem : NetworkedGameSystem
     }
 }
 
-public class Fishing3ModSystem : ModSystem
+public class FishingModSystem : ModSystem
 {
 }

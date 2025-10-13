@@ -2,7 +2,7 @@
 using System;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class WidgetAlchemyItemGrid : WidgetBaseItemGrid
 {
@@ -23,7 +23,7 @@ public class WidgetAlchemyItemGrid : WidgetBaseItemGrid
         };
     }
 
-    public override void RenderBackground(Vector2 start, int size, float dt, MareShader shader, ItemSlot slot, int slotIndex)
+    public override void RenderBackground(Vector2 start, int size, float dt, NuttyShader shader, ItemSlot slot, int slotIndex)
     {
         shader.Uniform("color", MousedSlotIndex == slotIndex ? GuiThemes.DarkColor * 4f : GuiThemes.DarkColor * 2);
         RenderTools.RenderNineSlice(tex, shader, start.X, start.Y, size, size);
@@ -35,7 +35,7 @@ public class WidgetAlchemyItemGrid : WidgetBaseItemGrid
         MainAPI.Capi.World.PlaySoundAt(slotSounds[Random.Shared.Next(slotSounds.Length)], MainAPI.Capi.World.Player);
     }
 
-    public override void RenderOverlay(Vector2 start, int size, float dt, MareShader shader, ItemSlot slot, int slotIndex)
+    public override void RenderOverlay(Vector2 start, int size, float dt, NuttyShader shader, ItemSlot slot, int slotIndex)
     {
         // Get durability of stack.
         if (slot.Itemstack == null) return;

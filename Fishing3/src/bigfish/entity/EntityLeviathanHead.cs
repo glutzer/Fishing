@@ -8,7 +8,7 @@ using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 
-namespace Fishing3;
+namespace Fishing;
 
 // It is calculated if: the entity is CollidedWithGround, or Swimming.
 

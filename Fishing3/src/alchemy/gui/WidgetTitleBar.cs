@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class WidgetTitleBar : WidgetBaseDraggableTitle
 {
@@ -22,7 +22,7 @@ public class WidgetTitleBar : WidgetBaseDraggableTitle
         background = GuiThemes.Background;
     }
 
-    public override void OnRender(float dt, MareShader shader)
+    public override void OnRender(float dt, NuttyShader shader)
     {
         shader.Uniform("color", new Vector4(0.1f, 0.1f, 0.1f, 1));
         RenderTools.RenderNineSlice(background, shader, X, Y, Width, Height);

@@ -21,16 +21,7 @@
   "game:tabname-fishing-fluids": "Fishing Fluids",
 
   "item-dummycut": "Butcher Fish",
-
-  "block-heatpipe": "Heat Pipe",
-  "block-jar": "Jar",
-  "block-alembic-north": "Alembic",
-  "block-furnace-north": "Furnace",
-  "block-reactor-north": "Reactor",
-  "block-distiller-north": "Distiller",
-  "block-beaker-north": "Beaker",
-  "block-retort": "Retort",
-  "block-cauldron": "Cauldron",
+  
   "block-flotsam-normal": "Flotsam",
 
   "species-fish": "Fish",
@@ -48,21 +39,21 @@
   "species-dragonfish": "Dragonfish",
   "species-sunfish": "Sunfish",
 
-  "item-fishingpole-metalcopper": "Copper Fishing Pole",
-  "item-fishingpole-metaltinbronze": "Tin Bronze Fishing Pole",
-  "item-fishingpole-metalbismuthbronze": "Bismuth Bronze Fishing Pole",
-  "item-fishingpole-metalblackbronze": "Black Bronze Fishing Pole",
-  "item-fishingpole-metaliron": "Iron Fishing Pole",
-  "item-fishingpole-metalmeteoriciron": "Meteoric Iron Fishing Pole",
-  "item-fishingpole-metalsteel": "Steel Fishing Pole",
+  "item-fishingrod-metalcopper": "Copper Fishing Rod",
+  "item-fishingrod-metaltinbronze": "Tin Bronze Fishing Rod",
+  "item-fishingrod-metalbismuthbronze": "Bismuth Bronze Fishing Rod",
+  "item-fishingrod-metalblackbronze": "Black Bronze Fishing Rod",
+  "item-fishingrod-metaliron": "Iron Fishing Rod",
+  "item-fishingrod-metalmeteoriciron": "Meteoric Iron Fishing Rod",
+  "item-fishingrod-metalsteel": "Steel Fishing Rod",
 
-  "item-metalrod-copper": "Copper Fishing Pole Part",
-  "item-metalrod-tinbronze": "Tin Bronze Fishing Pole Part",
-  "item-metalrod-bismuthbronze": "Bismuth Bronze Fishing Pole Part",
-  "item-metalrod-blackbronze": "Black Bronze Fishing Pole Part",
-  "item-metalrod-iron": "Iron Fishing Pole Part",
-  "item-metalrod-meteoriciron": "Meteoric Iron Fishing Pole Part",
-  "item-metalrod-steel": "Steel Fishing Pole Part",
+  "item-metalrod-copper": "Copper Fishing Rod Part",
+  "item-metalrod-tinbronze": "Tin Bronze Fishing Rod Part",
+  "item-metalrod-bismuthbronze": "Bismuth Bronze Fishing Rod Part",
+  "item-metalrod-blackbronze": "Black Bronze Fishing Rod Part",
+  "item-metalrod-iron": "Iron Fishing Rod Part",
+  "item-metalrod-meteoriciron": "Meteoric Iron Fishing Rod Part",
+  "item-metalrod-steel": "Steel Fishing Rod Part",
 
   "item-syringe-metalcopper": "Copper Syringe",
   "item-syringe-metaltinbronze": "Tin Bronze Syringe",
@@ -87,71 +78,20 @@
   "item-flask-large-labeled": "Large Flask (Blank Label)",
 
   "fluid-blood": "Blood",
-  "fluid-fentanyl": "Fentanyl",
 
   "fluid-fishoil-generic": "Fish Oil",
   "fluid-fishoil-dragonfish": "Dragonfish Oil",
 
-  "fluid-juice-blueberry": "Blueberry Juice",
-  "fluid-juice-cranberry": "Cranberry Juice",
-  "fluid-juice-redcurrant": "Red Currant Juice",
-  "fluid-juice-whitecurrant": "White Currant Juice",
-  "fluid-juice-blackcurrant": "Black Currant Juice",
-  "fluid-juice-saguaro": "Saguaro Juice",
-  "fluid-juice-pineapple": "Pineapple Juice",
-  "fluid-juice-apple": "Apple Juice",
-  "fluid-juice-cherry": "Cherry Juice",
-  "fluid-juice-peach": "Peach Juice",
-  "fluid-juice-pear": "Pear Juice",
-  "fluid-juice-orange": "Orange Juice",
-  "fluid-juice-mango": "Mango Juice",
-  "fluid-juice-breadfruit": "Breadfruit Juice",
-  "fluid-juice-lychee": "Lychee Juice",
-  "fluid-juice-pomegranate": "Pomegranate Juice",
-
-  "fluid-mushroomextract-generic": "Mushroom Extract",
-  "fluid-mushroomextract-amatoxin": "Amatoxin Extract",
-
   "fluid-lava": "Lava",
   "fluid-liquidrot": "Liquid Rot",
-  "fluid-potion": "Potion",
 
   "fluid-water-fresh": "Fresh Water",
   "fluid-water-salt": "Salt Water",
   "fluid-water-tainted": "Tainted Water",
 
-  "fluid-alcohol": "Alcohol",
-
-  "fluid-acid-sulfuric": "Sulfuric Acid",
-  "fluid-acid-nitric": "Nitric Acid",
-
-  "fluid-ammonia": "Ammonia",
-
-  "fluid-primamateria": "Prima Materia",
-  "fluid-azoth": "Azoth",
-
   "item-creature-leviathan": "Leviathan",
   "item-creature-leviathansegment": "Leviathan",
 
   "game:fishinginfo-title": "Fishing: Fishing",
-  "game:fishinginfo-text": "<i>The top of the food chain, for now.</i><br><br>With metal acquired, you can now make a <a href=\"handbook://item-fishing:fishingpole-metalcopper\">sturdy rod</a>.<br><br>A <a href=\"handbook://item-fishing:line-rope\">line</a> is needed to cast it, it loses durability when stress is put on it.<br>One of the many types of <a href=\"handbook://item-fishing:bobber-cork\">bobbers</a> may be attached to the line to fish in different ways.<br><br>Without a type of <a href=\"handbook://block-mushroom-flyagaric-normal\">bait</a>, it's unlikely you'll attract anything, but anything is possible.<br><br><strong>Fishing</strong><br><br>Charge your rod, and release to cast in the direction you're looking. Holding <hk>primarymouse</hk> will releasemore line, and <hk>secondarymouse</hk> will reel it in.<br><br>You'll want to stand far away to not disturb the fish, around 25-50 meters. The weather, temperature, and size of the body of water will also influence your catch.<br><br>Once you hook something, be careful not to put too much stress on it when it fights.",
-
-  "game:alchemyinfo-title": "Fishing: Alchemy",
-  "game:alchemyinfo-text": "<i>These potions could kill a Seraph, let alone a man.</i><br><br>There is no guide for recipes yet, so you can find some info on lost alchemy recipes from fishing up messages in bottles.<br><br>Certain types of <a href=\"handbook://block-fishing:distiller-north\">alchemy equipment</a> can be used to create and transform fluids, but you will probably need a <a href=\"handbook://block-fishing:jar\">jar</a> to collect the result at the end.<br><br>Alchemy equipment can be connected by <hk>secondarymouse</hk> on the block attachment points.<br><br>Some alchemy equipment will need a <a href=\"handbook://block-fishing:furnace-north\">heat source</a> to function, and a certain range of temperature.<br><br>Items such as <a href=\"handbook://item-fishing:flask-medium-unlabeled\">flasks</a> can be used to add and remove fluid from containers, and maybe consume them.<br><br>Fluids containing a <strong>reagent</strong> may grant effects upon consumption based on their purity, volume, and if mixed together with a <a href=\"handbook://block-fishing:cauldron\">cauldron</a>, other fluids present.",
-
-  "game:MetaEffectAmplifier": "Amplifier",
-  "game:MetaEffectBlood": "Blood",
-  "game:MetaEffectDilution": "Dilution",
-  "game:MetaEffectExtender": "Extender",
-
-  "game:EffectChameleon": "Chameleon",
-  "game:EffectFentanyl": "Fentanyl",
-  "game:EffectIgnition": "Ignited",
-  "game:EffectIntoxication": "Intoxicated",
-  "game:EffectMoveSpeed": "Swiftness",
-  "game:EffectNightVision": "Night Vision",
-  "game:EffectRegeneration": "Regeneration",
-  "game:EffectSatiety": "Satiety",
-  "game:EffectToxin": "Toxin",
-  "game:EffectTranslocation": "Translocation"
+  "game:fishinginfo-text": "<i>The top of the food chain, for now.</i><br><br>With metal acquired, you can now make a <a href=\"handbook://item-fishing:fishingrod-metalcopper\">sturdy rod</a>.<br><br>A <a href=\"handbook://item-fishing:line-rope\">line</a> is needed to cast it, it loses durability when stress is put on it.<br>One of the many types of <a href=\"handbook://item-fishing:bobber-cork\">bobbers</a> may be attached to the line to fish in different ways.<br><br>Without a type of <a href=\"handbook://block-mushroom-flyagaric-normal\">bait</a>, it's unlikely you'll attract anything, but anything is possible.<br><br><strong>Fishing</strong><br><br>Charge your rod, and release to cast in the direction you're looking. Holding <hk>primarymouse</hk> will releasemore line, and <hk>secondarymouse</hk> will reel it in.<br><br>You'll want to stand far away to not disturb the fish, around 25-50 meters. The weather, temperature, and size of the body of water will also influence your catch.<br><br>Once you hook something, be careful not to put too much stress on it when it fights."
 }

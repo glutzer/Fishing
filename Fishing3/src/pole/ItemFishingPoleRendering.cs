@@ -9,7 +9,7 @@ using Vintagestory.API.Util;
 using Vintagestory.Client.NoObf;
 using Vintagestory.GameContent;
 
-namespace Fishing3;
+namespace Fishing;
 
 public partial class ItemFishingPole : Item, IRenderableItem
 {

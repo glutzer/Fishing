@@ -1,6 +1,6 @@
 ﻿using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Used for bags, fishing pole, tackle box.

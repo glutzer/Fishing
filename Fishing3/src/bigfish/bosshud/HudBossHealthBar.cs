@@ -2,7 +2,7 @@
 using Vintagestory.API.Client;
 using Vintagestory.API.Common.Entities;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class HudBossHealthBar : Gui
 {

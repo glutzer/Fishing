@@ -5,7 +5,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.Client.NoObf;
 
-namespace Fishing3;
+namespace Fishing;
 
 [Effect]
 public class EffectNightVision : AlchemyEffect, IRenderer

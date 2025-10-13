@@ -2,7 +2,7 @@
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 
-namespace Fishing3;
+namespace Fishing;
 
 public static class AttributeExtensions1
 {

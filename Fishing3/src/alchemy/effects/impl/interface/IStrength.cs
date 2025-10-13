@@ -1,4 +1,4 @@
-﻿namespace Fishing3;
+﻿namespace Fishing;
 
 public interface IStrength
 {

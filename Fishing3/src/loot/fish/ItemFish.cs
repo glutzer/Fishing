@@ -9,7 +9,7 @@ using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
-namespace Fishing3;
+namespace Fishing;
 
 [Item]
 public class ItemFish : ItemFluidStorage, IInFirepitRendererSupplier

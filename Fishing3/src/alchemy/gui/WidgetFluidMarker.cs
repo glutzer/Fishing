@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using System;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class WidgetFluidMarker : WidgetBaseSlider
 {
@@ -28,7 +28,7 @@ public class WidgetFluidMarker : WidgetBaseSlider
         };
     }
 
-    public override void OnRender(float dt, MareShader shader)
+    public override void OnRender(float dt, NuttyShader shader)
     {
         if (lastStep != cursorStep)
         {

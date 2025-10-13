@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 public static class BetterWildCard
 {

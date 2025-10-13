@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Vintagestory.API.Server;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Attribute for any Catchable to be registered.

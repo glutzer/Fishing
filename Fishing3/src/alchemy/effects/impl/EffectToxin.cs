@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.GameContent;
 
-namespace Fishing3;
+namespace Fishing;
 
 [Effect]
 public class EffectToxin : AlchemyEffect

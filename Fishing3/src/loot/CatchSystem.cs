@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 
-namespace Fishing3;
+namespace Fishing;
 
 [GameSystem]
 public class CatchSystem : GameSystem
@@ -142,7 +142,7 @@ public class CatchSystem : GameSystem
         CollectibleBehaviorBait? collectibleBehaviorBait = baitStack.Collectible.GetBehavior<CollectibleBehaviorBait>();
         if (collectibleBehaviorBait == null) return;
 
-        if (collectibleBehaviorBait.lure)
+        if (collectibleBehaviorBait.Lure)
         {
             ItemFishingPole.DamageStack(2, hotbarSlot, api, 1);
         }

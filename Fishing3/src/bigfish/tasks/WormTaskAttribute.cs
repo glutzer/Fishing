@@ -1,4 +1,4 @@
-﻿namespace Fishing3;
+﻿namespace Fishing;
 
 public class WormTaskAttribute : ClassAttribute
 {

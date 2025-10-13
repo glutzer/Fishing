@@ -1,4 +1,4 @@
-﻿namespace Fishing3;
+﻿namespace Fishing;
 
 /// <summary>
 /// Something that has a default input fluid container.

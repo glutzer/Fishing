@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Vintagestory.API.Client;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Will show all duration effects and their remaining time for the current player.

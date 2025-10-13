@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using Vintagestory.API.Client;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class WidgetFluidMeter : Widget
 {
@@ -43,7 +43,7 @@ public class WidgetFluidMeter : Widget
         }
     }
 
-    public override void OnRender(float dt, MareShader shader)
+    public override void OnRender(float dt, NuttyShader shader)
     {
         shader.BindTexture(blank, "tex2d");
         shader.Uniform("color", GuiThemes.DarkColor * 0.5f);

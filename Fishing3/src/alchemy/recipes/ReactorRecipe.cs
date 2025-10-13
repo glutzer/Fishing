@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 [AlchemyRecipeType("reactor")]
 public class ReactorRecipe : IAlchemyRecipe, IParchmentable

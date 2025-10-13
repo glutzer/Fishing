@@ -2,7 +2,7 @@
 using Vintagestory.API.Common.Entities;
 using Vintagestory.GameContent;
 
-namespace Fishing3;
+namespace Fishing;
 
 [Effect]
 public class EffectFentanyl : AlchemyEffect

@@ -3,7 +3,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class CollectibleBehaviorBobber : CollectibleBehavior
 {

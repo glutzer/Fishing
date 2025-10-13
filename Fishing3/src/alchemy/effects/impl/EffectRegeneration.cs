@@ -1,6 +1,6 @@
 ﻿using Vintagestory.GameContent;
 
-namespace Fishing3;
+namespace Fishing;
 
 [Effect]
 public class EffectRegeneration : AlchemyEffect

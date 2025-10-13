@@ -1,7 +1,7 @@
 ﻿using System;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Holds a fluid stack and has a capacity.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class GuiAlchemyEquipment : Gui
 {

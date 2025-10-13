@@ -4,7 +4,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.Server;
 
-namespace Fishing3;
+namespace Fishing;
 
 public static class InventoryExtensions
 {

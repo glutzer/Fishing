@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Renders a line of text centered and fitted on the bounds.
@@ -27,7 +27,7 @@ public class WidgetFittedText : Widget
         text.Text = newText;
     }
 
-    public override void OnRender(float dt, MareShader shader)
+    public override void OnRender(float dt, NuttyShader shader)
     {
         text.RenderCenteredLine(XCenter, YCenter, shader, true);
     }

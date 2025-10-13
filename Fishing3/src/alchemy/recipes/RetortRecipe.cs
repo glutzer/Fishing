@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 [AlchemyRecipeType("retort")]
 public class RetortRecipe : IAlchemyRecipe, IParchmentable

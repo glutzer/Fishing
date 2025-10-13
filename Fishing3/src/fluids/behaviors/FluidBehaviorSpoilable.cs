@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Nodes;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 [FluidBehavior]
 public class FluidBehaviorSpoilable : FluidBehavior

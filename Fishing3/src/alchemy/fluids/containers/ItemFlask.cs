@@ -9,7 +9,7 @@ using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
-namespace Fishing3;
+namespace Fishing;
 
 [Item]
 public class ItemFlask : ItemFluidStorage, IContainedMeshSource

@@ -2,7 +2,7 @@
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class WidgetBossHealthBar : Widget
 {
@@ -25,7 +25,7 @@ public class WidgetBossHealthBar : Widget
         textObj.Shadow = true;
     }
 
-    public override void OnRender(float dt, MareShader shader)
+    public override void OnRender(float dt, NuttyShader shader)
     {
         ITreeAttribute? healthTree = entity.WatchedAttributes.GetTreeAttribute("health");
         if (healthTree == null) return;

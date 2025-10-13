@@ -2,7 +2,7 @@
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 
-namespace Fishing3;
+namespace Fishing;
 
 [Effect]
 public class EffectChameleon : AlchemyEffect
@@ -55,7 +55,7 @@ public class EffectChameleon : AlchemyEffect
         }
     }
 
-    public void OnDistortion(float dt, MareShader shader)
+    public void OnDistortion(float dt, NuttyShader shader)
     {
         if (deferredInfo == null || deferredInfo.mesh.Disposed) return;
 

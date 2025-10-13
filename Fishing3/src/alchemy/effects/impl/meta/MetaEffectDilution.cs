@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fishing3;
+namespace Fishing;
 
 [Effect]
 public class MetaEffectDilution : AlchemyEffect, IMetaEffect

@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using System;
 
-namespace Fishing3;
+namespace Fishing;
 
 public static class QuaternionUtility
 {

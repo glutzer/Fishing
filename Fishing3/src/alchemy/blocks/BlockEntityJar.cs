@@ -3,7 +3,7 @@ using System.Text;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 
-namespace Fishing3;
+namespace Fishing;
 
 [BlockEntity]
 public class BlockEntityJar : BlockEntityAlchemyEquipment, IFluidSource, IFluidSink

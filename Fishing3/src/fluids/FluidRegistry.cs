@@ -7,7 +7,7 @@ using System.Text.Json.Nodes;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Fluid registry, existing on both the client and the server.

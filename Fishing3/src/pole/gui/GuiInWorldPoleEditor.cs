@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class GuiInWorldPoleEditor : Gui
 {

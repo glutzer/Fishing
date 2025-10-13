@@ -2,7 +2,7 @@
 using System;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 [WormTask(-1f)]
 public class WormTaskTrackPlayer : WormTask

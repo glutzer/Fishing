@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Returns true if all events return true.

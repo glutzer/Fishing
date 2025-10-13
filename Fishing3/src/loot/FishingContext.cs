@@ -8,7 +8,7 @@ using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 using Vintagestory.Server;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// Context for the current catch.

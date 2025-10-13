@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common.Entities;
 
-namespace Fishing3;
+namespace Fishing;
 
 [Effect]
 public class EffectIntoxication : AlchemyEffect

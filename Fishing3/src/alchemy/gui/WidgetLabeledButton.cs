@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using System;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class WidgetLabeledButton : WidgetBaseButton
 {
@@ -23,7 +23,7 @@ public class WidgetLabeledButton : WidgetBaseButton
         this.label.Shadow = true;
     }
 
-    public override void OnRender(float dt, MareShader shader)
+    public override void OnRender(float dt, NuttyShader shader)
     {
         Vector4 c = color;
 

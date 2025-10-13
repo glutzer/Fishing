@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using Vintagestory.API.Client;
 
-namespace Fishing3;
+namespace Fishing;
 
 public static class AlchemyTessellationUtility
 {

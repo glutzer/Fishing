@@ -1,13 +1,11 @@
 ﻿using ProtoBuf;
-using System;
 using System.IO;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
-using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.Util;
 
-namespace Fishing3;
+namespace Fishing;
 
 [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
 public class BobberPacket
@@ -173,6 +171,27 @@ public class EntityBobber : Entity, IPhysicsTickable
 
     public void OnPhysicsTick(float dt)
     {
+
+    }
+
+    public override void OnCollided()
+    {
+        base.OnCollided();
+        behavior?.OnCollided();
+    }
+
+    public override void OnGameTick(float dt)
+    {
+        base.OnGameTick(dt);
+
+        if (Api.Side == EnumAppSide.Client)
+        {
+            behavior?.OnClientTick(dt);
+        }
+    }
+
+    void IPhysicsTickable.AfterPhysicsTick(float dt)
+    {
         if (!IsValid() && Alive)
         {
             if (Caster != null)
@@ -186,37 +205,6 @@ public class EntityBobber : Entity, IPhysicsTickable
         }
 
         behavior?.OnServerPhysicsTick(dt);
-    }
-
-    public override void OnCollided()
-    {
-        base.OnCollided();
-        behavior?.OnCollided();
-    }
-
-    public void AfterPhysicsTick(float dt)
-    {
-
-    }
-
-    public bool CanProceedOnThisThread()
-    {
-        return RuntimeEnv.ServerMainThreadId == Environment.CurrentManagedThreadId;
-    }
-
-    public override void OnGameTick(float dt)
-    {
-        base.OnGameTick(dt);
-
-        if (Api.Side == EnumAppSide.Client)
-        {
-            behavior?.OnClientTick(dt);
-        }
-    }
-
-    public void OnPhysicsTickDone()
-    {
-
     }
 
     public bool Ticking { get; set; } = true;

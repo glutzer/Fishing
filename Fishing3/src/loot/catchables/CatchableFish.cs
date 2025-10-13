@@ -5,7 +5,7 @@ using System.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 
-namespace Fishing3;
+namespace Fishing;
 
 [Catchable]
 public class CatchableFish : Catchable

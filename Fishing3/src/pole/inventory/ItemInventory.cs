@@ -2,7 +2,7 @@
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 
-namespace Fishing3;
+namespace Fishing;
 
 public delegate bool ItemAllowedDelegate(int slotId, ItemStack stackIn);
 

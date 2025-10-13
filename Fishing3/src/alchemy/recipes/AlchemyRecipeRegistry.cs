@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using Vintagestory.API.Common;
 
-namespace Fishing3;
+namespace Fishing;
 
 public class AlchemyRecipeTypeAttribute : ClassAttribute
 {

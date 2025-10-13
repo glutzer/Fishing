@@ -1,11 +1,11 @@
 {
-  "code": "fishingpole",
-  "class": "ItemFishingPole",
+  "code": "fishingrod",
+  "class": "ItemFishingRod",
   "HeldRightReadyAnimation": "none",
   "HeldLeftReadyAnimation": "none",
   "shape": {
     "baseByType": {
-      "fishingpole-metal*": "fishing:rods/metal"
+      "fishingrod-metal*": "fishing:rods/metal"
     }
   },
   "maxstacksize": 1,
@@ -24,7 +24,7 @@
     }
   ],
   "texturesByType": {
-    "fishingpole-metal*": {
+    "fishingrod-metal*": {
       "metalmaterial": {
         "base": "fishing:metals/{type}"
       }

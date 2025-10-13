@@ -4,7 +4,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Server;
 
-namespace Fishing3;
+namespace Fishing;
 
 [GameSystem]
 public class BossSystem : NetworkedGameSystem

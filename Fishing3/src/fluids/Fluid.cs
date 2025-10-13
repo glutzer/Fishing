@@ -6,7 +6,7 @@ using System.Text;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 
-namespace Fishing3;
+namespace Fishing;
 
 /// <summary>
 /// This is the singleton of a fluid, similar to the singleton of a block or item.
