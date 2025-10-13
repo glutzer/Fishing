@@ -6,18 +6,20 @@
   "variantgroups": [
     {
       "code": "type",
-      "states": ["linen", "rope"]
+      "states": ["linen", "rope", "creative"]
     }
   ],
   "attributes": {
     "lineTypeByType": {
       "line-linen": "linen",
-      "line-rope": "rope"
+      "line-rope": "rope",
+      "line-creative": "creative"
     }
   },
   "durabilityByType": {
-    "line-linen": 200,
-    "line-rope": 100
+    "line-linen": 250,
+    "line-rope": 500,
+    "line-creative": 9999999
   },
   "shape": {
     "base": "fishing:parts/line"
@@ -26,7 +28,8 @@
     "linen": {
       "baseByType": {
         "line-linen": "fishing:lines/linen",
-        "line-rope": "fishing:lines/rope"
+        "line-rope": "fishing:lines/rope",
+        "line-creative": "fishing:lines/creative"
       }
     }
   },

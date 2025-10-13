@@ -144,10 +144,8 @@ public partial class ItemFishingRod : Item, IRenderableItem
 
             if (bobber.behavior is BobberReelable bobberFishing)
             {
-                float length = (float)Vector3d.Distance(bobberPos, pos);
-                droop = (bobberFishing.bobber.WatchedAttributes.GetFloat("maxDistance") / length) - 1;
-                droop *= 4;
-                droop = Math.Clamp(droop, 0.5f, 5); // Minimum droop.
+                bobberFishing.UpdateClientDroop(bobber, pos, bobberPos, dt);
+                droop = bobberFishing.ClientDroop;
             }
 
             // Draw the line.

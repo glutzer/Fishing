@@ -21,6 +21,21 @@ public class BobberReelable : BobberBehavior
     public AnimationMetaData? currentAnimation;
     public CollTester collisionTester = new();
 
+    public float ClientDroop { get; private set; } = 1f;
+
+    /// <summary>
+    /// Update the client droop once per frame.
+    /// </summary>
+    public void UpdateClientDroop(EntityBobber bobber, Vector3d pos, Vector3d bobberPos, float dt)
+    {
+        float length = (float)Vector3d.Distance(bobberPos, pos);
+        float droop = (bobber.WatchedAttributes.GetFloat("maxDistance") / length) - 1;
+        droop *= 4;
+        droop = Math.Clamp(droop, 0.5f, 5); // Minimum droop.
+
+        ClientDroop.LerpTo(droop, dt);
+    }
+
     /// <summary>
     /// How many meters of line 1 rotation of the reel gives, for animation.
     /// </summary>
