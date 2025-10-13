@@ -1,5 +1,4 @@
-﻿using MareLib;
-using ProtoBuf;
+﻿using ProtoBuf;
 using System;
 using System.IO;
 using Vintagestory.API.Common;

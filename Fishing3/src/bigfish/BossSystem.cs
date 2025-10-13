@@ -1,5 +1,4 @@
-﻿using MareLib;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -11,7 +10,7 @@ namespace Fishing3;
 public class BossSystem : NetworkedGameSystem
 {
     private HudBossHealthBar? bossHud;
-    private readonly List<Entity> bossEntities = new();
+    private readonly List<Entity> bossEntities = [];
 
     public BossSystem(bool isServer, ICoreAPI api) : base(isServer, api, "bigfish")
     {

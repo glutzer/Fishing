@@ -21,7 +21,7 @@ public class CollectibleBehaviorBait : CollectibleBehavior
     public float quantityMultiplier = 1f;
 
     // Weight multiplier for catches with tag.
-    public Dictionary<string, float> tagMultipliers = new();
+    public Dictionary<string, float> tagMultipliers = [];
 
     public CollectibleBehaviorBait(CollectibleObject collObj) : base(collObj)
     {

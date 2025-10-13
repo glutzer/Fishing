@@ -1,5 +1,4 @@
-﻿using MareLib;
-using Vintagestory.API.Config;
+﻿using Vintagestory.API.Config;
 
 namespace Fishing3;
 

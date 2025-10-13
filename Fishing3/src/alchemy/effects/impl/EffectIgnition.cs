@@ -1,6 +1,4 @@
-﻿using MareLib;
-
-namespace Fishing3;
+﻿namespace Fishing3;
 
 [Effect]
 public class EffectIgnition : AlchemyEffect

@@ -1,5 +1,4 @@
-﻿using MareLib;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
@@ -33,7 +32,7 @@ public class OverlayRenderInfo
 [GameSystem(forSide = EnumAppSide.Client)]
 public class EntityOverlaySystem : GameSystem
 {
-    private readonly Dictionary<long, List<(Action<OverlayRenderInfo> action, float order)>> handlersByEntityId = new();
+    private readonly Dictionary<long, List<(Action<OverlayRenderInfo> action, float order)>> handlersByEntityId = [];
     public static EntityOverlaySystem? Instance { get; private set; }
 
     public EntityOverlaySystem(bool isServer, ICoreAPI api) : base(isServer, api)
@@ -89,7 +88,7 @@ public class EntityOverlaySystem : GameSystem
     {
         if (!handlersByEntityId.TryGetValue(entity.EntityId, out List<(Action<OverlayRenderInfo> action, float order)>? handlers))
         {
-            handlers = new List<(Action<OverlayRenderInfo> action, float order)>();
+            handlers = [];
             handlersByEntityId.Add(entity.EntityId, handlers);
         }
 

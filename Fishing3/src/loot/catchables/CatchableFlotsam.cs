@@ -1,5 +1,4 @@
-﻿using MareLib;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -59,7 +58,7 @@ public class FlotsamLoot : IWeightable, ITierable
 public class CatchableFlotsam : Catchable
 {
     public TierChooser tierChooser = new(0.1f);
-    public List<FlotsamLoot> flotsamList = new();
+    public List<FlotsamLoot> flotsamList = [];
 
     public CatchableFlotsam(ICoreServerAPI sapi) : base(sapi)
     {

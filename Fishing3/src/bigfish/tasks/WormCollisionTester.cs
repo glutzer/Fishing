@@ -7,7 +7,7 @@ namespace Fishing3;
 
 public class WormCollisionTester
 {
-    public CachedCuboidList collisionBoxList = new();
+    public CachedCuboidList collisionBoxList = [];
     public Cuboidd entityBox = new();
 
     public BlockPos minPos = new(0, 0, 0, 0);

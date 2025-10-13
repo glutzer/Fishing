@@ -1,5 +1,4 @@
-﻿using MareLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
 
@@ -7,7 +6,7 @@ namespace Fishing3;
 
 public class GuiAlchemyEquipment : Gui
 {
-    private readonly List<object> parts = new();
+    private readonly List<object> parts = [];
     private readonly Action? onClosed;
 
     public GuiAlchemyEquipment(Action? onClosed = null)

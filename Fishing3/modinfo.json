@@ -6,9 +6,9 @@
     "nuts"
   ],
   "description": "",
-  "version": "3.0.7",
+  "version": "3.1.0",
   "dependencies": {
     "game": "",
-    "ponylib": "2.7.0"
+    "nutslib": "3.0.0"
   }
 }

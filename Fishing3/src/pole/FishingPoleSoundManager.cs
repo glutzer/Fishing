@@ -1,5 +1,4 @@
-﻿using MareLib;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
@@ -28,7 +27,7 @@ public class TrackedSound
 [GameSystem(forSide = EnumAppSide.Client)]
 public class FishingPoleSoundManager : GameSystem, IRenderer
 {
-    private readonly Dictionary<string, TrackedSound> playerSounds = new();
+    private readonly Dictionary<string, TrackedSound> playerSounds = [];
     public static FishingPoleSoundManager Instance { get; private set; } = null!;
 
     public FishingPoleSoundManager(bool isServer, ICoreAPI api) : base(isServer, api)

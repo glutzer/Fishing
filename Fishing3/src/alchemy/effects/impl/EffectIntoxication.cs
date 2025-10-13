@@ -1,5 +1,4 @@
-﻿using MareLib;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common.Entities;
@@ -20,7 +19,7 @@ public class EffectIntoxication : AlchemyEffect
     }
 
     [JsonProperty]
-    public readonly List<IntoxicationInstance> intoxicationInstances = new();
+    public readonly List<IntoxicationInstance> intoxicationInstances = [];
 
     public override float BaseDuration => 60f;
 

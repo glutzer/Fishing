@@ -1,5 +1,4 @@
-﻿using MareLib;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Vintagestory.API.Server;
 
 namespace Fishing3;

@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using MareLib;
 using ProtoBuf;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;

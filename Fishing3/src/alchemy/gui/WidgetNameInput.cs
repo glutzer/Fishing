@@ -1,5 +1,4 @@
 ﻿using Fishing3;
-using MareLib;
 using OpenTK.Mathematics;
 using System;
 

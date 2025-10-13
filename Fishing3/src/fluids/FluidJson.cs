@@ -21,5 +21,5 @@ public class FluidJson
     /// <summary>
     /// Can simply call JsonObject.Get<> for any value you need.
     /// </summary>
-    public JsonObject Attributes { get; set; } = new();
+    public JsonObject Attributes { get; set; } = [];
 }

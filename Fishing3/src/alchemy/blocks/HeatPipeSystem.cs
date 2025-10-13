@@ -1,5 +1,4 @@
-﻿using MareLib;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
@@ -39,7 +38,7 @@ public class HeatPipeSystem : GameSystem, IRenderer
     public double RenderOrder => 0.55;
     public int RenderRange => 0;
 
-    private readonly Dictionary<GridPos, HeatPipeInstance> activePipes = new();
+    private readonly Dictionary<GridPos, HeatPipeInstance> activePipes = [];
     private long listenerId;
 
     private Texture? pipeTexture;

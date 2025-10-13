@@ -29,7 +29,7 @@ public class WeightedCatch : ITierable, IWeightable
     /// Set a multiplier for tags, present in the fishing context.
     /// </summary>
     private float multiplier = 1f;
-    public readonly HashSet<string> tags = new();
+    public readonly HashSet<string> tags = [];
 
     public void SetMultiplier(Dictionary<string, float> tagMultipliers)
     {

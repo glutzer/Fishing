@@ -1,5 +1,4 @@
-﻿using MareLib;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
@@ -32,7 +31,7 @@ public class FishSpecies
 
     public float satietyMultiplier;
 
-    public HashSet<string> liquids = new();
+    public HashSet<string> liquids = [];
 
     public string oilFluid;
     public float oilFluidPerKg = 100f;
@@ -126,7 +125,7 @@ public class FishSpeciesJson
     public double[] tempRange = new double[] { -25, 45 };
 
     // Texture overrides for this model (eye, fins, scales).
-    public Dictionary<string, string> textures = new();
+    public Dictionary<string, string> textures = [];
 
     public int tier = 0;
     public float weight = 1f;
@@ -147,7 +146,7 @@ public class FishSpeciesJson
 [GameSystem]
 public class FishSpeciesSystem : GameSystem
 {
-    private readonly Dictionary<string, FishSpecies> types = new();
+    private readonly Dictionary<string, FishSpecies> types = [];
 
     public IEnumerable<FishSpecies> SpeciesAlphabetical => types.Values.OrderBy(x => x.code);
 
@@ -184,7 +183,7 @@ public class FishSpeciesSystem : GameSystem
         array[0] = tab;
 
         tab.Tabs = new string[] { "fishing" };
-        List<JsonItemStack> stacks = new();
+        List<JsonItemStack> stacks = [];
 
         foreach (FishSpecies type in types.Values)
         {

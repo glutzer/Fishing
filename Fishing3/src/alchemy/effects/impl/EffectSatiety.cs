@@ -1,5 +1,4 @@
-﻿using MareLib;
-using System.Text;
+﻿using System.Text;
 using Vintagestory.API.Common;
 using JsonObject = System.Text.Json.Nodes.JsonObject;
 

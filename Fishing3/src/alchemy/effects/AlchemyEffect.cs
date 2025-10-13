@@ -1,5 +1,4 @@
-﻿using MareLib;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Text.Json.Nodes;
 
 namespace Fishing3;

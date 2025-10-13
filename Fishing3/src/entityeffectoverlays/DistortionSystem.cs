@@ -1,5 +1,4 @@
-﻿using MareLib;
-using OpenTK.Graphics.OpenGL4;
+﻿using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
@@ -17,8 +16,8 @@ public class DistortionSystem : GameSystem, IRenderer
     private FboHandle? distortionFbo;
     private readonly MeshHandle fullscreen = RenderTools.GetFullscreenTriangle();
 
-    private readonly Dictionary<long, Action<float, MareShader>> renderCallbacks = new();
-    private readonly Dictionary<long, Action<float, MareShader>> renderCallbacksAnimated = new();
+    private readonly Dictionary<long, Action<float, MareShader>> renderCallbacks = [];
+    private readonly Dictionary<long, Action<float, MareShader>> renderCallbacksAnimated = [];
     private long nextInstanceId;
 
     public DistortionSystem(bool isServer, ICoreAPI api) : base(isServer, api)

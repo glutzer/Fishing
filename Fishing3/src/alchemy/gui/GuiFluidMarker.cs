@@ -1,5 +1,4 @@
 ﻿using Guilds;
-using MareLib;
 using Vintagestory.API.Common;
 
 namespace Fishing3;

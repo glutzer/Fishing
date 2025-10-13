@@ -1,5 +1,4 @@
-﻿using MareLib;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;

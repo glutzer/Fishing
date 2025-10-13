@@ -1,5 +1,4 @@
-﻿using MareLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -9,7 +8,7 @@ namespace Fishing3;
 [GameSystem]
 public class BobberRegistry : GameSystem
 {
-    public readonly Dictionary<string, Type> bobberTypes = new();
+    public readonly Dictionary<string, Type> bobberTypes = [];
 
     public BobberRegistry(bool isServer, ICoreAPI api) : base(isServer, api)
     {

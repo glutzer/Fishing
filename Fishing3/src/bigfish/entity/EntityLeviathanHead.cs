@@ -1,5 +1,4 @@
-﻿using MareLib;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +20,7 @@ public class EntityLeviathanHead : EntityLeviathanBase, IPhysicsTickable
     public EntityLeviathanBase[] segments = new EntityLeviathanBase[MAX_SEGMENTS];
     public bool Ticking { get; set; } = true;
 
-    private readonly List<WormTask> tasks = new();
+    private readonly List<WormTask> tasks = [];
     private WormTask? currentTask;
 
     private readonly WormCollisionTester collTester = new();

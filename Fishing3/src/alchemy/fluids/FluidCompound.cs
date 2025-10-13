@@ -46,7 +46,7 @@ public class FluidCompound : Fluid
                     i--;
                     if (container.HeldStack != null)
                     {
-                        newStacks ??= new List<FluidStack>();
+                        newStacks ??= [];
                         newStacks.Add(container.HeldStack);
                     }
                 }

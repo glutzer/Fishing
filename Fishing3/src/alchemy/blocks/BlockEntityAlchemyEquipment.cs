@@ -1,5 +1,4 @@
-﻿using MareLib;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
@@ -80,8 +79,7 @@ public class BlockEntityAlchemyEquipment : BlockEntity
     {
         if (Block.SelectionBoxes == null) return;
 
-        List<Cuboidf> selectionCuboids = new();
-        selectionCuboids.AddRange(Block.SelectionBoxes);
+        List<Cuboidf> selectionCuboids = [.. Block.SelectionBoxes];
 
         foreach (AlchemyAttachPoint attachPoint in AlchemyAttachPoints)
         {

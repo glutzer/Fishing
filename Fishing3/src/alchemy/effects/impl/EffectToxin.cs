@@ -1,5 +1,4 @@
-﻿using MareLib;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
@@ -29,7 +28,7 @@ public class EffectToxin : AlchemyEffect
     }
 
     [JsonProperty]
-    public readonly List<ToxinInstance> toxinInstances = new();
+    public readonly List<ToxinInstance> toxinInstances = [];
 
     public override EffectType Type => EffectType.Duration;
     public override float BaseDuration => 50f; // Serves as a multiplier instead.

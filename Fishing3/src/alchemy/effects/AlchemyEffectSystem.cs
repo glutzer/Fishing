@@ -1,5 +1,4 @@
-﻿using MareLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -82,7 +81,7 @@ public class AlchemyEffectSystem : GameSystem
         if (container.TakeOut(amount) is not FluidStackCompound stack) return; // Nothing taken.
 
         // Aggregate all effects and how many units were used to apply them.
-        List<(Effect effect, int units)> createdEffects = new();
+        List<(Effect effect, int units)> createdEffects = [];
 
         foreach (FluidStack reagentStack in stack.containedStacks)
         {
@@ -161,7 +160,7 @@ public class AlchemyEffectSystem : GameSystem
         // The base duration for an effect is reached at 100 units? Linear scaling.
         float durationMultiplier = units / 100f;
 
-        List<Effect> createdEffects = new();
+        List<Effect> createdEffects = [];
 
         // Multiply initial stats by reagent properties.
         foreach (EffectProperties props in reagent.Properties)

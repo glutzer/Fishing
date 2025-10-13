@@ -1,5 +1,4 @@
-﻿using MareLib;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using System.Collections.Generic;
 using System.Linq;
 using Vintagestory.API.Client;
@@ -18,7 +17,7 @@ public class HudEffects : Gui
     private long listenerId;
     private WidgetSliceBackground? background;
 
-    private readonly List<WidgetEffectDisplay> effectWidgets = new();
+    private readonly List<WidgetEffectDisplay> effectWidgets = [];
 
     public override void PopulateWidgets()
     {

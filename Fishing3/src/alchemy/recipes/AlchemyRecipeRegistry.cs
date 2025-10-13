@@ -1,5 +1,4 @@
-﻿using MareLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -45,10 +44,10 @@ public class AlchemyRecipeRegistry : GameSystem
     /// <summary>
     /// Dictionary of recipe type (like retort) to a list of all recipes it has.
     /// </summary>
-    private readonly Dictionary<string, List<IAlchemyRecipe>> recipes = new();
-    private readonly Dictionary<string, Type> recipeTypeMap = new();
+    private readonly Dictionary<string, List<IAlchemyRecipe>> recipes = [];
+    private readonly Dictionary<string, Type> recipeTypeMap = [];
 
-    private readonly List<IAlchemyRecipe> allRecipes = new();
+    private readonly List<IAlchemyRecipe> allRecipes = [];
 
     private readonly string[] validNames = new string[] { "Xethyr", "Posh", "Floyd" };
 
@@ -119,7 +118,7 @@ public class AlchemyRecipeRegistry : GameSystem
 
         foreach ((Type type, AlchemyRecipeTypeAttribute _) in attribs)
         {
-            recipes[type.Name] = new List<IAlchemyRecipe>();
+            recipes[type.Name] = [];
             recipeTypeMap[type.Name] = type;
         }
     }

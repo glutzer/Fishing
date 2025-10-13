@@ -1,11 +1,9 @@
-﻿using MareLib;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
-using Vintagestory.GameContent;
 
 namespace Fishing3;
 
@@ -64,7 +62,7 @@ public class FluidItemRenderingSystem : GameSystem
     /// <summary>
     /// Keep a dictionary of cached models. It's cleared/disposed periodically.
     /// </summary>
-    private readonly Dictionary<LiquidItemMeshInfo, MultiTextureMeshRef> fluidModelCache = new();
+    private readonly Dictionary<LiquidItemMeshInfo, MultiTextureMeshRef> fluidModelCache = [];
 
     private int maxElements = 256;
     private long timeSinceLastClear = 0;

@@ -1,5 +1,4 @@
-﻿using MareLib;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
@@ -36,7 +35,7 @@ public class FluidBlockRenderingSystem : GameSystem
 {
     private long currentId;
     private readonly DummyRenderer renderer;
-    private readonly Dictionary<long, FluidRenderingInstance> instances = new();
+    private readonly Dictionary<long, FluidRenderingInstance> instances = [];
     private Texture fluidTexture = null!;
     private MeshHandle cubeMesh = null!;
 

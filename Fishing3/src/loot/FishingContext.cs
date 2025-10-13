@@ -1,5 +1,4 @@
-﻿using MareLib;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
@@ -76,7 +75,7 @@ public class FishingContext
     /// <summary>
     /// Multipliers set by catch system.
     /// </summary>
-    public Dictionary<string, float> tagMultipliers = new();
+    public Dictionary<string, float> tagMultipliers = [];
 
     public FishingContext(ICoreServerAPI sapi, Vector3d position, Entity? caster)
     {
@@ -181,7 +180,7 @@ public class FishingContext
         if (blockId == 0) return 0;
 
         int volume = 0;
-        HashSet<FVec3i> visited = new();
+        HashSet<FVec3i> visited = [];
         Queue<FVec3i> toVisit = new();
 
         toVisit.Enqueue(blockPos);

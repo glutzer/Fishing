@@ -29,7 +29,7 @@ public class WeightedFlotsam : WeightedCatch
 [Catchable]
 public class CatchableItems : Catchable
 {
-    public List<FishingItemJson> flotsamList = new();
+    public List<FishingItemJson> flotsamList = [];
 
     public CatchableItems(ICoreServerAPI sapi) : base(sapi)
     {

@@ -1,5 +1,4 @@
-﻿using MareLib;
-using System.Text.Json.Nodes;
+﻿using System.Text.Json.Nodes;
 using Vintagestory.API.Common;
 
 namespace Fishing3;

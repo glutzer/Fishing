@@ -1,5 +1,4 @@
-﻿using MareLib;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
@@ -13,7 +12,7 @@ public class CatchSystem : GameSystem
     /// <summary>
     /// Catchable singletons for rolling loot.
     /// </summary>
-    public readonly List<Catchable> catchables = new();
+    public readonly List<Catchable> catchables = [];
 
     // Each tier has half the chance to appear as the last one.
     public TierChooser tierChooser = new(0.1f);

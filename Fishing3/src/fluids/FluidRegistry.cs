@@ -1,5 +1,4 @@
-﻿using MareLib;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -18,10 +17,10 @@ public class FluidRegistry : GameSystem
 {
     public Fluid[] Fluids { get; private set; } = new Fluid[512];
 
-    private readonly Dictionary<string, Fluid> fluidsByCode = new();
-    private readonly Dictionary<string, Type> fluidTypeMapping = new();
+    private readonly Dictionary<string, Fluid> fluidsByCode = [];
+    private readonly Dictionary<string, Type> fluidTypeMapping = [];
 
-    private readonly Dictionary<string, Type> fluidBehaviorTypeMapping = new();
+    private readonly Dictionary<string, Type> fluidBehaviorTypeMapping = [];
 
     public FluidRegistry(bool isServer, ICoreAPI api) : base(isServer, api)
     {
@@ -144,7 +143,7 @@ public class FluidRegistry : GameSystem
         array[0] = tab;
 
         tab.Tabs = new string[] { "fishing-fluids" };
-        List<JsonItemStack> stacks = new();
+        List<JsonItemStack> stacks = [];
 
         JsonItemStack emptyStack = new()
         {

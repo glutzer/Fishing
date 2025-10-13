@@ -72,7 +72,7 @@ public class TierChooser
     /// </summary>
     public List<T> RollTier<T>(List<T> validItems, float rarityMultiplier) where T : ITierable
     {
-        HashSet<int> availableTiers = new();
+        HashSet<int> availableTiers = [];
 
         foreach (T item in validItems)
         {

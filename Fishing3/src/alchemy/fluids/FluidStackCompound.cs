@@ -9,7 +9,7 @@ namespace Fishing3;
 
 public class FluidStackCompound : FluidStack
 {
-    public List<FluidStack> containedStacks = new();
+    public List<FluidStack> containedStacks = [];
 
     public override int Units
     {

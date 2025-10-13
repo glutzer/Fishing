@@ -1,5 +1,4 @@
-﻿using MareLib;
-using Vintagestory.GameContent;
+﻿using Vintagestory.GameContent;
 
 namespace Fishing3;
 

@@ -1,5 +1,4 @@
-﻿using MareLib;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 
@@ -31,7 +30,7 @@ public static class GuiThemes
     public static Vector4 TextColor => new(0, 0.7f, 0.7f, 1);
     public static Vector4 DarkColor => new(0.1f, 0.1f, 0.1f, 1);
 
-    private static readonly Dictionary<string, object> cache = new();
+    private static readonly Dictionary<string, object> cache = [];
 
     public static Texture Blank => GetOrCreate("blank", () => Texture.Create("fishing:textures/gui/blank.png"));
     public static NineSliceTexture Background => GetOrCreate("background", () => Texture.Create("fishing:textures/gui/background.png").AsNineSlice(14, 14));

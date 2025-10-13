@@ -1,5 +1,4 @@
 ﻿using Fishing3;
-using MareLib;
 using System;
 using System.Linq;
 using Vintagestory.API.Common;

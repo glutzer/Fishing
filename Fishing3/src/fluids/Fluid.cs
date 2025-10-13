@@ -1,5 +1,4 @@
-﻿using MareLib;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -36,7 +35,7 @@ public class Fluid
     /// </summary>
     protected virtual Type StackType => typeof(FluidStack);
 
-    private readonly SortedDictionary<string, FluidBehavior> behaviors = new();
+    private readonly SortedDictionary<string, FluidBehavior> behaviors = [];
     public IEnumerable<FluidBehavior> AllBehaviors => behaviors.Values;
 
     /// <summary>
