@@ -23,8 +23,8 @@ public static class DrUtility
         float ratio = value / baseLine;
         float power = 1 / rate;
         power = MathF.Pow(ratio, power);
-        power = MathF.Log(power, 10);
-        power += 1;
+        power = MathF.Log(power, 10f);
+        power += 1f;
         return power * baseLine;
     }
 

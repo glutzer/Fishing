@@ -92,7 +92,7 @@ public class TierChooser
         // Get the highest tier in available tiers that's equal or lower to the highest rolled tier.
         int highestAvailableTier = availableTiers.Where(tier => tier <= highestRolledTier).DefaultIfEmpty(-1).Max();
 
-        return validItems.Where(item => item.Tier == highestAvailableTier).ToList();
+        return [.. validItems.Where(item => item.Tier == highestAvailableTier)];
     }
 
     /// <summary>
@@ -114,7 +114,7 @@ public class TierChooser
             int tier = tierGroup.Key;
             if (tier > 10) continue; // Max tier is 10.
 
-            List<T> items = tierGroup.ToList();
+            List<T> items = [.. tierGroup];
 
             // Calculate the chance to roll this tier.
             float tierChance = baseUpgradeChance * rarityMultiplier;

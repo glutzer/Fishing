@@ -19,9 +19,9 @@ public static class QuaternionUtility
         // If the vectors are opposite, find an arbitrary perpendicular vector.
         if (dot < -0.9999f)
         {
-            Vector3 perpendicular = Vector3.Cross(from, new Vector3(1, 0, 0));
+            Vector3 perpendicular = Vector3.Cross(from, new Vector3(1f, 0f, 0f));
             if (perpendicular.Length < 0.01f)
-                perpendicular = Vector3.Cross(from, new Vector3(0, 0, 1));
+                perpendicular = Vector3.Cross(from, new Vector3(0f, 0f, 1f));
 
             perpendicular = Vector3.Normalize(perpendicular);
             return Quaternion.FromAxisAngle(perpendicular, MathF.PI);

@@ -38,6 +38,25 @@ public class FishingGameSystem : NetworkedGameSystem
 
     public override void PreInitialize()
     {
+        string cfgFileName = "fishing.json";
+
+        try
+        {
+            ConfigFishing fromDisk;
+            if ((fromDisk = api.LoadModConfig<ConfigFishing>(cfgFileName)) == null)
+            {
+                api.StoreModConfig(ConfigFishing.Loaded, cfgFileName);
+            }
+            else
+            {
+                ConfigFishing.Loaded = fromDisk;
+            }
+        }
+        catch
+        {
+            api.StoreModConfig(ConfigFishing.Loaded, cfgFileName);
+        }
+
         if (Harmony == null)
         {
             Harmony = new Harmony("fishing");

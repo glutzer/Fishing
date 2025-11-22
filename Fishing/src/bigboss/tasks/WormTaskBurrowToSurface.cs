@@ -15,7 +15,7 @@ public class WormTaskBurrowToSurface : WormTask
 
     public override bool CanStartTask(float dt)
     {
-        IPlayer[] players = MainAPI.Server.GetPlayersAround(Head.ServerPos.XYZ, 200f, 200f).Where(p => p.Entity.ServerPos.Y > Head.ServerPos.Y).ToArray();
+        IPlayer[] players = [.. MainAPI.Server.GetPlayersAround(Head.ServerPos.XYZ, 200f, 200f).Where(p => p.Entity.ServerPos.Y > Head.ServerPos.Y)];
         return players.Length > 0;
     }
 
@@ -23,7 +23,7 @@ public class WormTaskBurrowToSurface : WormTask
     {
         if (!IsServer) return;
 
-        IPlayer[] players = MainAPI.Server.GetPlayersAround(Head.ServerPos.XYZ, 200f, 200f).Where(p => p.Entity.ServerPos.Y > Head.ServerPos.Y).ToArray();
+        IPlayer[] players = [.. MainAPI.Server.GetPlayersAround(Head.ServerPos.XYZ, 200f, 200f).Where(p => p.Entity.ServerPos.Y > Head.ServerPos.Y)];
 
         if (players.Length > 0)
         {

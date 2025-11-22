@@ -13,15 +13,12 @@ public class BobberFishable : BobberReelable
     public CaughtInstance? bitingFish;
 
     // Reel strength / catch weight determines reel speed multiplier.
-    public const float BASE_REEL_STRENGTH = 5f;
     protected float reelStrength = 1f;
     protected float durabilityDrainAccumulation;
 
     // Current time left for something to bite.
     protected float biteTimer = -1f;
     protected float poolBiteSpeed;
-
-    public const float BASE_BITE_TIME = 60f;
 
     public BobberFishable(EntityBobber bobber, bool isServer) : base(bobber, isServer)
     {
@@ -34,7 +31,7 @@ public class BobberFishable : BobberReelable
 
         // This is only required on the server, not saved.
         float reelStrengthMulti = bobber.Caster?.Stats.GetBlended("reelStrength") ?? 1f;
-        reelStrength = BASE_REEL_STRENGTH * reelStrengthMulti;
+        reelStrength = ConfigFishing.Loaded.BASE_REEL_STRENGTH * reelStrengthMulti;
     }
 
     /// <summary>
@@ -87,7 +84,7 @@ public class BobberFishable : BobberReelable
         void ResetBiteTimer()
         {
             // 0.5x - 1.5x base time.
-            biteTimer = (BASE_BITE_TIME * 0.5f) + (Random.Shared.NextSingle() * BASE_BITE_TIME);
+            biteTimer = (ConfigFishing.Loaded.BASE_BITE_TIME * 0.5f) + (Random.Shared.NextSingle() * ConfigFishing.Loaded.BASE_BITE_TIME);
         }
 
         if (!bobber.Swimming || bitingFish != null || bobber.Caster == null) return;

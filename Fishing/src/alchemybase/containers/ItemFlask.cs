@@ -1,6 +1,5 @@
 ﻿using OpenTK.Mathematics;
 using System;
-using System.Linq;
 using System.Text;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -27,7 +26,7 @@ public class ItemFlask : ItemFluidStorage, IContainedMeshSource
             FluidRegistry registry = MainAPI.GetGameSystem<FluidRegistry>(api.Side);
             CreativeInventoryStacks = CreativeInventoryStacks == null
                 ? registry.GetCreativeStacks(this)
-                : CreativeInventoryStacks.Concat(registry.GetCreativeStacks(this)).ToArray();
+                : [.. CreativeInventoryStacks, .. registry.GetCreativeStacks(this)];
         }
     }
 

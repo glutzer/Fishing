@@ -18,7 +18,7 @@ public static class StatExtensions
 public class Patches
 {
     [HarmonyPatch(typeof(EntityPlayer), MethodType.Constructor)]
-    public static class AcquireClaimInProgressPatch
+    public static class StatPatch
     {
         [HarmonyPostfix]
         public static void Postfix(EntityPlayer __instance)

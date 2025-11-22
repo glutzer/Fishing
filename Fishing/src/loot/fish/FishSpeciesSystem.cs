@@ -22,7 +22,7 @@ public class FishSpecies
     public Vector3 mouthOffset;
 
     // What direction the mouth is facing, rotate this to point towards what's needed.
-    public Vector3 mouthFacing = new(-1, 0, 0);
+    public Vector3 mouthFacing = new(-1f, 0f, 0f);
 
     public Vector2 tempRange;
 
@@ -62,7 +62,7 @@ public class FishSpecies
                     mouthOffset.Y = (float)(mainElement.From[1] + ap.PosY);
                     mouthOffset.Z = (float)(mainElement.From[2] + ap.PosZ);
 
-                    mouthOffset /= 16;
+                    mouthOffset /= 16f;
                 }
             }
 
@@ -189,7 +189,7 @@ public class FishSpeciesSystem : GameSystem
         {
             for (int i = 0; i < 6; i++)
             {
-                float scale = i * 2;
+                float scale = i * 2f;
                 if (i == 3) scale *= 2;
                 if (i == 4) scale *= 4;
                 if (i == 5) scale *= 8;
@@ -209,7 +209,7 @@ public class FishSpeciesSystem : GameSystem
             }
         }
 
-        tab.Stacks = stacks.ToArray();
+        tab.Stacks = [.. stacks];
 
         return array;
     }

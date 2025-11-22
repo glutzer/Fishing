@@ -176,7 +176,7 @@ public class FluidRegistry : GameSystem
             stacks.Add(jsonStack);
         }
 
-        tab.Stacks = stacks.ToArray();
+        tab.Stacks = [.. stacks];
 
         return array;
     }
