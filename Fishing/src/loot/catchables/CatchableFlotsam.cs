@@ -9,15 +9,6 @@ using Vintagestory.API.Server;
 
 namespace Fishing;
 
-//public class RecipeFlotsam : FlotsamLoot
-//{
-//    public override ItemStack? CreateItem(ICoreServerAPI sapi)
-//    {
-//        AlchemyRecipeRegistry registry = MainAPI.GetGameSystem<AlchemyRecipeRegistry>(sapi.Side);
-//        return registry.GenerateRandomParchment();
-//    }
-//}
-
 public class FlotsamLoot : IWeightable, ITierable
 {
     // Item code.
@@ -62,9 +53,6 @@ public class CatchableFlotsam : Catchable
 
     public CatchableFlotsam(ICoreServerAPI sapi) : base(sapi)
     {
-        //RecipeFlotsam recipeFlotsam = new() { Code = "recipe" };
-        //flotsamList.Add(recipeFlotsam);
-
         List<IAsset> assets = sapi.Assets.GetMany("config/flotsamitems");
         foreach (IAsset asset in assets)
         {

@@ -7,7 +7,7 @@ public class WidgetTitleBar : WidgetBaseDraggableTitle
     private readonly TextObject textObj;
     private readonly NineSliceTexture background;
 
-    public WidgetTitleBar(Widget? parent, Widget draggableWidget, string title) : base(parent, draggableWidget)
+    public WidgetTitleBar(Widget? parent, Widget draggableWidget, string title, Gui gui) : base(parent, gui, draggableWidget)
     {
         textObj = new TextObject(title, GuiThemes.Font, 50, GuiThemes.TextColor)
         {
@@ -22,7 +22,7 @@ public class WidgetTitleBar : WidgetBaseDraggableTitle
         background = GuiThemes.Background;
     }
 
-    public override void OnRender(float dt, NuttyShader shader)
+    public override void OnRender(float dt, ShaderGui shader)
     {
         shader.Uniform("color", new Vector4(0.1f, 0.1f, 0.1f, 1));
         RenderTools.RenderNineSlice(background, shader, X, Y, Width, Height);

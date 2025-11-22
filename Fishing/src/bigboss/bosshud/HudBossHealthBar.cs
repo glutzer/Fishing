@@ -27,7 +27,7 @@ public class HudBossHealthBar : Gui
 
         foreach (Entity entity in bossEntities)
         {
-            WidgetBossHealthBar? bar = new(null, entity);
+            WidgetBossHealthBar? bar = new(null, entity, this);
             bar.Percent(0f, 0f, 0.5f, 0f).FixedY(index * 12).FixedHeight(10).Alignment(Align.CenterTop);
             index++;
 

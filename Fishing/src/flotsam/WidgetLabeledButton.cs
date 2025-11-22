@@ -9,7 +9,7 @@ public class WidgetLabeledButton : WidgetBaseButton
     private readonly Vector4 color;
     private readonly NineSliceTexture tex;
 
-    public WidgetLabeledButton(Widget? parent, Action onClick, string label, Vector4 color) : base(parent, onClick)
+    public WidgetLabeledButton(Widget? parent, Gui gui, Action onClick, string label, Vector4 color) : base(parent, gui, onClick)
     {
         this.label = new TextObject(label, GuiThemes.Font, 50, GuiThemes.TextColor);
 
@@ -23,7 +23,7 @@ public class WidgetLabeledButton : WidgetBaseButton
         this.label.Shadow = true;
     }
 
-    public override void OnRender(float dt, NuttyShader shader)
+    public override void OnRender(float dt, ShaderGui shader)
     {
         Vector4 c = color;
 

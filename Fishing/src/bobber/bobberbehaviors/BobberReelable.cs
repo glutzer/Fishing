@@ -33,7 +33,7 @@ public class BobberReelable : BobberBehavior
         droop *= 4;
         droop = Math.Clamp(droop, 0.5f, 5); // Minimum droop.
 
-        ClientDroop.LerpTo(droop, dt);
+        ClientDroop = ClientDroop.LerpTo(droop, dt, 0.2f);
     }
 
     /// <summary>

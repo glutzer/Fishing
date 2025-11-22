@@ -19,7 +19,7 @@ public class WormTaskTrackPlayer : WormTask
 
     public void TargetNewPlayer()
     {
-        IPlayer[] players = MainAPI.Server.GetPlayersAround(Head.ServerPos.XYZ, 200, 200);
+        IPlayer[] players = MainAPI.Server.GetPlayersAround(Head.ServerPos.XYZ, 200f, 200f);
         if (players.Length > 0)
         {
             currentTarget = players[0].Entity;
@@ -55,7 +55,7 @@ public class WormTaskTrackPlayer : WormTask
     public override bool CanContinueTask(float dt)
     {
         duration -= dt;
-        return duration > 0;
+        return duration > 0f;
     }
 
     public override bool CanStartTask(float dt)

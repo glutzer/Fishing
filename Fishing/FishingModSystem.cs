@@ -1,6 +1,7 @@
 ﻿global using NutsLib;
 
 using HarmonyLib;
+using Polaris;
 using ProtoBuf;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -46,16 +47,26 @@ public class FishingGameSystem : NetworkedGameSystem
 
     public override void OnStart()
     {
+        if (api.ModLoader.IsModEnabled("polaris"))
+        {
+            SetupPolaris();
+        }
+    }
 
+    // Optional dependency.
+    private void SetupPolaris()
+    {
+        SystemPolaris polaris = MainAPI.GetGameSystem<SystemPolaris>(api.Side);
+        Constellation fishing = new Constellation("Fishing").SetColor(0f, 0.4f, 1f, 1f).AddStartNode();
+        polaris.AddConstellation(fishing);
     }
 
     public override void Initialize()
     {
-        base.Initialize();
-
         if (!isServer)
         {
             NuttyShaderRegistry.AddShader("fishing:fishingline", "nutslib:opaque", "fishingline");
+            NuttyShaderRegistry.AddShader("fishing:fishinglineshadow", "nutslib:opaqueshadow", "fishinglineshadow");
         }
     }
 

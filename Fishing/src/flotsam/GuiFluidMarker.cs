@@ -20,7 +20,7 @@ public class GuiNamedFluidMarker : GuiFluidMarker
 
     public override void PopulateWidgets()
     {
-        new WidgetFluidMarker(null, MaxFluid, CurrentMark, OnNewValue)
+        new WidgetFluidMarker(null, this, MaxFluid, CurrentMark, OnNewValue)
             .Alignment(Align.Center)
             .Fixed(0, 0, 100, 10)
             .As<WidgetFluidMarker>(out WidgetFluidMarker? widget);
@@ -28,7 +28,7 @@ public class GuiNamedFluidMarker : GuiFluidMarker
 
         GuiThemes.AddTitleBar(this, "Mark", widget);
 
-        new WidgetNameInput(widget, name, "Flask label:", text =>
+        new WidgetNameInput(widget, this, name, "Flask label:", text =>
         {
             name = text;
         }, text =>
@@ -56,7 +56,7 @@ public class GuiFluidMarker : Gui
 
     public override void PopulateWidgets()
     {
-        new WidgetFluidMarker(null, MaxFluid, CurrentMark, OnNewValue)
+        new WidgetFluidMarker(null, this, MaxFluid, CurrentMark, OnNewValue)
             .Alignment(Align.Center)
             .Fixed(0, 0, 100, 10)
             .As<WidgetFluidMarker>(out WidgetFluidMarker? widget);

@@ -1,0 +1,102 @@
+{
+  "code": "flotsam",
+  "class": "BlockFlotsam",
+  "entityClass": "BlockEntityFlotsam",
+  "sideopaque": {
+    "all": false
+  },
+  "heldTpIdleAnimation": "holdbothhandslarge",
+  "heldTpUseAnimation": "twohandplaceblock",
+  "heldRightReadyAnimation": "none",
+  "variantgroups": [
+    {
+      "code": "type",
+      "states": ["normal"]
+    }
+  ],
+  "behaviors": [
+    {
+      "name": "UnstableFalling",
+      "impactDamageMul": 1
+    }
+  ],
+  "shape": {
+    "base": "fishing:flotsam"
+  },
+  "texturesByType": {
+    "flotsam-normal-*": {
+      "copper-sides": {
+        "base": "fishing:crates/normal-sides"
+      },
+      "copper-generic": {
+        "base": "fishing:crates/normal-generic"
+      }
+    }
+  },
+  "creativeinventory": {
+    "fishing": ["*"]
+  },
+  "creativeinventoryStacks": [
+    {
+      "tabs": ["fishing"],
+      "stacks": [
+        {
+          "type": "block",
+          "code": "fishing:flotsam-normal",
+          "attributes": {
+            "tier": 1
+          }
+        },
+        {
+          "type": "block",
+          "code": "fishing:flotsam-normal",
+          "attributes": {
+            "tier": 2
+          }
+        },
+        {
+          "type": "block",
+          "code": "fishing:flotsam-normal",
+          "attributes": {
+            "tier": 3
+          }
+        }
+      ]
+    }
+  ],
+  "maxStackSize": 1,
+  "resistance": 1,
+  "blockmaterial": "Wood",
+  "tpHandTransform": {
+    "translation": { "x": -0.7, "y": -0.6, "z": -0.45 },
+    "rotation": { "x": 15, "y": 15, "z": 15 },
+    "scale": 0.7
+  },
+  "guiTransform": {
+    "rotation": { "x": -22, "y": -22, "z": 0 },
+    "origin": { "x": 0.5, "y": 0.5, "z": 0.5 },
+    "scale": 1.2
+  },
+  "groundTransform": {
+    "translation": { "x": 0, "y": 0, "z": 0 },
+    "rotation": { "x": 90, "y": 0, "z": 0 },
+    "origin": { "x": 0.5, "y": 0.5, "z": 1 },
+    "scale": 4
+  },
+  "collisionbox": {
+    "x1": 0.1,
+    "y1": 0.1,
+    "z1": 0.1,
+    "x2": 0.9,
+    "y2": 0.9,
+    "z2": 0.9
+  },
+  "selectionbox": {
+    "x1": 0.1,
+    "y1": 0.1,
+    "z1": 0.1,
+    "x2": 0.9,
+    "y2": 0.9,
+    "z2": 0.9
+  }
+}

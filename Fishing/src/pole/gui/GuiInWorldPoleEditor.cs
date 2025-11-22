@@ -45,7 +45,7 @@ public class GuiInWorldPoleEditor : Gui
         }, "Catch", () =>
         {
             return rodSlot[3].Itemstack != null;
-        }, false));
+        }, false, this));
 
         AddWidget(new WidgetInWorldItemSlot([rodSlot[2]], 1, 1, 96, null, () =>
         {
@@ -53,7 +53,7 @@ public class GuiInWorldPoleEditor : Gui
         }, "Bait", () =>
         {
             return rodSlot[0].Itemstack != null && rodSlot[3].Itemstack == null;
-        }, false));
+        }, false, this));
 
         AddWidget(new WidgetInWorldItemSlot([rodSlot[1]], 1, 1, 96, null, () =>
         {
@@ -61,7 +61,7 @@ public class GuiInWorldPoleEditor : Gui
         }, "Bobber", () =>
         {
             return rodSlot[0].Itemstack != null && rodSlot[3].Itemstack == null;
-        }, false));
+        }, false, this));
 
         AddWidget(new WidgetInWorldItemSlot([rodSlot[0]], 1, 1, 96, null, () =>
         {
@@ -70,6 +70,6 @@ public class GuiInWorldPoleEditor : Gui
         }, "Line", () =>
         {
             return rodSlot[3].Itemstack == null;
-        }, true));
+        }, true, this));
     }
 }

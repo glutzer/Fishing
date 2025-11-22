@@ -34,8 +34,8 @@ public class LeviathanRenderer : EntityShapeRenderer
         EntityPlayer entityPlayer = capi.World.Player.Entity;
         Mat4f.Translate(ModelMat, ModelMat, (float)(entity.Pos.X - entityPlayer.CameraPos.X), (float)(entity.Pos.InternalY - entityPlayer.CameraPos.Y), (float)(entity.Pos.Z - entityPlayer.CameraPos.Z));
 
-        float rotX = entity.Properties.Client.Shape?.rotateX ?? 0;
-        float rotZ = entity.Properties.Client.Shape?.rotateZ ?? 0;
+        float rotX = entity.Properties.Client.Shape?.rotateX ?? 0f;
+        float rotZ = entity.Properties.Client.Shape?.rotateZ ?? 0f;
 
         double[] quat = Quaterniond.Create();
 
@@ -58,7 +58,7 @@ public class LeviathanRenderer : EntityShapeRenderer
         Mat4f.Scale(ModelMat, ModelMat, [scale, scale, scale]);
 
         // Center entity at 0.5f.
-        Mat4f.Translate(ModelMat, ModelMat, -0.5f, 0, -0.5f);
+        Mat4f.Translate(ModelMat, ModelMat, -0.5f, 0f, -0.5f);
     }
 
     public override void DoRender3DOpaqueBatched(float dt, bool isShadowPass)
@@ -125,10 +125,10 @@ public class LeviathanRenderer : EntityShapeRenderer
             color.B = (entity.RenderColor & 0xFF) / 255f;
             color.A = ((entity.RenderColor >> 24) & 0xFF) / 255f;
             currentActiveShader.Uniform("renderColor", color);
-            double stability = entity.WatchedAttributes.GetDouble("temporalStability", 1.0);
-            double playerStability = capi.World.Player.Entity.WatchedAttributes.GetDouble("temporalStability", 1.0);
+            double stability = entity.WatchedAttributes.GetDouble("temporalStability", 1);
+            double playerStability = capi.World.Player.Entity.WatchedAttributes.GetDouble("temporalStability", 1);
             double minStability = Math.Min(stability, playerStability);
-            float glitchValue = (float)(glitchAffected ? Math.Max(0.0, 1.0 - (2.5 * minStability)) : 0.0);
+            float glitchValue = (float)(glitchAffected ? Math.Max(0, 1 - (2.5 * minStability)) : 0);
             currentActiveShader.Uniform("glitchEffectStrength", glitchValue);
         }
 

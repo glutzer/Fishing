@@ -13,7 +13,7 @@ public class WidgetFluidMarker : WidgetBaseSlider
     private readonly TextObject text;
     private int lastStep;
 
-    public WidgetFluidMarker(Widget? parent, int maxFluid, int currentMark, Action<int> onNewValue) : base(parent, onNewValue, maxFluid, true)
+    public WidgetFluidMarker(Widget? parent, Gui gui, int maxFluid, int currentMark, Action<int> onNewValue) : base(parent, gui, onNewValue, maxFluid, true)
     {
         MaxFluid = maxFluid;
         cursorStep = currentMark;
@@ -28,7 +28,7 @@ public class WidgetFluidMarker : WidgetBaseSlider
         };
     }
 
-    public override void OnRender(float dt, NuttyShader shader)
+    public override void OnRender(float dt, ShaderGui shader)
     {
         if (lastStep != cursorStep)
         {

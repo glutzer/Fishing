@@ -6,7 +6,7 @@ namespace Fishing;
 
 public class WidgetInWorldItemSlot : WidgetBaseItemGrid
 {
-    private readonly NineSliceTexture bgTex;
+    private readonly NineSliceTexture bgTex = VanillaThemes.ItemSlotTexture;
     private readonly Texture blank;
     private readonly Func<Vector3d> getPosDelegate;
     private float sizeMulti;
@@ -19,39 +19,36 @@ public class WidgetInWorldItemSlot : WidgetBaseItemGrid
     protected override bool IsEnabled => shouldRender();
     protected bool labelRight;
 
-    public WidgetInWorldItemSlot(ItemSlot[] slots, int width, int height, int slotSize, Widget? parent, Func<Vector3d> getPosDelegate, string label, Func<bool> shouldRender, bool labelRight) : base(slots, width, height, slotSize, parent)
+    public WidgetInWorldItemSlot(ItemSlot[] slots, int width, int height, int slotSize, Widget? parent, Func<Vector3d> getPosDelegate, string label, Func<bool> shouldRender, bool labelRight, Gui gui) : base(slots, width, height, slotSize, parent, gui)
     {
         this.shouldRender = shouldRender;
         this.labelRight = labelRight;
-
-        bgTex = GuiThemes.Button;
         blank = GuiThemes.Blank;
         this.getPosDelegate = getPosDelegate;
         NoScaling();
-        textObject = new TextObject(label, GuiThemes.Font, 50, GuiThemes.TextColor);
-        countObject = new TextObject("", GuiThemes.Font, 50, GuiThemes.TextColor);
+        textObject = new TextObject(label, VanillaThemes.Font, 1f, VanillaThemes.WhitishGreyColor);
+        countObject = new TextObject("", VanillaThemes.Font, 1f, VanillaThemes.WhitishGreyColor);
 
         textObject.Shadow = true;
         countObject.Shadow = true;
     }
 
-    public WidgetInWorldItemSlot(ItemSlot[] slots, int width, int height, int slotSize, Widget? parent, Func<Vector3d> getPosDelegate, string label, bool labelRight) : base(slots, width, height, slotSize, parent)
+    public WidgetInWorldItemSlot(ItemSlot[] slots, int width, int height, int slotSize, Widget? parent, Func<Vector3d> getPosDelegate, string label, bool labelRight, Gui gui) : base(slots, width, height, slotSize, parent, gui)
     {
         shouldRender = () => true;
         this.labelRight = labelRight;
 
-        bgTex = GuiThemes.Button;
         blank = GuiThemes.Blank;
         this.getPosDelegate = getPosDelegate;
         NoScaling();
-        textObject = new TextObject(label, GuiThemes.Font, 50, GuiThemes.TextColor);
-        countObject = new TextObject("", GuiThemes.Font, 50, GuiThemes.TextColor);
+        textObject = new TextObject(label, GuiThemes.Font, 1f, GuiThemes.TextColor);
+        countObject = new TextObject("", GuiThemes.Font, 1f, GuiThemes.TextColor);
     }
 
     public override void OnSlotActivated(int slotIndex, ItemSlot slot)
     {
         Vector3d pos = getPosDelegate();
-        MainAPI.Capi.World.PlaySoundAt("fishing:sounds/pinpull", pos.X, pos.Y, pos.Z, null, true, 8);
+        MainAPI.Capi.World.PlaySoundAt("fishing:sounds/pinpull", pos.X, pos.Y, pos.Z, null, true, 8f);
     }
 
     public override void RegisterEvents(GuiEvents guiEvents)
@@ -70,38 +67,37 @@ public class WidgetInWorldItemSlot : WidgetBaseItemGrid
 
             FixedPos((int)(x - (SlotSize * width * size)), (int)(y - (SlotSize * height * size)));
             FixedSize((int)(SlotSize * 2 * width * size), (int)(SlotSize * 2 * height * size));
-            SetBounds();
-
-            textObject.SetScale((int)(size * 50));
-            countObject.SetScale((int)(size * 30));
         };
     }
 
-    public override void RenderBackground(Vector2 start, int size, float dt, NuttyShader shader, ItemSlot slot, int slotIndex)
+    public override void RenderBackground(Vector2 start, int size, float dt, ShaderGui shader, ItemSlot slot, int slotIndex)
     {
-        shader.Uniform("color", MousedSlotIndex == slotIndex ? GuiThemes.DarkColor * 1.5f : GuiThemes.DarkColor);
         RenderTools.RenderNineSlice(bgTex, shader, start.X, start.Y, size, size);
-        shader.Uniform("color", Vector4.One);
+
+        textObject.SetScaleFromWidth(size * 2f, size * 2f, 1f, 0.8f);
 
         if (labelRight)
         {
-            textObject.RenderLine(start.X + size, start.Y + (size / 2), shader, 0, true);
+            textObject.RenderLine(start.X + size + (size * 0.25f), start.Y + (size / 2f), shader, 0, true);
         }
         else
         {
-            textObject.RenderLeftAlignedLine(start.X, start.Y + (size / 2), shader, true);
+            textObject.RenderLeftAlignedLine(start.X - (size * 0.25f), start.Y + (size / 2f), shader, true);
         }
     }
 
-    public override void RenderOverlay(Vector2 start, int size, float dt, NuttyShader shader, ItemSlot slot, int slotIndex)
+    public override void RenderOverlay(Vector2 start, int size, float dt, ShaderGui shader, ItemSlot slot, int slotIndex)
     {
         // Get durability of stack.
         if (slot.Itemstack == null) return;
 
         if (slot.Itemstack.Collectible.MaxStackSize > 1)
         {
-            countObject.Text = $"x{slot.Itemstack.StackSize}";
-            countObject.RenderLeftAlignedLine(start.X + (size * 0.9f), start.Y + (size * 0.2f), shader, true);
+            int slotCount = slot.Itemstack.StackSize;
+
+            countObject.Text = slotCount.ToString();
+            countObject.SetScaleFromWidth(size / 2f, size / 2f, 1f, 0.8f);
+            countObject.RenderCenteredLine(start.X + (size * 0.75f), start.Y + (size * 0.25f), shader, true);
         }
 
         int maxDurability = slot.Itemstack.Collectible.GetMaxDurability(slot.Itemstack);

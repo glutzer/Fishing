@@ -35,19 +35,22 @@ public class GuiFlotsam : Gui
 
     public override void PopulateWidgets()
     {
-        new WidgetSliceBackground(null, flotsamTex!, Vector4.One)
+        new WidgetSliceBackground(null, this, flotsamTex!, Vector4.One)
             .Alignment(Align.Center)
             .Fixed(0, 0, 90, 90)
             .As(out WidgetSliceBackground bg);
         bg.SliceScale = MainAPI.GuiScale;
 
-        GuiThemes.AddTitleBar(this, "Flotsam", bg);
+        new WidgetLabeledButton(bg, this, () =>
+        {
+            TryClose();
+        }, "", new Vector4(0.75f, 0f, 0f, 1f)).Alignment(Align.RightTop).FixedSize(8, 8);
 
         AddWidget(bg);
 
         ItemSlot[] slots = flotsam.genericInventory.GetField<ItemSlot[]>("slots");
 
-        new WidgetAlchemyItemGrid(slots, 3, 3, 20, bg, ["game:sounds/player/gluerepair1", "game:sounds/player/gluerepair2", "game:sounds/player/gluerepair3", "game:sounds/player/gluerepair4"])
+        new WidgetVanillaItemSlotGrid(slots, 3, 3, 20, bg, this)
             .Percent(0f, 0f, 0.8f, 0.8f)
             .Alignment(Align.Center);
     }

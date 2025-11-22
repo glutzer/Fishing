@@ -15,12 +15,29 @@ public class TrackedSound
     public string soundPath;
     public Action<float> updateCallback;
 
-    public TrackedSound(Entity entity, ILoadedSound sound, string soundPath, Action<float> updateCallback)
+    public float TargetPitch { get; set; } = 1f;
+    public float CurrentPitch { get; private set; } = 1f;
+
+    public float TargetVolume { get; set; } = 1f;
+    public float CurrentVolume { get; private set; } = 1f;
+
+    public TrackedSound(Entity entity, ILoadedSound sound, string soundPath, Action<float> updateCallback, float startPitch)
     {
         this.entity = entity;
         this.sound = sound;
         this.soundPath = soundPath;
         this.updateCallback = updateCallback;
+        TargetPitch = startPitch;
+        CurrentPitch = startPitch;
+    }
+
+    public void LerpToNewValues(float dt)
+    {
+        CurrentPitch = CurrentPitch.LerpTo(TargetPitch, dt, 0.1f, 0.05f);
+        CurrentVolume = CurrentVolume.LerpTo(TargetVolume, dt, 0.1f, 0.05f);
+
+        sound.SetPitch(CurrentPitch);
+        sound.SetVolume(CurrentVolume);
     }
 }
 
@@ -46,6 +63,7 @@ public class FishingPoleSoundManager : GameSystem, IRenderer
             Vec3f vecPos = new(pos.X, pos.Y, pos.Z);
             sound.sound.SetPosition(vecPos);
             sound.updateCallback(dt);
+            sound.LerpToNewValues(dt);
         }
     }
 
@@ -89,7 +107,7 @@ public class FishingPoleSoundManager : GameSystem, IRenderer
 
         sound.Start();
 
-        TrackedSound trackedSound = new(entity, sound, soundPath, updateCallback);
+        TrackedSound trackedSound = new(entity, sound, soundPath, updateCallback, 1f);
 
         playerSounds.Add(entity.PlayerUID, trackedSound);
 
@@ -116,8 +134,8 @@ public class FishingPoleSoundManager : GameSystem, IRenderer
     {
         if (playerSounds.TryGetValue(player.PlayerUID, out TrackedSound? sound))
         {
-            sound.sound.SetPitch(pitch);
-            sound.sound.SetVolume(volume);
+            sound.TargetPitch = pitch;
+            sound.TargetVolume = volume;
         }
     }
 

@@ -10,7 +10,7 @@ public class WidgetBossHealthBar : Widget
     private readonly Entity entity;
     private readonly TextObject textObj;
 
-    public WidgetBossHealthBar(Widget? parent, Entity entity) : base(parent)
+    public WidgetBossHealthBar(Widget? parent, Entity entity, Gui gui) : base(parent, gui)
     {
         background = GuiThemes.Background;
         this.entity = entity;
@@ -25,7 +25,7 @@ public class WidgetBossHealthBar : Widget
         textObj.Shadow = true;
     }
 
-    public override void OnRender(float dt, NuttyShader shader)
+    public override void OnRender(float dt, ShaderGui shader)
     {
         ITreeAttribute? healthTree = entity.WatchedAttributes.GetTreeAttribute("health");
         if (healthTree == null) return;

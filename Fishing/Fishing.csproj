@@ -33,6 +33,10 @@
       <HintPath>$(VINTAGE_STORY)/Lib/OpenTK.Windowing.GraphicsLibraryFramework.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Polaris">
+      <HintPath>..\..\Polaris\Polaris\bin\Release\Mods\mod\Polaris.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="SkiaSharp">
       <HintPath>$(VINTAGE_STORY)/Lib/SkiaSharp.dll</HintPath>
       <Private>False</Private>

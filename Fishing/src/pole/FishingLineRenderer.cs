@@ -65,6 +65,39 @@ public static class FishingLineRenderer
         currentShader?.Use();
     }
 
+    public static void RenderLineShadow(Vector3d startPos, Vector3d endPos, float droopLevel)
+    {
+        ShaderProgramBase? currentShader = ShaderProgramBase.CurrentShaderProgram;
+
+        NuttyShader lineShader = NuttyShaderRegistry.Get("fishinglineshadow");
+        lineShader.Use();
+        lineShader.Uniform("droop", droopLevel);
+
+        if (startPos.Z == endPos.Z)
+        {
+            endPos.Z += 0.001f;
+        }
+
+        if (startPos.X == endPos.X)
+        {
+            endPos.X += 0.001f;
+        }
+
+        lineShader.Uniform("offset", (Vector3)(startPos - endPos));
+
+        Matrixf modelMatrix = new Matrixf()
+                .Translate(endPos.X - MainAPI.Capi.World.Player.Entity.CameraPos.X, endPos.Y - MainAPI.Capi.World.Player.Entity.CameraPos.Y, endPos.Z - MainAPI.Capi.World.Player.Entity.CameraPos.Z);
+        float[] array = Mat4f.Mul(modelMatrix.Values, MainAPI.Capi.Render.CurrentModelviewMatrix, modelMatrix.Values);
+        Mat4f.Mul(array, MainAPI.Capi.Render.CurrentProjectionMatrix, array);
+        lineShader.UniformMatrix("mvpMatrix", array);
+
+        RenderTools.DisableCulling();
+        RenderTools.RenderMesh(fishingLineMesh);
+        RenderTools.EnableCulling();
+
+        currentShader?.Use();
+    }
+
     public static void OnEnd()
     {
         fishingLineMesh?.Dispose();
