@@ -66,6 +66,8 @@ public class CatchableItems : Catchable
 
     public override IEnumerable<WeightedCatch> GetCatches(FishingContext context, ICoreServerAPI sapi)
     {
+        if (!ConfigFishing.Loaded.ENABLE_CATCHABLE_ITEMS) return [];
+
         string liquid = context.liquid.FirstCodePart();
         return flotsamList
             .Where(x =>

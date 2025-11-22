@@ -93,6 +93,8 @@ public class CatchableFlotsam : Catchable
 
     public override IEnumerable<WeightedCatch> GetCatches(FishingContext context, ICoreServerAPI sapi)
     {
+        if (!ConfigFishing.Loaded.ENABLE_CATCHABLE_FLOTSAM) yield break;
+
         string liquid = context.liquid.FirstCodePart();
         if (liquid is not "water" and not "saltwater") yield break; // No lava.
 
