@@ -33,7 +33,7 @@ public class DummyCut : Item
             int maxCuts = (int)Math.Ceiling(kg / kgPerCut);
             maxCuts = Math.Clamp(maxCuts, 0, isCleaver ? 16 : 4);
 
-            bool exists = ItemFish.ConsumeWeight(fishSlot.Itemstack, kgPerCut * maxCuts);
+            bool exists = ItemFish.ConsumeWeight(fishSlot.Itemstack, kgPerCut * maxCuts / ConfigFishing.Loaded.FISH_SATIETY_MULTIPLIER);
             if (!exists)
             {
                 ItemStack boneStack = new(api.World.GetItem(new AssetLocation("game:bone")))

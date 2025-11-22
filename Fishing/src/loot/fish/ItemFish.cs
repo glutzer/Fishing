@@ -167,6 +167,7 @@ public class ItemFish : ItemFluidStorage, IInFirepitRendererSupplier
 
         tempFoodProperties.Satiety = (float)kg * (smoked ? 150f : 50f);
         tempFoodProperties.Satiety *= species.satietyMultiplier;
+        tempFoodProperties.Satiety *= ConfigFishing.Loaded.FISH_SATIETY_MULTIPLIER;
         return tempFoodProperties;
     }
 

@@ -6,4 +6,5 @@ public class ConfigFishing
 
     public float BASE_BITE_TIME = 60f;
     public float BASE_REEL_STRENGTH = 5f;
+    public float FISH_SATIETY_MULTIPLIER = 1f;
 }
