@@ -13,6 +13,8 @@ public class WidgetFluidMarker : WidgetBaseSlider
     private readonly TextObject text;
     private int lastStep;
 
+    public override int SortPriority => 1;
+
     public WidgetFluidMarker(Widget? parent, Gui gui, int maxFluid, int currentMark, Action<int> onNewValue) : base(parent, gui, onNewValue, maxFluid, true)
     {
         MaxFluid = maxFluid;
@@ -22,7 +24,7 @@ public class WidgetFluidMarker : WidgetBaseSlider
         background = GuiThemes.TitleBorder;
         blank = GuiThemes.Blank;
 
-        text = new($"{currentMark}mL", GuiThemes.Font, Gui.Scaled(10), GuiThemes.TextColor)
+        text = new($"{currentMark}mL", VanillaThemes.Font, Gui.Scaled(10f), VanillaThemes.WhitishTextColor)
         {
             Shadow = true
         };
@@ -40,9 +42,9 @@ public class WidgetFluidMarker : WidgetBaseSlider
         float currentRatio = cursorStep / (float)MaxFluid;
         int currentPixel = (int)(Width * currentRatio);
         shader.BindTexture(blank, "tex2d");
-        shader.Uniform("color", new Vector4(0.8f, 0.8f, 0.6f, 0.7f));
+        shader.Color = new Vector4(0.8f, 0.8f, 0.6f, 0.7f);
         RenderTools.RenderQuad(shader, X, Y, currentPixel, Height);
-        shader.Uniform("color", Vector4.One);
+        shader.ResetColor();
 
         //int originalWidth = tex.texture.Width;
         //float widthRatio = Width / (float)originalWidth;

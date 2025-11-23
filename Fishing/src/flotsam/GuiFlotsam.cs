@@ -41,10 +41,7 @@ public class GuiFlotsam : Gui
             .As(out WidgetSliceBackground bg);
         bg.SliceScale = MainAPI.GuiScale;
 
-        new WidgetLabeledButton(bg, this, () =>
-        {
-            TryClose();
-        }, "", new Vector4(0.75f, 0f, 0f, 1f)).Alignment(Align.RightTop).FixedSize(8, 8);
+        VanillaThemes.AddTitleBar(bg, "Flotsam");
 
         AddWidget(bg);
 

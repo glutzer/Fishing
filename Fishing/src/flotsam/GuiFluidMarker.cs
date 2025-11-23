@@ -26,15 +26,12 @@ public class GuiNamedFluidMarker : GuiFluidMarker
             .As<WidgetFluidMarker>(out WidgetFluidMarker? widget);
         AddWidget(widget);
 
-        GuiThemes.AddTitleBar(this, "Mark", widget);
+        VanillaThemes.AddTitleBar(widget, "Mark");
 
-        new WidgetNameInput(widget, this, name, "Flask label:", text =>
+        new WidgetVanillaTextInputBox(widget, this, false, true, text =>
         {
             name = text;
-        }, text =>
-        {
-            return true;
-        }).Alignment(Align.CenterBottom, AlignFlags.OutsideV).PercentSize(1f, 1f);
+        }, name, "Container Label").Alignment(Align.CenterBottom, AlignFlags.OutsideV).PercentSize(1f, 1f);
     }
 }
 
@@ -61,7 +58,7 @@ public class GuiFluidMarker : Gui
             .Fixed(0, 0, 100, 10)
             .As<WidgetFluidMarker>(out WidgetFluidMarker? widget);
 
-        GuiThemes.AddTitleBar(this, "Mark", widget);
+        VanillaThemes.AddTitleBar(widget, "Mark");
 
         AddWidget(widget);
     }

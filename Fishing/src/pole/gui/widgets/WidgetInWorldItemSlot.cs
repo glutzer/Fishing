@@ -26,8 +26,8 @@ public class WidgetInWorldItemSlot : WidgetBaseItemGrid
         blank = GuiThemes.Blank;
         this.getPosDelegate = getPosDelegate;
         NoScaling();
-        textObject = new TextObject(label, VanillaThemes.Font, 1f, VanillaThemes.WhitishGreyColor);
-        countObject = new TextObject("", VanillaThemes.Font, 1f, VanillaThemes.WhitishGreyColor);
+        textObject = new TextObject(label, VanillaThemes.Font, 1f, VanillaThemes.WhitishTextColor);
+        countObject = new TextObject("", VanillaThemes.Font, 1f, VanillaThemes.WhitishTextColor);
 
         textObject.Shadow = true;
         countObject.Shadow = true;
